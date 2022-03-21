@@ -1,0 +1,6 @@
+[submodule "imgui_markup/dependencies/imgui"]
+	path = imgui_markup/dependencies/imgui
+	url = git@github.com:FluxxCode/imgui.git
+[submodule "sandbox/dependencies/glfw"]
+	path = sandbox/dependencies/glfw
+	url = git@github.com:FluxxCode/glfw.git
