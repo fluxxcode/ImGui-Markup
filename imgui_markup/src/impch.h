@@ -4,5 +4,12 @@
 #include "imgui.h"
 
 #include <iostream>
+#include <string>
+#include <vector>
+#include <fstream>
+#include <filesystem>
+#include <map>
+#include <tuple>
+#include <functional>
 
 #endif  // IMGUI_MARKUP_SRC_IMPCH_H_
