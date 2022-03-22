@@ -68,6 +68,8 @@ public:
     Lexer::Token Get();
     Lexer::Token Peek();
 
+    void Reset() noexcept;
+
 private:
     struct File
     {
@@ -77,8 +79,6 @@ private:
     std::vector<File> file_stack_;
 
     std::vector<Token> token_cache_;
-
-    void Reset();
 
     void OpenFile(std::string path, Token token);
     void PopFile() noexcept;

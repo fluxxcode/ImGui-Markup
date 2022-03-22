@@ -36,7 +36,7 @@ Lexer::Token Lexer::Peek()
     return this->token_cache_.front();
 }
 
-void Lexer::Reset()
+void Lexer::Reset() noexcept
 {
     while (this->file_stack_.size() != 0)
         this->PopFile();
