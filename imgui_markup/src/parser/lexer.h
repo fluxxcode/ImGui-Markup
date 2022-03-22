@@ -98,6 +98,7 @@ private:
                          int offset_r = 0) const noexcept;
 
     bool SkipComment(char c) noexcept;
+    void SkipWhiteSpace() noexcept;
 
     std::string ParseString();
     Token CreateString();

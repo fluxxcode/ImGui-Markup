@@ -6,8 +6,9 @@ namespace igm::internal
 
 void Lexer::LoadFromFile(std::string path)
 {
-    Token token(TokenType::kUndefined, "", 0, 0, 0, path);
+    this->Reset();
 
+    Token token(TokenType::kUndefined, "", 0, 0, 0, path);
     this->OpenFile(path, token);
 }
 
@@ -205,6 +206,20 @@ bool Lexer::SkipComment(char c) noexcept
     return false;
 }
 
+void Lexer::SkipWhiteSpace() noexcept
+{
+    while (std::isspace(this->PeekChar()) || this->PeekChar() == '/')
+    {
+        const char c = this->GetChar();
+
+        if (std::isspace(c))
+            continue;
+
+        if (!this->SkipComment(c))
+            break;
+    }
+}
+
 std::string Lexer::ParseString()
 {
     std::string data;
@@ -212,7 +227,7 @@ std::string Lexer::ParseString()
     char c = this->GetChar();
 
     if (c == '"')
-        std::string();
+        return std::string();
 
     while (true)
     {
@@ -237,6 +252,9 @@ std::string Lexer::ParseString()
         c = this->GetChar();
     }
 
+    // Skip '"'
+    this->GetChar();
+
     return data;
 }
 
@@ -244,15 +262,15 @@ Lexer::Token Lexer::CreateString()
 {
     std::string data = this->ParseString();
 
-    while (std::isspace(this->PeekChar()) || this->PeekChar() == '"')
+    this->SkipWhiteSpace();
+
+    while (this->PeekChar() == '"')
     {
         this->GetChar();
 
-        if (this->PeekChar() == '"')
-        {
-            this->GetChar();
-            data += this->ParseString();
-        }
+        data += this->ParseString();
+
+        this->SkipWhiteSpace();
     }
 
     return this->ConstructToken(TokenType::kString, data, -1, 0);
