@@ -26,6 +26,8 @@ struct AttributeInterface
 {
     inline virtual AttributeType GetType() const noexcept = 0;
 
+    inline virtual std::string ToString() noexcept = 0;
+
     virtual bool LoadValue(int value) noexcept { return false; };
     virtual bool LoadValue(float value) noexcept { return false; };
     virtual bool LoadValue(bool value) noexcept { return false; };
@@ -117,6 +119,11 @@ public:
 
     inline operator int() { return this->GetValue(); }
 
+    inline std::string ToString() noexcept
+    {
+        return std::to_string(this->GetValue());
+    }
+
 private:
     bool LoadValue(const char* value) noexcept;
     bool LoadValue(int value) noexcept;
@@ -136,6 +143,11 @@ public:
     { }
 
     inline operator float() { return this->GetValue(); }
+
+    inline std::string ToString() noexcept
+    {
+        return std::to_string(this->GetValue());
+    }
 
 private:
     bool LoadValue(const char* value) noexcept;
@@ -157,6 +169,11 @@ public:
 
     inline operator bool() { return this->GetValue(); }
 
+    inline std::string ToString() noexcept
+    {
+        return std::to_string(this->GetValue());
+    }
+
 private:
     bool LoadValue(const char* value) noexcept;
     bool LoadValue(bool value) noexcept;
@@ -177,6 +194,11 @@ public:
 
     inline operator std::string() { return this->GetValue(); }
 
+    inline std::string ToString() noexcept
+    {
+        return '"' + this->GetValue() + '"';
+    }
+
 private:
     bool LoadValue(const char* value) noexcept;
 
@@ -196,6 +218,13 @@ public:
 
     inline operator Vector2() { return this->GetValue(); }
 
+    inline std::string ToString() noexcept
+    {
+        const Vector2& val = this->GetValue();
+        return std::to_string(val.x) + "," +
+               std::to_string(val.y);
+    }
+
 private:
     bool LoadValue(Vector2 value) noexcept;
 };
@@ -212,6 +241,15 @@ public:
     { }
 
     inline operator Vector4() { return this->GetValue(); }
+
+    inline std::string ToString() noexcept
+    {
+        const Vector4& val = this->GetValue();
+        return std::to_string(val.x) + "," +
+               std::to_string(val.y) + "," +
+               std::to_string(val.z) + "," +
+               std::to_string(val.w);
+    }
 
 private:
     bool LoadValue(Vector4 value) noexcept;
