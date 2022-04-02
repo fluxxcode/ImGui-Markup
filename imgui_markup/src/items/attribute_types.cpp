@@ -6,6 +6,7 @@
 namespace igm::internal
 {
 
+// IntWrapper
 bool IntWrapper::LoadValue(const char* value) noexcept
 {
     int temp;
@@ -28,6 +29,7 @@ bool IntWrapper::InitReference(IntWrapper& ref) noexcept
     return true;
 }
 
+// FloatWrapper
 bool FloatWrapper::LoadValue(const char* value) noexcept
 {
     float temp;
@@ -50,6 +52,7 @@ bool FloatWrapper::InitReference(FloatWrapper& ref) noexcept
     return true;
 }
 
+// BoolWrapper
 bool BoolWrapper::LoadValue(const char* value) noexcept
 {
     bool temp;
@@ -72,6 +75,7 @@ bool BoolWrapper::InitReference(BoolWrapper& ref) noexcept
     return true;
 }
 
+// StringWrapper
 bool StringWrapper::LoadValue(const char* value) noexcept
 {
     this->SetValue(value);
@@ -81,6 +85,20 @@ bool StringWrapper::LoadValue(const char* value) noexcept
 bool StringWrapper::InitReference(StringWrapper& ref) noexcept
 {
     this->IMPL_InitReference((AttributeBase<std::string>*)&ref);
+    return true;
+}
+
+// Vector2Wrapper
+bool Vector2Wrapper::LoadValue(Vector2 value) noexcept
+{
+    this->SetValue(value);
+    return true;
+}
+
+// Vector4Wrapper
+bool Vector4Wrapper::LoadValue(Vector4 value) noexcept
+{
+    this->SetValue(value);
     return true;
 }
 

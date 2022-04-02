@@ -6,6 +6,7 @@
 namespace igm::internal
 {
 
+// Forward declaration for references
 class IntWrapper;
 class FloatWrapper;
 class BoolWrapper;
@@ -17,6 +18,8 @@ struct AttributeInterface
     virtual bool LoadValue(float value) noexcept { return false; };
     virtual bool LoadValue(bool value) noexcept { return false; };
     virtual bool LoadValue(const char* value) noexcept { return false; };
+    virtual bool LoadValue(Vector2 value) noexcept { return false; };
+    virtual bool LoadValue(Vector4 value) noexcept { return false; };
 
     virtual bool InitReference(IntWrapper& ref) noexcept { return false; }
     virtual bool InitReference(FloatWrapper& ref) noexcept { return false; }
@@ -35,7 +38,10 @@ public:
     virtual ~AttributeBase()
     {
         for (auto* reference : this->tracked_references_)
-            reference->RemoveReference();
+        {
+            if (reference)
+                reference->RemoveReference();
+        }
     }
 
     inline const T& GetValue() noexcept
@@ -158,6 +164,39 @@ private:
     bool InitReference(StringWrapper& ref) noexcept;
 };
 
+class Vector2Wrapper : public AttributeBase<Vector2>
+{
+public:
+    Vector2Wrapper()
+        : AttributeBase(Vector2())
+    { }
+
+    Vector2Wrapper(Vector2 value)
+        : AttributeBase(value)
+    { }
+
+    inline operator Vector2() { return this->GetValue(); }
+
+private:
+    bool LoadValue(Vector2 value) noexcept;
+};
+
+class Vector4Wrapper : public AttributeBase<Vector4>
+{
+public:
+    Vector4Wrapper()
+        : AttributeBase(Vector4())
+    { }
+
+    Vector4Wrapper(Vector4 value)
+        : AttributeBase(value)
+    { }
+
+    inline operator Vector4() { return this->GetValue(); }
+
+private:
+    bool LoadValue(Vector4 value) noexcept;
+};
 
 }  // namespace igm::internal
 
