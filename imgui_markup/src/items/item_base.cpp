@@ -16,7 +16,7 @@ ItemBase::ItemBase(ItemType type, ItemCategory category, std::string id,
     this->unique_id_ = ss.str();
 }
 
-ItemBase* ItemBase::CreateChildItem(std::string type, std::string id)
+ItemBase* ItemBase::CreateChildItem(std::string type, std::string id) noexcept
 {
     this->child_items_.push_back(ItemFactory::CreateItem(type, id, this));
 
@@ -29,11 +29,84 @@ ItemBase* ItemBase::CreateChildItem(std::string type, std::string id)
     return this->child_items_.back().get();
 }
 
-void ItemBase::SetAttribute(std::string name, std::string value)
+bool ItemBase::CreateAttribtue(std::string name, int value) noexcept
 {
-    // TODO: Proper implementation when attributes are implemented
-    this->attributes_["name"] = value;
+    if (this->IsAttributeDefined(name))
+        return false;
+
+    AttributeInterface* att = this->CreateDynamicAttribute<IntWrapper>(name);
+
+    att->LoadValue(value);
+
+    return true;
 }
+
+bool ItemBase::CreateAttribtue(std::string name, float value) noexcept
+{
+    if (this->IsAttributeDefined(name))
+        return false;
+
+    AttributeInterface* att = this->CreateDynamicAttribute<FloatWrapper>(name);
+
+    att->LoadValue(value);
+
+    return true;
+}
+
+
+bool ItemBase::CreateAttribtue(std::string name, bool value) noexcept
+{
+    if (this->IsAttributeDefined(name))
+        return false;
+
+    AttributeInterface* att = this->CreateDynamicAttribute<BoolWrapper>(name);
+
+    att->LoadValue(value);
+
+    return true;
+}
+
+
+bool ItemBase::CreateAttribtue(std::string name, const char* value) noexcept
+{
+    if (this->IsAttributeDefined(name))
+        return false;
+
+    AttributeInterface* att = this->CreateDynamicAttribute<StringWrapper>(name);
+
+    att->LoadValue(value);
+
+    return true;
+}
+
+
+bool ItemBase::CreateAttribtue(std::string name, Vector2 value) noexcept
+{
+    if (this->IsAttributeDefined(name))
+        return false;
+
+    AttributeInterface* att = this->CreateDynamicAttribute<Vector2Wrapper>(
+        name);
+
+    att->LoadValue(value);
+
+    return true;
+}
+
+
+bool ItemBase::CreateAttribtue(std::string name, Vector4 value) noexcept
+{
+    if (this->IsAttributeDefined(name))
+        return false;
+
+    AttributeInterface* att = this->CreateDynamicAttribute<Vector4Wrapper>(
+        name);
+
+    att->LoadValue(value);
+
+    return true;
+}
+
 
 }  // namespace igm::internal
 

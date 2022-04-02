@@ -3,6 +3,7 @@
 
 #include "items/item_api.h"
 #include "items/item_types.h"
+#include "items/attribute_types.h"
 
 namespace igm::internal
 {
@@ -17,8 +18,32 @@ public:
 
     virtual void Update() noexcept { };
 
-    ItemBase* CreateChildItem(std::string type, std::string access_id);
-    void SetAttribute(std::string name, std::string value);
+    ItemBase* CreateChildItem(std::string type, std::string access_id) noexcept;
+
+    bool CreateAttribtue(std::string name, int value) noexcept;
+    bool CreateAttribtue(std::string name, float value) noexcept;
+    bool CreateAttribtue(std::string name, bool value) noexcept;
+    bool CreateAttribtue(std::string name, const char* value) noexcept;
+    bool CreateAttribtue(std::string name, Vector2 value) noexcept;
+    bool CreateAttribtue(std::string name, Vector4 value) noexcept;
+
+    inline AttributeInterface* GetAttribtue(std::string name) const noexcept
+    {
+        if (!this->IsAttributeDefined(name))
+            return nullptr;
+
+        return this->attributes_.at(name);
+    }
+
+    // Expecting type specified in items/attribute_types.h
+    template<typename T>
+    inline bool SetAttribute(std::string name, T value) noexcept
+    {
+        if (!this->IsAttributeDefined(name))
+            return false;
+
+        return this->attributes_.at(name)->LoadValue(value);
+    }
 
 protected:
     const ItemType type_;
@@ -30,9 +55,39 @@ protected:
     ItemBase* parent_;  // If nullptr, object is at the root of the tree
     std::vector<std::unique_ptr<ItemBase>> child_items_;
 
+    inline void AddAttribute(std::string name,
+                             AttributeInterface* value) noexcept
+    {
+        this->attributes_[name] = value;
+    }
+
+    std::map<std::string, AttributeInterface*> attributes_;
 private:
-    // TODO: Proper attribute implementation
-    std::map<std::string, std::string> attributes_;
+    // Main attributes set by the inheriting item
+
+    // Expecting attribute wrapper defined in items/attribute_types.h
+    template<typename T>
+    AttributeInterface* CreateDynamicAttribute(std::string name) noexcept
+    {
+        static std::vector<T> dynamic_attributes;
+
+        dynamic_attributes.emplace_back(T());
+
+        AttributeInterface* interface =
+            (AttributeInterface*)&dynamic_attributes.back();
+
+        this->attributes_[name] = interface;
+
+        return interface;
+    }
+
+    inline bool IsAttributeDefined(const std::string& name) const noexcept
+    {
+        if (this->attributes_.find(name) == this->attributes_.end())
+            return false;
+
+        return true;
+    }
 };
 
 }  // namespace igm::internal
