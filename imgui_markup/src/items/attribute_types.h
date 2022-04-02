@@ -6,6 +6,16 @@
 namespace igm::internal
 {
 
+enum class AttributeType
+{
+    kInt,
+    kFloat,
+    kBool,
+    kString,
+    kVector2,
+    kVector4
+};
+
 // Forward declaration for references
 class IntWrapper;
 class FloatWrapper;
@@ -14,6 +24,8 @@ class StringWrapper;
 
 struct AttributeInterface
 {
+    inline virtual AttributeType GetType() const noexcept = 0;
+
     virtual bool LoadValue(int value) noexcept { return false; };
     virtual bool LoadValue(float value) noexcept { return false; };
     virtual bool LoadValue(bool value) noexcept { return false; };
@@ -31,8 +43,8 @@ template<typename T>
 class AttributeBase : public AttributeInterface
 {
 public:
-    AttributeBase(T value)
-        : value_(value)
+    AttributeBase(AttributeType type, T value)
+        : value_(value), type_(type)
     { }
 
     virtual ~AttributeBase()
@@ -42,6 +54,11 @@ public:
             if (reference)
                 reference->RemoveReference();
         }
+    }
+
+    inline virtual AttributeType GetType() const noexcept
+    {
+        return this->type_;
     }
 
     inline const T& GetValue() noexcept
@@ -78,6 +95,8 @@ protected:
     }
 
 private:
+    const AttributeType type_;
+
     T value_;
     AttributeBase<T>* reference_ = nullptr;
 
@@ -89,11 +108,11 @@ class IntWrapper : public AttributeBase<int>
 {
 public:
     IntWrapper()
-        : AttributeBase(0)
+        : AttributeBase(AttributeType::kInt, 0)
     { }
 
     IntWrapper(int value)
-        : AttributeBase(value)
+        : AttributeBase(AttributeType::kInt, value)
     { }
 
     inline operator int() { return this->GetValue(); }
@@ -109,11 +128,11 @@ class FloatWrapper : public AttributeBase<float>
 {
 public:
     FloatWrapper()
-        : AttributeBase(0.0f)
+        : AttributeBase(AttributeType::kFloat, 0.0f)
     { }
 
     FloatWrapper(float value)
-        : AttributeBase(value)
+        : AttributeBase(AttributeType::kFloat, value)
     { }
 
     inline operator float() { return this->GetValue(); }
@@ -129,11 +148,11 @@ class BoolWrapper : public AttributeBase<bool>
 {
 public:
     BoolWrapper()
-        : AttributeBase(false)
+        : AttributeBase(AttributeType::kBool, false)
     { }
 
     BoolWrapper(bool value)
-        : AttributeBase(value)
+        : AttributeBase(AttributeType::kBool, value)
     { }
 
     inline operator bool() { return this->GetValue(); }
@@ -149,11 +168,11 @@ class StringWrapper : public AttributeBase<std::string>
 {
 public:
     StringWrapper()
-        : AttributeBase(std::string())
+        : AttributeBase(AttributeType::kString, std::string())
     { }
 
     StringWrapper(std::string value)
-        : AttributeBase(value)
+        : AttributeBase(AttributeType::kString, value)
     { }
 
     inline operator std::string() { return this->GetValue(); }
@@ -168,11 +187,11 @@ class Vector2Wrapper : public AttributeBase<Vector2>
 {
 public:
     Vector2Wrapper()
-        : AttributeBase(Vector2())
+        : AttributeBase(AttributeType::kVector2, Vector2())
     { }
 
     Vector2Wrapper(Vector2 value)
-        : AttributeBase(value)
+        : AttributeBase(AttributeType::kVector2, value)
     { }
 
     inline operator Vector2() { return this->GetValue(); }
@@ -185,11 +204,11 @@ class Vector4Wrapper : public AttributeBase<Vector4>
 {
 public:
     Vector4Wrapper()
-        : AttributeBase(Vector4())
+        : AttributeBase(AttributeType::kVector4, Vector4())
     { }
 
     Vector4Wrapper(Vector4 value)
-        : AttributeBase(value)
+        : AttributeBase(AttributeType::kVector4, value)
     { }
 
     inline operator Vector4() { return this->GetValue(); }
