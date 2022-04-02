@@ -6,6 +6,11 @@
 namespace igm::internal
 {
 
+class IntWrapper;
+class FloatWrapper;
+class BoolWrapper;
+class StringWrapper;
+
 struct AttributeInterface
 {
     virtual bool LoadValue(int value) noexcept { return false; };
@@ -13,11 +18,10 @@ struct AttributeInterface
     virtual bool LoadValue(bool value) noexcept { return false; };
     virtual bool LoadValue(const char* value) noexcept { return false; };
 
-    // TODO: Implement reference system
-    // virtual bool InitReference(IntWrapper& ref) noexcept { return false; }
-    // virtual bool InitReference(FloatWrapper& ref) noexcept { return false; }
-    // virtual bool InitReference(BoolWrapper& ref) noexcept { return false; }
-    // virtual bool InitReference(StringWrapper& ref) noexcept { return false; }
+    virtual bool InitReference(IntWrapper& ref) noexcept { return false; }
+    virtual bool InitReference(FloatWrapper& ref) noexcept { return false; }
+    virtual bool InitReference(BoolWrapper& ref) noexcept { return false; }
+    virtual bool InitReference(StringWrapper& ref) noexcept { return false; }
 };
 
 template<typename T>
@@ -25,27 +29,54 @@ class AttributeBase : public AttributeInterface
 {
 public:
     AttributeBase(T value)
-        : value(value)
+        : value_(value)
     { }
 
-protected:
-    inline const T& GetValue() const noexcept
+    virtual ~AttributeBase()
     {
-        // TODO: Implement reference system and keep track of all
-        //       references pointing to this
-        return this->value;
+        for (auto* reference : this->tracked_references_)
+            reference->RemoveReference();
+    }
+
+    inline const T& GetValue() noexcept
+    {
+        if (this->reference_)
+            this->value_ = this->reference_->GetValue();
+
+        return this->value_;
     }
 
     inline void SetValue(T value) noexcept
     {
-        // TODO: Implement reference system and keep track of all
-        //       references pointing to this
-        this->value = value;
+        if (this->reference_)
+            this->reference_->SetValue(value);
+
+        this->value_ = value;
+    }
+
+    inline void TrackReference(AttributeBase<T>* ref)
+    {
+        this->tracked_references_.push_back(ref);
+    }
+
+    inline void RemoveReference()
+    {
+        this->reference_ = nullptr;
+    }
+
+protected:
+    inline void IMPL_InitReference(AttributeBase<T>* reference)
+    {
+        this->reference_ = reference;
+        reference->TrackReference(this);
     }
 
 private:
-    T value;
+    T value_;
+    AttributeBase<T>* reference_ = nullptr;
 
+    // Every reference pointing to this.
+    std::vector<AttributeBase<T>*> tracked_references_;
 };
 
 class IntWrapper : public AttributeBase<int>
@@ -59,11 +90,13 @@ public:
         : AttributeBase(value)
     { }
 
-    inline operator int() const { return this->GetValue(); }
+    inline operator int() { return this->GetValue(); }
 
 private:
     bool LoadValue(const char* value) noexcept;
     bool LoadValue(int value) noexcept;
+
+    bool InitReference(IntWrapper& ref) noexcept;
 };
 
 class FloatWrapper : public AttributeBase<float>
@@ -77,11 +110,13 @@ public:
         : AttributeBase(value)
     { }
 
-    inline operator float() const { return this->GetValue(); }
+    inline operator float() { return this->GetValue(); }
 
 private:
     bool LoadValue(const char* value) noexcept;
     bool LoadValue(float value) noexcept;
+
+    bool InitReference(FloatWrapper& ref) noexcept;
 };
 
 class BoolWrapper : public AttributeBase<bool>
@@ -95,11 +130,13 @@ public:
         : AttributeBase(value)
     { }
 
-    inline operator bool() const { return this->GetValue(); }
+    inline operator bool() { return this->GetValue(); }
 
 private:
     bool LoadValue(const char* value) noexcept;
     bool LoadValue(bool value) noexcept;
+
+    bool InitReference(BoolWrapper& ref) noexcept;
 };
 
 class StringWrapper : public AttributeBase<std::string>
@@ -113,10 +150,12 @@ public:
         : AttributeBase(value)
     { }
 
-    inline operator std::string() const { return this->GetValue(); }
+    inline operator std::string() { return this->GetValue(); }
 
 private:
     bool LoadValue(const char* value) noexcept;
+
+    bool InitReference(StringWrapper& ref) noexcept;
 };
 
 

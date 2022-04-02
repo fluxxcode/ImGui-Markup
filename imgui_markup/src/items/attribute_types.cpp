@@ -22,6 +22,12 @@ bool IntWrapper::LoadValue(int value) noexcept
     return true;
 }
 
+bool IntWrapper::InitReference(IntWrapper& ref) noexcept
+{
+    this->IMPL_InitReference((AttributeBase<int>*)&ref);
+    return true;
+}
+
 bool FloatWrapper::LoadValue(const char* value) noexcept
 {
     float temp;
@@ -35,6 +41,12 @@ bool FloatWrapper::LoadValue(const char* value) noexcept
 bool FloatWrapper::LoadValue(float value) noexcept
 {
     this->SetValue(value);
+    return true;
+}
+
+bool FloatWrapper::InitReference(FloatWrapper& ref) noexcept
+{
+    this->IMPL_InitReference((AttributeBase<float>*)&ref);
     return true;
 }
 
@@ -54,9 +66,21 @@ bool BoolWrapper::LoadValue(bool value) noexcept
     return true;
 }
 
+bool BoolWrapper::InitReference(BoolWrapper& ref) noexcept
+{
+    this->IMPL_InitReference((AttributeBase<bool>*)&ref);
+    return true;
+}
+
 bool StringWrapper::LoadValue(const char* value) noexcept
 {
     this->SetValue(value);
+    return true;
+}
+
+bool StringWrapper::InitReference(StringWrapper& ref) noexcept
+{
+    this->IMPL_InitReference((AttributeBase<std::string>*)&ref);
     return true;
 }
 
