@@ -44,4 +44,16 @@ bool StringToBool(const std::string& in, bool& out) noexcept
     return true;
 }
 
+std::vector<std::string> SplitString(std::string str, const char c) noexcept
+{
+    std::stringstream ss(str);
+    std::string segment;
+    std::vector<std::string> segments;
+
+    while (std::getline(ss, segment, c))
+        segments.push_back(segment);
+
+    return segments;
+}
+
 }  // namespace igm::internal::utils

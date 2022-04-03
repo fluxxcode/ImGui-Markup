@@ -27,7 +27,7 @@ public:
     bool CreateAttribtue(std::string name, Vector2 value) noexcept;
     bool CreateAttribtue(std::string name, Vector4 value) noexcept;
 
-    inline AttributeInterface* GetAttribtue(std::string name) const noexcept
+    inline AttributeInterface* GetAttribute(std::string name) const noexcept
     {
         if (!this->IsAttributeDefined(name))
             return nullptr;

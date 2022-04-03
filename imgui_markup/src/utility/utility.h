@@ -8,6 +8,8 @@ bool StringToInt(const std::string& in, int& out) noexcept;
 bool StringToFloat(const std::string& in, float& out) noexcept;
 bool StringToBool(const std::string& in, bool& out) noexcept;
 
+std::vector<std::string> SplitString(std::string str, const char c) noexcept;
+
 }  // namespace igm::internal::utils
 
 #endif  // IMGUI_MARKUP_SRC_UTILITY_UTILITY_H_
