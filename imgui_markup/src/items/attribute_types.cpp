@@ -6,6 +6,20 @@
 namespace igm::internal
 {
 
+std::string AttributeTypeToString(AttributeType type)
+{
+    switch (type)
+    {
+        case AttributeType::kInt: return "Int";
+        case AttributeType::kFloat: return "Int";
+        case AttributeType::kBool: return "Int";
+        case AttributeType::kString: return "Int";
+        case AttributeType::kVector2: return "Int";
+        case AttributeType::kVector4: return "Int";
+        default: return "UNKNOWN";
+    }
+}
+
 // IntWrapper
 bool IntWrapper::LoadValue(const char* value) noexcept
 {

@@ -16,6 +16,8 @@ enum class AttributeType
     kVector4
 };
 
+std::string AttributeTypeToString(AttributeType type);
+
 // Forward declaration for references
 class IntWrapper;
 class FloatWrapper;
