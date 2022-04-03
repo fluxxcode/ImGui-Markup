@@ -2,6 +2,8 @@
 #define IMGUI_MARKUP_SRC_PARSER_PARSER_H_
 
 #include "parser/lexer.h"
+#include "parser/interpreter.h"
+#include "common/unit_stack.h"
 
 namespace igm::internal
 {
@@ -9,10 +11,13 @@ namespace igm::internal
 class Parser
 {
 public:
+    Parser(Unit& dest);
+
     void ParseFromFile(std::string file);
 
 private:
     Lexer lexer_;
+    Interpreter interpreter_;
 
     void Reset() noexcept;
 
@@ -51,6 +56,13 @@ struct UndefinedSequenceOfTokens : public ParserException
 {
     UndefinedSequenceOfTokens(Lexer::Token token)
         : ParserException("Undefined sequence of tokens", token)
+    { }
+};
+
+struct ExpectedCurlyBracketOpen : public ParserException
+{
+    ExpectedCurlyBracketOpen(Lexer::Token token)
+        : ParserException("Expected '{'", token)
     { }
 };
 

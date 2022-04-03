@@ -4,6 +4,10 @@
 namespace igm::internal
 {
 
+Parser::Parser(Unit& dest)
+    : interpreter_(Interpreter(dest))
+{ }
+
 void Parser::ParseFromFile(std::string file)
 {
     this->Reset();
@@ -17,16 +21,26 @@ void Parser::ParseFromFile(std::string file)
     catch (const LexerException& e)
     {
         // TODO: Return error
+        std::cerr << "ERROR: " + e.message << std::endl;
     }
     catch (const ParserException& e)
     {
         // TODO: Return error
+        std::cerr << "ERROR: " + e.message << std::endl;
     }
+    catch (const InterpreterException& e)
+    {
+        // TODO: Return error
+        std::cerr << "ERROR: " + e.message << std::endl;
+    }
+
+    int a = 0;
 }
 
 void Parser::Reset() noexcept
 {
     this->lexer_.Reset();
+    this->interpreter_.Reset();
 }
 
 bool Parser::IsItemDefinition(const Lexer::Token& token)
@@ -144,14 +158,28 @@ bool Parser::IsVector(const Lexer::Token& token)
 
 void Parser::ProcessItemDefinition(const Lexer::Token& token)
 {
-    // TODO: Implementation
+    Lexer::Token item_type = token;
+    Lexer::Token item_id = Lexer::Token(Lexer::TokenType::kString, "", 0, 0, 0);
+
+    Lexer::Token next = this->lexer_.Get();
+
+    if (next.type == Lexer::TokenType::kColon)
+    {
+        item_id = this->lexer_.Get();
+
+        if (this->lexer_.Peek().type != Lexer::TokenType::kCurlyOpen)
+            throw ExpectedCurlyBracketOpen(token);
+
+        this->lexer_.Get();
+    }
+
+    this->interpreter_.CreateItem(item_type, item_id);
 }
 
 void Parser::ProcessItemBreak(const Lexer::Token& token)
 {
-    // TODO: Implementation
+    this->interpreter_.PopItem(token);
 }
-
 
 void Parser::ProcessAttributeAssign(const Lexer::Token& token)
 {

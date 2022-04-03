@@ -45,6 +45,9 @@ public:
         return this->attributes_.at(name)->LoadValue(value);
     }
 
+    inline std::string GetAccessID() const noexcept
+        { return this->access_id_; }
+
 protected:
     const ItemType type_;
     const ItemCategory category_;
