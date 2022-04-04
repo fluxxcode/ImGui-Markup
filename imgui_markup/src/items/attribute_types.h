@@ -23,6 +23,8 @@ class IntWrapper;
 class FloatWrapper;
 class BoolWrapper;
 class StringWrapper;
+class Vector2Wrapper;
+class Vector4Wrapper;
 
 struct AttributeInterface
 {
@@ -41,6 +43,8 @@ struct AttributeInterface
     virtual bool InitReference(FloatWrapper& ref) noexcept { return false; }
     virtual bool InitReference(BoolWrapper& ref) noexcept { return false; }
     virtual bool InitReference(StringWrapper& ref) noexcept { return false; }
+    virtual bool InitReference(Vector2Wrapper& ref) noexcept { return false; }
+    virtual bool InitReference(Vector4Wrapper& ref) noexcept { return false; }
 };
 
 template<typename T>
@@ -65,7 +69,7 @@ public:
         return this->type_;
     }
 
-    inline const T& GetValue() noexcept
+    inline T& GetValue() noexcept
     {
         if (this->reference_)
             this->value_ = this->reference_->GetValue();
@@ -99,7 +103,7 @@ protected:
     }
 
 private:
-    const AttributeType type_;
+    AttributeType type_;
 
     T value_;
     AttributeBase<T>* reference_ = nullptr;
@@ -144,7 +148,7 @@ public:
         : AttributeBase(AttributeType::kFloat, value)
     { }
 
-    inline operator float() { return this->GetValue(); }
+    operator float() { return this->GetValue(); }
 
     inline std::string ToString() noexcept
     {
@@ -207,46 +211,90 @@ private:
     bool InitReference(StringWrapper& ref) noexcept;
 };
 
-class Vector2Wrapper : public AttributeBase<Vector2>
+struct InternalVector2
+{
+    InternalVector2()
+        : x(0), y(0)
+    { }
+    InternalVector2(float x, float y)
+        : x(x), y(y)
+    { }
+
+    FloatWrapper x, y;
+};
+
+class Vector2Wrapper : public AttributeBase<InternalVector2>
 {
 public:
     Vector2Wrapper()
-        : AttributeBase(AttributeType::kVector2, Vector2())
+        : AttributeBase(AttributeType::kVector2, InternalVector2())
+    { }
+
+    Vector2Wrapper(float x, float y)
+        : AttributeBase(AttributeType::kVector2, InternalVector2(x, y))
     { }
 
     Vector2Wrapper(Vector2 value)
-        : AttributeBase(AttributeType::kVector2, value)
+        : AttributeBase(AttributeType::kVector2,
+                        InternalVector2(value.x, value.y))
     { }
 
-    inline operator Vector2() { return this->GetValue(); }
+    inline operator Vector2()
+    {
+        InternalVector2& ref = this->GetValue();
+        return Vector2(ref.x, ref.y);
+    }
 
     inline std::string ToString() noexcept
     {
-        const Vector2& val = this->GetValue();
+        InternalVector2& val = this->GetValue();
         return std::to_string(val.x) + "," +
                std::to_string(val.y);
     }
 
 private:
     bool LoadValue(Vector2 value) noexcept;
+
+    bool InitReference(Vector2Wrapper& ref) noexcept;
 };
 
-class Vector4Wrapper : public AttributeBase<Vector4>
+struct InternalVector4
+{
+    InternalVector4()
+        : x(0), y(0), z(0), w(0)
+    { }
+    InternalVector4(float x, float y, float z, float w)
+        : x(x), y(y), z(z), w(w)
+    { }
+
+    FloatWrapper x, y, z, w;
+};
+
+class Vector4Wrapper : public AttributeBase<InternalVector4>
 {
 public:
     Vector4Wrapper()
-        : AttributeBase(AttributeType::kVector4, Vector4())
+        : AttributeBase(AttributeType::kVector4, InternalVector4())
+    { }
+
+    Vector4Wrapper(float x, float y, float z, float w)
+        : AttributeBase(AttributeType::kVector4, InternalVector4(x, y, z, w))
     { }
 
     Vector4Wrapper(Vector4 value)
-        : AttributeBase(AttributeType::kVector4, value)
+        : AttributeBase(AttributeType::kVector4,
+                        InternalVector4(value.x, value.y, value.z, value.w))
     { }
 
-    inline operator Vector4() { return this->GetValue(); }
+    inline operator Vector4()
+    {
+        InternalVector4& ref = this->GetValue();
+        return Vector4(ref.x, ref.y, ref.z, ref.w);
+    }
 
     inline std::string ToString() noexcept
     {
-        const Vector4& val = this->GetValue();
+        InternalVector4& val = this->GetValue();
         return std::to_string(val.x) + "," +
                std::to_string(val.y) + "," +
                std::to_string(val.z) + "," +
@@ -255,6 +303,8 @@ public:
 
 private:
     bool LoadValue(Vector4 value) noexcept;
+
+    bool InitReference(Vector4Wrapper& ref) noexcept;
 };
 
 }  // namespace igm::internal

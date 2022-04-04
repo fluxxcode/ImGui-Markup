@@ -10,6 +10,127 @@ namespace igm::internal
 class Interpreter
 {
 public:
+    enum class ValueType : unsigned char
+    {
+        kString,
+        kInt,
+        kFloat,
+        kBool,
+        kVector2,
+        kVector4,
+        kAttributeAccess
+    };
+
+    struct ValueNode
+    {
+    public:
+        const ValueType type;
+        const Lexer::Token value_token;
+
+    protected:
+        ValueNode(ValueType type, Lexer::Token value_token)
+            : type(type), value_token(value_token)
+        { }
+    };
+
+    struct StringNode : public ValueNode
+    {
+        StringNode(std::string value, Lexer::Token value_token)
+            : ValueNode(ValueType::kString, value_token),
+            value(value)
+        { }
+
+        const std::string value;
+    };
+
+    struct IntNode : public ValueNode
+    {
+        IntNode(int value, Lexer::Token value_token)
+            : ValueNode(ValueType::kInt, value_token),
+            value(value)
+        { }
+
+        const int value;
+    };
+
+    struct FloatNode : public ValueNode
+    {
+        FloatNode(float value, Lexer::Token value_token)
+            : ValueNode(ValueType::kFloat, value_token),
+            value(value)
+        { }
+
+        const float value;
+    };
+
+    struct BoolNode : public ValueNode
+    {
+        BoolNode(bool value, Lexer::Token value_token)
+            : ValueNode(ValueType::kBool, value_token),
+            value(value)
+        { }
+
+        const bool value;
+    };
+
+    struct Vector2Node : public ValueNode
+    {
+        Vector2Node(const ValueNode& x, const ValueNode& y,
+                    Lexer::Token value_token)
+            : ValueNode(ValueType::kVector2, value_token),
+            x(x), y(y)
+        { }
+
+        const ValueNode& x;
+        const ValueNode& y;
+    };
+
+    struct Vector4Node : public ValueNode
+    {
+        Vector4Node(const ValueNode& x, const ValueNode& y, const ValueNode& z,
+                    const ValueNode& w, Lexer::Token value_token)
+            : ValueNode(ValueType::kVector4, value_token),
+            x(x), y(y), z(z), w(w)
+        { }
+
+        const ValueNode& x;
+        const ValueNode& y;
+        const ValueNode& z;
+        const ValueNode& w;
+    };
+
+    struct AttributeAccessNode : public ValueNode
+    {
+        AttributeAccessNode(std::string name, bool by_reference,
+                            Lexer::Token value_token)
+            : ValueNode(ValueType::kAttributeAccess, value_token),
+            name(name), by_reference(by_reference)
+        { }
+
+        const std::string name;
+        const bool by_reference;
+    };
+
+    struct AttributeAssignNode
+    {
+        AttributeAssignNode(Lexer::Token name, ValueNode& value)
+            : name(name), value(value)
+        { }
+
+        const Lexer::Token name;
+        const ValueNode& value;
+    };
+
+    struct AttributeCreateNode
+    {
+        AttributeCreateNode(Lexer::Token name, ValueNode& value)
+            : name(name), value(value)
+        { }
+
+        const Lexer::Token name;
+        const ValueNode& value;
+    };
+
     Interpreter(Unit& dest);
 
     void Reset() noexcept;
@@ -17,18 +138,8 @@ public:
     void CreateItem(const Lexer::Token& type, const Lexer::Token& id);
     void PopItem(const Lexer::Token& token);
 
-    // Attribute from current processed object
-    AttributeInterface* GetAttributeFromCurrentItem(const Lexer::Token& name);
-
-    // Attribute from an object with full ID
-    AttributeInterface* GetAttribute(const Lexer::Token& name);
-
-    void CreateAttribtue(std::string name, int value) noexcept;
-    void CreateAttribtue(std::string name, float value) noexcept;
-    void CreateAttribtue(std::string name, bool value) noexcept;
-    void CreateAttribtue(std::string name, const char* value) noexcept;
-    void CreateAttribtue(std::string name, Vector2 value) noexcept;
-    void CreateAttribtue(std::string name, Vector4 value) noexcept;
+    void AssignAttribute(AttributeAssignNode node);
+    void CreateAttribute(AttributeCreateNode node);
 
 private:
     // Main destination buffer
@@ -39,10 +150,25 @@ private:
     std::vector<ItemBase*> item_stack_;
 
     /**
-     * Returns the full id of the object that mis currently at the top
+     * Returns the full id of the object that is currently at the top
      * of the item stack.
      */
     std::string GetCurrentID() const noexcept;
+
+    // Attribute from current processed object
+    AttributeInterface* GetAttributeFromCurrentItem(const Lexer::Token& name);
+
+    // Attribute from an object with full ID
+    AttributeInterface* GetAttribute(const Lexer::Token& name);
+
+    // Child attribute from an attribute
+    AttributeInterface* GetChildFromAttribtue(
+        AttributeInterface* attribute, const std::string attribute_name,
+        const std::string& child_name, const Lexer::Token& token);
+
+    Vector2 EvalVector2Node(const ValueNode& value);
+    Vector4 EvalVector4Node(const ValueNode& value);
+    AttributeInterface* EvalAttributeAccessNode(const ValueNode& value);
 };
 
 struct InterpreterException
@@ -53,6 +179,13 @@ struct InterpreterException
 
     const std::string message;
     const Lexer::Token token;
+};
+
+struct InternalError : public InterpreterException
+{
+    InternalError(Lexer::Token token)
+        : InterpreterException("INTERNAL_ERROR", token)
+    { }
 };
 
 struct ExpectedItemDeclaration : public InterpreterException
@@ -69,6 +202,14 @@ struct UndefinedItemType : public InterpreterException
     { }
 };
 
+struct InvalidCharacterInID : public InterpreterException
+{
+    InvalidCharacterInID(Lexer::Token token, const char c)
+        : InterpreterException("'" + std::string(1, c) +
+                               "' in item ID is not allowed", token)
+    { }
+};
+
 struct IDIsAlreadyDefined : public InterpreterException
 {
     IDIsAlreadyDefined(Lexer::Token token)
@@ -79,7 +220,7 @@ struct IDIsAlreadyDefined : public InterpreterException
 struct AttributeFromGlobalScope : public InterpreterException
 {
     AttributeFromGlobalScope(Lexer::Token token)
-        : InterpreterException("Unable to access an attribute form the global "
+        : InterpreterException("Unable to access an attribute from the global "
                                "scope", token)
     { }
 };
@@ -120,14 +261,22 @@ struct AttributeNotDefined : public InterpreterException
     { }
 };
 
-struct AttributeChildReferenceNotSupported : public InterpreterException
+struct AttributeChildNotDefined : public InterpreterException
 {
-    AttributeChildReferenceNotSupported(Lexer::Token token)
-        : InterpreterException("Reference to a child of an attribute is "
-                               "currently not supported", token)
+    AttributeChildNotDefined(Lexer::Token token, std::string attribute,
+                             std::string child)
+        : InterpreterException("Attribute \"" + attribute + "\" has no child "
+                               "attribute called \"" + child + "\"", token)
     { }
 };
 
+struct UnableToConvertValue : public InterpreterException
+{
+    // TODO: Improve error message by specifing type
+    UnableToConvertValue(Lexer::Token token)
+        : InterpreterException("Unable to convert value", token)
+    { }
+};
 
 }  // namespace igm::internal
 

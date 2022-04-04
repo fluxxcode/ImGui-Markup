@@ -105,14 +105,26 @@ bool StringWrapper::InitReference(StringWrapper& ref) noexcept
 // Vector2Wrapper
 bool Vector2Wrapper::LoadValue(Vector2 value) noexcept
 {
-    this->SetValue(value);
+    this->SetValue(InternalVector2(value.x, value.y));
+    return true;
+}
+
+bool Vector2Wrapper::InitReference(Vector2Wrapper& ref) noexcept
+{
+    this->IMPL_InitReference((AttributeBase<InternalVector2>*)&ref);
     return true;
 }
 
 // Vector4Wrapper
 bool Vector4Wrapper::LoadValue(Vector4 value) noexcept
 {
-    this->SetValue(value);
+    this->SetValue(InternalVector4(value.x, value.y, value.z, value.w));
+    return true;
+}
+
+bool Vector4Wrapper::InitReference(Vector4Wrapper& ref) noexcept
+{
+    this->IMPL_InitReference((AttributeBase<InternalVector4>*)&ref);
     return true;
 }
 
