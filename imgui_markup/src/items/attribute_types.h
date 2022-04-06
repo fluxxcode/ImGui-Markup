@@ -16,7 +16,7 @@ enum class AttributeType
     kVector4
 };
 
-std::string AttributeTypeToString(AttributeType type);
+static std::string AttributeTypeToString(AttributeType type);
 
 // Forward declaration for references
 class IntWrapper;
@@ -39,6 +39,7 @@ struct AttributeInterface
     virtual bool LoadValue(Vector2 value) noexcept { return false; };
     virtual bool LoadValue(Vector4 value) noexcept { return false; };
 
+    bool InitReference(AttributeInterface& ref) noexcept;
     virtual bool InitReference(IntWrapper& ref) noexcept { return false; }
     virtual bool InitReference(FloatWrapper& ref) noexcept { return false; }
     virtual bool InitReference(BoolWrapper& ref) noexcept { return false; }

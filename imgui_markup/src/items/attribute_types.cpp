@@ -11,13 +11,35 @@ std::string AttributeTypeToString(AttributeType type)
     switch (type)
     {
         case AttributeType::kInt: return "Int";
-        case AttributeType::kFloat: return "Int";
-        case AttributeType::kBool: return "Int";
-        case AttributeType::kString: return "Int";
-        case AttributeType::kVector2: return "Int";
-        case AttributeType::kVector4: return "Int";
+        case AttributeType::kFloat: return "Float";
+        case AttributeType::kBool: return "Bool";
+        case AttributeType::kString: return "String";
+        case AttributeType::kVector2: return "Vector2";
+        case AttributeType::kVector4: return "Vector4";
         default: return "UNKNOWN";
     }
+}
+
+bool AttributeInterface::InitReference(AttributeInterface& ref) noexcept
+{
+    switch (ref.GetType())
+    {
+    case AttributeType::kInt:
+        return this->InitReference((IntWrapper&)ref);
+    case AttributeType::kFloat:
+        return this->InitReference((FloatWrapper&)ref);
+    case AttributeType::kBool:
+        return this->InitReference((BoolWrapper&)ref);
+    case AttributeType::kString:
+        return this->InitReference((StringWrapper&)ref);
+    case AttributeType::kVector2:
+        return this->InitReference((Vector2Wrapper&)ref);
+    case AttributeType::kVector4:
+        return this->InitReference((Vector4Wrapper&)ref);
+    default: return false;;
+    }
+
+    return false;
 }
 
 // IntWrapper

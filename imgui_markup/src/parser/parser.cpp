@@ -192,7 +192,6 @@ void Parser::ProcessAttributeCreate(const Lexer::Token& token)
     // TODO: Implementation
 }
 
-
 void Parser::ProcessTokens()
 {
     while (this->lexer_.Peek().type != Lexer::TokenType::kEndOfFile)

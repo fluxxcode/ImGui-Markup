@@ -61,69 +61,96 @@ void Interpreter::PopItem(const Lexer::Token& token)
     this->item_stack_.pop_back();
 }
 
-void Interpreter::AssignAttribute(Interpreter::AttributeAssignNode node)
+void Interpreter::ProcessAssignAttributeNode(
+    Interpreter::AttributeAssignNode node)
 {
     AttributeInterface* attribute = this->GetAttributeFromCurrentItem(
         node.name);
 
+    this->AssignAttribute(*attribute, node.value);
+}
+
+void Interpreter::AssignAttribute(AttributeInterface& attribute,
+                                  const ValueNode& value_node)
+{
     bool result = false;
-    switch (node.value.type)
+    switch (value_node.type)
     {
     case ValueType::kString:
-        result = attribute->LoadValue(((StringNode&)node.value).value.c_str());
+        result = attribute.LoadValue(((StringNode&)value_node).value.c_str());
         break;
     case ValueType::kInt:
-        result = attribute->LoadValue(((IntNode&)node.value).value);
+        result = attribute.LoadValue(((IntNode&)value_node).value);
         break;
     case ValueType::kFloat:
-        result = attribute->LoadValue(((FloatNode&)node.value).value);
+        result = attribute.LoadValue(((FloatNode&)value_node).value);
         break;
     case ValueType::kBool:
-        result = attribute->LoadValue(((BoolNode&)node.value).value);
+        result = attribute.LoadValue(((BoolNode&)value_node).value);
         break;
     case ValueType::kVector2:
-        result = attribute->LoadValue(this->EvalVector2Node(node.value));
+        result = attribute.LoadValue(
+            this->EvalVector2Node((Vector2Node&)value_node));
         break;
     case ValueType::kVector4:
-        result = attribute->LoadValue(this->EvalVector4Node(node.value));
+        result = attribute.LoadValue(
+            this->EvalVector4Node((Vector4Node&)value_node));
         break;
     case ValueType::kAttributeAccess:
     {
-        AttributeInterface* access =this->EvalAttributeAccessNode(node.value);
-        // TODO: Implementation
-        // Either attribute.LoadValue() or attribute.InitReference(),
-        // depending on ((AttribtueAccessNode)node.value).by_reference
+        AttributeAccessNode& node = (AttributeAccessNode&)value_node;
+        AttributeInterface* access =this->EvalAttributeAccessNode(node);
+
+        if (node.by_reference)
+        {
+            result = attribute.InitReference(*access);
+            break;
+        }
+
+        result = attribute.LoadValue(access);
+        break;
     }
         break;
     default:
-        throw InternalError(node.value.value_token);
+        throw InternalError(value_node.value_token);
     }
 
     if (!result)
-        throw UnableToConvertValue(node.value.value_token);
+        throw UnableToConvertValue(value_node.value_token);
 }
 
-void Interpreter::CreateAttribute(Interpreter::AttributeCreateNode node)
+void Interpreter::ProcessCreateAttributeNode(
+    Interpreter::AttributeCreateNode node)
 {
     // TODO: Implementation
 }
 
-Vector2 Interpreter::EvalVector2Node(const ValueNode& value)
+Vector2 Interpreter::EvalVector2Node(const Vector2Node& value)
 {
-    // TODO: Implementation
-    return Vector2();
+    FloatWrapper x, y;
+
+    this->AssignAttribute((AttributeInterface&)x, value.x);
+    this->AssignAttribute((AttributeInterface&)y, value.y);
+
+    return Vector2(x, y);
 }
 
-Vector4 Interpreter::EvalVector4Node(const ValueNode& value)
+Vector4 Interpreter::EvalVector4Node(const Vector4Node& value)
 {
-    // TODO: Implementation
-    return Vector4();
+    FloatWrapper x, y, z, w;
+
+    this->AssignAttribute((AttributeInterface&)x, value.x);
+    this->AssignAttribute((AttributeInterface&)y, value.y);
+    this->AssignAttribute((AttributeInterface&)z, value.z);
+    this->AssignAttribute((AttributeInterface&)w, value.w);
+
+    return Vector4(x, y, z, w);
 }
 
-AttributeInterface* Interpreter::EvalAttributeAccessNode(const ValueNode& value)
+AttributeInterface* Interpreter::EvalAttributeAccessNode(
+    const AttributeAccessNode& value)
 {
-    // TODO: Implementation
-    return nullptr;
+    return this->GetAttribute(value.name);
 }
 
 std::string Interpreter::GetCurrentID() const noexcept

@@ -101,13 +101,13 @@ public:
 
     struct AttributeAccessNode : public ValueNode
     {
-        AttributeAccessNode(std::string name, bool by_reference,
+        AttributeAccessNode(Lexer::Token name, bool by_reference,
                             Lexer::Token value_token)
             : ValueNode(ValueType::kAttributeAccess, value_token),
             name(name), by_reference(by_reference)
         { }
 
-        const std::string name;
+        const Lexer::Token name;
         const bool by_reference;
     };
 
@@ -138,8 +138,8 @@ public:
     void CreateItem(const Lexer::Token& type, const Lexer::Token& id);
     void PopItem(const Lexer::Token& token);
 
-    void AssignAttribute(AttributeAssignNode node);
-    void CreateAttribute(AttributeCreateNode node);
+    void ProcessAssignAttributeNode(AttributeAssignNode node);
+    void ProcessCreateAttributeNode(AttributeCreateNode node);
 
 private:
     // Main destination buffer
@@ -166,9 +166,13 @@ private:
         AttributeInterface* attribute, const std::string attribute_name,
         const std::string& child_name, const Lexer::Token& token);
 
-    Vector2 EvalVector2Node(const ValueNode& value);
-    Vector4 EvalVector4Node(const ValueNode& value);
-    AttributeInterface* EvalAttributeAccessNode(const ValueNode& value);
+    void AssignAttribute(AttributeInterface& attribute,
+                         const ValueNode& value_node);
+
+    Vector2 EvalVector2Node(const Vector2Node& value);
+    Vector4 EvalVector4Node(const Vector4Node& value);
+    AttributeInterface* EvalAttributeAccessNode(
+        const AttributeAccessNode& value);
 };
 
 struct InterpreterException

@@ -40,6 +40,8 @@ private:
     void ProcessAttributeCreate(const Lexer::Token& token);
 
     void ProcessTokens();
+
+    Interpreter::ValueNode CreateValueNode(const Lexer::Token& token);
 };
 
 struct ParserException
