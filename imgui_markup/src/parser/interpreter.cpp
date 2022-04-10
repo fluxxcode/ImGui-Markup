@@ -77,24 +77,28 @@ void Interpreter::AssignAttribute(AttributeInterface& attribute,
     switch (value_node.type)
     {
     case ValueType::kString:
-        result = attribute.LoadValue(((StringNode&)value_node).value.c_str());
+        result = attribute.LoadValue(
+            dynamic_cast<const StringNode&>(value_node).value);
         break;
     case ValueType::kInt:
-        result = attribute.LoadValue(((IntNode&)value_node).value);
+        result = attribute.LoadValue(
+            dynamic_cast<const IntNode&>(value_node).value);
         break;
     case ValueType::kFloat:
-        result = attribute.LoadValue(((FloatNode&)value_node).value);
+        result = attribute.LoadValue(
+            dynamic_cast<const FloatNode&>(value_node).value);
         break;
     case ValueType::kBool:
-        result = attribute.LoadValue(((BoolNode&)value_node).value);
+        result = attribute.LoadValue(
+            dynamic_cast<const BoolNode&>(value_node).value);
         break;
     case ValueType::kVector2:
-        result = attribute.LoadValue(
-            this->EvalVector2Node((Vector2Node&)value_node));
+        result = attribute.LoadValue(this->EvalVector2Node(
+            dynamic_cast<const Vector2Node&>(value_node)));
         break;
     case ValueType::kVector4:
-        result = attribute.LoadValue(
-            this->EvalVector4Node((Vector4Node&)value_node));
+        result = attribute.LoadValue(this->EvalVector4Node(
+            dynamic_cast<const Vector4Node&>(value_node)));
         break;
     case ValueType::kAttributeAccess:
     {
@@ -119,7 +123,7 @@ void Interpreter::AssignAttribute(AttributeInterface& attribute,
         throw UnableToConvertValue(value_node.value_token);
 }
 
-void Interpreter::ProcessCreateAttributeNode(
+void Interpreter::ProcessAttributeCreateNode(
     Interpreter::AttributeCreateNode node)
 {
     // TODO: Implementation
@@ -201,7 +205,7 @@ AttributeInterface* Interpreter::GetAttributeFromCurrentItem(
     std::string child_attribute = segments.front();
     segments.erase(segments.begin());
 
-    AttributeInterface* child = this->GetChildFromAttribtue(
+    AttributeInterface* child = this->GetChildFromAttribute(
         attribute, attribute_name, child_attribute, token);
 
     if (segments.empty())
@@ -255,7 +259,7 @@ AttributeInterface* Interpreter::GetAttribute(const Lexer::Token& token)
     std::string child_attribute = segments.front();
     segments.erase(segments.begin());
 
-    AttributeInterface* child = this->GetChildFromAttribtue(
+    AttributeInterface* child = this->GetChildFromAttribute(
         attribute, attribute_name, child_attribute, token);
 
     if (segments.empty())
@@ -264,7 +268,7 @@ AttributeInterface* Interpreter::GetAttribute(const Lexer::Token& token)
     throw AttributeChildNotDefined(token, child_attribute, segments.front());
 }
 
-AttributeInterface* Interpreter::GetChildFromAttribtue(
+AttributeInterface* Interpreter::GetChildFromAttribute(
     AttributeInterface* attribute, const std::string attribute_name,
     const std::string& child_name, const Lexer::Token& token)
 {

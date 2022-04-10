@@ -27,7 +27,8 @@ public:
         const ValueType type;
         const Lexer::Token value_token;
 
-    protected:
+        virtual ~ValueNode() { }
+
         ValueNode(ValueType type, Lexer::Token value_token)
             : type(type), value_token(value_token)
         { }
@@ -39,6 +40,7 @@ public:
             : ValueNode(ValueType::kString, value_token),
             value(value)
         { }
+        ~StringNode() { }
 
         const std::string value;
     };
@@ -49,6 +51,7 @@ public:
             : ValueNode(ValueType::kInt, value_token),
             value(value)
         { }
+        ~IntNode() { }
 
         const int value;
     };
@@ -139,7 +142,7 @@ public:
     void PopItem(const Lexer::Token& token);
 
     void ProcessAssignAttributeNode(AttributeAssignNode node);
-    void ProcessCreateAttributeNode(AttributeCreateNode node);
+    void ProcessAttributeCreateNode(AttributeCreateNode node);
 
 private:
     // Main destination buffer
@@ -162,7 +165,7 @@ private:
     AttributeInterface* GetAttribute(const Lexer::Token& name);
 
     // Child attribute from an attribute
-    AttributeInterface* GetChildFromAttribtue(
+    AttributeInterface* GetChildFromAttribute(
         AttributeInterface* attribute, const std::string attribute_name,
         const std::string& child_name, const Lexer::Token& token);
 

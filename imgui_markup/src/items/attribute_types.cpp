@@ -43,7 +43,7 @@ bool AttributeInterface::InitReference(AttributeInterface& ref) noexcept
 }
 
 // IntWrapper
-bool IntWrapper::LoadValue(const char* value) noexcept
+bool IntWrapper::LoadValue(std::string value) noexcept
 {
     int temp;
     if (!utils::StringToInt(value, temp))
@@ -66,7 +66,7 @@ bool IntWrapper::InitReference(IntWrapper& ref) noexcept
 }
 
 // FloatWrapper
-bool FloatWrapper::LoadValue(const char* value) noexcept
+bool FloatWrapper::LoadValue(std::string value) noexcept
 {
     float temp;
     if (!utils::StringToFloat(value, temp))
@@ -89,7 +89,7 @@ bool FloatWrapper::InitReference(FloatWrapper& ref) noexcept
 }
 
 // BoolWrapper
-bool BoolWrapper::LoadValue(const char* value) noexcept
+bool BoolWrapper::LoadValue(std::string value) noexcept
 {
     bool temp;
     if (!utils::StringToBool(value, temp))
@@ -112,7 +112,7 @@ bool BoolWrapper::InitReference(BoolWrapper& ref) noexcept
 }
 
 // StringWrapper
-bool StringWrapper::LoadValue(const char* value) noexcept
+bool StringWrapper::LoadValue(std::string value) noexcept
 {
     this->SetValue(value);
     return true;

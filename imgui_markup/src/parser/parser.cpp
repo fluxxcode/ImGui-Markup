@@ -1,6 +1,8 @@
 #include "impch.h"
 #include "parser/parser.h"
 
+#include "utility/utility.h"
+
 namespace igm::internal
 {
 
@@ -156,6 +158,118 @@ bool Parser::IsVector(const Lexer::Token& token)
     return false;
 }
 
+std::unique_ptr<Interpreter::ValueNode> Parser::CreateString(
+    const Lexer::Token& token)
+{
+    return std::make_unique<Interpreter::ValueNode>(
+        Interpreter::StringNode(token.value, token));
+}
+
+std::unique_ptr<Interpreter::ValueNode> Parser::CreateInt(
+    const Lexer::Token& token)
+{
+    int temp;
+
+    if (!utils::StringToInt(token.value, temp))
+        throw UnableToConvertInt(token);
+
+    return std::make_unique<Interpreter::ValueNode>(
+        Interpreter::IntNode(temp, token));
+}
+
+std::unique_ptr<Interpreter::ValueNode> Parser::CreateFloat(
+    const Lexer::Token& token)
+{
+    float temp;
+
+    if (!utils::StringToFloat(token.value, temp))
+        throw UnableToConvertFloat(token);
+
+    return std::make_unique<Interpreter::ValueNode>(
+        Interpreter::FloatNode(temp, token));
+}
+
+std::unique_ptr<Interpreter::ValueNode> Parser::CreateBool(
+    const Lexer::Token& token)
+{
+    bool temp;
+
+    if (!utils::StringToBool(token.value, temp))
+        throw UnableToConvertBool(token);
+
+    return std::make_unique<Interpreter::ValueNode>(
+        Interpreter::BoolNode(temp, token));
+}
+
+std::unique_ptr<Interpreter::ValueNode> Parser::CreateVector2(
+    const Lexer::Token& x, const Lexer::Token& y, const Lexer::Token& token)
+{
+    return std::make_unique<Interpreter::ValueNode>(
+        Interpreter::Vector2Node(*this->CreateValueNode(x).get(),
+                                 *this->CreateValueNode(y).get(), token)
+    );
+}
+
+std::unique_ptr<Interpreter::ValueNode> Parser::CreateVector4(
+    const Lexer::Token& x, const Lexer::Token& y,
+    const Lexer::Token& z, const Lexer::Token& w, const Lexer::Token& token)
+{
+    return std::make_unique<Interpreter::ValueNode>(
+        Interpreter::Vector4Node(*this->CreateValueNode(x).get(),
+                                 *this->CreateValueNode(y).get(),
+                                 *this->CreateValueNode(z).get(),
+                                 *this->CreateValueNode(w).get(), token)
+    );
+}
+
+std::unique_ptr<Interpreter::ValueNode> Parser::CreateVector(
+    const Lexer::Token& token)
+{
+    std::vector<Lexer::Token> values;
+
+    size_t count = 0;
+    while (this->lexer_.Peek().type != Lexer::TokenType::kBracketClose)
+    {
+        count++;
+        const Lexer::Token value = this->lexer_.Get();
+
+        if (count % 2 == 0)
+        {
+            if (value.type != Lexer::TokenType::kComma)
+                throw ExpectedComma(value);
+
+            continue;
+        }
+
+        values.push_back(value);
+    }
+
+    if (values.size() == 2)
+        return this->CreateVector2(values[0], values[1], token);
+    else if (values.size() == 4)
+        return this->CreateVector4(values[0], values[1], values[2], values[3],
+                                   token);
+
+    throw UnexpectedNumberOfValuesInVector(token);
+}
+
+std::unique_ptr<Interpreter::ValueNode> Parser::CreateValueNode(
+    const Lexer::Token& token)
+{
+    if (this->IsString(token))
+        return this->CreateString(token);
+    else if (this->IsInt(token))
+        return this->CreateInt(token);
+    else if (this->IsFloat(token))
+        return this->CreateFloat(token);
+    else if (this->IsBool(token))
+        return this->CreateBool(token);
+    else if (this->IsVector(token))
+        return this->CreateVector(token);
+
+    throw InvalidValue(token);
+}
+
 void Parser::ProcessItemDefinition(const Lexer::Token& token)
 {
     Lexer::Token item_type = token;
@@ -183,13 +297,29 @@ void Parser::ProcessItemBreak(const Lexer::Token& token)
 
 void Parser::ProcessAttributeAssign(const Lexer::Token& token)
 {
-    // TODO: Implementation
-}
+    // Skip '='
+    this->lexer_.Get();
 
+    std::unique_ptr<Interpreter::ValueNode> value = this->CreateValueNode(
+        this->lexer_.Get());
+
+    this->interpreter_.ProcessAssignAttributeNode(
+        Interpreter::AttributeAssignNode(token, *value.get()));
+}
 
 void Parser::ProcessAttributeCreate(const Lexer::Token& token)
 {
-    // TODO: Implementation
+    // Skip '+'
+    const Lexer::Token name = this->lexer_.Get();
+
+    // Skip '='
+    this->lexer_.Get();
+
+    std::unique_ptr<Interpreter::ValueNode> value = this->CreateValueNode(
+        this->lexer_.Get());
+
+    this->interpreter_.ProcessAttributeCreateNode(
+        Interpreter::AttributeCreateNode(name, *value.get()));
 }
 
 void Parser::ProcessTokens()

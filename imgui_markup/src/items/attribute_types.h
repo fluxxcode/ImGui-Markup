@@ -35,7 +35,7 @@ struct AttributeInterface
     virtual bool LoadValue(int value) noexcept { return false; };
     virtual bool LoadValue(float value) noexcept { return false; };
     virtual bool LoadValue(bool value) noexcept { return false; };
-    virtual bool LoadValue(const char* value) noexcept { return false; };
+    virtual bool LoadValue(std::string value) noexcept { return false; };
     virtual bool LoadValue(Vector2 value) noexcept { return false; };
     virtual bool LoadValue(Vector4 value) noexcept { return false; };
 
@@ -132,7 +132,7 @@ public:
     }
 
 private:
-    bool LoadValue(const char* value) noexcept;
+    bool LoadValue(std::string value) noexcept;
     bool LoadValue(int value) noexcept;
 
     bool InitReference(IntWrapper& ref) noexcept;
@@ -157,7 +157,7 @@ public:
     }
 
 private:
-    bool LoadValue(const char* value) noexcept;
+    bool LoadValue(std::string value) noexcept;
     bool LoadValue(float value) noexcept;
 
     bool InitReference(FloatWrapper& ref) noexcept;
@@ -182,7 +182,7 @@ public:
     }
 
 private:
-    bool LoadValue(const char* value) noexcept;
+    bool LoadValue(std::string value) noexcept;
     bool LoadValue(bool value) noexcept;
 
     bool InitReference(BoolWrapper& ref) noexcept;
@@ -207,7 +207,7 @@ public:
     }
 
 private:
-    bool LoadValue(const char* value) noexcept;
+    bool LoadValue(std::string value) noexcept;
 
     bool InitReference(StringWrapper& ref) noexcept;
 };

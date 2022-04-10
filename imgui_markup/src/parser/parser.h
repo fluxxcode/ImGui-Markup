@@ -34,6 +34,33 @@ private:
     inline bool IsBool(const Lexer::Token& token);
     inline bool IsVector(const Lexer::Token& token);
 
+    std::unique_ptr<Interpreter::ValueNode> CreateString(
+        const Lexer::Token& token);
+
+    std::unique_ptr<Interpreter::ValueNode> CreateInt(
+        const Lexer::Token& token);
+
+    std::unique_ptr<Interpreter::ValueNode> CreateFloat(
+        const Lexer::Token& token);
+
+    std::unique_ptr<Interpreter::ValueNode> CreateBool(
+        const Lexer::Token& token);
+
+    std::unique_ptr<Interpreter::ValueNode> CreateVector2(
+        const Lexer::Token& x, const Lexer::Token& y,
+        const Lexer::Token& token);
+
+    std::unique_ptr<Interpreter::ValueNode> CreateVector4(
+        const Lexer::Token& x, const Lexer::Token& y,
+        const Lexer::Token& z, const Lexer::Token& w,
+        const Lexer::Token& token);
+
+    std::unique_ptr<Interpreter::ValueNode> CreateVector(
+        const Lexer::Token& token);
+
+    std::unique_ptr<Interpreter::ValueNode> CreateValueNode(
+        const Lexer::Token& token);
+
     void ProcessItemDefinition(const Lexer::Token& token);
     void ProcessItemBreak(const Lexer::Token& token);
     void ProcessAttributeAssign(const Lexer::Token& token);
@@ -41,7 +68,6 @@ private:
 
     void ProcessTokens();
 
-    Interpreter::ValueNode CreateValueNode(const Lexer::Token& token);
 };
 
 struct ParserException
@@ -65,6 +91,52 @@ struct ExpectedCurlyBracketOpen : public ParserException
 {
     ExpectedCurlyBracketOpen(Lexer::Token token)
         : ParserException("Expected '{'", token)
+    { }
+};
+
+struct ExpectedComma : public ParserException
+{
+    ExpectedComma(Lexer::Token token)
+        : ParserException("Expected ','", token)
+    { }
+};
+
+struct InvalidValue : public ParserException
+{
+    InvalidValue(Lexer::Token token)
+        : ParserException("Expected value of type Int, Float, String, Bool, "
+                          "Vec2, Vec4 or reference", token)
+    { }
+};
+
+struct UnableToConvertInt : public ParserException
+{
+    UnableToConvertInt(Lexer::Token token)
+        : ParserException("Unable to convert \"" + token.value + "\" to a "
+                          "value of type Int", token)
+    { }
+};
+
+struct UnableToConvertFloat : public ParserException
+{
+    UnableToConvertFloat(Lexer::Token token)
+        : ParserException("Unable to convert \"" + token.value + "\" to a "
+                          "value of type Float", token)
+    { }
+};
+
+struct UnableToConvertBool : public ParserException
+{
+    UnableToConvertBool(Lexer::Token token)
+        : ParserException("Unable to convert \"" + token.value + "\" to a "
+                          "value of type Bool", token)
+    { }
+};
+
+struct UnexpectedNumberOfValuesInVector : public ParserException
+{
+    UnexpectedNumberOfValuesInVector(Lexer::Token token)
+        : ParserException("Unexpected number of values in vector", token)
     { }
 };
 
