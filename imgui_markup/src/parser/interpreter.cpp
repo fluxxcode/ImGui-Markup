@@ -101,20 +101,19 @@ void Interpreter::AssignAttribute(AttributeInterface& attribute,
             dynamic_cast<const Vector4Node&>(value_node)));
         break;
     case ValueType::kAttributeAccess:
-    {
-        AttributeAccessNode& node = (AttributeAccessNode&)value_node;
-        AttributeInterface* access =this->EvalAttributeAccessNode(node);
-
-        if (node.by_reference)
         {
-            result = attribute.InitReference(*access);
+            AttributeAccessNode& node = (AttributeAccessNode&)value_node;
+            AttributeInterface* access =this->EvalAttributeAccessNode(node);
+
+            if (node.by_reference)
+            {
+                result = attribute.InitReference(*access);
+                break;
+            }
+
+            result = attribute.LoadValue(access);
             break;
         }
-
-        result = attribute.LoadValue(access);
-        break;
-    }
-        break;
     default:
         throw InternalError(value_node.value_token);
     }
@@ -133,8 +132,8 @@ Vector2 Interpreter::EvalVector2Node(const Vector2Node& value)
 {
     FloatWrapper x, y;
 
-    this->AssignAttribute((AttributeInterface&)x, value.x);
-    this->AssignAttribute((AttributeInterface&)y, value.y);
+    this->AssignAttribute((AttributeInterface&)x, std::move(*value.x.get()));
+    this->AssignAttribute((AttributeInterface&)y, std::move(*value.y.get()));
 
     return Vector2(x, y);
 }
@@ -143,10 +142,10 @@ Vector4 Interpreter::EvalVector4Node(const Vector4Node& value)
 {
     FloatWrapper x, y, z, w;
 
-    this->AssignAttribute((AttributeInterface&)x, value.x);
-    this->AssignAttribute((AttributeInterface&)y, value.y);
-    this->AssignAttribute((AttributeInterface&)z, value.z);
-    this->AssignAttribute((AttributeInterface&)w, value.w);
+    this->AssignAttribute((AttributeInterface&)x, std::move(*value.x.get()));
+    this->AssignAttribute((AttributeInterface&)y, std::move(*value.y.get()));
+    this->AssignAttribute((AttributeInterface&)z, std::move(*value.z.get()));
+    this->AssignAttribute((AttributeInterface&)w, std::move(*value.w.get()));
 
     return Vector4(x, y, z, w);
 }

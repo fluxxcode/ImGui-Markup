@@ -134,6 +134,7 @@ public:
 private:
     bool LoadValue(std::string value) noexcept;
     bool LoadValue(int value) noexcept;
+    bool LoadValue(float value) noexcept;
 
     bool InitReference(IntWrapper& ref) noexcept;
 };
@@ -159,6 +160,7 @@ public:
 private:
     bool LoadValue(std::string value) noexcept;
     bool LoadValue(float value) noexcept;
+    bool LoadValue(int value) noexcept;
 
     bool InitReference(FloatWrapper& ref) noexcept;
 };

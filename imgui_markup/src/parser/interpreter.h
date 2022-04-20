@@ -21,7 +21,7 @@ public:
         kAttributeAccess
     };
 
-    struct ValueNode
+    class ValueNode
     {
     public:
         const ValueType type;
@@ -29,6 +29,7 @@ public:
 
         virtual ~ValueNode() { }
 
+    protected:
         ValueNode(ValueType type, Lexer::Token value_token)
             : type(type), value_token(value_token)
         { }
@@ -78,28 +79,28 @@ public:
 
     struct Vector2Node : public ValueNode
     {
-        Vector2Node(const ValueNode& x, const ValueNode& y,
+        Vector2Node(std::unique_ptr<ValueNode> x,
+                    std::unique_ptr<ValueNode> y,
                     Lexer::Token value_token)
             : ValueNode(ValueType::kVector2, value_token),
-            x(x), y(y)
+            x(std::move(x)), y(std::move(y))
         { }
 
-        const ValueNode& x;
-        const ValueNode& y;
+        std::unique_ptr<ValueNode> x, y;
     };
 
     struct Vector4Node : public ValueNode
     {
-        Vector4Node(const ValueNode& x, const ValueNode& y, const ValueNode& z,
-                    const ValueNode& w, Lexer::Token value_token)
+        Vector4Node(std::unique_ptr<ValueNode> x,
+                    std::unique_ptr<ValueNode> y,
+                    std::unique_ptr<ValueNode> z,
+                    std::unique_ptr<ValueNode> w,
+                    Lexer::Token value_token)
             : ValueNode(ValueType::kVector4, value_token),
-            x(x), y(y), z(z), w(w)
+            x(std::move(x)), y(std::move(y)), z(std::move(z)), w(std::move(w))
         { }
 
-        const ValueNode& x;
-        const ValueNode& y;
-        const ValueNode& z;
-        const ValueNode& w;
+        std::unique_ptr<ValueNode> x, y, z, w;
     };
 
     struct AttributeAccessNode : public ValueNode

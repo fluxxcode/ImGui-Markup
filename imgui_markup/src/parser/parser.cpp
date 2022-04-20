@@ -161,7 +161,7 @@ bool Parser::IsVector(const Lexer::Token& token)
 std::unique_ptr<Interpreter::ValueNode> Parser::CreateString(
     const Lexer::Token& token)
 {
-    return std::make_unique<Interpreter::ValueNode>(
+    return std::make_unique<Interpreter::StringNode>(
         Interpreter::StringNode(token.value, token));
 }
 
@@ -173,7 +173,7 @@ std::unique_ptr<Interpreter::ValueNode> Parser::CreateInt(
     if (!utils::StringToInt(token.value, temp))
         throw UnableToConvertInt(token);
 
-    return std::make_unique<Interpreter::ValueNode>(
+    return std::make_unique<Interpreter::IntNode>(
         Interpreter::IntNode(temp, token));
 }
 
@@ -185,7 +185,7 @@ std::unique_ptr<Interpreter::ValueNode> Parser::CreateFloat(
     if (!utils::StringToFloat(token.value, temp))
         throw UnableToConvertFloat(token);
 
-    return std::make_unique<Interpreter::ValueNode>(
+    return std::make_unique<Interpreter::FloatNode>(
         Interpreter::FloatNode(temp, token));
 }
 
@@ -197,16 +197,17 @@ std::unique_ptr<Interpreter::ValueNode> Parser::CreateBool(
     if (!utils::StringToBool(token.value, temp))
         throw UnableToConvertBool(token);
 
-    return std::make_unique<Interpreter::ValueNode>(
+    return std::make_unique<Interpreter::BoolNode>(
         Interpreter::BoolNode(temp, token));
 }
 
 std::unique_ptr<Interpreter::ValueNode> Parser::CreateVector2(
     const Lexer::Token& x, const Lexer::Token& y, const Lexer::Token& token)
 {
-    return std::make_unique<Interpreter::ValueNode>(
-        Interpreter::Vector2Node(*this->CreateValueNode(x).get(),
-                                 *this->CreateValueNode(y).get(), token)
+    return std::make_unique<Interpreter::Vector2Node>(
+        Interpreter::Vector2Node(std::move(this->CreateValueNode(x)),
+                                 std::move(this->CreateValueNode(y)),
+                                 token)
     );
 }
 
@@ -214,11 +215,12 @@ std::unique_ptr<Interpreter::ValueNode> Parser::CreateVector4(
     const Lexer::Token& x, const Lexer::Token& y,
     const Lexer::Token& z, const Lexer::Token& w, const Lexer::Token& token)
 {
-    return std::make_unique<Interpreter::ValueNode>(
-        Interpreter::Vector4Node(*this->CreateValueNode(x).get(),
-                                 *this->CreateValueNode(y).get(),
-                                 *this->CreateValueNode(z).get(),
-                                 *this->CreateValueNode(w).get(), token)
+    return std::make_unique<Interpreter::Vector4Node>(
+        Interpreter::Vector4Node(std::move(this->CreateValueNode(x)),
+                                 std::move(this->CreateValueNode(y)),
+                                 std::move(this->CreateValueNode(z)),
+                                 std::move(this->CreateValueNode(w)),
+                                 token)
     );
 }
 
@@ -243,6 +245,9 @@ std::unique_ptr<Interpreter::ValueNode> Parser::CreateVector(
 
         values.push_back(value);
     }
+
+    // Skip ')'
+    this->lexer_.Get();
 
     if (values.size() == 2)
         return this->CreateVector2(values[0], values[1], token);

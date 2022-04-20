@@ -59,6 +59,12 @@ bool IntWrapper::LoadValue(int value) noexcept
     return true;
 }
 
+bool IntWrapper::LoadValue(float value) noexcept
+{
+    this->SetValue(value);
+    return true;
+}
+
 bool IntWrapper::InitReference(IntWrapper& ref) noexcept
 {
     this->IMPL_InitReference((AttributeBase<int>*)&ref);
@@ -77,6 +83,12 @@ bool FloatWrapper::LoadValue(std::string value) noexcept
 }
 
 bool FloatWrapper::LoadValue(float value) noexcept
+{
+    this->SetValue(value);
+    return true;
+}
+
+bool FloatWrapper::LoadValue(int value) noexcept
 {
     this->SetValue(value);
     return true;
