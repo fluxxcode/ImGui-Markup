@@ -24,16 +24,19 @@ void Parser::ParseFromFile(std::string file)
     {
         // TODO: Return error
         std::cerr << "ERROR: " + e.message << std::endl;
+        this->interpreter_.Reset();  // Clear destination unit
     }
     catch (const ParserException& e)
     {
         // TODO: Return error
         std::cerr << "ERROR: " + e.message << std::endl;
+        this->interpreter_.Reset();  // Clear destination unit
     }
     catch (const InterpreterException& e)
     {
         // TODO: Return error
         std::cerr << "ERROR: " + e.message << std::endl;
+        this->interpreter_.Reset();  // Clear destination unit
     }
 
     int a = 0;

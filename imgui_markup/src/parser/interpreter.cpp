@@ -17,6 +17,7 @@ void Interpreter::Reset() noexcept
 {
     this->unit_.item_tree.clear();
     this->unit_.item_ids.clear();
+    this->item_stack_.clear();
 }
 
 void Interpreter::CreateItem(const Lexer::Token& type, const Lexer::Token& id)
