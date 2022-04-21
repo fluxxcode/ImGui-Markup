@@ -3,7 +3,8 @@
 
 #include "items/item_api.h"
 #include "items/item_types.h"
-#include "items/attribute_types.h"
+#include "attribute_types/attribute_types.h"
+#include "attribute_types/internal_vector.h"
 
 namespace igm::internal
 {
@@ -24,8 +25,8 @@ public:
     bool CreateAttribtue(std::string name, float value) noexcept;
     bool CreateAttribtue(std::string name, bool value) noexcept;
     bool CreateAttribtue(std::string name, const char* value) noexcept;
-    bool CreateAttribtue(std::string name, Vector2 value) noexcept;
-    bool CreateAttribtue(std::string name, Vector4 value) noexcept;
+    bool CreateAttribtue(std::string name, InternalVector2 value) noexcept;
+    bool CreateAttribtue(std::string name, InternalVector4 value) noexcept;
 
     inline AttributeInterface* GetAttribute(std::string name) const noexcept
     {

@@ -3,6 +3,8 @@
 
 #include "items/item_factory.h"
 #include "utility/utility.h"
+#include "attribute_types/vector2_wrapper.h"
+#include "attribute_types/vector4_wrapper.h"
 
 namespace igm::internal
 {
@@ -73,6 +75,8 @@ void Interpreter::ProcessAssignAttributeNode(
 void Interpreter::AssignAttribute(AttributeInterface& attribute,
                                   const ValueNode& value_node)
 {
+    attribute.Reset();
+
     bool result = false;
     switch (value_node.type)
     {
@@ -93,27 +97,33 @@ void Interpreter::AssignAttribute(AttributeInterface& attribute,
             dynamic_cast<const BoolNode&>(value_node).value);
         break;
     case ValueType::kVector2:
-        result = attribute.LoadValue(this->EvalVector2Node(
-            dynamic_cast<const Vector2Node&>(value_node)));
+    {
+        InternalVector2 vec = this->EvalVector2Node(
+            dynamic_cast<const Vector2Node&>(value_node));
+        result = attribute.LoadValue(vec);
         break;
+    }
     case ValueType::kVector4:
-        result = attribute.LoadValue(this->EvalVector4Node(
-            dynamic_cast<const Vector4Node&>(value_node)));
+    {
+        InternalVector4 vec = this->EvalVector4Node(
+            dynamic_cast<const Vector4Node&>(value_node));
+        result = attribute.LoadValue(vec);
         break;
+    }
     case ValueType::kAttributeAccess:
+    {
+        AttributeAccessNode& node = (AttributeAccessNode&)value_node;
+        AttributeInterface* access = this->EvalAttributeAccessNode(node);
+
+        if (node.by_reference)
         {
-            AttributeAccessNode& node = (AttributeAccessNode&)value_node;
-            AttributeInterface* access =this->EvalAttributeAccessNode(node);
-
-            if (node.by_reference)
-            {
-                result = attribute.InitReference(*access);
-                break;
-            }
-
-            result = attribute.LoadValue(access);
+            result = attribute.InitReference(*access);
             break;
         }
+
+        result = attribute.LoadValue(*access);
+        break;
+    }
     default:
         throw InternalError(value_node.value_token);
     }
@@ -128,17 +138,17 @@ void Interpreter::ProcessAttributeCreateNode(
     // TODO: Implementation
 }
 
-Vector2 Interpreter::EvalVector2Node(const Vector2Node& value)
+InternalVector2 Interpreter::EvalVector2Node(const Vector2Node& value)
 {
     FloatWrapper x, y;
 
     this->AssignAttribute((AttributeInterface&)x, std::move(*value.x.get()));
     this->AssignAttribute((AttributeInterface&)y, std::move(*value.y.get()));
 
-    return Vector2(x, y);
+    return InternalVector2(x, y);
 }
 
-Vector4 Interpreter::EvalVector4Node(const Vector4Node& value)
+InternalVector4 Interpreter::EvalVector4Node(const Vector4Node& value)
 {
     FloatWrapper x, y, z, w;
 
@@ -147,7 +157,7 @@ Vector4 Interpreter::EvalVector4Node(const Vector4Node& value)
     this->AssignAttribute((AttributeInterface&)z, std::move(*value.z.get()));
     this->AssignAttribute((AttributeInterface&)w, std::move(*value.w.get()));
 
-    return Vector4(x, y, z, w);
+    return InternalVector4(x, y, z, w);
 }
 
 AttributeInterface* Interpreter::EvalAttributeAccessNode(

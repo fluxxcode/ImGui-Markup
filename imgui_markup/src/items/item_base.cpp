@@ -80,7 +80,7 @@ bool ItemBase::CreateAttribtue(std::string name, const char* value) noexcept
 }
 
 
-bool ItemBase::CreateAttribtue(std::string name, Vector2 value) noexcept
+bool ItemBase::CreateAttribtue(std::string name, InternalVector2 value) noexcept
 {
     if (this->IsAttributeDefined(name))
         return false;
@@ -94,7 +94,7 @@ bool ItemBase::CreateAttribtue(std::string name, Vector2 value) noexcept
 }
 
 
-bool ItemBase::CreateAttribtue(std::string name, Vector4 value) noexcept
+bool ItemBase::CreateAttribtue(std::string name, InternalVector4 value) noexcept
 {
     if (this->IsAttributeDefined(name))
         return false;

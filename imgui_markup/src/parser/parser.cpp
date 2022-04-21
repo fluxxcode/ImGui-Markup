@@ -201,61 +201,61 @@ std::unique_ptr<Interpreter::ValueNode> Parser::CreateBool(
         Interpreter::BoolNode(temp, token));
 }
 
-std::unique_ptr<Interpreter::ValueNode> Parser::CreateVector2(
-    const Lexer::Token& x, const Lexer::Token& y, const Lexer::Token& token)
-{
-    return std::make_unique<Interpreter::Vector2Node>(
-        Interpreter::Vector2Node(std::move(this->CreateValueNode(x)),
-                                 std::move(this->CreateValueNode(y)),
-                                 token)
-    );
-}
-
-std::unique_ptr<Interpreter::ValueNode> Parser::CreateVector4(
-    const Lexer::Token& x, const Lexer::Token& y,
-    const Lexer::Token& z, const Lexer::Token& w, const Lexer::Token& token)
-{
-    return std::make_unique<Interpreter::Vector4Node>(
-        Interpreter::Vector4Node(std::move(this->CreateValueNode(x)),
-                                 std::move(this->CreateValueNode(y)),
-                                 std::move(this->CreateValueNode(z)),
-                                 std::move(this->CreateValueNode(w)),
-                                 token)
-    );
-}
-
 std::unique_ptr<Interpreter::ValueNode> Parser::CreateVector(
     const Lexer::Token& token)
 {
-    std::vector<Lexer::Token> values;
+    std::vector<std::unique_ptr<Interpreter::ValueNode>> values;
 
-    size_t count = 0;
-    while (this->lexer_.Peek().type != Lexer::TokenType::kBracketClose)
+    while (this->lexer_.Peek().type != Lexer::TokenType::kEndOfFile)
     {
-        count++;
-        const Lexer::Token value = this->lexer_.Get();
+        values.push_back(this->CreateValueNode(this->lexer_.Get()));
 
-        if (count % 2 == 0)
-        {
-            if (value.type != Lexer::TokenType::kComma)
-                throw ExpectedComma(value);
+        const Lexer::Token temp_token = this->lexer_.Get();
 
-            continue;
-        }
+        if (temp_token.type == Lexer::TokenType::kBracketClose)
+            break;
 
-        values.push_back(value);
+        if (temp_token.type != Lexer::TokenType::kComma)
+            throw ExpectedComma(temp_token);
     }
 
-    // Skip ')'
-    this->lexer_.Get();
-
     if (values.size() == 2)
-        return this->CreateVector2(values[0], values[1], token);
+    {
+        return std::make_unique<Interpreter::Vector2Node>(
+            Interpreter::Vector2Node(std::move(values[0]),
+                                     std::move(values[1]),
+                                     token));
+    }
     else if (values.size() == 4)
-        return this->CreateVector4(values[0], values[1], values[2], values[3],
-                                   token);
+    {
+        return std::make_unique<Interpreter::Vector4Node>(
+            Interpreter::Vector4Node(std::move(values[0]),
+                                     std::move(values[1]),
+                                     std::move(values[2]),
+                                     std::move(values[3]),
+                                     token));
+    }
 
     throw UnexpectedNumberOfValuesInVector(token);
+}
+
+std::unique_ptr<Interpreter::ValueNode> Parser::CreateAttributeAccess(
+    const Lexer::Token& token)
+{
+    Lexer::Token attribute_name = token;
+    bool reference = false;
+
+    if (this->IsAccessByReference(token))
+    {
+        reference = true;
+
+        // Skip '@'
+        attribute_name = this->lexer_.Get();
+    }
+
+    return std::make_unique<Interpreter::AttributeAccessNode>(
+        Interpreter::AttributeAccessNode(attribute_name, reference,
+                                         attribute_name));
 }
 
 std::unique_ptr<Interpreter::ValueNode> Parser::CreateValueNode(
@@ -271,6 +271,8 @@ std::unique_ptr<Interpreter::ValueNode> Parser::CreateValueNode(
         return this->CreateBool(token);
     else if (this->IsVector(token))
         return this->CreateVector(token);
+    else if (this->IsAttributeAccess(token))
+        return this->CreateAttributeAccess(token);
 
     throw InvalidValue(token);
 }

@@ -3,6 +3,8 @@
 
 #include "common/unit_stack.h"
 #include "parser/lexer.h"
+#include "attribute_types/attribute_types.h"
+#include "attribute_types/internal_vector.h"
 
 namespace igm::internal
 {
@@ -173,8 +175,8 @@ private:
     void AssignAttribute(AttributeInterface& attribute,
                          const ValueNode& value_node);
 
-    Vector2 EvalVector2Node(const Vector2Node& value);
-    Vector4 EvalVector4Node(const Vector4Node& value);
+    InternalVector2 EvalVector2Node(const Vector2Node& value);
+    InternalVector4 EvalVector4Node(const Vector4Node& value);
     AttributeInterface* EvalAttributeAccessNode(
         const AttributeAccessNode& value);
 };

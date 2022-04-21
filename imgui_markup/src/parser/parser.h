@@ -46,16 +46,10 @@ private:
     std::unique_ptr<Interpreter::ValueNode> CreateBool(
         const Lexer::Token& token);
 
-    std::unique_ptr<Interpreter::ValueNode> CreateVector2(
-        const Lexer::Token& x, const Lexer::Token& y,
-        const Lexer::Token& token);
-
-    std::unique_ptr<Interpreter::ValueNode> CreateVector4(
-        const Lexer::Token& x, const Lexer::Token& y,
-        const Lexer::Token& z, const Lexer::Token& w,
-        const Lexer::Token& token);
-
     std::unique_ptr<Interpreter::ValueNode> CreateVector(
+        const Lexer::Token& token);
+
+    std::unique_ptr<Interpreter::ValueNode> CreateAttributeAccess(
         const Lexer::Token& token);
 
     std::unique_ptr<Interpreter::ValueNode> CreateValueNode(
