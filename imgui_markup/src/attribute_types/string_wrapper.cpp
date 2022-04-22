@@ -11,9 +11,9 @@
 namespace igm::internal
 {
 
-bool StringWrapper::LoadValue(std::string value) noexcept
+bool StringWrapper::LoadValue(const StringWrapper& val) noexcept
 {
-    this->SetValue(value);
+    this->SetValue((std::string)val);
     return true;
 }
 

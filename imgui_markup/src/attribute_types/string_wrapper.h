@@ -21,19 +21,23 @@ public:
         : AttributeBase(AttributeType::kString, std::string())
     { }
 
-    StringWrapper(std::string value)
+    explicit StringWrapper(const char* value)
         : AttributeBase(AttributeType::kString, value)
     { }
 
-    inline operator std::string() { return this->GetValue(); }
+    explicit StringWrapper(std::string value)
+        : AttributeBase(AttributeType::kString, value)
+    { }
 
-    inline std::string ToString() noexcept
+    inline operator std::string() const { return this->GetValue(); }
+
+    inline std::string ToString() const noexcept
     {
         return '"' + this->GetValue() + '"';
     }
 
 private:
-    bool LoadValue(std::string value) noexcept;
+    bool LoadValue(const StringWrapper& val) noexcept;
 
     bool InitReference(StringWrapper& ref) noexcept;
 };

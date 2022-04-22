@@ -12,6 +12,10 @@
 #include "parser/lexer.h"
 #include "attribute_types/attribute_base.h"
 #include "attribute_types/internal_vector.h"
+#include "attribute_types/float_wrapper.h"
+#include "attribute_types/int_wrapper.h"
+#include "attribute_types/string_wrapper.h"
+#include "attribute_types/bool_wrapper.h"
 
 namespace igm::internal
 {
@@ -60,7 +64,7 @@ public:
         { }
         ~StringNode() { }
 
-        const std::string value;
+        const StringWrapper value;
     };
 
     struct IntNode : public ValueNode
@@ -71,7 +75,7 @@ public:
         { }
         ~IntNode() { }
 
-        const int value;
+        const IntWrapper value;
     };
 
     struct FloatNode : public ValueNode
@@ -81,7 +85,7 @@ public:
             value(value)
         { }
 
-        const float value;
+        const FloatWrapper value;
     };
 
     struct BoolNode : public ValueNode
@@ -91,7 +95,7 @@ public:
             value(value)
         { }
 
-        const bool value;
+        const BoolWrapper value;
     };
 
     struct Vector2Node : public ValueNode

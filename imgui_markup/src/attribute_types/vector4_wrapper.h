@@ -23,29 +23,29 @@ public:
     { }
 
     Vector4Wrapper(float x, float y, float z, float w)
-        : AttributeBase(AttributeType::kVector4, InternalVector4(x, y, z, w))
+        : AttributeBase(AttributeType::kVector4,
+                        InternalVector4((FloatWrapper)x, (FloatWrapper)y,
+                                        (FloatWrapper)z, (FloatWrapper)w))
     { }
 
     Vector4Wrapper(InternalVector4 value)
         : AttributeBase(AttributeType::kVector4, value)
     { }
 
-    inline operator InternalVector4()
+    inline operator InternalVector4() const
     {
         return this->GetValue();
     }
 
-    inline std::string ToString() noexcept
+    inline std::string ToString() const noexcept
     {
-        InternalVector4& val = this->GetValue();
-        return std::to_string(val.x) + "," +
-               std::to_string(val.y) + "," +
-               std::to_string(val.z) + "," +
-               std::to_string(val.w);
+        InternalVector4 val = this->GetValue();
+        return val.x.ToString() + "," + val.y.ToString() + "," +
+               val.z.ToString() + "," + val.w.ToString();
     }
 
 private:
-    bool LoadValue(InternalVector4& value) noexcept;
+    bool LoadValue(const Vector4Wrapper& val) noexcept;
 
     bool InitReference(Vector4Wrapper& ref) noexcept;
 };

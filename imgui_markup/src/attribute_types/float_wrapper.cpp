@@ -8,30 +8,21 @@
  * @copyright Copyright (c) 2022
  */
 
+#include "attribute_types/int_wrapper.h"
 #include "utility/utility.h"
 
 namespace igm::internal
 {
 
-bool FloatWrapper::LoadValue(std::string value) noexcept
+bool FloatWrapper::LoadValue(const FloatWrapper& val) noexcept
 {
-    float temp;
-    if (!utils::StringToFloat(value, temp))
-        return false;
-
-    this->SetValue(temp);
+    this->SetValue((float)val);
     return true;
 }
 
-bool FloatWrapper::LoadValue(float value) noexcept
+bool FloatWrapper::LoadValue(const IntWrapper& val) noexcept
 {
-    this->SetValue(value);
-    return true;
-}
-
-bool FloatWrapper::LoadValue(int value) noexcept
-{
-    this->SetValue(value);
+    this->SetValue((float)(int)val);
     return true;
 }
 

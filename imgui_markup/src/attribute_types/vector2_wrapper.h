@@ -23,27 +23,27 @@ public:
     { }
 
     Vector2Wrapper(float x, float y)
-        : AttributeBase(AttributeType::kVector2, InternalVector2(x, y))
+        : AttributeBase(AttributeType::kVector2,
+                        InternalVector2((FloatWrapper)x, (FloatWrapper)y))
     { }
 
     Vector2Wrapper(InternalVector2 value)
         : AttributeBase(AttributeType::kVector2, value)
     { }
 
-    inline operator InternalVector2()
+    inline operator InternalVector2() const
     {
         return this->GetValue();
     }
 
-    inline std::string ToString() noexcept
+    inline std::string ToString() const noexcept
     {
-        InternalVector2& val = this->GetValue();
-        return std::to_string(val.x) + "," +
-               std::to_string(val.y);
+        InternalVector2 val = this->GetValue();
+        return val.x.ToString() + "," + val.y.ToString();
     }
 
 private:
-    bool LoadValue(InternalVector2& value) noexcept;
+    bool LoadValue(const Vector2Wrapper& val) noexcept;
 
     bool InitReference(Vector2Wrapper& ref) noexcept;
 };

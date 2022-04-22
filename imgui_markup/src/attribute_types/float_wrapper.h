@@ -21,21 +21,20 @@ public:
         : AttributeBase(AttributeType::kFloat, 0.0f)
     { }
 
-    FloatWrapper(float value)
+    explicit FloatWrapper(float value)
         : AttributeBase(AttributeType::kFloat, value)
     { }
 
-    operator float() { return this->GetValue(); }
+    operator float() const { return this->GetValue(); }
 
-    inline std::string ToString() noexcept
+    inline std::string ToString() const noexcept
     {
         return std::to_string(this->GetValue());
     }
 
 private:
-    bool LoadValue(std::string value) noexcept;
-    bool LoadValue(float value) noexcept;
-    bool LoadValue(int value) noexcept;
+    bool LoadValue(const FloatWrapper& val) noexcept;
+    bool LoadValue(const IntWrapper& val) noexcept;
 
     bool InitReference(FloatWrapper& ref) noexcept;
 };

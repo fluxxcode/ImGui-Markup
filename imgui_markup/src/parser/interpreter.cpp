@@ -324,12 +324,12 @@ AttributeInterface* Interpreter::GetChildFromAttribute(
         if (child_name == "x")
         {
             return (AttributeInterface*)&(
-                ((Vector2Wrapper*)attribute)->GetValue().x);
+                ((Vector2Wrapper*)attribute)->GetReference().x);
         }
         if (child_name == "y")
         {
             return (AttributeInterface*)&(
-                ((Vector2Wrapper*)attribute)->GetValue().y);
+                ((Vector2Wrapper*)attribute)->GetReference().y);
         }
     }
     else if (attribute->GetType() == AttributeType::kVector4)
@@ -337,22 +337,22 @@ AttributeInterface* Interpreter::GetChildFromAttribute(
         if (child_name == "x")
         {
             return (AttributeInterface*)&(
-                ((Vector4Wrapper*)attribute)->GetValue().x);
+                ((Vector4Wrapper*)attribute)->GetReference().x);
         }
         if (child_name == "y")
         {
             return (AttributeInterface*)&(
-                ((Vector4Wrapper*)attribute)->GetValue().y);
+                ((Vector4Wrapper*)attribute)->GetReference().y);
         }
         if (child_name == "z")
         {
             return (AttributeInterface*)&(
-                ((Vector4Wrapper*)attribute)->GetValue().z);
+                ((Vector4Wrapper*)attribute)->GetReference().z);
         }
         if (child_name == "w")
         {
             return (AttributeInterface*)&(
-                ((Vector4Wrapper*)attribute)->GetValue().w);
+                ((Vector4Wrapper*)attribute)->GetReference().w);
         }
     }
 

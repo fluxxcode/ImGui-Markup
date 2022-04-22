@@ -13,19 +13,9 @@
 namespace igm::internal
 {
 
-bool BoolWrapper::LoadValue(std::string value) noexcept
+bool BoolWrapper::LoadValue(const BoolWrapper& val) noexcept
 {
-    bool temp;
-    if (!utils::StringToBool(value, temp))
-        return false;
-
-    this->SetValue(temp);
-    return true;
-}
-
-bool BoolWrapper::LoadValue(bool value) noexcept
-{
-    this->SetValue(value);
+    this->SetValue((bool)val);
     return true;
 }
 

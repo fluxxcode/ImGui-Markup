@@ -24,9 +24,6 @@ enum class AttributeType
 
 static std::string AttributeTypeToString(AttributeType type);
 
-class InternalVector2;
-class InternalVector4;
-
 class IntWrapper;
 class FloatWrapper;
 class BoolWrapper;
@@ -37,19 +34,16 @@ class Vector4Wrapper;
 struct AttributeInterface
 {
     inline virtual AttributeType GetType() const noexcept = 0;
-
-    inline virtual std::string ToString() noexcept = 0;
-
+    inline virtual std::string ToString() const noexcept = 0;
     virtual void Reset() noexcept = 0;
 
-    bool LoadValue(AttributeInterface& ref) noexcept;
-    virtual bool LoadValue(int value) noexcept { return false; };
-    virtual bool LoadValue(float value) noexcept { return false; };
-    virtual bool LoadValue(bool value) noexcept { return false; };
-    virtual bool LoadValue(std::string value) noexcept { return false; };
-
-    virtual bool LoadValue(InternalVector2& value) noexcept { return false; };
-    virtual bool LoadValue(InternalVector4& value) noexcept { return false; };
+    bool LoadValue(const AttributeInterface& val) noexcept;
+    virtual bool LoadValue(const IntWrapper& val) noexcept { return false; }
+    virtual bool LoadValue(const FloatWrapper& val) noexcept { return false; }
+    virtual bool LoadValue(const BoolWrapper& val) noexcept { return false; }
+    virtual bool LoadValue(const StringWrapper& val) noexcept { return false; }
+    virtual bool LoadValue(const Vector2Wrapper& val) noexcept { return false; }
+    virtual bool LoadValue(const Vector4Wrapper& val) noexcept { return false; }
 
     bool InitReference(AttributeInterface& ref) noexcept;
     virtual bool InitReference(IntWrapper& ref) noexcept { return false; }
@@ -65,8 +59,10 @@ class AttributeBase : public AttributeInterface
 {
 public:
     AttributeBase(AttributeType type, T value)
-        : value_(value), type_(type)
-    { }
+        : type_(type)
+    {
+        this->SetValue(value);
+    }
 
     virtual ~AttributeBase()
     {
@@ -90,10 +86,18 @@ public:
         this->reference_ = nullptr;
     }
 
-    inline T& GetValue() noexcept
+    inline T GetValue() const noexcept
     {
         if (this->reference_)
-            this->value_ = this->reference_->GetValue();
+            return this->reference_->GetValue();
+
+        return this->value_;
+    }
+
+    inline T& GetReference() noexcept
+    {
+        if (this->reference_)
+            return this->reference_->GetReference();
 
         return this->value_;
     }
@@ -113,6 +117,9 @@ public:
 
     inline void RemoveReference()
     {
+        if (this->reference_)
+            this->value_ = this->reference_->GetValue();
+
         this->reference_ = nullptr;
     }
 

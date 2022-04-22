@@ -21,21 +21,20 @@ public:
         : AttributeBase(AttributeType::kInt, 0)
     { }
 
-    IntWrapper(int value)
+    explicit IntWrapper(int value)
         : AttributeBase(AttributeType::kInt, value)
     { }
 
-    inline operator int() { return this->GetValue(); }
+    inline operator int() const { return this->GetValue(); }
 
-    inline std::string ToString() noexcept
+    inline std::string ToString() const noexcept
     {
         return std::to_string(this->GetValue());
     }
 
 private:
-    bool LoadValue(std::string value) noexcept;
-    bool LoadValue(int value) noexcept;
-    bool LoadValue(float value) noexcept;
+    bool LoadValue(const IntWrapper& val) noexcept;
+    bool LoadValue(const FloatWrapper& val) noexcept;
 
     bool InitReference(IntWrapper& ref) noexcept;
 };

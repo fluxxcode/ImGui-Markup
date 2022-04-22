@@ -21,20 +21,19 @@ public:
         : AttributeBase(AttributeType::kBool, false)
     { }
 
-    BoolWrapper(bool value)
+    explicit BoolWrapper(bool value)
         : AttributeBase(AttributeType::kBool, value)
     { }
 
-    inline operator bool() { return this->GetValue(); }
+    inline operator bool() const { return this->GetValue(); }
 
-    inline std::string ToString() noexcept
+    inline std::string ToString() const noexcept
     {
         return std::to_string(this->GetValue());
     }
 
 private:
-    bool LoadValue(std::string value) noexcept;
-    bool LoadValue(bool value) noexcept;
+    bool LoadValue(const BoolWrapper& val) noexcept;
 
     bool InitReference(BoolWrapper& ref) noexcept;
 };

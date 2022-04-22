@@ -23,33 +23,32 @@ std::string AttributeTypeToString(AttributeType type)
 {
     switch (type)
     {
-        case AttributeType::kInt: return "Int";
-        case AttributeType::kFloat: return "Float";
-        case AttributeType::kBool: return "Bool";
-        case AttributeType::kString: return "String";
-        case AttributeType::kVector2: return "Vector2";
-        case AttributeType::kVector4: return "Vector4";
-        default: return "UNKNOWN";
+    case AttributeType::kInt: return "Int";
+    case AttributeType::kFloat: return "Float";
+    case AttributeType::kBool: return "Bool";
+    case AttributeType::kString: return "String";
+    case AttributeType::kVector2: return "Vector2";
+    case AttributeType::kVector4: return "Vector4";
+    default: return "UNKNOWN";
     }
 }
 
-bool AttributeInterface::LoadValue(AttributeInterface& ref) noexcept
+bool AttributeInterface::LoadValue(const AttributeInterface& ref) noexcept
 {
-    AttributeType type = ref.GetType();
-    switch (type)
+    switch (ref.GetType())
     {
     case AttributeType::kInt:
-        return this->LoadValue((int)(IntWrapper&)ref);
+        return this->LoadValue((const IntWrapper&)ref);
     case AttributeType::kFloat:
-        return this->LoadValue((float)(FloatWrapper&)ref);
+        return this->LoadValue((const FloatWrapper&)ref);
     case AttributeType::kBool:
-        return this->LoadValue((bool)(BoolWrapper&)ref);
+        return this->LoadValue((const BoolWrapper&)ref);
     case AttributeType::kString:
-        return this->LoadValue((std::string)(StringWrapper&)ref);
+        return this->LoadValue((const StringWrapper&)ref);
     case AttributeType::kVector2:
-        return this->LoadValue((InternalVector2&)(Vector2Wrapper&)ref);
+        return this->LoadValue((const Vector2Wrapper&)ref);
     case AttributeType::kVector4:
-        return this->LoadValue((InternalVector4&)(Vector4Wrapper&)ref);
+        return this->LoadValue((const Vector4Wrapper&)ref);
     default: return false;;
     }
 

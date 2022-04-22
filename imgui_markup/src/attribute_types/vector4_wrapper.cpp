@@ -11,9 +11,9 @@
 namespace igm::internal
 {
 
-bool Vector4Wrapper::LoadValue(InternalVector4& value) noexcept
+bool Vector4Wrapper::LoadValue(const Vector4Wrapper& val) noexcept
 {
-    this->SetValue(value);
+    this->SetValue((InternalVector4)val);
     return true;
 }
 

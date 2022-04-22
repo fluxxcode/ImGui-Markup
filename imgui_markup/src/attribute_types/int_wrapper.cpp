@@ -7,31 +7,21 @@
  * @brief Implementation of int_wrapper.h
  * @copyright Copyright (c) 2022
  */
-
+#include "attribute_types/float_wrapper.h"
 #include "utility/utility.h"
 
 namespace igm::internal
 {
 
-bool IntWrapper::LoadValue(std::string value) noexcept
+bool IntWrapper::LoadValue(const IntWrapper& val) noexcept
 {
-    int temp;
-    if (!utils::StringToInt(value, temp))
-        return false;
-
-    this->SetValue(temp);
+    this->SetValue((int)val);
     return true;
 }
 
-bool IntWrapper::LoadValue(int value) noexcept
+bool IntWrapper::LoadValue(const FloatWrapper& val) noexcept
 {
-    this->SetValue(value);
-    return true;
-}
-
-bool IntWrapper::LoadValue(float value) noexcept
-{
-    this->SetValue(value);
+    this->SetValue((int)(float)val);
     return true;
 }
 
