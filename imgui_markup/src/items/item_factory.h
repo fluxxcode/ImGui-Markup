@@ -1,6 +1,13 @@
 #ifndef IMGUI_MARKUP_SRC_ITEMS_ITEM_LIST_H_
 #define IMGUI_MARKUP_SRC_ITEMS_ITEM_LIST_H_
 
+/**
+ * @file item_factory.h
+ * @author FluxxCode (info.fluxxcode@gmail.com)
+ * @brief Contains class to create items from strings.
+ * @copyright Copyright (c) 2022
+ */
+
 #include "items/item_base.h"
 
 #include "items/widgets/panel.h"
@@ -9,7 +16,8 @@ namespace igm::internal
 {
 
 /**
- * Singleton class to create items by strings.
+ * Singleton class to create specific items through strings.
+ * Sets the mapping of item types within the markup language.
  */
 class ItemFactory
 {

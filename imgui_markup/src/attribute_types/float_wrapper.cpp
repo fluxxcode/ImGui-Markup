@@ -1,6 +1,13 @@
 #include "impch.h"
 #include "attribute_types/float_wrapper.h"
 
+/**
+ * @file float_wrapper.cpp
+ * @author FluxxCode (info.fluxxcode@gmail.com)
+ * @brief Implementation of float_wrapper.h
+ * @copyright Copyright (c) 2022
+ */
+
 #include "utility/utility.h"
 
 namespace igm::internal

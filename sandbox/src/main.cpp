@@ -1,6 +1,13 @@
 #include "sapch.h"
 #include "application.h"
 
+/**
+ * @file main.cpp
+ * @author FluxxCode (info.fluxxcode@gmail.com)
+ * @brief Entrypoint of the sandbox application.
+ * @copyright Copyright (c) 2022
+ */
+
 int main()
 {
     Application::Run();

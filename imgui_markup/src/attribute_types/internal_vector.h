@@ -1,6 +1,14 @@
 #ifndef IMGUI_MARKUP_SRC_ATTRIBUTE_TYPES_INTERNAL_VECTOR_H_
 #define IMGUI_MARKUP_SRC_ATTRIBUTE_TYPES_INTERNAL_VECTOR_H_
 
+/**
+ * @file internal_vector.cpp
+ * @author FluxxCode (info.fluxxcode@gmail.com)
+ * @brief Contains custom vectors using the internal attribute types.
+ *        Used internally by the markup language.
+ * @copyright Copyright (c) 2022
+ */
+
 #include "attribute_types/float_wrapper.h"
 
 namespace igm::internal

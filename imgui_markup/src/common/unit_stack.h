@@ -1,6 +1,13 @@
 #ifndef IMGUI_MARKUP_SRC_COMMON_UNIT_STACK_H_
 #define IMGUI_MARKUP_SRC_COMMON_UNIT_STACK_H_
 
+/**
+ * @file unit_stack.h
+ * @author FluxxCode (info.fluxxcode@gmail.com)
+ * @brief Contains unit and global unit stack
+ * @copyright Copyright (c) 2022
+ */
+
 #include "items/item_base.h"
 
 namespace igm::internal

@@ -1,6 +1,13 @@
 #ifndef IMGUI_MARKUP_INCLUDE_IMGUI_MARKUP_TYPES_H_
 #define IMGUI_MARKUP_INCLUDE_IMGUI_MARKUP_TYPES_H_
 
+/**
+ * @file types.h
+ * @author FluxxCode (info.fluxxcode@gmail.com)
+ * @brief Contains custom types used by the API.
+ * @copyright Copyright (c) 2022
+ */
+
 namespace igm
 {
 

@@ -1,22 +1,25 @@
 #ifndef SANDBOX_SRC_APPLICATION_APPLICATION_H_
 #define SANDBOX_SRC_APPLICATION_APPLICATION_H_
 
+/**
+ * @file application.h
+ * @author FluxxCode (info.fluxxcode@gmail.com)
+ * @brief Contains main application class.
+ * @copyright Copyright (c) 2022
+ */
+
 #include "main_state.h"
 
 class Application
 {
 public:
-    // Constructors/Destructors
     Application(const Application&) = delete;
 
-    // Operator
     void operator=(Application const&) = delete;
 
-    // Functions
     static void Run();
 
 private:
-    // Variables
     GLFWwindow* window_ = nullptr;
 
     const unsigned int kWindowSizeX_ = 1280, kWindowSizeY_ = 720;
@@ -26,10 +29,8 @@ private:
 
     MainState main_state_;
 
-    // Constructor
     Application();
 
-    // Functions
     static Application& Get();
 
     void IMPLRun();

@@ -1,5 +1,12 @@
 #include "impch.h"
-#include "attribute_types/attribute_types.h"
+#include "attribute_types/attribute_base.h"
+
+/**
+ * @file attribute_base.cpp
+ * @author FluxxCode (info.fluxxcode@gmail.com)
+ * @brief Implementation of attribute_base.h
+ * @copyright Copyright (c) 2022
+ */
 
 #include "attribute_types/bool_wrapper.h"
 #include "attribute_types/float_wrapper.h"

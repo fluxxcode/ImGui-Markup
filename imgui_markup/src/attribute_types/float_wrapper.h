@@ -1,7 +1,15 @@
 #ifndef IMGUI_MARKUP_SRC_ATTRIBUTE_TYPES_FLOAT_WRAPPER_H_
 #define IMGUI_MARKUP_SRC_ATTRIBUTE_TYPES_FLOAT_WRAPPER_H_
 
-#include "attribute_types/attribute_types.h"
+/**
+ * @file float_wrapper.h
+ * @author FluxxCode (info.fluxxcode@gmail.com)
+ * @brief Contains wrapper above the build-in type float.
+ *        Used internally by the markup language.
+ * @copyright Copyright (c) 2022
+ */
+
+#include "attribute_types/attribute_base.h"
 
 namespace igm::internal
 {

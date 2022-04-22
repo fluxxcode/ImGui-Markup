@@ -1,6 +1,13 @@
 #include "sapch.h"
 #include "application.h"
 
+/**
+ * @file application.cpp
+ * @author FluxxCode (info.fluxxcode@gmail.com)
+ * @brief Implementation of application.h
+ * @copyright Copyright (c) 2022
+ */
+
 void Application::Run()
 {
     Application::Get().IMPLRun();

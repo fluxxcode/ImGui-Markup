@@ -1,6 +1,13 @@
 #include "impch.h"
 #include "parser/parser.h"
 
+/**
+ * @file parser.cpp
+ * @author FluxxCode (info.fluxxcode@gmail.com)
+ * @brief Implementation of parser.h
+ * @copyright Copyright (c) 2022
+ */
+
 #include "utility/utility.h"
 
 namespace igm::internal
@@ -16,7 +23,7 @@ void Parser::ParseFromFile(std::string file)
 
     try
     {
-        this->lexer_.LoadFromFile(file);
+        this->lexer_.InitFile(file);
 
         this->ProcessTokens();
     }
@@ -38,8 +45,6 @@ void Parser::ParseFromFile(std::string file)
         std::cerr << "ERROR: " + e.message << std::endl;
         this->interpreter_.Reset();  // Clear destination unit
     }
-
-    int a = 0;
 }
 
 void Parser::Reset() noexcept

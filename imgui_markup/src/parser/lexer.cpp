@@ -1,14 +1,21 @@
 #include "impch.h"
 #include "lexer.h"
 
+/**
+ * @file lexer.cpp
+ * @author FluxxCode (info.fluxxcode@gmail.com)
+ * @brief Implementation of lexer.h
+ * @copyright Copyright (c) 2022
+ */
+
 namespace igm::internal
 {
 
-void Lexer::LoadFromFile(std::string path)
+void Lexer::InitFile(std::string path)
 {
     this->Reset();
 
-    Token token(TokenType::kUndefined, "", 0, 0, 0, path);
+    Token token(TokenType::kString, "", 0, 0, 0, path);
     this->OpenFile(path, token);
 }
 
@@ -92,12 +99,14 @@ char Lexer::GetChar() noexcept
 
     File& file = this->file_stack_.back();
 
+    // Check if the next char is on a new line
     if (file.context.position >= file.context.current_line.size())
     {
         file.context.position = 0;
         file.context.line_number++;
 
         if (!std::getline(file.fstream, file.context.current_line))
+            // Pop the current file if there is no char left
             this->PopFile();
 
         return '\n';
@@ -278,14 +287,17 @@ Lexer::Token Lexer::CreateString()
 
 bool Lexer::IsNumber(char c) const noexcept
 {
-    return std::isdigit(c) || c == '.';
+    return std::isdigit(c) || c == '.' || c == '-';
 }
 
 Lexer::Token Lexer::CreateNumber(char c)
 {
     std::string value(1, c);
 
+    // Numbers starting with a '.' are interpreted as float numbers.
+    // Make sure to increment the dot count
     size_t dot_count = c == '.' ? 1 : 0;
+
     while (this->IsNumber(this->PeekChar()))
     {
         const char c = this->GetChar();

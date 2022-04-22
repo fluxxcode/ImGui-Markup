@@ -1,6 +1,13 @@
 #ifndef IMGUI_MARKUP_SRC_ITEM_ITEM_MAPPING_H_
 #define IMGUI_MARKUP_SRC_ITEM_ITEM_MAPPING_H_
 
+/**
+ * @file item_types.h
+ * @author FluxxCode (info.fluxxcode@gmail.com)
+ * @brief Contains enums for every item category and item type.
+ * @copyright Copyright (c) 2022
+ */
+
 namespace igm::internal
 {
 

@@ -1,14 +1,26 @@
 #ifndef IMGUI_MARKUP_SRC_ITEMS_ITEM_BASE_H_
 #define IMGUI_MARKUP_SRC_ITEMS_ITEM_BASE_H_
 
+/**
+ * @file item_base.h
+ * @author FluxxCode (info.fluxxcode@gmail.com)
+ * @brief Contains ItemBase, parent of every item within the markup language.
+ * @copyright Copyright (c) 2022
+ */
+
 #include "items/item_api.h"
 #include "items/item_types.h"
-#include "attribute_types/attribute_types.h"
+#include "attribute_types/attribute_base.h"
 #include "attribute_types/internal_vector.h"
 
 namespace igm::internal
 {
 
+/**
+ * Parent of every item within the markup language.
+ * Implements functions related to every item, mostly attribute and
+ * child handling.
+ */
 class ItemBase : public ItemAPI
 {
 public:

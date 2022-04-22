@@ -1,18 +1,26 @@
 #ifndef IMGUI_MARKUP_SRC_ITEM_ITEM_API_H_
 #define IMGUI_MARKUP_SRC_ITEM_ITEM_API_H_
 
-// Contains functions and deafult return value that can be
-// called via the backend
+/**
+ * @file item_api.h
+ * @author FluxxCode (info.fluxxcode@gmail.com)
+ * @brief Contains the main item API class.
+ * @copyright Copyright (c) 2022
+ */
 
 namespace igm::internal
 {
 
+/**
+ * Parent of every item within the markup language,
+ * containing API functions and their default return values.
+ */
 struct ItemAPI
 {
-    virtual void Update() noexcept = 0;
+    virtual void API_Update() noexcept = 0;
 
-    virtual bool IsPressed() noexcept { return false; }
-    virtual bool IsHovered() noexcept { return false; }
+    virtual bool API_IsPressed() noexcept { return false; }
+    virtual bool API_IsHovered() noexcept { return false; }
 };
 
 }  // namespace igm::internal

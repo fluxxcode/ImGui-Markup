@@ -1,6 +1,13 @@
 #include "impch.h"
 #include "utility/utility.h"
 
+/**
+ * @file utility.cpp
+ * @author FluxxCode (info.fluxxcode@gmail.com)
+ * @brief Implementation of utility.h
+ * @copyright Copyright (c) 2022
+ */
+
 namespace igm::internal::utils
 {
 

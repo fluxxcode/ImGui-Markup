@@ -1,6 +1,13 @@
 #ifndef SANDBOX_SRC_SAPCH_H_
 #define SANDBOX_SRC_SAPCH_H_
 
+/**
+ * @file impch.h
+ * @author FluxxCode (info.fluxxcode@gmail.com)
+ * @brief Precompiled header for the sandbox application.
+ * @copyright Copyright (c) 2022
+ */
+
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 

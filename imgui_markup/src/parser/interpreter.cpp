@@ -1,6 +1,13 @@
 #include "impch.h"
 #include "parser/interpreter.h"
 
+/**
+ * @file interpreter.cpp
+ * @author FluxxCode (info.fluxxcode@gmail.com)
+ * @brief Implementation of interpreter.h
+ * @copyright Copyright (c) 2022
+ */
+
 #include "items/item_factory.h"
 #include "utility/utility.h"
 #include "attribute_types/vector2_wrapper.h"
@@ -29,6 +36,8 @@ void Interpreter::CreateItem(const Lexer::Token& type, const Lexer::Token& id)
 
     if (this->item_stack_.empty())
     {
+        // Item stack is empty; create item within the root of the
+        // unit's item tree
         this->unit_.item_tree.push_back(
             ItemFactory::CreateItem(type.value, id.value, nullptr));
 
@@ -36,6 +45,8 @@ void Interpreter::CreateItem(const Lexer::Token& type, const Lexer::Token& id)
     }
     else
     {
+        // Create the item within the item that is currently on top
+        // of the item stack.
         new_item = this->item_stack_.back()->CreateChildItem(
             type.value, id.value);
     }
@@ -50,6 +61,7 @@ void Interpreter::CreateItem(const Lexer::Token& type, const Lexer::Token& id)
 
     std::string full_id = this->GetCurrentID();
 
+    // Make sure that there is no other item with the same ID
     if (this->unit_.item_ids.find(full_id) != this->unit_.item_ids.end())
         throw IDIsAlreadyDefined(id);
 
@@ -67,15 +79,23 @@ void Interpreter::PopItem(const Lexer::Token& token)
 void Interpreter::ProcessAssignAttributeNode(
     Interpreter::AttributeAssignNode node)
 {
-    AttributeInterface* attribute = this->GetAttributeFromCurrentItem(
-        node.name);
+    AttributeInterface* attribute =
+        this->GetAttributeFromCurrentItem(node.name);
 
     this->AssignAttribute(*attribute, node.value);
+}
+
+void Interpreter::ProcessAttributeCreateNode(
+    Interpreter::AttributeCreateNode node)
+{
+    // TODO: Implementation
 }
 
 void Interpreter::AssignAttribute(AttributeInterface& attribute,
                                   const ValueNode& value_node)
 {
+    // Reset the attribute to make sure that it is not
+    // referencing any other attribute
     attribute.Reset();
 
     bool result = false;
@@ -133,12 +153,6 @@ void Interpreter::AssignAttribute(AttributeInterface& attribute,
         throw UnableToConvertValue(value_node.value_token);
 }
 
-void Interpreter::ProcessAttributeCreateNode(
-    Interpreter::AttributeCreateNode node)
-{
-    // TODO: Implementation
-}
-
 InternalVector2 Interpreter::EvalVector2Node(const Vector2Node& value)
 {
     FloatWrapper x, y;
@@ -164,7 +178,7 @@ InternalVector4 Interpreter::EvalVector4Node(const Vector4Node& value)
 AttributeInterface* Interpreter::EvalAttributeAccessNode(
     const AttributeAccessNode& value)
 {
-    return this->GetAttribute(value.name);
+    return this->GetAttributeFromFullID(value.name);
 }
 
 std::string Interpreter::GetCurrentID() const noexcept
@@ -200,6 +214,7 @@ AttributeInterface* Interpreter::GetAttributeFromCurrentItem(
     if (segments.empty())
         throw InvalidAccessID(token);
 
+    // Getting the front segment as child attributes may be set
     std::string attribute_name = segments.front();
     segments.erase(segments.begin());
 
@@ -209,9 +224,12 @@ AttributeInterface* Interpreter::GetAttributeFromCurrentItem(
     if (attribute == nullptr)
         throw AttributeNotDefined(token, attribute_name);
 
+    // No child attribute is defined if the segments are empty at this point
     if (segments.empty())
         return attribute;
 
+    // We currently only expect that one child attribute is set.
+    // Something like attribute.child.child is currently not supported.
     std::string child_attribute = segments.front();
     segments.erase(segments.begin());
 
@@ -221,10 +239,15 @@ AttributeInterface* Interpreter::GetAttributeFromCurrentItem(
     if (segments.empty())
         return child;
 
+    // There are multiple child attributes set if we get to this point.
+    // We will throw the AttributeChildNotDefined exception because we know
+    // for sure that there is currently no child attribute that can
+    // contain another child.
     throw AttributeChildNotDefined(token, child_attribute, segments.front());
 }
 
-AttributeInterface* Interpreter::GetAttribute(const Lexer::Token& token)
+AttributeInterface* Interpreter::GetAttributeFromFullID(
+    const Lexer::Token& token)
 {
     const std::string& name = token.value;
 
@@ -233,11 +256,16 @@ AttributeInterface* Interpreter::GetAttribute(const Lexer::Token& token)
     if (segments.empty())
         throw InvalidAccessID(token);
 
+    // Gets the item ID from the segments by iterating the segments from
+    // the front and checking with each segment if there is any item
+    // with the ID.
+    // For example: root_item.item.attribute -> root_item.item
     std::string item_id;
     while (!segments.empty())
     {
         const std::string segment = segments.front();
 
+        // Only add '.' to the next ID if its not empty.
         const std::string next_id = item_id +
             (item_id.empty() ? segment : '.' + segment);
 
@@ -249,11 +277,13 @@ AttributeInterface* Interpreter::GetAttribute(const Lexer::Token& token)
     }
 
     if (this->unit_.item_ids.find(item_id) == this->unit_.item_ids.end())
-        throw UnableToFindObject(token);
+        throw UnableToFindItem(token);
 
     if (segments.empty())
         throw ItemReferenceNotSupported(token);
 
+    // Expecting the attribute name at the front of the segments now;
+    // item ID is erased from the segments.
     std::string attribute_name = segments.front();
     segments.erase(segments.begin());
 
@@ -263,9 +293,12 @@ AttributeInterface* Interpreter::GetAttribute(const Lexer::Token& token)
     if (attribute == nullptr)
         throw AttributeNotDefined(token, item_id, attribute_name);
 
+    // No child attribute is defined if the segments are empty at this point
     if (segments.empty())
         return attribute;
 
+    // We currently only expect that one child attribute is set.
+    // Something like attribute.child.child is currently not supported.
     std::string child_attribute = segments.front();
     segments.erase(segments.begin());
 
@@ -275,6 +308,10 @@ AttributeInterface* Interpreter::GetAttribute(const Lexer::Token& token)
     if (segments.empty())
         return child;
 
+    // There are multiple child attributes set if we get to this point.
+    // We will throw the AttributeChildNotDefined exception because we know
+    // for sure that there is currently no child attribute that can
+    // contain another child.
     throw AttributeChildNotDefined(token, child_attribute, segments.front());
 }
 

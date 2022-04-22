@@ -1,6 +1,13 @@
 #include "impch.h"
 #include "items/item_base.h"
 
+/**
+ * @file item_base.cpp
+ * @author FluxxCode (info.fluxxcode@gmail.com)
+ * @brief Implementation of item_base.h
+ * @copyright Copyright (c) 2022
+ */
+
 #include "items/item_factory.h"
 
 namespace igm::internal

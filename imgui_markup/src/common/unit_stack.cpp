@@ -1,6 +1,13 @@
 #include "impch.h"
 #include "common/unit_stack.h"
 
+/**
+ * @file unit_stack.cpp
+ * @author FluxxCode (info.fluxxcode@gmail.com)
+ * @brief Implementation of unit_stack.h
+ * @copyright Copyright (c) 2022
+ */
+
 namespace igm::internal
 {
 

@@ -1,6 +1,13 @@
 #ifndef IMGUI_MARKUP_SRC_UTILITY_UTILITY_H_
 #define IMGUI_MARKUP_SRC_UTILITY_UTILITY_H_
 
+/**
+ * @file vector2_wrapper.h
+ * @author FluxxCode (info.fluxxcode@gmail.com)
+ * @brief Contains utility functions used internally.
+ * @copyright Copyright (c) 2022
+ */
+
 namespace igm::internal::utils
 {
 

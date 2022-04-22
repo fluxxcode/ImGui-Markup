@@ -1,5 +1,13 @@
-#ifndef IMGUI_MARKUP_SRC_ATTRIBUTE_TYPES_ATTRIBUTE_TYPES_H_
-#define IMGUI_MARKUP_SRC_ATTRIBUTE_TYPES_ATTRIBUTE_TYPES_H_
+#ifndef IMGUI_MARKUP_SRC_ATTRIBUTE_TYPES_ATTRIBUTE_BASE_H_
+#define IMGUI_MARKUP_SRC_ATTRIBUTE_TYPES_ATTRIBUTE_BASE_H_
+
+/**
+ * @file attribute_base.h
+ * @author FluxxCode (info.fluxxcode@gmail.com)
+ * @brief Contains base classes used internally by the markup languages
+ *        attribute types.
+ * @copyright Copyright (c) 2022
+ */
 
 namespace igm::internal
 {
@@ -16,15 +24,15 @@ enum class AttributeType
 
 static std::string AttributeTypeToString(AttributeType type);
 
-// Forward declaration for references
+class InternalVector2;
+class InternalVector4;
+
 class IntWrapper;
 class FloatWrapper;
 class BoolWrapper;
 class StringWrapper;
 class Vector2Wrapper;
 class Vector4Wrapper;
-class InternalVector2;
-class InternalVector4;
 
 struct AttributeInterface
 {
@@ -139,4 +147,4 @@ private:
 
 }  // namespace igm::internal
 
-#endif  // IMGUI_MARKUP_SRC_ATTRIBUTE_TYPES_ATTRIBUTE_TYPES_H_
+#endif  // IMGUI_MARKUP_SRC_ATTRIBUTE_TYPES_ATTRIBUTE_BASE_H_
