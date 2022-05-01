@@ -88,7 +88,44 @@ void Interpreter::ProcessAssignAttributeNode(
 void Interpreter::ProcessAttributeCreateNode(
     Interpreter::AttributeCreateNode node)
 {
-    // TODO: Implementation
+    if (this->item_stack_.empty())
+        throw CreateAttributeInGlobalScope(node.name);
+
+    ItemBase* item = this->item_stack_.back();
+
+    bool attribute = false;
+    switch (node.value.type)
+    {
+    case ValueType::kString:
+        attribute = item->CreateAttribute<StringWrapper>(node.name.value);
+        break;
+    case ValueType::kInt:
+        attribute = item->CreateAttribute<IntWrapper>(node.name.value);
+        break;
+    case ValueType::kFloat:
+        attribute = item->CreateAttribute<FloatWrapper>(node.name.value);
+        break;
+    case ValueType::kBool:
+        attribute = item->CreateAttribute<BoolWrapper>(node.name.value);
+        break;
+    case ValueType::kVector2:
+    {
+        attribute = item->CreateAttribute<Vector2Wrapper>(node.name.value);
+        break;
+    }
+    case ValueType::kVector4:
+    {
+        attribute = item->CreateAttribute<Vector4Wrapper>(node.name.value);
+        break;
+    }
+    default:
+        throw ExpectingValue(node.value.value_token);
+    }
+
+    if (!attribute)
+        throw AttributeAlreadyDefined(node.name, node.name.value);
+
+    this->AssignAttribute(*item->GetAttribute(node.name.value), node.value);
 }
 
 void Interpreter::AssignAttribute(AttributeInterface& attribute,

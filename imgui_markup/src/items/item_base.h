@@ -29,33 +29,41 @@ public:
 
     ItemBase(const ItemBase&) = delete;
 
-    virtual void Update() noexcept { };
+    virtual void API_Update() noexcept { };
 
     ItemBase* CreateChildItem(std::string type, std::string access_id) noexcept;
-
-    bool CreateAttribtue(std::string name, int value) noexcept;
-    bool CreateAttribtue(std::string name, float value) noexcept;
-    bool CreateAttribtue(std::string name, bool value) noexcept;
-    bool CreateAttribtue(std::string name, const char* value) noexcept;
-    bool CreateAttribtue(std::string name, InternalVector2 value) noexcept;
-    bool CreateAttribtue(std::string name, InternalVector4 value) noexcept;
 
     inline AttributeInterface* GetAttribute(std::string name) const noexcept
     {
         if (!this->IsAttributeDefined(name))
             return nullptr;
 
-        return this->attributes_.at(name);
+        return this->attribute_list_.at(name);
     }
 
-    // Expecting type specified in items/attribute_types.h
+    /**
+     * Copies the given attribute and adds it to the attribute list.
+     *
+     * @tparam T - Expecting an attribute wrapper defined in the
+     *             directory attribute_types.
+     * @param name - Name of the attribute to allow access from
+     *               the markup langauge.
+     * @param attribute - The attribute itself that will be copied and
+     *                    added to the attribute list.
+     *
+     * @return true on success, false if there is already an attribute defined
+     *         with the same name.
+     */
     template<typename T>
-    inline bool SetAttribute(std::string name, T value) noexcept
+    bool CreateAttribute(std::string name) noexcept
     {
-        if (!this->IsAttributeDefined(name))
+        if (this->IsAttributeDefined(name))
             return false;
 
-        return this->attributes_.at(name)->LoadValue(value);
+        this->dynamic_attributes_.push_back(std::make_unique<T>());
+        this->attribute_list_[name] = this->dynamic_attributes_.back().get();
+
+        return true;
     }
 
     inline std::string GetAccessID() const noexcept
@@ -64,42 +72,48 @@ public:
 protected:
     const ItemType type_;
     const ItemCategory category_;
-    const std::string access_id_;  // ID to access the object via the API
-                                   // or to reference the object through
-                                   // the markup language
-    std::string unique_id_;  // Address of the object, used as an unique ID.
-    ItemBase* parent_;  // If nullptr, object is at the root of the tree
+
+    /**
+     * ID to access the object via the API or to reference the object
+     * through the markup language.
+     * NOTE: This is NOT the full ID!
+     */
+    const std::string access_id_;
+
+    /**
+     * Unique ID that equals the address of the object.
+     * Set within the constructor.
+     */
+    std::string unique_id_;
+
+    /**
+     * Parent item, nullptr if the item has no parent and is at the
+     * root of the item tree.
+     */
+    ItemBase* parent_;
+
     std::vector<std::unique_ptr<ItemBase>> child_items_;
 
+    /**
+     * Function used by the inheriting item.
+     * Adds an attribute to the attribute list with the curresponding
+     * name used within the markup language.
+     */
     inline void AddAttribute(std::string name,
                              AttributeInterface* value) noexcept
     {
-        this->attributes_[name] = value;
+        this->attribute_list_[name] = value;
     }
 
-    std::map<std::string, AttributeInterface*> attributes_;
 private:
     // Main attributes set by the inheriting item
+    std::map<std::string, AttributeInterface*> attribute_list_;
 
-    // Expecting attribute wrapper defined in items/attribute_types.h
-    template<typename T>
-    AttributeInterface* CreateDynamicAttribute(std::string name) noexcept
-    {
-        static std::vector<T> dynamic_attributes;
-
-        dynamic_attributes.emplace_back(T());
-
-        AttributeInterface* interface =
-            (AttributeInterface*)&dynamic_attributes.back();
-
-        this->attributes_[name] = interface;
-
-        return interface;
-    }
+    std::vector<std::unique_ptr<AttributeInterface>> dynamic_attributes_;
 
     inline bool IsAttributeDefined(const std::string& name) const noexcept
     {
-        if (this->attributes_.find(name) == this->attributes_.end())
+        if (this->attribute_list_.find(name) == this->attribute_list_.end())
             return false;
 
         return true;

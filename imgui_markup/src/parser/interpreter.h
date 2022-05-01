@@ -224,9 +224,13 @@ public:
      * Processes an AttribtueCreateNode, evaluates the value and creates
      * a new attribute within the item that is on top of the item stack.
      *
-     * TODO: Implementation
-     *
-     * @throws
+     * @throws CreateAttributeInGlobalScope when the item stack is empty
+     *             and an attempt is made to get create an attribute within the
+     *             global scope.
+     *         ExpectingValue when the value is not of type string, int,
+     *              float, bool, vector2 or vector4.
+     *         AttributeAlreadyDefined when the item already has an
+     *              attribute with the given name.
      */
     void ProcessAttributeCreateNode(AttributeCreateNode node);
 
@@ -391,6 +395,15 @@ struct AttributeFromGlobalScope : public InterpreterException
     { }
 };
 
+struct CreateAttributeInGlobalScope : public InterpreterException
+{
+    CreateAttributeInGlobalScope(Lexer::Token token)
+        : InterpreterException("Unable to create an attribute within the "
+                                "global scope; expecting item declaration",
+                                token)
+    { }
+};
+
 struct InvalidAccessID : public InterpreterException
 {
     InvalidAccessID(Lexer::Token token)
@@ -441,6 +454,21 @@ struct UnableToConvertValue : public InterpreterException
     // TODO: Improve error message by specifing type
     UnableToConvertValue(Lexer::Token token)
         : InterpreterException("Unable to convert value", token)
+    { }
+};
+
+struct ExpectingValue : public InterpreterException
+{
+    ExpectingValue(Lexer::Token token)
+        : InterpreterException("Expecting value", token)
+    { }
+};
+
+struct AttributeAlreadyDefined : public InterpreterException
+{
+    AttributeAlreadyDefined(Lexer::Token token, std::string name)
+        : InterpreterException("Item already has an attribute with the name '" +
+                               name + "'", token)
     { }
 };
 
