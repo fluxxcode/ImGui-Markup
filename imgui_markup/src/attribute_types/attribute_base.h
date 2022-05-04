@@ -22,8 +22,6 @@ enum class AttributeType
     kVector4
 };
 
-static std::string AttributeTypeToString(AttributeType type);
-
 class IntWrapper;
 class FloatWrapper;
 class BoolWrapper;
@@ -52,6 +50,8 @@ struct AttributeInterface
     virtual bool InitReference(StringWrapper& ref) noexcept { return false; }
     virtual bool InitReference(Vector2Wrapper& ref) noexcept { return false; }
     virtual bool InitReference(Vector4Wrapper& ref) noexcept { return false; }
+
+    static std::string AttributeTypeToString(AttributeType type);
 };
 
 template<typename T>

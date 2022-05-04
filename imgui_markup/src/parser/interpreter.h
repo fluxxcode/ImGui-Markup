@@ -451,9 +451,10 @@ struct AttributeChildNotDefined : public InterpreterException
 
 struct UnableToConvertValue : public InterpreterException
 {
-    // TODO: Improve error message by specifing type
-    UnableToConvertValue(Lexer::Token token)
-        : InterpreterException("Unable to convert value", token)
+    UnableToConvertValue(Lexer::Token token, AttributeType type)
+        : InterpreterException("Value cannot be converted to a type of '" +
+                               AttributeInterface::AttributeTypeToString(type) +
+                               "'", token)
     { }
 };
 

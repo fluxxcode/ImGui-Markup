@@ -19,20 +19,6 @@
 namespace igm::internal
 {
 
-std::string AttributeTypeToString(AttributeType type)
-{
-    switch (type)
-    {
-    case AttributeType::kInt: return "Int";
-    case AttributeType::kFloat: return "Float";
-    case AttributeType::kBool: return "Bool";
-    case AttributeType::kString: return "String";
-    case AttributeType::kVector2: return "Vector2";
-    case AttributeType::kVector4: return "Vector4";
-    default: return "UNKNOWN";
-    }
-}
-
 bool AttributeInterface::LoadValue(const AttributeInterface& ref) noexcept
 {
     switch (ref.GetType())
@@ -75,6 +61,20 @@ bool AttributeInterface::InitReference(AttributeInterface& ref) noexcept
     }
 
     return false;
+}
+
+std::string AttributeInterface::AttributeTypeToString(AttributeType type)
+{
+    switch (type)
+    {
+    case AttributeType::kInt: return "Int";
+    case AttributeType::kFloat: return "Float";
+    case AttributeType::kBool: return "Bool";
+    case AttributeType::kString: return "String";
+    case AttributeType::kVector2: return "Vector2";
+    case AttributeType::kVector4: return "Vector4";
+    default: return "UNKNOWN";
+    }
 }
 
 }  // namespace igm::internal
