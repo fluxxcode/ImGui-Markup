@@ -93,39 +93,27 @@ void Interpreter::ProcessAttributeCreateNode(
 
     ItemBase* item = this->item_stack_.back();
 
-    bool attribute = false;
-    switch (node.value.type)
-    {
-    case ValueType::kString:
-        attribute = item->CreateAttribute<StringWrapper>(node.name.value);
-        break;
-    case ValueType::kInt:
-        attribute = item->CreateAttribute<IntWrapper>(node.name.value);
-        break;
-    case ValueType::kFloat:
-        attribute = item->CreateAttribute<FloatWrapper>(node.name.value);
-        break;
-    case ValueType::kBool:
-        attribute = item->CreateAttribute<BoolWrapper>(node.name.value);
-        break;
-    case ValueType::kVector2:
-    {
-        attribute = item->CreateAttribute<Vector2Wrapper>(node.name.value);
-        break;
-    }
-    case ValueType::kVector4:
-    {
-        attribute = item->CreateAttribute<Vector4Wrapper>(node.name.value);
-        break;
-    }
-    default:
-        throw ExpectingValue(node.value.value_token);
-    }
+    const std::string& type = node.type.value;
+    const std::string& name = node.name.value;
 
-    if (!attribute)
-        throw AttributeAlreadyDefined(node.name, node.name.value);
+    bool is_valid_name = false;
+    if (type == "int")
+        is_valid_name = item->CreateAttribute<IntWrapper>(name);
+    else if (type == "float")
+        is_valid_name = item->CreateAttribute<FloatWrapper>(name);
+    else if (type == "bool")
+        is_valid_name = item->CreateAttribute<BoolWrapper>(name);
+    else if (type == "string")
+        is_valid_name = item->CreateAttribute<StringWrapper>(name);
+    else if (type == "vec2")
+        is_valid_name = item->CreateAttribute<Vector2Wrapper>(name);
+    else if (type == "vec4")
+        is_valid_name = item->CreateAttribute<Vector4Wrapper>(name);
+    else
+        throw InvalidAttributeType(node.type);
 
-    this->AssignAttribute(*item->GetAttribute(node.name.value), node.value);
+    if (!is_valid_name)
+        throw AttributeAlreadyDefined(node.name);
 }
 
 void Interpreter::AssignAttribute(AttributeInterface& attribute,

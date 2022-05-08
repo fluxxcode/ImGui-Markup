@@ -259,6 +259,13 @@ struct UnexpectedNumberOfValuesInVector : public ParserException
     { }
 };
 
+struct ExpectedAttributeName : public ParserException
+{
+    ExpectedAttributeName(Lexer::Token token)
+        : ParserException("Expected attribute name", token)
+    { }
+};
+
 }  // namespace igm::internal
 
 #endif  // IMGUI_MARKUP_SRC_PARSER_PARSER_H_

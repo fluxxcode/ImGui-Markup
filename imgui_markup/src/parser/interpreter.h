@@ -148,12 +148,12 @@ public:
 
     struct AttributeCreateNode
     {
-        AttributeCreateNode(Lexer::Token name, ValueNode& value)
-            : name(name), value(value)
+        AttributeCreateNode(Lexer::Token type, Lexer::Token name)
+            : type(type), name(name)
         { }
 
+        const Lexer::Token type;
         const Lexer::Token name;
-        const ValueNode& value;
     };
 
     Interpreter(Unit& dest);
@@ -465,11 +465,18 @@ struct ExpectingValue : public InterpreterException
     { }
 };
 
+struct InvalidAttributeType : public InterpreterException
+{
+    InvalidAttributeType(Lexer::Token token)
+        : InterpreterException("Invalid attribute type", token)
+    { }
+};
+
 struct AttributeAlreadyDefined : public InterpreterException
 {
-    AttributeAlreadyDefined(Lexer::Token token, std::string name)
+    AttributeAlreadyDefined(Lexer::Token token)
         : InterpreterException("Item already has an attribute with the name '" +
-                               name + "'", token)
+                               token.value + "'", token)
     { }
 };
 

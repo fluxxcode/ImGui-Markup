@@ -328,7 +328,18 @@ void Parser::ProcessAttributeAssign(const Lexer::Token& token)
 void Parser::ProcessAttributeCreate(const Lexer::Token& token)
 {
     // Skip '+'
+    const Lexer::Token type = this->lexer_.Get();
+
+    if (this->lexer_.Peek().type != Lexer::TokenType::kKeyword)
+        throw ExpectedAttributeName(this->lexer_.Peek());
+
     const Lexer::Token name = this->lexer_.Get();
+
+    this->interpreter_.ProcessAttributeCreateNode(
+        Interpreter::AttributeCreateNode(type, name));
+
+    if (this->lexer_.Peek().type != Lexer::TokenType::kEqual)
+        return;
 
     // Skip '='
     this->lexer_.Get();
@@ -336,8 +347,8 @@ void Parser::ProcessAttributeCreate(const Lexer::Token& token)
     std::unique_ptr<Interpreter::ValueNode> value = this->CreateValueNode(
         this->lexer_.Get());
 
-    this->interpreter_.ProcessAttributeCreateNode(
-        Interpreter::AttributeCreateNode(name, *value.get()));
+    this->interpreter_.ProcessAssignAttributeNode(
+        Interpreter::AttributeAssignNode(name, *value.get()));
 }
 
 void Parser::ProcessTokens()
