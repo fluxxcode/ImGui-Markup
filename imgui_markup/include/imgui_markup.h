@@ -9,11 +9,27 @@
  */
 
 #include "imgui_markup/types.h"
+#include "imgui_markup/result.h"
 
 namespace igm
 {
 
-void Print();
+/**
+ * Parses a file containing the valid markup language used for the layer.
+ *
+ * @return ID of the created unit.
+ */
+size_t ParseFromFile(const char* path, bool* result = nullptr);
+
+/**
+ * Deletes all data related to a specific unit.
+ */
+void DeleteUnit(size_t unit, bool* result = nullptr);
+
+/**
+ * Get the last result of a specific unit.
+ */
+Result GetLastResult(size_t unit, bool* result = nullptr);
 
 }  // namespace igm
 

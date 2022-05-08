@@ -125,6 +125,11 @@ public:
     Lexer::Token Peek();
 
     /**
+     * Gets the path of every file on the file stack.
+     */
+    std::vector<std::string> GetFileStack() const;
+
+    /**
      * Resets the values within the lexer.
      */
     void Reset() noexcept;

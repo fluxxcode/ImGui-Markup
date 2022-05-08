@@ -11,6 +11,7 @@
 #include "parser/lexer.h"
 #include "parser/interpreter.h"
 #include "common/unit_stack.h"
+#include "parser/parser_result.h"
 
 namespace igm::internal
 {
@@ -25,7 +26,7 @@ class Parser
 public:
     Parser(Unit& dest);
 
-    void ParseFromFile(std::string file);
+    ParserResult ParseFromFile(std::string file);
 
 private:
     Lexer lexer_;
@@ -185,6 +186,7 @@ private:
 
     void ProcessTokens();
 
+    ParserPosition CreateParserPosition(Lexer::Token token) const;
 };
 
 struct ParserException

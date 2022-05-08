@@ -8,24 +8,44 @@
  * @copyright Copyright (c) 2022
  */
 
-#include "parser/parser.h"
 #include "common/unit_stack.h"
+#include "parser/parser.h"
+#include "parser/parser_result.h"
 
 namespace igm
 {
 
-void Print()
+size_t ParseFromFile(const char* path, bool* result_out)
 {
-    // NOTE: This is currently only used for testing purposes
+    if (result_out)
+        *result_out = false;
 
     internal::Unit& unit = internal::UnitStack::CreateEmptyUnit();
-
     internal::Parser parser(unit);
 
-    parser.ParseFromFile("test.igm");
+    const internal::ParserResult result = parser.ParseFromFile(path);
+    if (result.type != internal::ParserResultType::kSuccess)
+    {
+        internal::UnitStack::SetLastResult(unit.unit_id,
+            Result(ResultType::kParserError, result.ToString()));
 
-    for (auto& child : unit.item_tree)
-        child->Update();
+        return unit.unit_id;
+    }
+
+    if (result_out)
+        *result_out = true;
+
+    return unit.unit_id;
+}
+
+void DeleteUnit(size_t unit, bool* result)
+{
+    internal::UnitStack::DeleteUnit(unit, result);
+}
+
+Result GetLastResult(size_t unit, bool* result)
+{
+    return internal::UnitStack::GetLastResult(unit, result);
 }
 
 }  // namespace igm

@@ -17,7 +17,7 @@ Parser::Parser(Unit& dest)
     : interpreter_(Interpreter(dest))
 { }
 
-void Parser::ParseFromFile(std::string file)
+ParserResult Parser::ParseFromFile(std::string file)
 {
     this->Reset();
 
@@ -29,22 +29,25 @@ void Parser::ParseFromFile(std::string file)
     }
     catch (const LexerException& e)
     {
-        // TODO: Return error
-        std::cerr << "ERROR: " + e.message << std::endl;
         this->interpreter_.Reset();  // Clear destination unit
+        return ParserResult(ParserResultType::kError, e.message,
+                            Parser::CreateParserPosition(e.token));
+
     }
     catch (const ParserException& e)
     {
-        // TODO: Return error
-        std::cerr << "ERROR: " + e.message << std::endl;
         this->interpreter_.Reset();  // Clear destination unit
+        return ParserResult(ParserResultType::kError, e.message,
+                            Parser::CreateParserPosition(e.token));
     }
     catch (const InterpreterException& e)
     {
-        // TODO: Return error
-        std::cerr << "ERROR: " + e.message << std::endl;
         this->interpreter_.Reset();  // Clear destination unit
+        return ParserResult(ParserResultType::kError, e.message,
+                            Parser::CreateParserPosition(e.token));
     }
+
+    return ParserResult();  // -> will default to Success
 }
 
 void Parser::Reset() noexcept
@@ -354,6 +357,13 @@ void Parser::ProcessTokens()
         else
             throw UndefinedSequenceOfTokens(token);
     }
+}
+
+ParserPosition Parser::CreateParserPosition(Lexer::Token token) const
+{
+    return ParserPosition(this->lexer_.GetFileStack(), token.position.line,
+                          token.position.line_number, token.position.start,
+                          token.position.end);
 }
 
 }  // namespace igm::internal

@@ -43,6 +43,16 @@ Lexer::Token Lexer::Peek()
     return this->token_cache_.front();
 }
 
+std::vector<std::string> Lexer::GetFileStack() const
+{
+    std::vector<std::string> file_stack;
+
+    for (const auto& file : this->file_stack_)
+        file_stack.push_back(file.context.path);
+
+    return file_stack;
+}
+
 void Lexer::Reset() noexcept
 {
     while (this->file_stack_.size() != 0)

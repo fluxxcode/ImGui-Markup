@@ -9,6 +9,7 @@
  */
 
 #include "items/item_base.h"
+#include "imgui_markup/result.h"
 
 namespace igm::internal
 {
@@ -35,10 +36,15 @@ public:
     void operator=(UnitStack const&) = delete;
 
     static Unit& CreateEmptyUnit();
+    static void DeleteUnit(size_t unit, bool* result = nullptr);
+
+    static void SetLastResult(size_t unit, Result result);
+    static Result GetLastResult(size_t unit, bool* result = nullptr);
 
 private:
     // Main buffer holding every loaded unit
     std::map<size_t, Unit> unit_stack_;
+    std::map<size_t, Result> last_results_;
 
     size_t unit_count_ = 0;
 
@@ -46,6 +52,10 @@ private:
     static UnitStack& Get();
 
     Unit& IMPL_CreateEmptyUnit();
+    void IMPL_DeleteUnit(size_t unit, bool* result);
+
+    void IMPL_SetLastResult(size_t unit, Result result);
+    Result IMPL_GetLastResult(size_t unit, bool* result);
 };
 
 }  // namespace igm::internal
