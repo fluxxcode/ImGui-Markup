@@ -31,6 +31,16 @@ Result UnitStack::GetLastResult(size_t unit, bool* result)
     return UnitStack::Get().IMPL_GetLastResult(unit, result);
 }
 
+Unit* UnitStack::GetUnit(size_t unit, bool* result)
+{
+    return UnitStack::Get().IMPL_GetUnit(unit, result);
+}
+
+ItemAPI* UnitStack::GetItemAPI(size_t unit, const char* item_id, bool* result)
+{
+    return UnitStack::Get().IMPL_GetItemAPI(unit, item_id, result);
+}
+
 UnitStack& UnitStack::Get()
 {
     static UnitStack instance;
@@ -78,6 +88,44 @@ Result UnitStack::IMPL_GetLastResult(size_t unit, bool* result)
         *result = true;
 
     return this->last_results_.at(unit);
+}
+
+Unit* UnitStack::IMPL_GetUnit(size_t unit, bool* result)
+{
+    if (result)
+        *result = false;
+
+    if (this->unit_stack_.find(unit) == this->unit_stack_.end())
+    {
+        this->last_results_[unit] = Result(ResultType::kInvalidUnitID,
+                                          "InvalidUnitID");
+        return nullptr;
+    }
+
+    if (result)
+        *result = true;
+
+    return &this->unit_stack_.at(unit);
+}
+
+ItemAPI* UnitStack::IMPL_GetItemAPI(size_t unit_id, const char* item_id,
+                                    bool* result)
+{
+    Unit* unit = this->IMPL_GetUnit(unit_id, result);
+    if (!unit)
+        return nullptr;
+
+    if (unit->item_ids.find(item_id) == unit->item_ids.end())
+    {
+        this->last_results_[unit_id] = Result(ResultType::kInvalidItemID,
+                                              "InvalidItemID");
+        return nullptr;
+    }
+
+    if (result)
+        *result = true;
+
+    return dynamic_cast<ItemAPI*>(unit->item_ids.at(item_id));
 }
 
 }  // namespace igm::internal

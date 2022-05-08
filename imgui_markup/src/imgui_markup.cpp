@@ -48,4 +48,34 @@ Result GetLastResult(size_t unit, bool* result)
     return internal::UnitStack::GetLastResult(unit, result);
 }
 
+void Update(size_t unit_id, bool* result)
+{
+    internal::Unit* unit = internal::UnitStack::GetUnit(unit_id, result);
+    if (!unit)
+        return;
+
+    for (const auto& child : unit->item_tree)
+        child->API_Update();
+}
+
+bool IsPressed(size_t unit_id, const char* item_id, bool* result)
+{
+    internal::ItemAPI* item = internal::UnitStack::GetItemAPI(unit_id, item_id,
+                                                              result);
+    if (!item)
+        return false;
+
+    return item->API_IsPressed();
+}
+
+bool IsHovered(size_t unit_id, const char* item_id, bool* result)
+{
+    internal::ItemAPI* item = internal::UnitStack::GetItemAPI(unit_id, item_id,
+                                                              result);
+    if (!item)
+        return false;
+
+    return item->API_IsHovered();
+}
+
 }  // namespace igm

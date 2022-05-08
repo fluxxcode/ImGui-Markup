@@ -31,6 +31,15 @@ void DeleteUnit(size_t unit, bool* result = nullptr);
  */
 Result GetLastResult(size_t unit, bool* result = nullptr);
 
+/**
+ * Main function to update a specific unit and its childs.
+ * Should be called every frame in which the unit is to be displayed.
+ */
+void Update(size_t unit, bool* result = nullptr);
+
+bool IsPressed(size_t unit, const char* item, bool* result = nullptr);
+bool IsHovered(size_t unit, const char* item, bool* result = nullptr);
+
 }  // namespace igm
 
 #endif  // IMGUI_MARKUP_INCLUDE_IMGUI_MARKUP_H_

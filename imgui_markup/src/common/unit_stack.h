@@ -9,6 +9,7 @@
  */
 
 #include "items/item_base.h"
+#include "items/item_api.h"
 #include "imgui_markup/result.h"
 
 namespace igm::internal
@@ -41,6 +42,10 @@ public:
     static void SetLastResult(size_t unit, Result result);
     static Result GetLastResult(size_t unit, bool* result = nullptr);
 
+    static Unit* GetUnit(size_t unit, bool* result);
+    static ItemAPI* GetItemAPI(size_t unit, const char* item_id,
+                               bool* result = nullptr);
+
 private:
     // Main buffer holding every loaded unit
     std::map<size_t, Unit> unit_stack_;
@@ -56,6 +61,9 @@ private:
 
     void IMPL_SetLastResult(size_t unit, Result result);
     Result IMPL_GetLastResult(size_t unit, bool* result);
+
+    Unit* IMPL_GetUnit(size_t unit, bool* result);
+    ItemAPI* IMPL_GetItemAPI(size_t unit, const char* item_id, bool* result);
 };
 
 }  // namespace igm::internal
