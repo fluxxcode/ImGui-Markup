@@ -8,6 +8,8 @@
  * @copyright Copyright (c) 2022
  */
 
+#include <string>
+
 namespace igm
 {
 
