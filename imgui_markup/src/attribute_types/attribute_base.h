@@ -33,6 +33,7 @@ struct AttributeInterface
 {
     inline virtual AttributeType GetType() const noexcept = 0;
     inline virtual std::string ToString() const noexcept = 0;
+    inline virtual AttributeInterface* GetReference() const noexcept = 0;
     virtual void Reset() noexcept = 0;
 
     bool LoadValue(const AttributeInterface& val) noexcept;
@@ -76,6 +77,11 @@ public:
     inline virtual AttributeType GetType() const noexcept
     {
         return this->type_;
+    }
+
+    inline AttributeInterface* GetReference() const noexcept
+    {
+        return dynamic_cast<AttributeInterface*>(this->reference_);
     }
 
     void Reset() noexcept

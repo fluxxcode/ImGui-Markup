@@ -449,6 +449,13 @@ struct AttributeChildNotDefined : public InterpreterException
     { }
 };
 
+struct AttributesReferencingEachOther : public InterpreterException
+{
+    AttributesReferencingEachOther(Lexer::Token token)
+        : InterpreterException("Attributes referencing each other", token)
+    { }
+};
+
 struct UnableToConvertValue : public InterpreterException
 {
     UnableToConvertValue(Lexer::Token token, AttributeType type)

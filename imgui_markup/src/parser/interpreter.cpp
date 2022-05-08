@@ -163,6 +163,9 @@ void Interpreter::AssignAttribute(AttributeInterface& attribute,
 
         if (node.by_reference)
         {
+            if (access->GetReference() == &attribute)
+                throw AttributesReferencingEachOther(value_node.value_token);
+
             result = attribute.InitReference(*access);
             break;
         }
