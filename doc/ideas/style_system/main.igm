@@ -1,0 +1,121 @@
+// Themes:
+Theme : dark
+{
+    PanelStyle
+    {
+        background_color = (0.2, 0.2, 0.2, 1.0)
+    }
+
+    Text
+    {
+        font_family = "Robot"
+    }
+}
+
+Theme : light
+{
+    PanelStyle
+    {
+        background_color = (0.8, 0.8, 0.8, 1.0)
+    }
+
+    Text
+    {
+        font_family = "Arial"
+    }
+}
+
+// dest_unit = Unit that will be changed, src_unit = Unit containing the themes
+igm::LoadGlobalTheme(src_unit, "dark");
+igm::LoadGlobalTheme(src_unit, "light");
+igm::LoadUnitTheme(dest_unit, src_unit, "dark");
+igm::LoadUnitTheme(dest_unit, src_unit, "light");
+
+Container : application_config
+{
+    Panel : style
+    {
+        StackView
+        {
+            Text { text = "Button color" }
+            InputColor : button_color { }
+
+            Text { text = "Panel color" }
+            InputColor : panel_color { }
+        }
+    }
+
+    Panel : localization
+    {
+        StackView
+        {
+            Text
+            {
+                text = "Language"
+            }
+
+            DropDown : language
+            {
+                DropDownItem : de_DE
+                {
+                    Text
+                    {
+                        text = "de_DE"
+                    }
+                }
+
+                DropDownItem : en_US
+                {
+                    Text
+                    {
+                        text = "en_US"
+                    }
+                }
+            }
+
+            Text
+            {
+                text = "Time zone"
+            }
+
+            DropDown : timezone
+            {
+                DropDownItem : cet
+                {
+                    Text
+                    {
+                        text = "CET"
+                    }
+                }
+
+                DropDownItem : cet_1
+                {
+                    Text
+                    {
+                        text = "CET+1"
+                    }
+                }
+            }
+        }
+    }
+
+    StyleModifier
+    {
+        // Only change the style on items specified in the filter.
+        // ID are relative to the parent item of the StyleModifier.
+        // If empty, style is changed on every item relative to the parent item.
+        filter = [ "localization.language", "style" ]  // Only change item styles on items with the given ID. IDs are relative to the parent item.
+
+        PanelStyle
+        {
+            background_color = (0.5, 0.5, 0.5, 1.0)
+            padding = (10, 10)
+        }
+
+        ButtonStyle
+        {
+            color = (0.6, 0.6, 0.6, 1.0)
+            border_size = 10
+        }
+    }
+}
