@@ -19,7 +19,8 @@ enum class AttributeType
     kBool,
     kString,
     kVector2,
-    kVector4
+    kVector4,
+    kEnum
 };
 
 class IntWrapper;
@@ -28,6 +29,7 @@ class BoolWrapper;
 class StringWrapper;
 class Vector2Wrapper;
 class Vector4Wrapper;
+class TestEnumWrapper;
 
 struct AttributeInterface
 {
@@ -51,6 +53,7 @@ struct AttributeInterface
     virtual bool InitReference(StringWrapper& ref) noexcept { return false; }
     virtual bool InitReference(Vector2Wrapper& ref) noexcept { return false; }
     virtual bool InitReference(Vector4Wrapper& ref) noexcept { return false; }
+    virtual bool InitReference(TestEnumWrapper& ref) noexcept { return false; }
 
     static std::string AttributeTypeToString(AttributeType type);
 };
