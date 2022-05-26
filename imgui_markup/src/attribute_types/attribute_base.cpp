@@ -57,6 +57,8 @@ bool AttributeInterface::InitReference(AttributeInterface& ref) noexcept
         return this->InitReference((Vector2Wrapper&)ref);
     case AttributeType::kVector4:
         return this->InitReference((Vector4Wrapper&)ref);
+    case AttributeType::kOrientation:
+        return this->InitReference((OrientationWrapper&)ref);
     default: return false;;
     }
 

@@ -178,7 +178,7 @@ void Interpreter::AssignAttribute(AttributeInterface& attribute,
     }
 
     if (!result)
-        throw UnableToConvertValue(value_node.value_token, attribute.GetType());
+        throw UnableToConvertValue(value_node.value_token, attribute.GetName());
 }
 
 InternalVector2 Interpreter::EvalVector2Node(const Vector2Node& value)

@@ -13,23 +13,21 @@
 namespace igm::internal
 {
 
-bool TestEnumWrapper::LoadValue(const StringWrapper& val) noexcept
+bool OrientationWrapper::LoadValue(const StringWrapper& val) noexcept
 {
-    if (val.ToString() == "TestValue0")
-        this->SetValue(TestEnum::kTestValue0);
-    else if (val.ToString() == "TestValue1")
-        this->SetValue(TestEnum::kTestValue1);
-    else if (val.ToString() == "TestValue2")
-        this->SetValue(TestEnum::kTestValue2);
+    if (val.ToString() == "Horizontal")
+        this->SetValue(Orientation::kHorizontal);
+    else if (val.ToString() == "Vertical")
+        this->SetValue(Orientation::kVertical);
     else
         return false;
 
     return true;
 }
 
-bool TestEnumWrapper::InitReference(TestEnumWrapper& ref) noexcept
+bool OrientationWrapper::InitReference(OrientationWrapper& ref) noexcept
 {
-    this->IMPL_InitReference((AttributeBase<TestEnum>*)&ref);
+    this->IMPL_InitReference((AttributeBase<Orientation>*)&ref);
     return true;
 }
 

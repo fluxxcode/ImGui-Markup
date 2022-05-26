@@ -13,41 +13,37 @@
 namespace igm::internal
 {
 
-enum class TestEnum : unsigned char
+enum class Orientation : unsigned char
 {
-    kTestValue0,
-    kTestValue1,
-    kTestValue2
+    kHorizontal,
+    kVertical
 };
 
-class TestEnumWrapper : public AttributeBase<TestEnum>
+class OrientationWrapper : public AttributeBase<Orientation>
 {
 public:
-    TestEnumWrapper()
-        : AttributeBase(AttributeType::kEnum, TestEnum::kTestValue0)
+    explicit OrientationWrapper(Orientation value)
+        : AttributeBase(AttributeType::kOrientation, value)
     { }
 
-    explicit TestEnumWrapper(TestEnum value)
-        : AttributeBase(AttributeType::kEnum, value)
-    { }
+    operator Orientation() const { return this->GetValue(); }
 
-    operator TestEnum() const { return this->GetValue(); }
+    inline std::string GetName() const noexcept { return "TestEnum"; }
 
     inline std::string ToString() const noexcept
     {
         switch(this->GetValue())
         {
-        case TestEnum::kTestValue0: return "TestEnum::TestValue0";
-        case TestEnum::kTestValue1: return "TestEnum::TestValue1";
-        case TestEnum::kTestValue2: return "TestEnum::TestValue2";
-        default: return "TestEnum::UNDEFINED";
+        case Orientation::kHorizontal: return "Orientation::Horizontal";
+        case Orientation::kVertical: return "Orientation::Vertical";
+        default: return "Orientation::UNDEFINED";
         }
     }
 
 private:
     bool LoadValue(const StringWrapper& val) noexcept;
 
-    bool InitReference(TestEnumWrapper& ref) noexcept;
+    bool InitReference(OrientationWrapper& ref) noexcept;
 };
 
 }  // namespace igm::internal

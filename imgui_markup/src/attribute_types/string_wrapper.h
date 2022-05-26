@@ -33,7 +33,7 @@ public:
 
     inline std::string ToString() const noexcept
     {
-        return '"' + this->GetValue() + '"';
+        return this->GetValue();
     }
 
 private:

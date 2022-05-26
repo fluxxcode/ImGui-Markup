@@ -458,10 +458,9 @@ struct AttributesReferencingEachOther : public InterpreterException
 
 struct UnableToConvertValue : public InterpreterException
 {
-    UnableToConvertValue(Lexer::Token token, AttributeType type)
+    UnableToConvertValue(Lexer::Token token, std::string attribute_type)
         : InterpreterException("Value cannot be converted to a type of '" +
-                               AttributeInterface::AttributeTypeToString(type) +
-                               "'", token)
+                               attribute_type + "'", token)
     { }
 };
 

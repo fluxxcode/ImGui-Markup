@@ -20,7 +20,9 @@ enum class AttributeType
     kString,
     kVector2,
     kVector4,
-    kEnum
+
+    // Enums
+    kOrientation
 };
 
 class IntWrapper;
@@ -29,13 +31,17 @@ class BoolWrapper;
 class StringWrapper;
 class Vector2Wrapper;
 class Vector4Wrapper;
-class TestEnumWrapper;
+class OrientationWrapper;
 
 struct AttributeInterface
 {
     inline virtual AttributeType GetType() const noexcept = 0;
+    inline virtual std::string GetName() const noexcept = 0;
+
     inline virtual std::string ToString() const noexcept = 0;
+
     inline virtual AttributeInterface* GetReference() const noexcept = 0;
+
     virtual void Reset() noexcept = 0;
 
     bool LoadValue(const AttributeInterface& val) noexcept;
@@ -53,7 +59,10 @@ struct AttributeInterface
     virtual bool InitReference(StringWrapper& ref) noexcept { return false; }
     virtual bool InitReference(Vector2Wrapper& ref) noexcept { return false; }
     virtual bool InitReference(Vector4Wrapper& ref) noexcept { return false; }
-    virtual bool InitReference(TestEnumWrapper& ref) noexcept { return false; }
+
+    // Enums
+    virtual bool InitReference(OrientationWrapper& ref) noexcept
+        { return false; }
 
     static std::string AttributeTypeToString(AttributeType type);
 };
@@ -77,9 +86,14 @@ public:
         }
     }
 
-    inline virtual AttributeType GetType() const noexcept
+    inline AttributeType GetType() const noexcept
     {
         return this->type_;
+    }
+
+    inline virtual std::string GetName() const noexcept
+    {
+        return AttributeInterface::AttributeTypeToString(this->type_);
     }
 
     inline AttributeInterface* GetReference() const noexcept
