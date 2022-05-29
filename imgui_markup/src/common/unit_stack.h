@@ -12,6 +12,9 @@
 #include "items/item_api.h"
 #include "imgui_markup/result.h"
 
+#include <map>  // std::map
+#include <vector>  // std::vector
+
 namespace igm::internal
 {
 

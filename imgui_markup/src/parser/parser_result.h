@@ -8,8 +8,8 @@
  * @copyright Copyright (c) 2022
  */
 
-#include <string>
-#include <vector>
+#include <string>  // std::string
+#include <vector>  // std::vector
 
 namespace igm::internal
 {

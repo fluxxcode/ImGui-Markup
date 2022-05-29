@@ -17,6 +17,8 @@
 #include "attribute_types/vector2_wrapper.h"
 #include "attribute_types/vector4_wrapper.h"
 
+#include <string>  // std::string
+
 namespace igm::internal
 {
 

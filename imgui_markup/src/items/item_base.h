@@ -13,6 +13,10 @@
 #include "attribute_types/attribute_base.h"
 #include "attribute_types/internal_vector.h"
 
+#include <string>  // std::string
+#include <memory>  // std::unique_ptr
+#include <map>     // std::map
+
 namespace igm::internal
 {
 

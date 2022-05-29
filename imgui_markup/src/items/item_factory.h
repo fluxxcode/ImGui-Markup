@@ -12,6 +12,10 @@
 
 #include "items/widgets/panel.h"
 
+#include <string>  // std::string
+#include <memory>  // std::unique_ptr
+#include <map>     // std::map
+
 namespace igm::internal
 {
 

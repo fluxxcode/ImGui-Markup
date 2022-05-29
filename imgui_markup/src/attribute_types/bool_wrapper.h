@@ -11,6 +11,8 @@
 
 #include "attribute_types/attribute_base.h"
 
+#include <string>  // std::string
+
 namespace igm::internal
 {
 

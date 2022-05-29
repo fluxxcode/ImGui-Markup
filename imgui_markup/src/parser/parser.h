@@ -13,6 +13,9 @@
 #include "common/unit_stack.h"
 #include "parser/parser_result.h"
 
+#include <string>  // std::string
+#include <memory>  // std::unique_ptr
+
 namespace igm::internal
 {
 

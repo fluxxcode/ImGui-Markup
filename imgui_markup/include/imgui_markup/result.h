@@ -8,7 +8,7 @@
  * @copyright Copyright (c) 2022
  */
 
-#include <string>
+#include <string>  // std::string
 
 namespace igm
 {

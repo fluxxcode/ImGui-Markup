@@ -17,6 +17,10 @@
 #include "attribute_types/string_wrapper.h"
 #include "attribute_types/bool_wrapper.h"
 
+#include <string>  // std::string
+#include <vector>  // std::vector
+#include <memory>  // std::unique_ptr
+
 namespace igm::internal
 {
 
