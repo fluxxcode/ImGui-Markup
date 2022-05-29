@@ -239,8 +239,25 @@ private:
      * @param offset_r - Offset which will be added to the values end position.
      */
     Token ConstructToken(TokenType type, std::string value,
-                         int offset_l = 0,
-                         int offset_r = 0) const noexcept;
+                         int offset_l = 0, int offset_r = 0) const noexcept;
+
+    /**
+     * Constructs a token with a specific value and calculates the values
+     * position within the current line.
+     * begin = current position - offset_l
+     * end = current position + value.size + offset_r
+     *
+     * @param type - Type of the token that will be constructed
+     * @param value - Value of the token
+     * @param offset_l - Offset which will be subtracted from the
+     *                   values begin position.
+     * @param offset_r - Offset which will be added to the values end position.
+     * @param line - Overrides the current line
+     * @param line_number - Overrides the current line number
+     */
+    Token ConstructToken(TokenType type, std::string value,
+                         int offset_l, int offset_r,
+                         std::string line, size_t line_number) const noexcept;
 
     /**
      * Checks and skips one-line and multi-line comments.

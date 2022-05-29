@@ -281,6 +281,13 @@ Lexer::Token Lexer::CreateString()
 {
     std::string data = this->ParseString();
 
+    // TODO: Improve position and error message for strings that span over
+    //       multiple lines
+
+    const std::string line = this->GetCurrentLine();
+    const size_t line_number = this->GetCurrentLineNumber();
+    const size_t pos = this->GetCurrentPosition();
+
     this->SkipWhiteSpace();
 
     while (this->PeekChar() == '"')
@@ -292,7 +299,8 @@ Lexer::Token Lexer::CreateString()
         this->SkipWhiteSpace();
     }
 
-    return this->ConstructToken(TokenType::kString, data, -1, 0);
+    return Token(TokenType::kString, line, line_number, pos - data.size() - 1,
+                 pos, data);
 }
 
 bool Lexer::IsNumber(char c) const noexcept
