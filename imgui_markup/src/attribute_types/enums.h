@@ -41,6 +41,7 @@ public:
     }
 
 private:
+    bool LoadValue(const OrientationWrapper& val) noexcept;
     bool LoadValue(const StringWrapper& val) noexcept;
 
     bool InitReference(OrientationWrapper& ref) noexcept;

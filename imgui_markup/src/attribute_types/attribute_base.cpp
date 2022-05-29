@@ -35,6 +35,8 @@ bool AttributeInterface::LoadValue(const AttributeInterface& ref) noexcept
         return this->LoadValue((const Vector2Wrapper&)ref);
     case AttributeType::kVector4:
         return this->LoadValue((const Vector4Wrapper&)ref);
+    case AttributeType::kOrientation:
+        return this->LoadValue((const OrientationWrapper&)ref);
     default: return false;;
     }
 

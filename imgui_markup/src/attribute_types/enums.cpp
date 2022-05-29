@@ -13,6 +13,12 @@
 namespace igm::internal
 {
 
+bool OrientationWrapper::LoadValue(const OrientationWrapper& val) noexcept
+{
+    this->SetValue(val.GetValue());
+    return true;
+}
+
 bool OrientationWrapper::LoadValue(const StringWrapper& val) noexcept
 {
     if (val.ToString() == "Horizontal")

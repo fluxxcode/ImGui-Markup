@@ -52,6 +52,10 @@ struct AttributeInterface
     virtual bool LoadValue(const Vector2Wrapper& val) noexcept { return false; }
     virtual bool LoadValue(const Vector4Wrapper& val) noexcept { return false; }
 
+    // Enums
+    virtual bool LoadValue(const OrientationWrapper& val) noexcept
+        { return false; }
+
     bool InitReference(AttributeInterface& ref) noexcept;
     virtual bool InitReference(IntWrapper& ref) noexcept { return false; }
     virtual bool InitReference(FloatWrapper& ref) noexcept { return false; }
