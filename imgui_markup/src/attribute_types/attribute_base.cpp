@@ -14,6 +14,7 @@
 #include "attribute_types/string_wrapper.h"
 #include "attribute_types/vector2_wrapper.h"
 #include "attribute_types/vector4_wrapper.h"
+#include "attribute_types/padding_wrapper.h"
 #include "utility/utility.h"
 
 namespace igm::internal
@@ -35,6 +36,8 @@ bool AttributeInterface::LoadValue(const AttributeInterface& ref) noexcept
         return this->LoadValue((const Vector2Wrapper&)ref);
     case AttributeType::kVector4:
         return this->LoadValue((const Vector4Wrapper&)ref);
+    case AttributeType::kPadding:
+        return this->LoadValue((const PaddingWrapper&)ref);
     case AttributeType::kOrientation:
         return this->LoadValue((const OrientationWrapper&)ref);
     default: return false;;
@@ -59,6 +62,8 @@ bool AttributeInterface::InitReference(AttributeInterface& ref) noexcept
         return this->InitReference((Vector2Wrapper&)ref);
     case AttributeType::kVector4:
         return this->InitReference((Vector4Wrapper&)ref);
+    case AttributeType::kPadding:
+        return this->InitReference((PaddingWrapper&)ref);
     case AttributeType::kOrientation:
         return this->InitReference((OrientationWrapper&)ref);
     default: return false;;
@@ -77,6 +82,8 @@ std::string AttributeInterface::AttributeTypeToString(AttributeType type)
     case AttributeType::kString: return "String";
     case AttributeType::kVector2: return "Vector2";
     case AttributeType::kVector4: return "Vector4";
+    case AttributeType::kPadding: return "Padding";
+    case AttributeType::kOrientation: return "Orientation";
     default: return "UNKNOWN";
     }
 }

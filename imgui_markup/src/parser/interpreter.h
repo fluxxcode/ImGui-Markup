@@ -339,8 +339,8 @@ private:
     void AssignAttribute(AttributeInterface& attribute,
                          const ValueNode& value_node);
 
-    at::InternalVector2 EvalVector2Node(const Vector2Node& value);
-    at::InternalVector4 EvalVector4Node(const Vector4Node& value);
+    at::Vector2 EvalVector2Node(const Vector2Node& value);
+    at::Vector4 EvalVector4Node(const Vector4Node& value);
     AttributeInterface* EvalAttributeAccessNode(
         const AttributeAccessNode& value);
 };

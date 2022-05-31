@@ -13,13 +13,13 @@ namespace igm::internal
 
 bool Vector4Wrapper::LoadValue(const Vector4Wrapper& val) noexcept
 {
-    this->SetValue((at::InternalVector4)val);
+    this->SetValue((at::Vector4)val);
     return true;
 }
 
 bool Vector4Wrapper::InitReference(Vector4Wrapper& ref) noexcept
 {
-    this->IMPL_InitReference((AttributeBase<at::InternalVector4>*)&ref);
+    this->IMPL_InitReference((AttributeBase<at::Vector4>*)&ref);
     return true;
 }
 

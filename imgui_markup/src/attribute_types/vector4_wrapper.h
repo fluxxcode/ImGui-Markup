@@ -17,31 +17,31 @@
 namespace igm::internal
 {
 
-class Vector4Wrapper : public AttributeBase<at::InternalVector4>
+class Vector4Wrapper : public AttributeBase<at::Vector4>
 {
 public:
     Vector4Wrapper()
-        : AttributeBase(AttributeType::kVector4, at::InternalVector4())
+        : AttributeBase(AttributeType::kVector4, at::Vector4())
     { }
 
     Vector4Wrapper(float x, float y, float z, float w)
         : AttributeBase(AttributeType::kVector4,
-                        at::InternalVector4((FloatWrapper)x, (FloatWrapper)y,
+                        at::Vector4((FloatWrapper)x, (FloatWrapper)y,
                                         (FloatWrapper)z, (FloatWrapper)w))
     { }
 
-    Vector4Wrapper(at::InternalVector4 value)
+    Vector4Wrapper(at::Vector4 value)
         : AttributeBase(AttributeType::kVector4, value)
     { }
 
-    inline operator at::InternalVector4() const
+    inline operator at::Vector4() const
     {
         return this->GetValue();
     }
 
     inline std::string ToString() const noexcept
     {
-        at::InternalVector4 val = this->GetValue();
+        at::Vector4 val = this->GetValue();
         return val.x.ToString() + "," + val.y.ToString() + "," +
                val.z.ToString() + "," + val.w.ToString();
     }

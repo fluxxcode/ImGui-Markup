@@ -17,30 +17,30 @@
 namespace igm::internal
 {
 
-class Vector2Wrapper : public AttributeBase<at::InternalVector2>
+class Vector2Wrapper : public AttributeBase<at::Vector2>
 {
 public:
     Vector2Wrapper()
-        : AttributeBase(AttributeType::kVector2, at::InternalVector2())
+        : AttributeBase(AttributeType::kVector2, at::Vector2())
     { }
 
     Vector2Wrapper(float x, float y)
         : AttributeBase(AttributeType::kVector2,
-                        at::InternalVector2((FloatWrapper)x, (FloatWrapper)y))
+                        at::Vector2((FloatWrapper)x, (FloatWrapper)y))
     { }
 
-    Vector2Wrapper(at::InternalVector2 value)
+    Vector2Wrapper(at::Vector2 value)
         : AttributeBase(AttributeType::kVector2, value)
     { }
 
-    inline operator at::InternalVector2() const
+    inline operator at::Vector2() const
     {
         return this->GetValue();
     }
 
     inline std::string ToString() const noexcept
     {
-        at::InternalVector2 val = this->GetValue();
+        at::Vector2 val = this->GetValue();
         return val.x.ToString() + "," + val.y.ToString();
     }
 
