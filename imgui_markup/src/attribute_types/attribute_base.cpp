@@ -8,13 +8,7 @@
  * @copyright Copyright (c) 2022
  */
 
-#include "attribute_types/bool_wrapper.h"
-#include "attribute_types/float_wrapper.h"
-#include "attribute_types/int_wrapper.h"
-#include "attribute_types/string_wrapper.h"
-#include "attribute_types/vector2_wrapper.h"
-#include "attribute_types/vector4_wrapper.h"
-#include "attribute_types/padding_wrapper.h"
+#include "attribute_types/attribute_types.h"
 #include "utility/utility.h"
 
 namespace igm::internal
@@ -38,6 +32,8 @@ bool AttributeInterface::LoadValue(const AttributeInterface& ref) noexcept
         return this->LoadValue((const Vector4Wrapper&)ref);
     case AttributeType::kPadding:
         return this->LoadValue((const PaddingWrapper&)ref);
+    case AttributeType::kMargin:
+        return this->LoadValue((const MarginWrapper&)ref);
     case AttributeType::kOrientation:
         return this->LoadValue((const OrientationWrapper&)ref);
     default: return false;;
@@ -64,6 +60,8 @@ bool AttributeInterface::InitReference(AttributeInterface& ref) noexcept
         return this->InitReference((Vector4Wrapper&)ref);
     case AttributeType::kPadding:
         return this->InitReference((PaddingWrapper&)ref);
+    case AttributeType::kMargin:
+        return this->InitReference((MarginWrapper&)ref);
     case AttributeType::kOrientation:
         return this->InitReference((OrientationWrapper&)ref);
     default: return false;;

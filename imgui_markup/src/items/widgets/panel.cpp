@@ -21,6 +21,7 @@ Panel::Panel(std::string id, ItemBase* parent)
     this->AddAttribute("vec2_value", &this->vec2_value_);
     this->AddAttribute("vec4_value", &this->vec4_value_);
     this->AddAttribute("padding_value", &this->padding_value_);
+    this->AddAttribute("margin_value", &this->margin_value_);
     this->AddAttribute("orientation_value", &this->orientation_value_);
 }
 
@@ -35,6 +36,7 @@ void Panel::API_Update() noexcept
     std::cout << "VEC2: " << this->vec2_value_.ToString() << std::endl;
     std::cout << "VEC4: " << this->vec4_value_.ToString() << std::endl;
     std::cout << "PADDING: " << this->padding_value_.ToString() << std::endl;
+    std::cout << "MARGIN: " << this->margin_value_.ToString() << std::endl;
     std::cout << "ORIENTATION: " << this->orientation_value_.ToString() << std::endl;
 
     for (const auto& child : this->child_items_)

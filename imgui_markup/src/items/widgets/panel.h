@@ -27,6 +27,7 @@ struct Panel : public WidgetBase
     Vector2Wrapper vec2_value_;
     Vector4Wrapper vec4_value_;
     PaddingWrapper padding_value_;
+    MarginWrapper margin_value_;
     OrientationWrapper orientation_value_ = bt::Orientation::kHorizontal;
 
     void API_Update() noexcept;
