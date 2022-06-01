@@ -10,12 +10,7 @@
 
 #include "common/unit_stack.h"
 #include "parser/lexer.h"
-#include "attribute_types/attribute_base.h"
-#include "attribute_types/internal/vector.h"
-#include "attribute_types/float_wrapper.h"
-#include "attribute_types/int_wrapper.h"
-#include "attribute_types/string_wrapper.h"
-#include "attribute_types/bool_wrapper.h"
+#include "attribute_types/attribute_types.h"
 
 #include <string>  // std::string
 #include <vector>  // std::vector
@@ -339,8 +334,8 @@ private:
     void AssignAttribute(AttributeInterface& attribute,
                          const ValueNode& value_node);
 
-    at::Vector2 EvalVector2Node(const Vector2Node& value);
-    at::Vector4 EvalVector4Node(const Vector4Node& value);
+    bt::Vector2 EvalVector2Node(const Vector2Node& value);
+    bt::Vector4 EvalVector4Node(const Vector4Node& value);
     AttributeInterface* EvalAttributeAccessNode(
         const AttributeAccessNode& value);
 };

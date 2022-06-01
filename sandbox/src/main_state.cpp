@@ -13,12 +13,14 @@
 MainState::MainState()
 {
     bool result;
-    size_t unit_id = igm::ParseFromFile("test.igm", &result);
+    const size_t unit_id = igm::ParseFromFile("test.igm", &result);
 
     const igm::Result ret = igm::GetLastResult(unit_id);
 
     if (!result)
         std::cerr << ret.message << std::endl;
+
+    igm::Update(unit_id);
 }
 
 void MainState::Update()

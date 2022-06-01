@@ -9,7 +9,7 @@
  * @copyright Copyright (c) 2022
  */
 
-#include "attribute_types/internal/padding.h"
+#include "attribute_types/base_types/padding.h"
 #include "attribute_types/attribute_base.h"
 
 #include <string>  // std::string
@@ -17,30 +17,30 @@
 namespace igm::internal
 {
 
-class PaddingWrapper : public AttributeBase<at::Padding>
+class PaddingWrapper : public AttributeBase<bt::Padding>
 {
 public:
     PaddingWrapper()
-        : AttributeBase(AttributeType::kPadding, at::Padding())
+        : AttributeBase(AttributeType::kPadding, bt::Padding())
     {
         this->Init();
     }
 
     PaddingWrapper(float top, float right, float bottom, float left)
         : AttributeBase(AttributeType::kPadding,
-                        at::Padding((FloatWrapper)top, (FloatWrapper)right,
+                        bt::Padding((FloatWrapper)top, (FloatWrapper)right,
                                     (FloatWrapper)bottom, (FloatWrapper)left))
     {
         this->Init();
     }
 
-    PaddingWrapper(at::Padding value)
+    PaddingWrapper(bt::Padding value)
         : AttributeBase(AttributeType::kPadding, value)
     {
         this->Init();
     }
 
-    inline operator at::Padding() const
+    inline operator bt::Padding() const
     {
         return this->GetValue();
     }
@@ -49,7 +49,7 @@ public:
 
     inline std::string ToString() const noexcept
     {
-        at::Padding val = this->GetValue();
+        bt::Padding val = this->GetValue();
         return val.top.ToString() + "," + val.right.ToString() + "," +
                val.bottom.ToString() + "," + val.left.ToString();
     }

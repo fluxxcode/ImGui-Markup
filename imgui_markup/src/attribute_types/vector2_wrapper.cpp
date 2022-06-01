@@ -19,13 +19,13 @@ void Vector2Wrapper::Init() noexcept
 
 bool Vector2Wrapper::LoadValue(const Vector2Wrapper& val) noexcept
 {
-    this->SetValue((at::Vector2)val);
+    this->SetValue((bt::Vector2)val);
     return true;
 }
 
 bool Vector2Wrapper::InitReference(Vector2Wrapper& ref) noexcept
 {
-    this->IMPL_InitReference((AttributeBase<at::Vector2>*)&ref);
+    this->IMPL_InitReference((AttributeBase<bt::Vector2>*)&ref);
     return true;
 }
 

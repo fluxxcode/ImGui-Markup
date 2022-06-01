@@ -1,5 +1,5 @@
 #include "impch.h"
-#include "attribute_types/internal/vector.h"
+#include "attribute_types/base_types/padding.h"
 
 /**
  * @file padding.cpp
@@ -8,5 +8,5 @@
  * @copyright Copyright (c) 2022
  */
 
-namespace igm::internal::at
-{ }  // namespace igm::internal::at
+namespace igm::internal::bt
+{ }  // namespace igm::internal::bt

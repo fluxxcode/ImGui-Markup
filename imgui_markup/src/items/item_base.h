@@ -10,8 +10,7 @@
 
 #include "items/item_api.h"
 #include "items/item_types.h"
-#include "attribute_types/attribute_base.h"
-#include "attribute_types/internal/vector.h"
+#include "attribute_types/attribute_types.h"
 
 #include <string>  // std::string
 #include <memory>  // std::unique_ptr

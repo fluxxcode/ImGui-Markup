@@ -1,5 +1,5 @@
 #include "impch.h"
-#include "attribute_types/enums.h"
+#include "attribute_types/orientation_wrapper.h"
 
 /**
  * @file enums.cpp
@@ -22,9 +22,9 @@ bool OrientationWrapper::LoadValue(const OrientationWrapper& val) noexcept
 bool OrientationWrapper::LoadValue(const StringWrapper& val) noexcept
 {
     if (val.ToString() == "Horizontal")
-        this->SetValue(Orientation::kHorizontal);
+        this->SetValue(bt::Orientation::kHorizontal);
     else if (val.ToString() == "Vertical")
-        this->SetValue(Orientation::kVertical);
+        this->SetValue(bt::Orientation::kVertical);
     else
         return false;
 
@@ -33,7 +33,7 @@ bool OrientationWrapper::LoadValue(const StringWrapper& val) noexcept
 
 bool OrientationWrapper::InitReference(OrientationWrapper& ref) noexcept
 {
-    this->IMPL_InitReference((AttributeBase<Orientation>*)&ref);
+    this->IMPL_InitReference((AttributeBase<bt::Orientation>*)&ref);
     return true;
 }
 

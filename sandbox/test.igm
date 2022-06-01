@@ -1,0 +1,12 @@
+
+Panel : panel_0
+{
+    int_value = 123
+    float_value = 123.456
+    bool_value = true
+    string_value = "Hello world"
+    vec2_value = (1, 2)
+    vec4_value = (1, 2, 3, 4)
+    padding_value = (1, 2, 3, 4)
+    orientation_value = "Vertical"
+}

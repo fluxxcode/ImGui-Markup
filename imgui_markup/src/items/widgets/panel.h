@@ -10,13 +10,6 @@
 
 #include "items/widgets/widget_base.h"
 
-#include "attribute_types/bool_wrapper.h"
-#include "attribute_types/int_wrapper.h"
-#include "attribute_types/float_wrapper.h"
-#include "attribute_types/string_wrapper.h"
-#include "attribute_types/vector2_wrapper.h"
-#include "attribute_types/vector4_wrapper.h"
-
 #include <string>  // std::string
 
 namespace igm::internal
@@ -27,12 +20,14 @@ struct Panel : public WidgetBase
 {
     Panel(std::string id, ItemBase* parent);
 
-    IntWrapper value_int_;
-    FloatWrapper value_float_;
-    BoolWrapper value_bool_;
-    StringWrapper value_string_;
-    Vector2Wrapper value_vec2_ = Vector2Wrapper();
-    Vector4Wrapper value_vec4_ = Vector4Wrapper();
+    IntWrapper int_value_;
+    FloatWrapper float_value_;
+    BoolWrapper bool_value_;
+    StringWrapper string_value_;
+    Vector2Wrapper vec2_value_;
+    Vector4Wrapper vec4_value_;
+    PaddingWrapper padding_value_;
+    OrientationWrapper orientation_value_ = bt::Orientation::kHorizontal;
 
     void API_Update() noexcept;
 };

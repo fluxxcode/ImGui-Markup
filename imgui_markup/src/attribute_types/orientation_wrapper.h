@@ -1,5 +1,5 @@
-#ifndef IMGUI_MARKUP_SRC_ATTRIBUTE_TYPES_ENUMS_H_
-#define IMGUI_MARKUP_SRC_ATTRIBUTE_TYPES_ENUMS_H_
+#ifndef IMGUI_MARKUP_SRC_ATTRIBUTE_TYPES_ORIENTATION_WRAPPER_H_
+#define IMGUI_MARKUP_SRC_ATTRIBUTE_TYPES_ORIENTATION_WRAPPER_H_
 
 /**
  * @file enums.h
@@ -9,26 +9,21 @@
  */
 
 #include "attribute_types/attribute_base.h"
+#include "attribute_types/base_types/orientation.h"
 
 #include <string>  // std::string
 
 namespace igm::internal
 {
 
-enum class Orientation : unsigned char
-{
-    kHorizontal,
-    kVertical
-};
-
-class OrientationWrapper : public AttributeBase<Orientation>
+class OrientationWrapper : public AttributeBase<bt::Orientation>
 {
 public:
-    OrientationWrapper(Orientation value)
+    OrientationWrapper(bt::Orientation value)
         : AttributeBase(AttributeType::kOrientation, value)
     { }
 
-    operator Orientation() const { return this->GetValue(); }
+    operator bt::Orientation() const { return this->GetValue(); }
 
     inline std::string GetName() const noexcept { return "Orientation"; }
 
@@ -36,8 +31,8 @@ public:
     {
         switch(this->GetValue())
         {
-        case Orientation::kHorizontal: return "Orientation::Horizontal";
-        case Orientation::kVertical: return "Orientation::Vertical";
+        case bt::Orientation::kHorizontal: return "Orientation::Horizontal";
+        case bt::Orientation::kVertical: return "Orientation::Vertical";
         default: return "Orientation::UNDEFINED";
         }
     }
@@ -51,4 +46,4 @@ private:
 
 }  // namespace igm::internal
 
-#endif  // IMGUI_MARKUP_SRC_ATTRIBUTE_TYPES_ENUMS_H_
+#endif  // IMGUI_MARKUP_SRC_ATTRIBUTE_TYPES_ORIENTATION_WRAPPER_H_

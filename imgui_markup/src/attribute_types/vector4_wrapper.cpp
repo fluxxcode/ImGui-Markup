@@ -21,13 +21,13 @@ void Vector4Wrapper::Init() noexcept
 
 bool Vector4Wrapper::LoadValue(const Vector4Wrapper& val) noexcept
 {
-    this->SetValue((at::Vector4)val);
+    this->SetValue((bt::Vector4)val);
     return true;
 }
 
 bool Vector4Wrapper::InitReference(Vector4Wrapper& ref) noexcept
 {
-    this->IMPL_InitReference((AttributeBase<at::Vector4>*)&ref);
+    this->IMPL_InitReference((AttributeBase<bt::Vector4>*)&ref);
     return true;
 }
 

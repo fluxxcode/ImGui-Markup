@@ -144,14 +144,14 @@ void Interpreter::AssignAttribute(AttributeInterface& attribute,
         break;
     case ValueType::kVector2:
     {
-        at::Vector2 vec = this->EvalVector2Node(
+        bt::Vector2 vec = this->EvalVector2Node(
             dynamic_cast<const Vector2Node&>(value_node));
         result = attribute.LoadValue(vec);
         break;
     }
     case ValueType::kVector4:
     {
-        at::Vector4 vec = this->EvalVector4Node(
+        bt::Vector4 vec = this->EvalVector4Node(
             dynamic_cast<const Vector4Node&>(value_node));
         result = attribute.LoadValue(vec);
         break;
@@ -178,17 +178,17 @@ void Interpreter::AssignAttribute(AttributeInterface& attribute,
         throw UnableToConvertValue(value_node.value_token, attribute.GetName());
 }
 
-at::Vector2 Interpreter::EvalVector2Node(const Vector2Node& value)
+bt::Vector2 Interpreter::EvalVector2Node(const Vector2Node& value)
 {
     FloatWrapper x, y;
 
     this->AssignAttribute((AttributeInterface&)x, std::move(*value.x.get()));
     this->AssignAttribute((AttributeInterface&)y, std::move(*value.y.get()));
 
-    return at::Vector2(x, y);
+    return bt::Vector2(x, y);
 }
 
-at::Vector4 Interpreter::EvalVector4Node(const Vector4Node& value)
+bt::Vector4 Interpreter::EvalVector4Node(const Vector4Node& value)
 {
     FloatWrapper x, y, z, w;
 
@@ -197,7 +197,7 @@ at::Vector4 Interpreter::EvalVector4Node(const Vector4Node& value)
     this->AssignAttribute((AttributeInterface&)z, std::move(*value.z.get()));
     this->AssignAttribute((AttributeInterface&)w, std::move(*value.w.get()));
 
-    return at::Vector4(x, y, z, w);
+    return bt::Vector4(x, y, z, w);
 }
 
 AttributeInterface* Interpreter::EvalAttributeAccessNode(

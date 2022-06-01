@@ -23,13 +23,13 @@ void PaddingWrapper::Init() noexcept
 
 bool PaddingWrapper::LoadValue(const PaddingWrapper& val) noexcept
 {
-    this->SetValue((at::Padding)val);
+    this->SetValue((bt::Padding)val);
     return true;
 }
 
 bool PaddingWrapper::LoadValue(const Vector4Wrapper& val) noexcept
 {
-    this->SetValue(at::Padding(val.GetValue().x, val.GetValue().y,
+    this->SetValue(bt::Padding(val.GetValue().x, val.GetValue().y,
                                val.GetValue().z, val.GetValue().w));
     return true;
 }
@@ -37,7 +37,7 @@ bool PaddingWrapper::LoadValue(const Vector4Wrapper& val) noexcept
 
 bool PaddingWrapper::InitReference(PaddingWrapper& ref) noexcept
 {
-    this->IMPL_InitReference((AttributeBase<at::Padding>*)&ref);
+    this->IMPL_InitReference((AttributeBase<bt::Padding>*)&ref);
     return true;
 }
 

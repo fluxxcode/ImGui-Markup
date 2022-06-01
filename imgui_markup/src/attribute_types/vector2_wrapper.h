@@ -9,7 +9,7 @@
  * @copyright Copyright (c) 2022
  */
 
-#include "attribute_types/internal/vector.h"
+#include "attribute_types/base_types/vector2.h"
 #include "attribute_types/attribute_base.h"
 
 #include <string>  // std::string
@@ -17,29 +17,29 @@
 namespace igm::internal
 {
 
-class Vector2Wrapper : public AttributeBase<at::Vector2>
+class Vector2Wrapper : public AttributeBase<bt::Vector2>
 {
 public:
     Vector2Wrapper()
-        : AttributeBase(AttributeType::kVector2, at::Vector2())
+        : AttributeBase(AttributeType::kVector2, bt::Vector2())
     {
         this->Init();
     }
 
     Vector2Wrapper(float x, float y)
         : AttributeBase(AttributeType::kVector2,
-                        at::Vector2((FloatWrapper)x, (FloatWrapper)y))
+                        bt::Vector2((FloatWrapper)x, (FloatWrapper)y))
     {
         this->Init();
     }
 
-    Vector2Wrapper(at::Vector2 value)
+    Vector2Wrapper(bt::Vector2 value)
         : AttributeBase(AttributeType::kVector2, value)
     {
         this->Init();
     }
 
-    inline operator at::Vector2() const
+    inline operator bt::Vector2() const
     {
         return this->GetValue();
     }
@@ -48,7 +48,7 @@ public:
 
     inline std::string ToString() const noexcept
     {
-        at::Vector2 val = this->GetValue();
+        bt::Vector2 val = this->GetValue();
         return val.x.ToString() + "," + val.y.ToString();
     }
 

@@ -9,7 +9,7 @@
  * @copyright Copyright (c) 2022
  */
 
-#include "attribute_types/internal/vector.h"
+#include "attribute_types/base_types/vector4.h"
 #include "attribute_types/attribute_base.h"
 
 #include <string>  // std::string
@@ -17,30 +17,30 @@
 namespace igm::internal
 {
 
-class Vector4Wrapper : public AttributeBase<at::Vector4>
+class Vector4Wrapper : public AttributeBase<bt::Vector4>
 {
 public:
     Vector4Wrapper()
-        : AttributeBase(AttributeType::kVector4, at::Vector4())
+        : AttributeBase(AttributeType::kVector4, bt::Vector4())
     {
         this->Init();
     }
 
     Vector4Wrapper(float x, float y, float z, float w)
         : AttributeBase(AttributeType::kVector4,
-                        at::Vector4((FloatWrapper)x, (FloatWrapper)y,
+                        bt::Vector4((FloatWrapper)x, (FloatWrapper)y,
                                     (FloatWrapper)z, (FloatWrapper)w))
     {
         this->Init();
     }
 
-    Vector4Wrapper(at::Vector4 value)
+    Vector4Wrapper(bt::Vector4 value)
         : AttributeBase(AttributeType::kVector4, value)
     {
         this->Init();
     }
 
-    inline operator at::Vector4() const
+    inline operator bt::Vector4() const
     {
         return this->GetValue();
     }
@@ -49,7 +49,7 @@ public:
 
     inline std::string ToString() const noexcept
     {
-        at::Vector4 val = this->GetValue();
+        bt::Vector4 val = this->GetValue();
         return val.x.ToString() + "," + val.y.ToString() + "," +
                val.z.ToString() + "," + val.w.ToString();
     }

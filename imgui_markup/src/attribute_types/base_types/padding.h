@@ -1,5 +1,5 @@
-#ifndef IMGUI_MARKUP_SRC_ATTRIBUTE_TYPES_INTERNAL_PADDING_H_
-#define IMGUI_MARKUP_SRC_ATTRIBUTE_TYPES_INTERNAL_PADDING_H_
+#ifndef IMGUI_MARKUP_SRC_ATTRIBUTE_TYPES_BASE_TYPES_PADDING_H_
+#define IMGUI_MARKUP_SRC_ATTRIBUTE_TYPES_BASE_TYPES_PADDING_H_
 
 /**
  * @file padding.h
@@ -11,7 +11,7 @@
 
 #include "attribute_types/float_wrapper.h"
 
-namespace igm::internal::at
+namespace igm::internal::bt
 {
 
 struct Padding
@@ -31,6 +31,6 @@ struct Padding
     FloatWrapper left;
 };
 
-}  // namespace igm::internal::at
+}  // namespace igm::internal::bt
 
-#endif  // IMGUI_MARKUP_SRC_ATTRIBUTE_TYPES_INTERNAL_PADDING_H_
+#endif  // IMGUI_MARKUP_SRC_ATTRIBUTE_TYPES_BASE_TYPES_PADDING_H_
