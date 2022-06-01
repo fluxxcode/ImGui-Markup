@@ -22,21 +22,29 @@ class Vector2Wrapper : public AttributeBase<at::Vector2>
 public:
     Vector2Wrapper()
         : AttributeBase(AttributeType::kVector2, at::Vector2())
-    { }
+    {
+        this->Init();
+    }
 
     Vector2Wrapper(float x, float y)
         : AttributeBase(AttributeType::kVector2,
                         at::Vector2((FloatWrapper)x, (FloatWrapper)y))
-    { }
+    {
+        this->Init();
+    }
 
     Vector2Wrapper(at::Vector2 value)
         : AttributeBase(AttributeType::kVector2, value)
-    { }
+    {
+        this->Init();
+    }
 
     inline operator at::Vector2() const
     {
         return this->GetValue();
     }
+
+    inline std::string GetName() const noexcept { return "Vector2"; }
 
     inline std::string ToString() const noexcept
     {
@@ -45,6 +53,8 @@ public:
     }
 
 private:
+    void Init() noexcept;
+
     bool LoadValue(const Vector2Wrapper& val) noexcept;
 
     bool InitReference(Vector2Wrapper& ref) noexcept;

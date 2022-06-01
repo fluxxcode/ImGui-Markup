@@ -29,6 +29,8 @@ public:
 
     operator float() const { return this->GetValue(); }
 
+    inline std::string GetName() const noexcept { return "Float"; }
+
     inline std::string ToString() const noexcept
     {
         return std::to_string(this->GetValue());

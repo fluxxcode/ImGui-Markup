@@ -33,6 +33,8 @@ public:
 
     inline operator std::string() const { return this->GetValue(); }
 
+    inline std::string GetName() const noexcept { return "String"; }
+
     inline std::string ToString() const noexcept
     {
         return this->GetValue();

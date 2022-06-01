@@ -10,6 +10,7 @@
  */
 
 #include <string>  // std::string
+#include <map>     // std::map
 
 namespace igm::internal
 {
@@ -46,6 +47,9 @@ struct AttributeInterface
 
     inline virtual AttributeInterface* GetReference() const noexcept = 0;
 
+    inline virtual AttributeInterface* GetChildAttribute(std::string name)
+        const noexcept = 0;
+
     virtual void Reset() noexcept = 0;
 
     bool LoadValue(const AttributeInterface& val) noexcept;
@@ -73,8 +77,6 @@ struct AttributeInterface
     // Enums
     virtual bool InitReference(OrientationWrapper& ref) noexcept
         { return false; }
-
-    static std::string AttributeTypeToString(AttributeType type);
 };
 
 template<typename T>
@@ -101,14 +103,20 @@ public:
         return this->type_;
     }
 
-    inline virtual std::string GetName() const noexcept
-    {
-        return AttributeInterface::AttributeTypeToString(this->type_);
-    }
-
     inline AttributeInterface* GetReference() const noexcept
     {
         return dynamic_cast<AttributeInterface*>(this->reference_);
+    }
+
+    AttributeInterface* GetChildAttribute(std::string name) const noexcept
+    {
+        if (this->child_attributes_mapping_.find(name) ==
+            this->child_attributes_mapping_.end())
+        {
+            return nullptr;
+        }
+
+        return this->child_attributes_mapping_.at(name);
     }
 
     void Reset() noexcept
@@ -190,6 +198,11 @@ public:
     }
 
 protected:
+    void InitChildAttribute(std::string name, AttributeInterface* ref)
+    {
+        this->child_attributes_mapping_[name] = ref;
+    }
+
     inline void IMPL_InitReference(AttributeBase<T>* reference)
     {
         this->reference_ = reference;
@@ -204,6 +217,10 @@ private:
 
     // Every reference pointing to this attribute.
     std::vector<AttributeBase<T>*> tracked_references_;
+
+    // Mapping of the child attributes that can be accessed
+    // through the markup language.
+    std::map<std::string, AttributeInterface*> child_attributes_mapping_;
 
     // Sets if we are currently in the process of getting the value.
     // Used to detect endless loops in refrences.

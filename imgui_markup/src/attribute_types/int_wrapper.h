@@ -29,6 +29,8 @@ public:
 
     inline operator int() const { return this->GetValue(); }
 
+    inline std::string GetName() const noexcept { return "Int"; }
+
     inline std::string ToString() const noexcept
     {
         return std::to_string(this->GetValue());

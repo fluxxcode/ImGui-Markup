@@ -22,22 +22,30 @@ class Vector4Wrapper : public AttributeBase<at::Vector4>
 public:
     Vector4Wrapper()
         : AttributeBase(AttributeType::kVector4, at::Vector4())
-    { }
+    {
+        this->Init();
+    }
 
     Vector4Wrapper(float x, float y, float z, float w)
         : AttributeBase(AttributeType::kVector4,
                         at::Vector4((FloatWrapper)x, (FloatWrapper)y,
-                                        (FloatWrapper)z, (FloatWrapper)w))
-    { }
+                                    (FloatWrapper)z, (FloatWrapper)w))
+    {
+        this->Init();
+    }
 
     Vector4Wrapper(at::Vector4 value)
         : AttributeBase(AttributeType::kVector4, value)
-    { }
+    {
+        this->Init();
+    }
 
     inline operator at::Vector4() const
     {
         return this->GetValue();
     }
+
+    inline std::string GetName() const noexcept { return "Vector4"; }
 
     inline std::string ToString() const noexcept
     {
@@ -47,6 +55,8 @@ public:
     }
 
 private:
+    void Init() noexcept;
+
     bool LoadValue(const Vector4Wrapper& val) noexcept;
 
     bool InitReference(Vector4Wrapper& ref) noexcept;

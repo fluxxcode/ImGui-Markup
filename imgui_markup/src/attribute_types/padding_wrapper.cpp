@@ -13,6 +13,14 @@
 namespace igm::internal
 {
 
+void PaddingWrapper::Init() noexcept
+{
+    this->InitChildAttribute("top",    &this->GetValueReference().top);
+    this->InitChildAttribute("right",  &this->GetValueReference().right);
+    this->InitChildAttribute("bottom", &this->GetValueReference().bottom);
+    this->InitChildAttribute("left",   &this->GetValueReference().left);
+}
+
 bool PaddingWrapper::LoadValue(const PaddingWrapper& val) noexcept
 {
     this->SetValue((at::Padding)val);

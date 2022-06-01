@@ -24,13 +24,13 @@ enum class Orientation : unsigned char
 class OrientationWrapper : public AttributeBase<Orientation>
 {
 public:
-    explicit OrientationWrapper(Orientation value)
+    OrientationWrapper(Orientation value)
         : AttributeBase(AttributeType::kOrientation, value)
     { }
 
     operator Orientation() const { return this->GetValue(); }
 
-    inline std::string GetName() const noexcept { return "TestEnum"; }
+    inline std::string GetName() const noexcept { return "Orientation"; }
 
     inline std::string ToString() const noexcept
     {

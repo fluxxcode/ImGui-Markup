@@ -29,6 +29,8 @@ public:
 
     inline operator bool() const { return this->GetValue(); }
 
+    inline std::string GetName() const noexcept { return "Bool"; }
+
     inline std::string ToString() const noexcept
     {
         return std::to_string(this->GetValue());
