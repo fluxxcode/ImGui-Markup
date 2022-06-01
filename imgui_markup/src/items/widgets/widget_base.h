@@ -13,17 +13,15 @@
 namespace igm::internal
 {
 
-class WidgetBase : public ItemBase
+struct WidgetBase : public ItemBase
 {
-public:
     WidgetBase(ItemType type, std::string id, ItemBase* parent)
         : ItemBase(type, ItemCategory::kWidget, id, parent)
     { }
 
     WidgetBase(const WidgetBase&) = delete;
 
-private:
-    // TODO: pos, size, default functions like IsPressed, IsHovered, etc.
+    virtual void API_Update() noexcept { this->Update(); }
 };
 
 }  // namespace igm::internal

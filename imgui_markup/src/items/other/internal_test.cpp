@@ -1,18 +1,18 @@
 #include "impch.h"
-#include "items/widgets/panel.h"
+#include "items/other/internal_test.h"
 
 /**
- * @file panel.cpp
+ * @file internal_test.cpp
  * @author FluxxCode (info.fluxxcode@gmail.com)
- * @brief Implementation of panel.h
+ * @brief Implementation of internal_test.h
  * @copyright Copyright (c) 2022
  */
 
 namespace igm::internal
 {
 
-Panel::Panel(std::string id, ItemBase* parent)
-        : WidgetBase(ItemType::kPanel, id, parent)
+InternalTest::InternalTest(std::string id, ItemBase* parent)
+    : OtherBase(ItemType::kInternalTest, id, parent)
 {
     this->AddAttribute("int_value", &this->int_value_);
     this->AddAttribute("float_value", &this->float_value_);
@@ -26,7 +26,7 @@ Panel::Panel(std::string id, ItemBase* parent)
     this->AddAttribute("orientation_value", &this->orientation_value_);
 }
 
-void Panel::API_Update() noexcept
+void InternalTest::Update() noexcept
 {
     std::cout << "######" << this->access_id_ << "######" << std::endl;
 
@@ -42,7 +42,7 @@ void Panel::API_Update() noexcept
     std::cout << "ORIENTATION: " << this->orientation_value_.ToString() << std::endl;
 
     for (const auto& child : this->child_items_)
-        child->API_Update();
+        child->Update();
 }
 
 }  // namespace igm::internal

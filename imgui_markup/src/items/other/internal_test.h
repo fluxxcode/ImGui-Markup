@@ -1,24 +1,23 @@
-#ifndef IMGUI_MARKUP_SRC_ITEM_WIDGETS_PANEL_H_
-#define IMGUI_MARKUP_SRC_ITEM_WIDGETS_PANEL_H_
+#ifndef IMGUI_MARKUP_SRC_ITEM_OTHER_INTERNAL_TEST_H_
+#define IMGUI_MARKUP_SRC_ITEM_OTHER_INTERNAL_TEST_H_
 
 /**
- * @file panel.h
+ * @file internal_test.h
  * @author FluxxCode (info.fluxxcode@gmail.com)
- * @brief Header for the item 'Panel'
+ * @brief Contains item only used for internal testing.
  * @copyright Copyright (c) 2022
  */
 
-#include "items/widgets/widget_base.h"
+#include "items/other/other_base.h"
 
 #include <string>  // std::string
 
 namespace igm::internal
 {
 
-// NOTE: The panel is currently only used for testing purposes.
-struct Panel : public WidgetBase
+struct InternalTest : public OtherBase
 {
-    Panel(std::string id, ItemBase* parent);
+    InternalTest(std::string id, ItemBase* parent);
 
     IntWrapper int_value_;
     FloatWrapper float_value_;
@@ -31,9 +30,9 @@ struct Panel : public WidgetBase
     ColorWrapper color_value_;
     OrientationWrapper orientation_value_ = bt::Orientation::kHorizontal;
 
-    void API_Update() noexcept;
+    void Update() noexcept;
 };
 
 }  // namespace igm::internal
 
-#endif  // IMGUI_MARKUP_SRC_ITEM_WIDGETS_PANEL_H_
+#endif  // IMGUI_MARKUP_SRC_ITEM_OTHER_INTERNAL_TEST_H_

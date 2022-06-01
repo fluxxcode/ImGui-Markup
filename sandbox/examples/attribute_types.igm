@@ -1,5 +1,5 @@
 
-Panel : panel_0
+_INTERNAL_TEST : panel_0
 {
     /********* Base types *********/
     int_value    = 123

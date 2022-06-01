@@ -20,7 +20,7 @@ enum class ItemCategory : unsigned char
 
 enum class ItemType : unsigned char
 {
-    kPanel
+    kInternalTest
 };
 
 }  // namespace igm::internal

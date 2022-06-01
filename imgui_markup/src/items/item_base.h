@@ -32,7 +32,7 @@ public:
 
     ItemBase(const ItemBase&) = delete;
 
-    virtual void API_Update() noexcept { };
+    virtual void Update() noexcept { };
 
     ItemBase* CreateChildItem(std::string type, std::string access_id) noexcept;
 
