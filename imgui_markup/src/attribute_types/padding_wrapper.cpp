@@ -8,7 +8,7 @@
  * @copyright Copyright (c) 2022
  */
 
-#include "attribute_types/vector4_wrapper.h"
+#include "attribute_types/attribute_types.h"
 
 namespace igm::internal
 {
@@ -34,6 +34,19 @@ bool PaddingWrapper::LoadValue(const Vector4Wrapper& val) noexcept
     return true;
 }
 
+bool PaddingWrapper::LoadValue(const FloatWrapper& val) noexcept
+{
+    const float value = val.GetValue();
+    this->SetValue(bt::Padding(value, value, value, value));
+    return true;
+}
+
+bool PaddingWrapper::LoadValue(const IntWrapper& val) noexcept
+{
+    const int value = val.GetValue();
+    this->SetValue(bt::Padding(value, value, value, value));
+    return true;
+}
 
 bool PaddingWrapper::InitReference(PaddingWrapper& ref) noexcept
 {

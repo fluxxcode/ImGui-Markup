@@ -8,6 +8,10 @@ Panel : panel_0
     vec2_value = (1, 2)
     vec4_value = (1, 2, 3, 4)
     padding_value = (1, 2, 3, 4)
+    padding_value = 20
+    padding_value = 20.5
     margin_value = (1, 2, 3, 4)
+    margin_value = 20
+    margin_value = 20.5
     orientation_value = "Vertical"
 }

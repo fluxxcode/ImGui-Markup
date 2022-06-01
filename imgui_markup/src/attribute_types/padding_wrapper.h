@@ -59,6 +59,8 @@ private:
 
     bool LoadValue(const PaddingWrapper& val) noexcept;
     bool LoadValue(const Vector4Wrapper& val) noexcept;
+    bool LoadValue(const FloatWrapper& val) noexcept;
+    bool LoadValue(const IntWrapper& val) noexcept;
 
     bool InitReference(PaddingWrapper& ref) noexcept;
 };

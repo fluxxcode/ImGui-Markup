@@ -8,7 +8,7 @@
  * @copyright Copyright (c) 2022
  */
 
-#include "attribute_types/vector4_wrapper.h"
+#include "attribute_types/attribute_types.h"
 
 namespace igm::internal
 {
@@ -31,6 +31,20 @@ bool MarginWrapper::LoadValue(const Vector4Wrapper& val) noexcept
 {
     this->SetValue(bt::Margin(val.GetValue().x, val.GetValue().y,
         val.GetValue().z, val.GetValue().w));
+    return true;
+}
+
+bool MarginWrapper::LoadValue(const FloatWrapper& val) noexcept
+{
+    const float value = val.GetValue();
+    this->SetValue(bt::Margin(value, value, value, value));
+    return true;
+}
+
+bool MarginWrapper::LoadValue(const IntWrapper& val) noexcept
+{
+    const int value = val.GetValue();
+    this->SetValue(bt::Margin(value, value, value, value));
     return true;
 }
 

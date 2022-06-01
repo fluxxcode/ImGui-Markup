@@ -20,6 +20,10 @@ struct Margin
         : top(0), right(0), bottom(0), left(0)
     { }
 
+    Margin(float top, float right, float bottom, float left)
+        : top(top), right(right), bottom(bottom), left(left)
+    { }
+
     Margin(FloatWrapper top, FloatWrapper right, FloatWrapper bottom,
            FloatWrapper left)
         : top(top), right(right), bottom(bottom), left(left)
