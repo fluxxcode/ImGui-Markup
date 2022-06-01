@@ -122,15 +122,33 @@ public:
     inline T GetValue() const noexcept
     {
         if (this->reference_)
-            return this->reference_->GetValue();
+        {
+            if (this->getting_value_)
+                return this->value_;
+
+            this->getting_value_ = true;
+            const T value = this->reference_->GetValue();
+            this->getting_value_ = false;
+
+            return value;
+        }
 
         return this->value_;
     }
 
-    inline T& GetReference() noexcept
+    inline T& GetValueReference() noexcept
     {
         if (this->reference_)
-            return this->reference_->GetReference();
+        {
+            if (this->getting_value_)
+                return this->value_;
+
+            this->getting_value_ = true;
+            T& value = this->reference_->GetValueReference();
+            this->getting_value_ = false;
+
+            return value;
+        }
 
         return this->value_;
     }
@@ -151,7 +169,10 @@ public:
     inline void RemoveReference()
     {
         if (this->reference_)
+        {
             this->value_ = this->reference_->GetValue();
+            this->reference_->RemoveTrackedReference(this);
+        }
 
         this->reference_ = nullptr;
     }
@@ -181,8 +202,12 @@ private:
     T value_;
     AttributeBase<T>* reference_ = nullptr;
 
-    // Every reference pointing to this.
+    // Every reference pointing to this attribute.
     std::vector<AttributeBase<T>*> tracked_references_;
+
+    // Sets if we are currently in the process of getting the value.
+    // Used to detect endless loops in refrences.
+    mutable bool getting_value_ = false;
 };
 
 }  // namespace igm::internal

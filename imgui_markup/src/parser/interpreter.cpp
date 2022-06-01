@@ -163,9 +163,6 @@ void Interpreter::AssignAttribute(AttributeInterface& attribute,
 
         if (node.by_reference)
         {
-            if (access->GetReference() == &attribute)
-                throw AttributesReferencingEachOther(value_node.value_token);
-
             result = attribute.InitReference(*access);
             break;
         }
@@ -347,17 +344,19 @@ AttributeInterface* Interpreter::GetChildFromAttribute(
     AttributeInterface* attribute, const std::string attribute_name,
     const std::string& child_name, const Lexer::Token& token)
 {
+    // TODO: Rework access to child attributes from attributes.
+
     if (attribute->GetType() == AttributeType::kVector2)
     {
         if (child_name == "x")
         {
             return (AttributeInterface*)&(
-                ((Vector2Wrapper*)attribute)->GetReference().x);
+                ((Vector2Wrapper*)attribute)->GetValueReference().x);
         }
         if (child_name == "y")
         {
             return (AttributeInterface*)&(
-                ((Vector2Wrapper*)attribute)->GetReference().y);
+                ((Vector2Wrapper*)attribute)->GetValueReference().y);
         }
     }
     else if (attribute->GetType() == AttributeType::kVector4)
@@ -365,22 +364,45 @@ AttributeInterface* Interpreter::GetChildFromAttribute(
         if (child_name == "x")
         {
             return (AttributeInterface*)&(
-                ((Vector4Wrapper*)attribute)->GetReference().x);
+                ((Vector4Wrapper*)attribute)->GetValueReference().x);
         }
         if (child_name == "y")
         {
             return (AttributeInterface*)&(
-                ((Vector4Wrapper*)attribute)->GetReference().y);
+                ((Vector4Wrapper*)attribute)->GetValueReference().y);
         }
         if (child_name == "z")
         {
             return (AttributeInterface*)&(
-                ((Vector4Wrapper*)attribute)->GetReference().z);
+                ((Vector4Wrapper*)attribute)->GetValueReference().z);
         }
         if (child_name == "w")
         {
             return (AttributeInterface*)&(
-                ((Vector4Wrapper*)attribute)->GetReference().w);
+                ((Vector4Wrapper*)attribute)->GetValueReference().w);
+        }
+    }
+    else if (attribute->GetType() == AttributeType::kPadding)
+    {
+        if (child_name == "top")
+        {
+            return (AttributeInterface*)&(
+                ((PaddingWrapper*)attribute)->GetValueReference().top);
+        }
+        if (child_name == "right")
+        {
+            return (AttributeInterface*)&(
+                ((PaddingWrapper*)attribute)->GetValueReference().right);
+        }
+        if (child_name == "bottom")
+        {
+            return (AttributeInterface*)&(
+                ((PaddingWrapper*)attribute)->GetValueReference().bottom);
+        }
+        if (child_name == "left")
+        {
+            return (AttributeInterface*)&(
+                ((PaddingWrapper*)attribute)->GetValueReference().left);
         }
     }
 
