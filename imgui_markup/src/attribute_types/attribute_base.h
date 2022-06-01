@@ -25,6 +25,7 @@ enum class AttributeType
     kVector4,
     kPadding,
     kMargin,
+    kColor,
 
     // Enums
     kOrientation
@@ -38,6 +39,7 @@ class Vector2Wrapper;
 class Vector4Wrapper;
 class PaddingWrapper;
 class MarginWrapper;
+class ColorWrapper;
 class OrientationWrapper;
 
 struct AttributeInterface
@@ -63,6 +65,7 @@ struct AttributeInterface
     virtual bool LoadValue(const Vector4Wrapper& val) noexcept { return false; }
     virtual bool LoadValue(const PaddingWrapper& val) noexcept { return false; }
     virtual bool LoadValue(const MarginWrapper& val) noexcept { return false; }
+    virtual bool LoadValue(const ColorWrapper& val) noexcept { return false; }
 
     // Enums
     virtual bool LoadValue(const OrientationWrapper& val) noexcept
@@ -77,6 +80,7 @@ struct AttributeInterface
     virtual bool InitReference(Vector4Wrapper& ref) noexcept { return false; }
     virtual bool InitReference(PaddingWrapper& ref) noexcept { return false; }
     virtual bool InitReference(MarginWrapper& ref) noexcept { return false; }
+    virtual bool InitReference(ColorWrapper& ref) noexcept { return false; }
 
     // Enums
     virtual bool InitReference(OrientationWrapper& ref) noexcept

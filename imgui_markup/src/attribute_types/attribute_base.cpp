@@ -34,6 +34,8 @@ bool AttributeInterface::LoadValue(const AttributeInterface& ref) noexcept
         return this->LoadValue((const PaddingWrapper&)ref);
     case AttributeType::kMargin:
         return this->LoadValue((const MarginWrapper&)ref);
+    case AttributeType::kColor:
+        return this->LoadValue((const ColorWrapper&)ref);
     case AttributeType::kOrientation:
         return this->LoadValue((const OrientationWrapper&)ref);
     default: return false;;
@@ -62,6 +64,8 @@ bool AttributeInterface::InitReference(AttributeInterface& ref) noexcept
         return this->InitReference((PaddingWrapper&)ref);
     case AttributeType::kMargin:
         return this->InitReference((MarginWrapper&)ref);
+    case AttributeType::kColor:
+        return this->InitReference((ColorWrapper&)ref);
     case AttributeType::kOrientation:
         return this->InitReference((OrientationWrapper&)ref);
     default: return false;;

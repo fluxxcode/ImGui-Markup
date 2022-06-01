@@ -13,7 +13,7 @@
 MainState::MainState()
 {
     bool result;
-    const size_t unit_id = igm::ParseFromFile("test.igm", &result);
+    const size_t unit_id = igm::ParseFromFile("examples/attribute_types.igm", &result);
 
     const igm::Result ret = igm::GetLastResult(unit_id);
 

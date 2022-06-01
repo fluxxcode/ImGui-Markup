@@ -1,0 +1,55 @@
+
+Panel : panel_0
+{
+    /********* Base types *********/
+    int_value    = 123
+    +int new_int = panel_0.int_value
+
+    float_value      = 123.456
+    +float new_float = panel_0.float_value
+
+    bool_value     = true
+    +bool new_bool = panel_0.bool_value
+
+    string_value = "Hello"/*  Comment  */" world"
+    +string new_string = panel_0.string_value
+
+    vec2_value     = (1, 2)
+    vec2_value.x   = 1
+    vec2_value.y   = 2
+    +vec2 new_vec2 = panel_0.vec2_value
+
+    vec4_value   = (1, 2, 3, 4)
+    vec4_value.x = 1
+    vec4_value.y = 2
+    vec4_value.z = 3
+    vec4_value.w = 4
+    +vec4 new_vec4 = panel_0.vec4_value
+
+    /********* Complex types *********/
+    padding_value        = (1, 2, 3, 4)  // (top, right, bottom, left)
+    padding_value        = 123           // top, right, bottom, left = 123
+    padding_value        = 123.456       // top, right, bottom, left = 123.456
+    padding_value.top    = 1
+    padding_value.right  = 2
+    padding_value.bottom = 3
+    padding_value.left   = 4
+
+    margin_value        = (1, 2, 3, 4)  // (top, right, bottom, left)
+    margin_value        = 123           // top, right, bottom, left = 123
+    margin_value        = 123.456       // top, right, bottom, left = 123.456
+    margin_value.top    = 1
+    margin_value.right  = 2
+    margin_value.bottom = 3
+    margin_value.left   = 4
+
+    color_value   = (1, 2, 3, 4)  // (r, g, b, a)
+    color_value.r = 1
+    color_value.g = 2
+    color_value.b = 3
+    color_value.a = 4
+
+    /********* Enums  *********/
+    orientation_value = "Horizontal"
+    orientation_value = "Vertical"
+}
