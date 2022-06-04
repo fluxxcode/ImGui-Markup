@@ -9,4 +9,11 @@
  */
 
 namespace igm::internal
-{ }  // namespace igm::internal
+{
+
+void WidgetBase::API_Update(bt::Vector2 position, bt::Vector2 size) noexcept
+{
+    this->Update(position, size);
+}
+
+}  // namespace igm::internal

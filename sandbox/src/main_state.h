@@ -16,6 +16,9 @@ public:
 
     void Update();
     void Render();
+
+private:
+    size_t test_unit;
 };
 
 #endif  // SANDBOX_SRC_MAIN_STATE_H_

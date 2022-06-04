@@ -30,7 +30,7 @@ struct InternalTest : public OtherBase
     ColorWrapper color_value_;
     OrientationWrapper orientation_value_ = bt::Orientation::kHorizontal;
 
-    void Update() noexcept;
+    void Update(bt::Vector2 position, bt::Vector2 size) noexcept;
 };
 
 }  // namespace igm::internal

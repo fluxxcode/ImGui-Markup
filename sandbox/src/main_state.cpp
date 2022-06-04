@@ -13,19 +13,18 @@
 MainState::MainState()
 {
     bool result;
-    const size_t unit_id = igm::ParseFromFile("examples/attribute_types.igm", &result);
+    this->test_unit = igm::ParseFromFile("examples/main.igm", &result);
 
-    const igm::Result ret = igm::GetLastResult(unit_id);
+    const igm::Result ret = igm::GetLastResult(this->test_unit);
 
     if (!result)
         std::cerr << ret.message << std::endl;
 
-    igm::Update(unit_id);
 }
 
 void MainState::Update()
 {
-    ImGui::ShowDemoWindow();
+    igm::Update(this->test_unit);
 }
 
 void MainState::Render()

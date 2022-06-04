@@ -35,7 +35,8 @@ Result GetLastResult(size_t unit, bool* result = nullptr);
  * Main function to update a specific unit and its childs.
  * Should be called every frame in which the unit is to be displayed.
  */
-void Update(size_t unit, bool* result = nullptr);
+void Update(size_t unit, size_t display_width = 0, size_t display_height = 0,
+            bool* result = nullptr);
 
 bool IsPressed(size_t unit, const char* item, bool* result = nullptr);
 bool IsHovered(size_t unit, const char* item, bool* result = nullptr);

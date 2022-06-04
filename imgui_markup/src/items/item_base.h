@@ -32,7 +32,7 @@ public:
 
     ItemBase(const ItemBase&) = delete;
 
-    virtual void Update() noexcept { };
+    virtual void Update(bt::Vector2 position, bt::Vector2 size) noexcept { };
 
     ItemBase* CreateChildItem(std::string type, std::string access_id) noexcept;
 
@@ -50,7 +50,7 @@ public:
      * @tparam T - Expecting an attribute wrapper defined in the
      *             directory attribute_types.
      * @param name - Name of the attribute to allow access from
-     *               the markup langauge.
+     *               the markup language.
      * @param attribute - The attribute itself that will be copied and
      *                    added to the attribute list.
      *
@@ -77,14 +77,13 @@ protected:
     const ItemCategory category_;
 
     /**
-     * ID to access the object via the API or to reference the object
+     * Full ID to access the object via the API or to reference the object
      * through the markup language.
-     * NOTE: This is NOT the full ID!
      */
     const std::string access_id_;
 
     /**
-     * Unique ID that equals the address of the object.
+     * Unique ID that is equal to the address of the object.
      * Set within the constructor.
      */
     std::string unique_id_;

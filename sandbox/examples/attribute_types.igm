@@ -1,30 +1,30 @@
 
-_INTERNAL_TEST : panel_0
+_INTERNAL_TEST : test_0
 {
     /********* Base types *********/
     int_value    = 123
-    +int new_int = panel_0.int_value
+    +int new_int = test_0.int_value
 
     float_value      = 123.456
-    +float new_float = panel_0.float_value
+    +float new_float = test_0.float_value
 
     bool_value     = true
-    +bool new_bool = panel_0.bool_value
+    +bool new_bool = test_0.bool_value
 
     string_value = "Hello"/*  Comment  */" world"
-    +string new_string = panel_0.string_value
+    +string new_string = test_0.string_value
 
     vec2_value     = (1, 2)
     vec2_value.x   = 1
     vec2_value.y   = 2
-    +vec2 new_vec2 = panel_0.vec2_value
+    +vec2 new_vec2 = test_0.vec2_value
 
     vec4_value   = (1, 2, 3, 4)
     vec4_value.x = 1
     vec4_value.y = 2
     vec4_value.z = 3
     vec4_value.w = 4
-    +vec4 new_vec4 = panel_0.vec4_value
+    +vec4 new_vec4 = test_0.vec4_value
 
     /********* Complex types *********/
     padding_value        = (1, 2, 3, 4)  // (top, right, bottom, left)

@@ -26,7 +26,7 @@ InternalTest::InternalTest(std::string id, ItemBase* parent)
     this->AddAttribute("orientation_value", &this->orientation_value_);
 }
 
-void InternalTest::Update() noexcept
+void InternalTest::Update(bt::Vector2 position, bt::Vector2 size) noexcept
 {
     std::cout << "######" << this->access_id_ << "######" << std::endl;
 
@@ -42,7 +42,7 @@ void InternalTest::Update() noexcept
     std::cout << "ORIENTATION: " << this->orientation_value_.ToString() << std::endl;
 
     for (const auto& child : this->child_items_)
-        child->Update();
+        child->Update(position, size);
 }
 
 }  // namespace igm::internal
