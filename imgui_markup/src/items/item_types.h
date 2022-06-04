@@ -20,6 +20,10 @@ enum class ItemCategory : unsigned char
 
 enum class ItemType : unsigned char
 {
+    // Widgets
+    kPanel,
+
+    // Other
     kInternalTest
 };
 
