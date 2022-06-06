@@ -10,8 +10,12 @@
 
 #include "items/item_base.h"
 
+// Widgets
 #include "items/widgets/panel.h"
 #include "items/widgets/button.h"
+#include "items/widgets/text.h"
+
+// Other
 #include "items/other/container.h"
 #include "items/other/internal_test.h"
 
@@ -42,6 +46,7 @@ private:
             // Widgets
             { "Panel", CreateItemInstance<Panel> },
             { "Button", CreateItemInstance<Button> },
+            { "Text", CreateItemInstance<Text> },
 
             // Other
             { "Container", CreateItemInstance<Container> },

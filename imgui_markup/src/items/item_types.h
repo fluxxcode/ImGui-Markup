@@ -23,6 +23,7 @@ enum class ItemType : unsigned char
     // Widgets
     kPanel,
     kButton,
+    kText,
 
     // Other
     kContainer,
