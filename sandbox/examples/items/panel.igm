@@ -1,5 +1,5 @@
 
-Panel : panel_0
+Panel
 {
     title = "Hello world"
     position = (500, 10)

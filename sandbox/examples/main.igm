@@ -1,2 +1,3 @@
 
-#include "examples/items/panel.igm"
+#include "items/panel.igm"
+#include "items/button.igm"

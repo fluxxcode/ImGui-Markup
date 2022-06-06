@@ -22,6 +22,7 @@ enum class ItemType : unsigned char
 {
     // Widgets
     kPanel,
+    kButton,
 
     // Other
     kInternalTest

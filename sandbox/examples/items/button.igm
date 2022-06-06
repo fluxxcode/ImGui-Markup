@@ -1,0 +1,11 @@
+
+Panel
+{
+    title = "Button example"
+
+    Button : button_0
+    {
+        text = "Hello world"
+        size = (100, 20)
+    }
+}
