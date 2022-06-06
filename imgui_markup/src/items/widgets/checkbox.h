@@ -26,8 +26,8 @@ public:
 
 private:
     StringWrapper text_;
+    BoolWrapper is_checked_;
 
-    bool is_checked_ = false;
     bool is_hovered_ = false;
 
     // API functions

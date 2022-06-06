@@ -15,11 +15,13 @@ Checkbox::Checkbox(std::string id, ItemBase* parent)
     : WidgetBase(ItemType::kCheckbox, id, parent)
 {
     this->InitAttribute("text", this->text_);
+    this->InitAttribute("checked", this->is_checked_);
 }
 
 void Checkbox::WidgetUpdate(bt::Vector2 position, bt::Vector2 size) noexcept
 {
-    ImGui::Checkbox(this->text_.GetString().c_str(), &this->is_checked_);
+    ImGui::Checkbox(this->text_.GetString().c_str(),
+                    &this->is_checked_.GetValueReference());
 
     this->is_hovered_ = ImGui::IsItemHovered();
 }
