@@ -9,4 +9,4 @@ Container : text_example
         Text : text_1 { text = "Hello world 2" }
         Text : text_2 { text = "Hello world 3" }
     }
-}
+}  // text_example

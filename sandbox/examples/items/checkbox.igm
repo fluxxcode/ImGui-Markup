@@ -9,4 +9,4 @@ Container : checkbox_example
         Checkbox : checkbox_1 { text = "Checkbox 1" }
         Checkbox : checkbox_2 { text = "Checkbox 2" }
     }
-}
+}  // checkbox_example

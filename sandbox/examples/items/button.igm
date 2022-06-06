@@ -1,16 +1,14 @@
 
 Container : button_example
 {
-
-Panel
-{
-    title = "Button example"
-
-    Button : button_0
+    Panel
     {
-        text = "Hello world"
-        size = (100, 20)
-    }
-}
+        title = "Button example"
 
+        Button : button_0
+        {
+            text = "Hello world"
+            size = (100, 20)
+        }
+    }
 }  // button_example
