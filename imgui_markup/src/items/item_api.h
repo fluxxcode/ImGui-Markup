@@ -26,6 +26,8 @@ struct ItemAPI
 
     virtual bool API_IsPressed(ImGuiMouseButton btn) noexcept { return false; }
     virtual bool API_IsHovered() noexcept { return false; }
+
+    virtual bool API_IsCheckboxChecked() noexcept { return false;}
 };
 
 }  // namespace igm::internal

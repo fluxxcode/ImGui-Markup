@@ -47,6 +47,9 @@ bool IsPressed(size_t unit, const char* item,
 
 bool IsHovered(size_t unit, const char* item, bool* result = nullptr) noexcept;
 
+bool IsCheckboxChecked(size_t unit, const char* item,
+                       bool* result = nullptr) noexcept;
+
 }  // namespace igm
 
 #endif  // IMGUI_MARKUP_INCLUDE_IMGUI_MARKUP_H_

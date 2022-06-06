@@ -24,6 +24,7 @@ enum class ItemType : unsigned char
     kPanel,
     kButton,
     kText,
+    kCheckbox,
 
     // Other
     kContainer,

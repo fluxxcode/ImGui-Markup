@@ -1,5 +1,9 @@
 
+// Widgets
 #include "items/panel.igm"
 #include "items/button.igm"
-#include "items/container.igm"
 #include "items/text.igm"
+#include "items/checkbox.igm"
+
+// Other
+#include "items/container.igm"

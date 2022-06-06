@@ -94,4 +94,15 @@ bool IsHovered(size_t unit_id, const char* item_id, bool* result) noexcept
     return item->API_IsHovered();
 }
 
+bool IsCheckboxChecked(size_t unit_id, const char* item_id,
+                       bool* result) noexcept
+{
+    internal::ItemAPI* item = internal::UnitStack::GetItemAPI(unit_id, item_id,
+                                                              result);
+    if (!item)
+        return false;
+
+    return item->API_IsCheckboxChecked();
+}
+
 }  // namespace igm

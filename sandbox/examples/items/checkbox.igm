@@ -1,0 +1,12 @@
+
+Container : checkbox_example
+{
+    Panel
+    {
+        title = "Checkbox example"
+
+        Checkbox : checkbox_0 { text = "Checkbox 0" }
+        Checkbox : checkbox_1 { text = "Checkbox 1" }
+        Checkbox : checkbox_2 { text = "Checkbox 2" }
+    }
+}

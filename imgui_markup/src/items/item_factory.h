@@ -14,6 +14,7 @@
 #include "items/widgets/panel.h"
 #include "items/widgets/button.h"
 #include "items/widgets/text.h"
+#include "items/widgets/checkbox.h"
 
 // Other
 #include "items/other/container.h"
@@ -47,6 +48,7 @@ private:
             { "Panel", CreateItemInstance<Panel> },
             { "Button", CreateItemInstance<Button> },
             { "Text", CreateItemInstance<Text> },
+            { "Checkbox", CreateItemInstance<Checkbox> },
 
             // Other
             { "Container", CreateItemInstance<Container> },
