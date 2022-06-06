@@ -1,5 +1,5 @@
-#ifndef IMGUI_MARKUP_SRC_ITEM_OTHER_INTERNAL_TEST_H_
-#define IMGUI_MARKUP_SRC_ITEM_OTHER_INTERNAL_TEST_H_
+#ifndef IMGUI_MARKUP_SRC_ITEMS_OTHER_INTERNAL_TEST_H_
+#define IMGUI_MARKUP_SRC_ITEMS_OTHER_INTERNAL_TEST_H_
 
 /**
  * @file internal_test.h
@@ -35,4 +35,4 @@ struct InternalTest : public OtherBase
 
 }  // namespace igm::internal
 
-#endif  // IMGUI_MARKUP_SRC_ITEM_OTHER_INTERNAL_TEST_H_
+#endif  // IMGUI_MARKUP_SRC_ITEMS_OTHER_INTERNAL_TEST_H_

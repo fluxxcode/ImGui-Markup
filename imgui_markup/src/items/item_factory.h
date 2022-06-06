@@ -1,5 +1,5 @@
-#ifndef IMGUI_MARKUP_SRC_ITEMS_ITEM_LIST_H_
-#define IMGUI_MARKUP_SRC_ITEMS_ITEM_LIST_H_
+#ifndef IMGUI_MARKUP_SRC_ITEMS_ITEM_FACTORY_H_
+#define IMGUI_MARKUP_SRC_ITEMS_ITEM_FACTORY_H_
 
 /**
  * @file item_factory.h
@@ -61,4 +61,4 @@ private:
 
 }  // namespace igm::internal
 
-#endif  // IMGUI_MARKUP_SRC_ITEMS_ITEM_LIST_H_
+#endif  // IMGUI_MARKUP_SRC_ITEMS_ITEM_FACTORY_H_

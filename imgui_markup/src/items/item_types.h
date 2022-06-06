@@ -1,5 +1,5 @@
-#ifndef IMGUI_MARKUP_SRC_ITEM_ITEM_MAPPING_H_
-#define IMGUI_MARKUP_SRC_ITEM_ITEM_MAPPING_H_
+#ifndef IMGUI_MARKUP_SRC_ITEMS_ITEM_TYPES_H_
+#define IMGUI_MARKUP_SRC_ITEMS_ITEM_TYPES_H_
 
 /**
  * @file item_types.h
@@ -30,4 +30,4 @@ enum class ItemType : unsigned char
 
 }  // namespace igm::internal
 
-#endif  // IMGUI_MARKUP_SRC_ITEM_ITEM_MAPPING_H_
+#endif  // IMGUI_MARKUP_SRC_ITEMS_ITEM_TYPES_H_

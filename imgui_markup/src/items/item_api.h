@@ -1,5 +1,5 @@
-#ifndef IMGUI_MARKUP_SRC_ITEM_ITEM_API_H_
-#define IMGUI_MARKUP_SRC_ITEM_ITEM_API_H_
+#ifndef IMGUI_MARKUP_SRC_ITEMS_ITEM_API_H_
+#define IMGUI_MARKUP_SRC_ITEMS_ITEM_API_H_
 
 /**
  * @file item_api.h
@@ -30,4 +30,4 @@ struct ItemAPI
 
 }  // namespace igm::internal
 
-#endif  // IMGUI_MARKUP_SRC_ITEM_ITEM_API_H_
+#endif  // IMGUI_MARKUP_SRC_ITEMS_ITEM_API_H_

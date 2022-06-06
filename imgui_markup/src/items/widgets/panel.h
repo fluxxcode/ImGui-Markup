@@ -1,5 +1,5 @@
-#ifndef IMGUI_MARKUP_SRC_ITEM_WIDGETS_PANEL_H_
-#define IMGUI_MARKUP_SRC_ITEM_WIDGETS_PANEL_H_
+#ifndef IMGUI_MARKUP_SRC_ITEMS_WIDGETS_PANEL_H_
+#define IMGUI_MARKUP_SRC_ITEMS_WIDGETS_PANEL_H_
 
 /**
  * @file panel.h
@@ -45,4 +45,4 @@ private:
 
 }  // namespace igm::internal
 
-#endif  // IMGUI_MARKUP_SRC_ITEM_WIDGETS_PANEL_H_
+#endif  // IMGUI_MARKUP_SRC_ITEMS_WIDGETS_PANEL_H_
