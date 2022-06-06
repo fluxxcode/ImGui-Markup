@@ -19,6 +19,9 @@ public:
 
 private:
     size_t test_unit;
+
+    void CheckIsPressed(std::string item_id);
+    void CheckIsHovered(std::string item_id);
 };
 
 #endif  // SANDBOX_SRC_MAIN_STATE_H_

@@ -19,7 +19,6 @@ MainState::MainState()
 
     if (!result)
         std::cerr << ret.message << std::endl;
-
 }
 
 void MainState::Update()
@@ -29,3 +28,15 @@ void MainState::Update()
 
 void MainState::Render()
 { }
+
+void MainState::CheckIsPressed(std::string item_id)
+{
+    if (igm::IsPressed(this->test_unit, item_id.c_str()))
+        std::cout << "PRESSED: " << item_id << std::endl;
+}
+
+void MainState::CheckIsHovered(std::string item_id)
+{
+    if (igm::IsHovered(this->test_unit, item_id.c_str()))
+        std::cout << "HOVERED: " << item_id << std::endl;
+}
