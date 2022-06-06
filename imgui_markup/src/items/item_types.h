@@ -25,6 +25,7 @@ enum class ItemType : unsigned char
     kButton,
 
     // Other
+    kContainer,
     kInternalTest
 };
 

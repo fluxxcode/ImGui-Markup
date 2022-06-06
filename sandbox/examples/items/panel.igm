@@ -1,7 +1,12 @@
 
+Container : panel_example
+{
+
 Panel
 {
     title = "Hello world"
     position = (500, 10)
     size = (400, 200)
 }
+
+}  // panel_example

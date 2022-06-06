@@ -12,6 +12,7 @@
 
 #include "items/widgets/panel.h"
 #include "items/widgets/button.h"
+#include "items/other/container.h"
 #include "items/other/internal_test.h"
 
 #include <string>  // std::string
@@ -38,8 +39,12 @@ public:
 private:
     const std::map<std::string, std::function<std::unique_ptr<ItemBase>(
         std::string, ItemBase*)>> item_mapping_ = {
+            // Widgets
             { "Panel", CreateItemInstance<Panel> },
             { "Button", CreateItemInstance<Button> },
+
+            // Other
+            { "Container", CreateItemInstance<Container> },
             { "_INTERNAL_TEST", CreateItemInstance<InternalTest> }
         };
 

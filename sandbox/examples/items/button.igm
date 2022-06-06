@@ -1,4 +1,7 @@
 
+Container : button_example
+{
+
 Panel
 {
     title = "Button example"
@@ -9,3 +12,5 @@ Panel
         size = (100, 20)
     }
 }
+
+}  // button_example
