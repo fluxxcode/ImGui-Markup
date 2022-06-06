@@ -11,6 +11,13 @@
 namespace igm::internal
 {
 
+void WidgetBase::Update(bt::Vector2 position, bt::Vector2 size) noexcept
+{
+    ImGui::PushID(this);
+    this->WidgetUpdate(position, size);
+    ImGui::PopID();
+}
+
 void WidgetBase::API_Update(bt::Vector2 position, bt::Vector2 size) noexcept
 {
     this->Update(position, size);

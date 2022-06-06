@@ -18,7 +18,7 @@ Button::Button(std::string id, ItemBase* parent)
     this->InitAttribute("size", this->size_);
 }
 
-void Button::Update(bt::Vector2 position, bt::Vector2 size) noexcept
+void Button::WidgetUpdate(bt::Vector2 position, bt::Vector2 size) noexcept
 {
     ImGui::Button(this->text_.GetString().c_str(), this->size_);
 

@@ -22,7 +22,7 @@ class Button : public WidgetBase
 public:
     Button(std::string id, ItemBase* parent);
 
-    void Update(bt::Vector2 position, bt::Vector2 size) noexcept;
+    void WidgetUpdate(bt::Vector2 position, bt::Vector2 size) noexcept;
 
 private:
     StringWrapper text_;

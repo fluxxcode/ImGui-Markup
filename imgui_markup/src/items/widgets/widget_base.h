@@ -13,15 +13,38 @@
 namespace igm::internal
 {
 
-struct WidgetBase : public ItemBase
+class WidgetBase : public ItemBase
 {
+public:
     WidgetBase(ItemType type, std::string id, ItemBase* parent)
         : ItemBase(type, ItemCategory::kWidget, id, parent)
     { }
 
     WidgetBase(const WidgetBase&) = delete;
 
+    /**
+     * Implementation of the ItemBase::Update function.
+     * Already pushes an unique ID for the item and calls WidgetUpdate().
+     * Can be overwritten to prevent it.
+     */
+    virtual void Update(bt::Vector2 position, bt::Vector2 size) noexcept;
+
+    /**
+     * Update function of the Item API, usually called for items
+     * that are at the root of the item tree.
+     * Currently only calls the Update function.
+     */
     virtual void API_Update(bt::Vector2 position, bt::Vector2 size) noexcept;
+
+protected:
+    /**
+     * Main update function that should be implemented by the
+     * inheriting item.
+     * If this function is implemented, the ImGui ID push/pop no longer has
+     * to be done by the child items.
+     */
+    virtual void WidgetUpdate(bt::Vector2 position,
+                              bt::Vector2 size) noexcept { }
 };
 
 }  // namespace igm::internal
