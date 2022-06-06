@@ -29,8 +29,6 @@ private:
 
     bool is_hovered_ = false;
 
-    void Init();
-
     // API functions
     bool API_IsPressed(ImGuiMouseButton btn) noexcept;
     bool API_IsHovered() noexcept;
