@@ -16,7 +16,7 @@ void Lexer::InitFile(std::string path)
     this->Reset();
 
     Token token(TokenType::kString, "", 0, 0, 0, path);
-    this->OpenFile(path, token);
+    this->OpenFile(std::filesystem::absolute(path).string(), token);
 }
 
 Lexer::Token Lexer::Get()
@@ -64,8 +64,6 @@ void Lexer::Reset() noexcept
 
 void Lexer::OpenFile(std::string path, Token token)
 {
-    path = std::filesystem::absolute(path).string();
-
     if (this->IsFileInFileStack(path))
         throw FileIncludesItself(token);
 
@@ -79,7 +77,7 @@ void Lexer::OpenFile(std::string path, Token token)
     if (!file.fstream.is_open())
     {
         this->file_stack_.pop_back();
-        throw UnableToOpenFile(token);
+        throw UnableToOpenFile(path,token);
     }
 
     std::getline(file.fstream, file.context.current_line);
@@ -409,12 +407,14 @@ Lexer::Token Lexer::ParseInstruction()
 
 Lexer::Token Lexer::ExecuteIncludeInstruction()
 {
+    const std::string current_dir = this->GetCurrentDirectory();
+
     Token arg = this->GenerateToken();
 
     if (arg.type != TokenType::kString)
         throw WrongIncludeArgument(arg);
 
-    this->OpenFile(this->GetCurrentDirectory() + arg.value, arg);
+    this->OpenFile(current_dir + arg.value, arg);
 
     return this->GenerateToken();
 }

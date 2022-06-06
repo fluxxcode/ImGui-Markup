@@ -159,6 +159,8 @@ private:
      */
     std::vector<Token> token_cache_;
 
+    std::string last_file_;
+
     /**
      * Opens a new file, creates the file context and adds it to the
      * file stack.
@@ -334,8 +336,8 @@ struct LexerException
 
 struct UnableToOpenFile : public LexerException
 {
-    UnableToOpenFile(Lexer::Token token)
-        : LexerException("Unable to open file", token)
+    UnableToOpenFile(std::string path, Lexer::Token token)
+        : LexerException("Unable to open file '" + path + "'", token)
     { }
 };
 
