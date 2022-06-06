@@ -45,6 +45,10 @@ protected:
      */
     virtual void WidgetUpdate(bt::Vector2 position,
                               bt::Vector2 size) noexcept { }
+
+private:
+    // See item_base.h for more information
+    virtual bool OnProcessStart(std::string& error_message) noexcept;
 };
 
 }  // namespace igm::internal

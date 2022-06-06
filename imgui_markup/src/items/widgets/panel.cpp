@@ -52,7 +52,7 @@ bool Panel::API_IsHovered() noexcept
     return this->is_hovered_;
 }
 
-bool Panel::OnProcessEnd(std::string& error_message)
+bool Panel::OnProcessEnd(std::string& error_message) noexcept
 {
     this->title_.GetString() += "##" + this->unique_id_;
     return true;

@@ -39,8 +39,11 @@ private:
     bool API_IsPressed(ImGuiMouseButton btn) noexcept;
     bool API_IsHovered() noexcept;
 
+    // Overwrite of WidgetBase
+    bool OnProcessStart(std::string& error_message) noexcept { return true; }
+
     // See item_base.h for more information
-    bool OnProcessEnd(std::string& error_message);
+    bool OnProcessEnd(std::string& error_message) noexcept;
 };
 
 }  // namespace igm::internal

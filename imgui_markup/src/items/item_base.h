@@ -72,6 +72,9 @@ public:
     inline std::string GetAccessID() const noexcept
         { return this->access_id_; }
 
+    inline ItemType GetType() const noexcept { return this->type_; }
+    inline const ItemBase* GetParent() const noexcept { return this->parent_; }
+
     /**
      * Function that is called by the interpreter before the interpreter
      * starts the process of the items child nodes.
@@ -81,7 +84,8 @@ public:
      *                            if there is one.
      * @return true on success, false if there was an error.
      */
-    virtual bool OnProcessStart(std::string& error_message) { return true; }
+    virtual bool OnProcessStart(std::string& error_message) noexcept
+        { return true; }
 
     /**
      * Function that is called by the interpreter after the interpreter
@@ -92,7 +96,8 @@ public:
      *                            if there is one.
      * @return true on success, false if there was an error.
      */
-    virtual bool OnProcessEnd(std::string& error_message){ return true; }
+    virtual bool OnProcessEnd(std::string& error_message) noexcept
+        { return true; }
 
 protected:
     const ItemType type_;

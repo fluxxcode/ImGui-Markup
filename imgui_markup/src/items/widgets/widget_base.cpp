@@ -23,4 +23,20 @@ void WidgetBase::API_Update(bt::Vector2 position, bt::Vector2 size) noexcept
     this->Update(position, size);
 }
 
+bool WidgetBase::OnProcessStart(std::string& error_message) noexcept
+{
+    const ItemBase* parent = this->parent_;
+    while (parent)
+    {
+        if (parent->GetType() == ItemType::kPanel)
+            return true;
+
+        parent = parent->GetParent();
+    }
+
+    error_message = "One of the items parent item must be an item "
+                    "of type Panel";
+    return false;
+}
+
 }  // namespace igm::internal
