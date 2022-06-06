@@ -35,9 +35,6 @@ private:
     // API functions
     bool API_IsPressed(ImGuiMouseButton btn) noexcept;
     bool API_IsHovered() noexcept;
-
-    // See item_base.h for more information
-    bool OnProcessStart(std::string& error_message);
 };
 
 }  // namespace igm::internal

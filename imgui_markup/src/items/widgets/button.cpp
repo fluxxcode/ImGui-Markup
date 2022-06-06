@@ -35,9 +35,4 @@ bool Button::API_IsHovered() noexcept
     return this->is_hovered_;
 }
 
-bool Button::OnProcessStart(std::string& error_message)
-{
-    return true;
-}
-
 }  // namespace igm::internal
