@@ -36,8 +36,8 @@ private:
     void Init();
 
     // API functions
-    bool API_IsPressed(ImGuiMouseButton btn) noexcept;
-    bool API_IsHovered() noexcept;
+    bool API_IsItemPressed(ImGuiMouseButton btn) noexcept;
+    bool API_IsItemHovered() noexcept;
 
     // Overwrite of WidgetBase
     bool OnProcessStart(std::string& error_message) noexcept { return true; }

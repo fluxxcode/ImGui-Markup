@@ -24,12 +24,12 @@ void Text::WidgetUpdate(bt::Vector2 position, bt::Vector2 size) noexcept
     this->is_hovered_ = ImGui::IsItemHovered();
 }
 
-bool Text::API_IsPressed(ImGuiMouseButton mb) noexcept
+bool Text::API_IsItemPressed(ImGuiMouseButton mb) noexcept
 {
     return this->is_hovered_ && ImGui::IsMouseClicked(mb);
 }
 
-bool Text::API_IsHovered() noexcept
+bool Text::API_IsItemHovered() noexcept
 {
     return this->is_hovered_;
 }

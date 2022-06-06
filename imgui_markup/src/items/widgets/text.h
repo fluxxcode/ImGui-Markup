@@ -30,8 +30,8 @@ private:
     bool is_hovered_ = false;
 
     // API functions
-    bool API_IsPressed(ImGuiMouseButton btn) noexcept;
-    bool API_IsHovered() noexcept;
+    bool API_IsItemPressed(ImGuiMouseButton btn) noexcept;
+    bool API_IsItemHovered() noexcept;
 };
 
 }  // namespace igm::internal

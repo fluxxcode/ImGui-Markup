@@ -41,11 +41,12 @@ void Update(size_t unit, size_t display_width = 0, size_t display_height = 0,
 
 /************ ITEM API ************/
 
-bool IsPressed(size_t unit, const char* item,
-               MouseButton mouse_button = MouseButton::kLeft,
-               bool* result = nullptr) noexcept;
+bool IsItemPressed(size_t unit, const char* item,
+                   MouseButton mouse_button = MouseButton::kLeft,
+                   bool* result = nullptr) noexcept;
 
-bool IsHovered(size_t unit, const char* item, bool* result = nullptr) noexcept;
+bool IsItemHovered(size_t unit, const char* item,
+                   bool* result = nullptr) noexcept;
 
 bool IsCheckboxChecked(size_t unit, const char* item,
                        bool* result = nullptr) noexcept;

@@ -31,12 +31,12 @@ void MainState::Render()
 
 void MainState::CheckIsPressed(std::string item_id)
 {
-    if (igm::IsPressed(this->test_unit, item_id.c_str()))
+    if (igm::IsItemPressed(this->test_unit, item_id.c_str()))
         std::cout << "PRESSED: " << item_id << std::endl;
 }
 
 void MainState::CheckIsHovered(std::string item_id)
 {
-    if (igm::IsHovered(this->test_unit, item_id.c_str()))
+    if (igm::IsItemHovered(this->test_unit, item_id.c_str()))
         std::cout << "HOVERED: " << item_id << std::endl;
 }

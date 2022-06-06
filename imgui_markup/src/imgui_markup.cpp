@@ -73,7 +73,7 @@ void Update(size_t unit_id, size_t display_width, size_t display_height,
     }
 }
 
-bool IsPressed(size_t unit_id, const char* item_id, MouseButton mb,
+bool IsItemPressed(size_t unit_id, const char* item_id, MouseButton mb,
                bool* result) noexcept
 {
     internal::ItemAPI* item = internal::UnitStack::GetItemAPI(unit_id, item_id,
@@ -81,17 +81,17 @@ bool IsPressed(size_t unit_id, const char* item_id, MouseButton mb,
     if (!item)
         return false;
 
-    return item->API_IsPressed(internal::utils::ConvertMouseButton(mb));
+    return item->API_IsItemPressed(internal::utils::ConvertMouseButton(mb));
 }
 
-bool IsHovered(size_t unit_id, const char* item_id, bool* result) noexcept
+bool IsItemHovered(size_t unit_id, const char* item_id, bool* result) noexcept
 {
     internal::ItemAPI* item = internal::UnitStack::GetItemAPI(unit_id, item_id,
                                                               result);
     if (!item)
         return false;
 
-    return item->API_IsHovered();
+    return item->API_IsItemHovered();
 }
 
 bool IsCheckboxChecked(size_t unit_id, const char* item_id,

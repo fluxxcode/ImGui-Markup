@@ -42,12 +42,12 @@ void Panel::Init()
     this->init_ = true;
 }
 
-bool Panel::API_IsPressed(ImGuiMouseButton mb) noexcept
+bool Panel::API_IsItemPressed(ImGuiMouseButton mb) noexcept
 {
     return this->is_hovered_ && ImGui::IsMouseClicked(mb);
 }
 
-bool Panel::API_IsHovered() noexcept
+bool Panel::API_IsItemHovered() noexcept
 {
     return this->is_hovered_;
 }
