@@ -19,7 +19,7 @@ void Vector2Wrapper::Init() noexcept
 
 bool Vector2Wrapper::LoadValue(const Vector2Wrapper& val) noexcept
 {
-    this->SetValue((bt::Vector2)val);
+    this->SetValue(val.GetValue());
     return true;
 }
 
