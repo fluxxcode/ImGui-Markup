@@ -10,16 +10,37 @@
 
 #include "items/widgets/widget_base.h"
 
+#include "imgui.h"  // ImGuiMouseButton
+
 #include <string>  // std::string
 
 namespace igm::internal
 {
 
-struct Panel : public WidgetBase
+class Panel : public WidgetBase
 {
+public:
     Panel(std::string id, ItemBase* parent);
 
     void Update(bt::Vector2 position, bt::Vector2 size) noexcept;
+
+private:
+    StringWrapper title_;
+    Vector2Wrapper position_;
+    Vector2Wrapper size_;
+
+    bool init_ = false;
+
+    bool is_hovered_ = false;
+
+    void Init();
+
+    // API functions
+    bool API_IsPressed(ImGuiMouseButton btn) noexcept;
+    bool API_IsHovered() noexcept;
+
+    // See item_base.h for more information
+    bool OnProcessEnd(std::string& error_message);
 };
 
 }  // namespace igm::internal

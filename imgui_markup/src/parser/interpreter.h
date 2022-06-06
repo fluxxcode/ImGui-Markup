@@ -410,6 +410,20 @@ struct InvalidAccessID : public InterpreterException
     { }
 };
 
+struct ItemOnProcessStartError : public InterpreterException
+{
+    ItemOnProcessStartError(std::string msg, Lexer::Token token)
+        : InterpreterException("Item on process start error: " + msg, token)
+    { }
+};
+
+struct ItemOnProcessEndError : public InterpreterException
+{
+    ItemOnProcessEndError(std::string msg, Lexer::Token token)
+        : InterpreterException("Item on process end error: " + msg, token)
+    { }
+};
+
 struct UnableToFindItem : public InterpreterException
 {
     UnableToFindItem(Lexer::Token token)

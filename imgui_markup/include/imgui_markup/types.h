@@ -35,6 +35,14 @@ struct Vector4
     float x, y, z, w;
 };
 
+enum class MouseButton : unsigned char
+{
+    kLeft = 0,
+    kRight,
+    kMiddle
+};
+
+
 }  // namespace igm
 
 #endif  // IMGUI_MARKUP_INCLUDE_IMGUI_MARKUP_TYPES_H_

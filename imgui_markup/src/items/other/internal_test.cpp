@@ -14,16 +14,16 @@ namespace igm::internal
 InternalTest::InternalTest(std::string id, ItemBase* parent)
     : OtherBase(ItemType::kInternalTest, id, parent)
 {
-    this->AddAttribute("int_value", &this->int_value_);
-    this->AddAttribute("float_value", &this->float_value_);
-    this->AddAttribute("bool_value", &this->bool_value_);
-    this->AddAttribute("string_value", &this->string_value_);
-    this->AddAttribute("vec2_value", &this->vec2_value_);
-    this->AddAttribute("vec4_value", &this->vec4_value_);
-    this->AddAttribute("padding_value", &this->padding_value_);
-    this->AddAttribute("margin_value", &this->margin_value_);
-    this->AddAttribute("color_value", &this->color_value_);
-    this->AddAttribute("orientation_value", &this->orientation_value_);
+    this->InitAttribute("int_value", this->int_value_);
+    this->InitAttribute("float_value", this->float_value_);
+    this->InitAttribute("bool_value", this->bool_value_);
+    this->InitAttribute("string_value", this->string_value_);
+    this->InitAttribute("vec2_value", this->vec2_value_);
+    this->InitAttribute("vec4_value", this->vec4_value_);
+    this->InitAttribute("padding_value", this->padding_value_);
+    this->InitAttribute("margin_value", this->margin_value_);
+    this->InitAttribute("color_value", this->color_value_);
+    this->InitAttribute("orientation_value", this->orientation_value_);
 }
 
 void InternalTest::Update(bt::Vector2 position, bt::Vector2 size) noexcept

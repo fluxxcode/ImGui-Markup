@@ -72,6 +72,28 @@ public:
     inline std::string GetAccessID() const noexcept
         { return this->access_id_; }
 
+    /**
+     * Function that is called by the interpreter before the interpreter
+     * starts the process of the items child nodes.
+     * Used to check for various errors.
+     *
+     * @param[in] error_message - String that will be set to the error message
+     *                            if there is one.
+     * @return true on success, false if there was an error.
+     */
+    virtual bool OnProcessStart(std::string& error_message) { return true; }
+
+    /**
+     * Function that is called by the interpreter after the interpreter
+     * processed the child items and the item itself.
+     * Used to check for various errors.
+     *
+     * @param[in] error_message - String that will be set to the error message
+     *                            if there is one.
+     * @return true on success, false if there was an error.
+     */
+    virtual bool OnProcessEnd(std::string& error_message){ return true; }
+
 protected:
     const ItemType type_;
     const ItemCategory category_;
@@ -101,10 +123,10 @@ protected:
      * Adds an attribute to the attribute list with the curresponding
      * name used within the markup language.
      */
-    inline void AddAttribute(std::string name,
-                             AttributeInterface* value) noexcept
+    inline void InitAttribute(std::string name,
+                             AttributeInterface& value) noexcept
     {
-        this->attribute_list_[name] = value;
+        this->attribute_list_[name] = &value;
     }
 
 private:

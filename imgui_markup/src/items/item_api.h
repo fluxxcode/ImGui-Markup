@@ -10,6 +10,8 @@
 
 #include "attribute_types/base_types/vector2.h"
 
+#include "imgui.h"  // ImGuiMouseButton
+
 namespace igm::internal
 {
 
@@ -22,7 +24,7 @@ struct ItemAPI
     virtual void API_Update(bt::Vector2 position,
                             bt::Vector2 size) noexcept = 0;
 
-    virtual bool API_IsPressed() noexcept { return false; }
+    virtual bool API_IsPressed(ImGuiMouseButton btn) noexcept { return false; }
     virtual bool API_IsHovered() noexcept { return false; }
 };
 

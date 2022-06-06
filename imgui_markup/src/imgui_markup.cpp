@@ -11,8 +11,10 @@
 #include "common/unit_stack.h"
 #include "parser/parser.h"
 #include "parser/parser_result.h"
-
 #include "attribute_types/base_types/vector2.h"
+#include "utility/utility.h"
+
+#include "imgui.h"  // ImGuiMouseButton
 
 namespace igm
 {
@@ -71,17 +73,18 @@ void Update(size_t unit_id, size_t display_width, size_t display_height,
     }
 }
 
-bool IsPressed(size_t unit_id, const char* item_id, bool* result)
+bool IsPressed(size_t unit_id, const char* item_id, MouseButton mb,
+               bool* result) noexcept
 {
     internal::ItemAPI* item = internal::UnitStack::GetItemAPI(unit_id, item_id,
                                                               result);
     if (!item)
         return false;
 
-    return item->API_IsPressed();
+    return item->API_IsPressed(internal::utils::ConvertMouseButton(mb));
 }
 
-bool IsHovered(size_t unit_id, const char* item_id, bool* result)
+bool IsHovered(size_t unit_id, const char* item_id, bool* result) noexcept
 {
     internal::ItemAPI* item = internal::UnitStack::GetItemAPI(unit_id, item_id,
                                                               result);

@@ -38,8 +38,14 @@ Result GetLastResult(size_t unit, bool* result = nullptr);
 void Update(size_t unit, size_t display_width = 0, size_t display_height = 0,
             bool* result = nullptr);
 
-bool IsPressed(size_t unit, const char* item, bool* result = nullptr);
-bool IsHovered(size_t unit, const char* item, bool* result = nullptr);
+
+/************ ITEM API ************/
+
+bool IsPressed(size_t unit, const char* item,
+               MouseButton mouse_button = MouseButton::kLeft,
+               bool* result = nullptr) noexcept;
+
+bool IsHovered(size_t unit, const char* item, bool* result = nullptr) noexcept;
 
 }  // namespace igm
 

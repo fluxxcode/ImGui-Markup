@@ -12,6 +12,8 @@
 #include "attribute_types/base_types/vector2.h"
 #include "attribute_types/attribute_base.h"
 
+#include "imgui.h"
+
 #include <string>  // std::string
 
 namespace igm::internal
@@ -39,9 +41,12 @@ public:
         this->Init();
     }
 
-    inline operator bt::Vector2() const
+    inline operator bt::Vector2() const { return this->GetValue();}
+
+    inline operator ImVec2() const
     {
-        return this->GetValue();
+        const bt::Vector2 val = this->GetValue();
+        return ImVec2(val.x, val.y);
     }
 
     inline std::string GetName() const noexcept { return "Vector2"; }

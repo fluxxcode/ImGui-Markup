@@ -56,6 +56,10 @@ void Interpreter::CreateItem(const Lexer::Token& type, const Lexer::Token& id)
 
     this->item_stack_.push_back(new_item);
 
+    std::string error_msg;
+    if (!new_item->OnProcessStart(error_msg))
+        throw ItemOnProcessStartError(error_msg, type);
+
     if (id.value.empty())
         return;
 
@@ -72,6 +76,10 @@ void Interpreter::PopItem(const Lexer::Token& token)
 {
     if (this->item_stack_.empty())
         throw ExpectedItemDeclaration(token);
+
+    std::string error_msg;
+    if (!this->item_stack_.back()->OnProcessEnd(error_msg))
+        throw ItemOnProcessEndError(error_msg, token);
 
     this->item_stack_.pop_back();
 }

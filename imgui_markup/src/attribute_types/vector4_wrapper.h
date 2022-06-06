@@ -40,9 +40,12 @@ public:
         this->Init();
     }
 
-    inline operator bt::Vector4() const
+    inline operator bt::Vector4() const { return this->GetValue(); }
+
+    inline operator ImVec4() const
     {
-        return this->GetValue();
+        const bt::Vector4 val = this->GetValue();
+        return ImVec4(val.x, val.y, val.z, val.w);
     }
 
     inline std::string GetName() const noexcept { return "Vector4"; }

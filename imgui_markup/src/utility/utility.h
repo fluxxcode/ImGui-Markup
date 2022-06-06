@@ -8,6 +8,10 @@
  * @copyright Copyright (c) 2022
  */
 
+#include "imgui_markup/types.h"
+
+#include "imgui.h"  // ImGuiMouseButton
+
 #include <string>  // std::string
 #include <vector>  // std::vector
 
@@ -19,6 +23,8 @@ bool StringToFloat(const std::string& in, float& out) noexcept;
 bool StringToBool(const std::string& in, bool& out) noexcept;
 
 std::vector<std::string> SplitString(std::string str, const char c) noexcept;
+
+ImGuiMouseButton ConvertMouseButton(igm::MouseButton btn) noexcept;
 
 }  // namespace igm::internal::utils
 

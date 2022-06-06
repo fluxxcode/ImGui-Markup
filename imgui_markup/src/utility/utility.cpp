@@ -8,6 +8,8 @@
  * @copyright Copyright (c) 2022
  */
 
+#include <assert.h>  // assert
+
 namespace igm::internal::utils
 {
 
@@ -61,6 +63,19 @@ std::vector<std::string> SplitString(std::string str, const char c) noexcept
         segments.push_back(segment);
 
     return segments;
+}
+
+ImGuiMouseButton ConvertMouseButton(igm::MouseButton btn) noexcept
+{
+    switch (btn)
+    {
+    case igm::MouseButton::kLeft: return ImGuiMouseButton_Left;
+    case igm::MouseButton::kMiddle: return ImGuiMouseButton_Middle;
+    case igm::MouseButton::kRight: return ImGuiMouseButton_Right;
+    }
+
+    assert("INTERNAL_ERROR: Undefined MouseButton");
+    return ImGuiMouseButton_Left;
 }
 
 }  // namespace igm::internal::utils
