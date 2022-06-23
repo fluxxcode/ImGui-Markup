@@ -1,15 +1,15 @@
 
-Container : im_line_view
+Container : line_view
 {
     Panel
     {
         title = "ImLineView example"
 
-        ImLineView
+        LineView
         {
             Checkbox : checkbox_0 { text = "Checkbox 0" }
             Checkbox : checkbox_1 { text = "Checkbox 1" checked = true }
             Checkbox : checkbox_2 { text = "Checkbox 2" checked = false }
         }
     }
-}  // im_line_view
+}  // line_view

@@ -6,7 +6,7 @@
 #include "items/checkbox.igm"
 
 // Views
-#include "items/im_line_view.igm"
+#include "items/line_view.igm"
 
 // Other
 #include "items/container.igm"

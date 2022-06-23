@@ -1,5 +1,5 @@
 #include "impch.h"
-#include "items/views/im_line_view.h"
+#include "items/views/line_view.h"
 
 /**
  * @file im_line_view.cpp
@@ -11,17 +11,17 @@
 namespace igm::internal
 {
 
-ImLineView::ImLineView(std::string id, ItemBase* parent)
-    : ViewBase(ItemType::kImLineView, id, parent)
+LineView::LineView(std::string id, ItemBase* parent)
+    : ViewBase(ItemType::kLineView, id, parent)
 { }
 
-void ImLineView::Update(bt::Vector2 position, bt::Vector2 size) noexcept
+void LineView::Update(bt::Vector2 position, bt::Vector2 size) noexcept
 {
     for (const auto& child : this->child_items_)
         child->Update(ImGui::GetCursorPos(), bt::Vector2(0.0f, 0.0f));
 }
 
-bool ImLineView::OnProcessStart(std::string& error_message) noexcept
+bool LineView::OnProcessStart(std::string& error_message) noexcept
 {
     const ItemBase* parent = this->parent_;
     while (parent)

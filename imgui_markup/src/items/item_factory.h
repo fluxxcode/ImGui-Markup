@@ -17,7 +17,7 @@
 #include "items/widgets/checkbox.h"
 
 // Views
-#include "items/views/im_line_view.h"
+#include "items/views/line_view.h"
 
 // Other
 #include "items/other/container.h"
@@ -54,7 +54,7 @@ private:
             { "Checkbox", CreateItemInstance<Checkbox> },
 
             // Views
-            { "ImLineView", CreateItemInstance<ImLineView> },
+            { "LineView", CreateItemInstance<LineView> },
 
             // Other
             { "Container", CreateItemInstance<Container> },

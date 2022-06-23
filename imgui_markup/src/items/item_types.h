@@ -27,7 +27,7 @@ enum class ItemType : unsigned char
     kCheckbox,
 
     // Views
-    kImLineView,
+    kLineView,
 
     // Other
     kContainer,
