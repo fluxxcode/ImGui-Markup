@@ -16,6 +16,9 @@
 #include "items/widgets/text.h"
 #include "items/widgets/checkbox.h"
 
+// Views
+#include "items/views/im_line_view.h"
+
 // Other
 #include "items/other/container.h"
 #include "items/other/internal_test.h"
@@ -49,6 +52,9 @@ private:
             { "Button", CreateItemInstance<Button> },
             { "Text", CreateItemInstance<Text> },
             { "Checkbox", CreateItemInstance<Checkbox> },
+
+            // Views
+            { "ImLineView", CreateItemInstance<ImLineView> },
 
             // Other
             { "Container", CreateItemInstance<Container> },
