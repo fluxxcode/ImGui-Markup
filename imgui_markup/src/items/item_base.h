@@ -73,7 +73,10 @@ public:
         { return this->access_id_; }
 
     inline ItemType GetType() const noexcept { return this->type_; }
+    inline ItemCategory GetCategory() const noexcept { return this->category_; }
     inline const ItemBase* GetParent() const noexcept { return this->parent_; }
+
+    virtual bt::Vector2 GetSize() const noexcept { return bt::Vector2(); }
 
     /**
      * Function that is called by the interpreter before the interpreter
@@ -125,7 +128,7 @@ protected:
 
     /**
      * Function used by the inheriting item.
-     * Adds an attribute to the attribute list with the curresponding
+     * Adds an attribute to the attribute list with the corresponding
      * name used within the markup language.
      */
     inline void InitAttribute(std::string name,

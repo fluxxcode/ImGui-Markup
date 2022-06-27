@@ -29,11 +29,15 @@ private:
     Vector2Wrapper position_;
     Vector2Wrapper size_;
 
-    bool init_ = false;
-
+    bt::Vector2 actual_size_;
     bool is_hovered_ = false;
 
     void Init();
+
+    // See widget.h for more information
+    bt::Vector2 CalcItemSize() const noexcept;
+    inline bt::Vector2 GetActualSize() const noexcept
+        { return this->actual_size_; }
 
     // API functions
     bool API_IsItemPressed(ImGuiMouseButton btn) noexcept;

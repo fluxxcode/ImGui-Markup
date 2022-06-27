@@ -27,7 +27,13 @@ public:
 private:
     StringWrapper text_;
 
+    bt::Vector2 actual_size_;
     bool is_hovered_ = false;
+
+    // See widget_base.h for more information
+    bt::Vector2 CalcItemSize() const noexcept;
+    inline bt::Vector2 GetActualSize() const noexcept
+        { return this->actual_size_; }
 
     // API functions
     bool API_IsItemPressed(ImGuiMouseButton btn) noexcept;

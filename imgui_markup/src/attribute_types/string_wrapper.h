@@ -33,7 +33,7 @@ public:
 
     inline operator std::string() const { return this->GetValue(); }
 
-    inline std::string& GetString() { return this->GetValueReference(); }
+    inline std::string GetString() { return this->GetValueReference(); }
 
     inline std::string GetName() const noexcept { return "String"; }
 
