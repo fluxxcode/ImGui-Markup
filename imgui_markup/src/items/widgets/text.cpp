@@ -29,7 +29,7 @@ void Text::WidgetUpdate(bt::Vector2 position, bt::Vector2 size) noexcept
 
 bt::Vector2 Text::CalcItemSize() const noexcept
 {
-    return ImGui::CalcTextSize(this->text_.GetValue().c_str(), NULL, true);
+    return ImGui::CalcTextSize(this->text_.Value().c_str(), NULL, true);
 }
 
 bool Text::API_IsItemPressed(ImGuiMouseButton mb) noexcept

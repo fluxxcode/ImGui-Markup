@@ -15,10 +15,10 @@ namespace igm::internal
 
 void PaddingWrapper::Init() noexcept
 {
-    this->InitChildAttribute("top",    &this->GetValueReference().top);
-    this->InitChildAttribute("right",  &this->GetValueReference().right);
-    this->InitChildAttribute("bottom", &this->GetValueReference().bottom);
-    this->InitChildAttribute("left",   &this->GetValueReference().left);
+    this->InitChildAttribute("top",    this->ValueReference().top);
+    this->InitChildAttribute("right",  this->ValueReference().right);
+    this->InitChildAttribute("bottom", this->ValueReference().bottom);
+    this->InitChildAttribute("left",   this->ValueReference().left);
 }
 
 bool PaddingWrapper::LoadValue(const PaddingWrapper& val) noexcept
@@ -29,21 +29,21 @@ bool PaddingWrapper::LoadValue(const PaddingWrapper& val) noexcept
 
 bool PaddingWrapper::LoadValue(const Vector4Wrapper& val) noexcept
 {
-    this->SetValue(bt::Padding(val.GetValue().x, val.GetValue().y,
-                               val.GetValue().z, val.GetValue().w));
+    this->SetValue(bt::Padding(val.Value().x, val.Value().y,
+                               val.Value().z, val.Value().w));
     return true;
 }
 
 bool PaddingWrapper::LoadValue(const FloatWrapper& val) noexcept
 {
-    const float value = val.GetValue();
+    const float value = val.Value();
     this->SetValue(bt::Padding(value, value, value, value));
     return true;
 }
 
 bool PaddingWrapper::LoadValue(const IntWrapper& val) noexcept
 {
-    const int value = val.GetValue();
+    const int value = val.Value();
     this->SetValue(bt::Padding(value, value, value, value));
     return true;
 }

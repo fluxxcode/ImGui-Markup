@@ -32,7 +32,17 @@ public:
 
     ItemBase(const ItemBase&) = delete;
 
-    virtual void Update(bt::Vector2 position, bt::Vector2 size) noexcept { };
+    /**
+     * Main update function of the item.
+     *
+     * @param position - The ImGui position of the item, relative to the
+     *                   next parent window.
+     * @param available_size - Available size for the item.
+     * @param dynamic_w - Sets whether the available width can be ignored.
+     * @param dynamic_h - Sets whether the available height can be ignored.
+     */
+    virtual void Update(bt::Vector2 position, bt::Vector2 available_size,
+                        bool dynamic_w, bool dynamic_h) noexcept { };
 
     ItemBase* CreateChildItem(std::string type, std::string access_id) noexcept;
 
@@ -77,6 +87,7 @@ public:
     inline const ItemBase* GetParent() const noexcept { return this->parent_; }
 
     virtual bt::Vector2 GetSize() const noexcept { return bt::Vector2(); }
+    virtual bt::Vector2 GetPosition() const noexcept { return bt::Vector2(); }
 
     /**
      * Function that is called by the interpreter before the interpreter

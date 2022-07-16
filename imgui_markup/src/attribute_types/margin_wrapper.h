@@ -42,14 +42,14 @@ public:
 
     inline operator bt::Margin() const
     {
-        return this->GetValue();
+        return this->Value();
     }
 
     inline std::string GetName() const noexcept { return "Margin"; }
 
     inline std::string ToString() const noexcept
     {
-        bt::Margin val = this->GetValue();
+        bt::Margin val = this->Value();
         return val.top.ToString() + "," + val.right.ToString() + "," +
             val.bottom.ToString() + "," + val.left.ToString();
     }

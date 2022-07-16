@@ -146,10 +146,20 @@ public:
         this->reference_ = nullptr;
     }
 
-    inline bool IsValueSet() const noexcept { return this->is_value_set_; }
+    bool IsValueSet() const noexcept
+    {
+        for (const auto& [key, value] : this->child_attributes_mapping_)
+        {
+            if (value->IsValueSet())
+                return true;
+        }
+
+        return this->is_value_set_;
+    }
+
     inline void EnableIsValueSet() noexcept { this->is_value_set_ = true; }
 
-    inline T GetValue() const noexcept
+    inline T Value() const noexcept
     {
         if (this->reference_)
         {
@@ -157,7 +167,7 @@ public:
                 return this->value_;
 
             this->getting_value_ = true;
-            const T value = this->reference_->GetValue();
+            const T value = this->reference_->Value();
             this->getting_value_ = false;
 
             return value;
@@ -166,7 +176,7 @@ public:
         return this->value_;
     }
 
-    inline T& GetValueReference() noexcept
+    inline T& ValueReference() noexcept
     {
         if (this->reference_)
         {
@@ -174,7 +184,7 @@ public:
                 return this->value_;
 
             this->getting_value_ = true;
-            T& value = this->reference_->GetValueReference();
+            T& value = this->reference_->ValueReference();
             this->getting_value_ = false;
 
             return value;
@@ -200,7 +210,7 @@ public:
     {
         if (this->reference_)
         {
-            this->value_ = this->reference_->GetValue();
+            this->value_ = this->reference_->Value();
             this->reference_->RemoveTrackedReference(this);
         }
 
@@ -220,9 +230,9 @@ public:
     }
 
 protected:
-    void InitChildAttribute(std::string name, AttributeInterface* ref)
+    void InitChildAttribute(std::string name, AttributeInterface& ref)
     {
-        this->child_attributes_mapping_[name] = ref;
+        this->child_attributes_mapping_[name] = &ref;
     }
 
     inline void IMPL_InitReference(AttributeBase<T>* reference)

@@ -13,8 +13,8 @@ namespace igm::internal
 
 void Vector2Wrapper::Init() noexcept
 {
-    this->InitChildAttribute("x", &this->GetValueReference().x);
-    this->InitChildAttribute("y", &this->GetValueReference().y);
+    this->InitChildAttribute("x", this->ValueReference().x);
+    this->InitChildAttribute("y", this->ValueReference().y);
 }
 
 bool Vector2Wrapper::LoadValue(const Vector2Wrapper& val) noexcept

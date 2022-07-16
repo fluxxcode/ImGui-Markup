@@ -42,14 +42,14 @@ public:
 
     inline operator bt::Color() const
     {
-        return this->GetValue();
+        return this->Value();
     }
 
     inline std::string GetName() const noexcept { return "Color"; }
 
     inline std::string ToString() const noexcept
     {
-        bt::Color val = this->GetValue();
+        bt::Color val = this->Value();
         return val.r.ToString() + "," + val.g.ToString() + "," +
                val.b.ToString() + "," + val.a.ToString();
     }

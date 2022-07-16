@@ -1,8 +1,6 @@
 #include "impch.h"
 #include "items/widgets/widget_base.h"
 
-#include "imgui_fork.h"
-
 /**
  * @file widget_base.cpp
  * @author FluxxCode (info.fluxxcode@gmail.com)
@@ -10,128 +8,158 @@
  * @copyright Copyright (c) 2022
  */
 
+#include "imgui_internal.h"
+
 namespace igm::internal
 {
 
-WidgetBase::WidgetBase(ItemType type, std::string id, ItemBase* parent,
-                       bool create_clipping_area_)
-    : ItemBase(type, ItemCategory::kWidget, id, parent),
-      create_clipping_area_(create_clipping_area_)
+WidgetBase::WidgetBase(ItemType type, std::string id, ItemBase* parent)
+    : ItemBase(type, ItemCategory::kWidget, id, parent)
 {
     this->InitAttribute("position", this->position_overwrite_);
     this->InitAttribute("size", this->size_overwrite_);
     this->InitAttribute("margin", this->margin_);
 }
 
-void WidgetBase::Update(bt::Vector2 position, bt::Vector2 size) noexcept
-{
-    this->PreparePositionAndSize(position, size);
-
-    ImGui::PushID(this);
-
-    ImGui::SetCursorPos(position);
-
-    if (this->create_clipping_area_)
-        this->BeginClippingArea();
-
-    this->WidgetUpdate(position, size);
-
-    if (this->create_clipping_area_)
-        this->EndClippingArea();
-
-    ImGui::PopID();
-
-    this->UpdatePositionAndSize(position, size);
-}
-
 bt::Vector2 WidgetBase::GetSize() const noexcept
 {
-    if (!this->initialized_)
-    {
-        if (this->calculated_size_)
-            return this->calculated_size_cache_;
-
-        this->calculated_size_cache_ = this->CalcFullSize();
-        this->calculated_size_ = true;
-
-        return this->calculated_size_cache_;
-    }
+    if (!this->IsInitialized())
+        return CalcSize();
 
     return this->size_;
 }
 
-void WidgetBase::API_Update(bt::Vector2 position, bt::Vector2 size) noexcept
+bt::Vector2 WidgetBase::GetPosition() const noexcept
 {
-    this->Update(position, size);
+    return this->position_;
 }
 
-void WidgetBase::PreparePositionAndSize(bt::Vector2& position,
-                                        bt::Vector2& size) const noexcept
+void WidgetBase::Update(bt::Vector2 position, bt::Vector2 available_size,
+                        bool dynamic_w, bool dynamic_h) noexcept
 {
-    const bt::Margin margin = this->margin_.GetValue();
+    this->BeginPosition(position);
+    this->BeginSize(available_size, dynamic_w, dynamic_h);
 
+    if (this->visible_)
+    {
+        // TODO: Update so the clipping area will be created even when
+        //       only one value is dynamic
+        if (!dynamic_w && !dynamic_h)
+            this->BeginClippingArea();
+
+        ImGui::PushID(this);
+        ImGui::SetCursorPos(this->item_draw_position_);
+        this->WidgetUpdate(this->item_draw_position_, this->item_draw_size_);
+        ImGui::PopID();
+
+        if (!dynamic_w && !dynamic_h)
+            this->EndClippingArea();
+    }
+
+    this->EndSize(dynamic_w, dynamic_h);
+}
+
+void WidgetBase::BeginPosition(bt::Vector2 position_in) noexcept
+{
+    this->position_ = position_in;
     if (this->position_overwrite_.IsValueSet())
-        position = this->position_overwrite_.GetValue();
-    if (this->size_overwrite_.IsValueSet())
-        size = this->size_overwrite_.GetValue();
+        this->position_ = this->position_overwrite_;
 
-    position.x += margin.left;
-    position.y += margin.top;
+    const bt::Margin& margin = this->margin_.ValueReference();
 
-    // Remove margin from the size that will be parsed to the actual item
-    if (size.x != 0)
-        size.x -= margin.left - margin.right;
-    if (size.y != 0)
-        size.y -= margin.top - margin.bottom;
+    bt::Vector2 draw_position = this->position_;
+    draw_position.x += margin.left;
+    draw_position.y += margin.top;
+
+    this->item_draw_position_ = draw_position;
 }
 
-void WidgetBase::UpdatePositionAndSize(const bt::Vector2& prepared_position,
-                                       const bt::Vector2& prepared_size)
-                                       noexcept
+void WidgetBase::BeginSize(bt::Vector2 available_size, bool& dynamic_w,
+                           bool& dynamic_h) noexcept
 {
-    const bt::Margin& margin = this->margin_.GetValueReference();
+    const bt::Margin& margin = this->margin_.ValueReference();
 
-    // Position
-    this->position_ = prepared_position;
-    this->position_.x -= margin.left;
-    this->position_.y -= margin.top;
+    if (this->size_overwrite_.ValueReference().x.IsValueSet())
+        dynamic_w = false;
+    if (this->size_overwrite_.ValueReference().y.IsValueSet())
+        dynamic_h = false;
 
-    // Size
-    this->size_ = prepared_size;
+    if (dynamic_w)
+        item_draw_size_.x = 0;
+    if (dynamic_h)
+        item_draw_size_.y = 0;
 
+    if (!dynamic_w)
+    {
+        this->size_.x = available_size.x;
+        this->item_draw_size_.x = available_size.x - margin.left - margin.right;
+    }
+    if (!dynamic_h)
+    {
+        this->size_.y = available_size.y;
+        this->item_draw_size_.y = available_size.y - margin.top - margin.bottom;
+    }
+
+    if (this->size_overwrite_.IsValueSet())
+    {
+        this->item_draw_size_ = this->size_overwrite_;
+        this->size_.x = size_overwrite_.Value().x + margin.left + margin.right;
+        this->size_.y = size_overwrite_.Value().y + margin.top + margin.bottom;
+    }
+
+    if ((this->item_draw_size_.x <= 0 && dynamic_w == false) ||
+        (this->item_draw_size_.y <= 0 && dynamic_h == false))
+    {
+        this->visible_ = false;
+    }
+}
+
+void WidgetBase::EndSize(bool dynamic_w, bool dynamic_h) noexcept
+{
+    const bt::Margin& margin = this->margin_.ValueReference();
     const bt::Vector2 actual_size = this->GetActualSize();
 
-    if (this->size_.x == 0)
-        this->size_.x = actual_size.x;
-    if (this->size_.y == 0)
-        this->size_.y = actual_size.y;
-
-    this->size_.x += margin.left + margin.right;
-    this->size_.y += margin.top + margin.bottom;
+    if (dynamic_w)
+        this->size_.x = actual_size.x + margin.left + margin.right;
+    if (dynamic_h)
+        this->size_.y = actual_size.y + margin.top + margin.bottom;
 }
 
-void WidgetBase::BeginClippingArea()
-    noexcept
+void WidgetBase::BeginClippingArea() const noexcept
 {
-    // TODO: Implementation
+    const ImGuiWindow* window = ImGui::GetCurrentWindow();
+
+    ImVec2 min = ImVec2(this->item_draw_position_.x + window->Pos.x,
+                        this->item_draw_position_.y + window->Pos.y);
+    ImVec2 max = ImVec2(min.x + this->item_draw_size_.x,
+                        min.y + this->item_draw_size_.y);
+
+    ImGui::PushClipRect(min, max, true);
+
+    // NOTE: Only used for debugging
+    // ImDrawList* draw_list = ImGui::GetWindowDrawList();
+    // draw_list->AddRectFilled(min, max, this->clipping_area_color_);
 }
 
 void WidgetBase::EndClippingArea() const noexcept
 {
-    // TODO: Implementation
+    ImGui::PopClipRect();
 }
 
-bt::Vector2 WidgetBase::CalcFullSize() const noexcept
+bt::Vector2 WidgetBase::CalcSize() const noexcept
 {
-    bt::Vector2 item_size = this->CalcItemSize();
+    // TODO: Implement cache
 
-    item_size.x += this->margin_.GetValue().left +
-                   this->margin_.GetValue().right;
+    const bt::Vector2 size = this->CalcItemSize();
+    const bt::Margin margin = this->margin_.Value();
 
-    item_size.y += this->margin_.GetValue().top +
-                   this->margin_.GetValue().bottom;
+    return bt::Vector2(size.x + margin.left + margin.right,
+                       size.y + margin.top + margin.bottom);
+}
 
-    return item_size;
+void WidgetBase::API_Update(bt::Vector2 position, bt::Vector2 size) noexcept
+{
+    this->Update(position, size, false, false);
 }
 
 bool WidgetBase::OnProcessStart(std::string& error_message) noexcept
@@ -147,7 +175,6 @@ bool WidgetBase::OnProcessStart(std::string& error_message) noexcept
 
     error_message = "One of the items parent item must be an item "
                     "of type Panel";
-
     return false;
 }
 

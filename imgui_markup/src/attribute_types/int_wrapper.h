@@ -27,32 +27,32 @@ public:
         : AttributeBase(AttributeType::kInt, value)
     { }
 
-    inline operator int() const { return this->GetValue(); }
+    inline operator int() const { return this->Value(); }
 
     inline IntWrapper& operator+=(IntWrapper rhs) noexcept
     {
-        int& ref = this->GetValueReference();
-        ref += rhs.GetValue();
+        int& ref = this->ValueReference();
+        ref += rhs.Value();
         return *this;
     }
 
     inline IntWrapper& operator+=(int rhs) noexcept
     {
-        int& ref = this->GetValueReference();
+        int& ref = this->ValueReference();
         ref += rhs;
         return *this;
     }
 
     inline IntWrapper& operator-=(IntWrapper rhs) noexcept
     {
-        int& ref = this->GetValueReference();
-        ref -= rhs.GetValue();
+        int& ref = this->ValueReference();
+        ref -= rhs.Value();
         return *this;
     }
 
     inline IntWrapper& operator-=(int rhs) noexcept
     {
-        int& ref = this->GetValueReference();
+        int& ref = this->ValueReference();
         ref -= rhs;
         return *this;
     }
@@ -61,7 +61,7 @@ public:
 
     inline std::string ToString() const noexcept
     {
-        return std::to_string(this->GetValue());
+        return std::to_string(this->Value());
     }
 
 private:

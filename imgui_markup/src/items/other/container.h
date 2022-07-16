@@ -21,7 +21,8 @@ struct Container : public OtherBase
 {
     Container(std::string id, ItemBase* parent);
 
-    void Update(bt::Vector2 position, bt::Vector2 size) noexcept;
+    void Update(bt::Vector2 position, bt::Vector2 available_size,
+                bool dynamic_w, bool dynamic_h) noexcept;
 };
 
 }  // namespace igm::internal

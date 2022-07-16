@@ -27,32 +27,32 @@ public:
         : AttributeBase(AttributeType::kFloat, value)
     { }
 
-    inline operator float() const noexcept { return this->GetValue(); }
+    inline operator float() const noexcept { return this->Value(); }
 
     inline FloatWrapper& operator+=(FloatWrapper rhs) noexcept
     {
-        float& ref = this->GetValueReference();
-        ref += rhs.GetValue();
+        float& ref = this->ValueReference();
+        ref += rhs.Value();
         return *this;
     }
 
     inline FloatWrapper& operator+=(float rhs) noexcept
     {
-        float& ref = this->GetValueReference();
+        float& ref = this->ValueReference();
         ref += rhs;
         return *this;
     }
 
     inline FloatWrapper& operator-=(FloatWrapper rhs) noexcept
     {
-        float& ref = this->GetValueReference();
-        ref -= rhs.GetValue();
+        float& ref = this->ValueReference();
+        ref -= rhs.Value();
         return *this;
     }
 
     inline FloatWrapper& operator-=(float rhs) noexcept
     {
-        float& ref = this->GetValueReference();
+        float& ref = this->ValueReference();
         ref -= rhs;
         return *this;
     }
@@ -61,7 +61,7 @@ public:
 
     inline std::string ToString() const noexcept
     {
-        return std::to_string(this->GetValue());
+        return std::to_string(this->Value());
     }
 
 private:

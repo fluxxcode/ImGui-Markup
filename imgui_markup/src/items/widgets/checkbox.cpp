@@ -23,7 +23,7 @@ Checkbox::Checkbox(std::string id, ItemBase* parent)
 void Checkbox::WidgetUpdate(bt::Vector2 position, bt::Vector2 size) noexcept
 {
     ImGui::Checkbox(this->text_.GetString().c_str(),
-                    &this->is_checked_.GetValueReference());
+                    &this->is_checked_.ValueReference());
 
     this->actual_size_ = ImGui::GetItemRectSize();
     this->is_hovered_ = ImGui::IsItemHovered();
@@ -34,7 +34,7 @@ void Checkbox::WidgetUpdate(bt::Vector2 position, bt::Vector2 size) noexcept
 bt::Vector2 Checkbox::CalcItemSize() const noexcept
 {
     const bt::Vector2 label_size = ImGui::CalcTextSize(
-        this->text_.GetValue().c_str(), NULL, true);
+        this->text_.Value().c_str(), NULL, true);
 
     const ImGuiStyle& style = ImGui::GetStyle();
     ImGuiContext* g = ImGui::GetCurrentContext();

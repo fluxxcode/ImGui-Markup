@@ -32,7 +32,7 @@ void Button::WidgetUpdate(bt::Vector2 position, bt::Vector2 size) noexcept
 bt::Vector2 Button::CalcItemSize() const noexcept
 {
     const bt::Vector2 label_size = ImGui::CalcTextSize(
-        this->text_.GetValue().c_str(), NULL, true);
+        this->text_.Value().c_str(), NULL, true);
 
     const ImGuiStyle& style = ImGui::GetStyle();
 

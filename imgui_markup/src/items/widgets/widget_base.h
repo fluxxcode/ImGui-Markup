@@ -16,23 +16,134 @@ namespace igm::internal
 class WidgetBase : public ItemBase
 {
 public:
-    WidgetBase(ItemType type, std::string id, ItemBase* parent,
-               bool create_clipping_area_ = true);
-
+    WidgetBase(ItemType type, std::string id, ItemBase* parent);
     WidgetBase(const WidgetBase&) = delete;
 
     /**
-     * Implementation of the ItemBase::Update function.
-     * Handles position and size including overwrite,
-     * pushes and pops an unique ImGui ID and calls WidgetUpdate().
-     */
-    void Update(bt::Vector2 position, bt::Vector2 size) noexcept;
-
-    /**
-     * Calculates the size of the item before the first frame.
-     * Otherwise returns the actual item size including margin.
+     * Returns the full size of the item, including its margin.
+     * The item size is calculated if the item is not initialized.
+     * (Usually initialized after the first frame)
      */
     bt::Vector2 GetSize() const noexcept;
+
+    /**
+     * Returns the current position of the item.
+     */
+    bt::Vector2 GetPosition() const noexcept;
+
+    /**
+     * Implementation of the ItemBase::Update function.
+     * Handles position and size including override,
+     * pushes and pops an unique ImGui ID and calls WidgetUpdate().
+     * Can be overwritten to prevent it.
+     */
+    virtual void Update(bt::Vector2 position, bt::Vector2 available_size,
+                        bool dynamic_w, bool dynamic_h) noexcept;
+
+private:
+    /**
+     * Top left position of the item.
+     * This is the position set by the parent item or
+     * overwritten via the markup language.
+     */
+    bt::Vector2 position_;
+
+    /**
+     * Current size of the item, including margin.
+     */
+    bt::Vector2 size_;
+
+    /**
+     * ImGui position of the item, without margin.
+     * This is the position that is parsed to the inheriting item through the
+     * WidgetUpdate function.
+     */
+    bt::Vector2 item_draw_position_;
+
+    /**
+     * ImGui size of the item, without margin.
+     * This is the size that is parsed to the inheriting item through the
+     * WidgetUpdate function.
+     */
+    bt::Vector2 item_draw_size_;
+
+    /**
+     * Overwrites the position that is set by the parent item.
+     * Can be set via the markup language.
+     */
+    Vector2Wrapper position_overwrite_;
+
+    /**
+     * Overwrites the size that is set by the parent item.
+     * Unlike the available size, this does not including margin!
+     * Can be set via the markup language.
+     */
+    Vector2Wrapper size_overwrite_;
+
+    /**
+     * Margin of the item, set via the markup language.
+     */
+    MarginWrapper margin_;
+
+    // TODO: Add attribute to enable or disable clipping
+
+    /**
+     * Is the item visible?
+     */
+    bool visible_ = true;
+
+    /**
+     * Color of the clipping area, only used for debugging purposes.
+     */
+    // ImColor clipping_area_color_ = ImColor(1.0f, 0.0f, 0.0f, 0.5);
+
+
+    void BeginPosition(bt::Vector2 position) noexcept;
+
+    void BeginSize(bt::Vector2 available_size, bool& dynamic_w, bool& dynamic_h)
+                   noexcept;
+    void EndSize(bool dynamic_w, bool dynamic_h) noexcept;
+
+    void BeginClippingArea() const noexcept;
+    void EndClippingArea() const noexcept;
+
+    /**
+     * Calcualtes and estimates the item size including margin.
+     */
+    bt::Vector2 CalcSize() const noexcept;
+
+    /**
+     * Main update function that should be implemented by the
+     * inheriting item.
+     * When implemented, the ImGui ID, margin, size and position overrides
+     * are already handled and don't have to be managed by the
+     * inheriting item.
+     */
+    virtual void WidgetUpdate(bt::Vector2 position,
+                              bt::Vector2 size) noexcept { }
+
+    /**
+     * Is the item initialized? Especially important for the size,
+     * since it is only set after the first frame and otherwise
+     * has to be calculated.
+     * The function is implemented by the inheriting item.
+     */
+    virtual bool IsInitialized() const noexcept = 0;
+
+    /**
+     * Gets the actual ImGui item size after the first frame.
+     * Only called if dynamic_w or dynamic_h in the Update function is enabled.
+     */
+    virtual bt::Vector2 GetActualSize() const noexcept = 0;
+
+    /**
+     * Calcualtes and estimates the ImGui item size. (Not including margin!)
+     * Used before the item is fully initialized and implemented by the
+     * inheriting item.
+     * This function is currently only called a single time since
+     * the result is cached.
+     */
+    virtual bt::Vector2 CalcItemSize() const noexcept = 0;
 
     /**
      * Update function of the Item API, usually called for items
@@ -40,86 +151,6 @@ public:
      * Currently only calls the Update function.
      */
     virtual void API_Update(bt::Vector2 position, bt::Vector2 size) noexcept;
-
-protected:
-    /**
-     * Are position and size already initialized?
-     * Usually set after the first frame.
-     */
-    bool initialized_ = false;
-
-    /**
-     * Main update function that should be implemented by the
-     * inheriting item.
-     */
-    virtual void WidgetUpdate(bt::Vector2 position,
-                              bt::Vector2 size) noexcept { }
-
-private:
-    bt::Vector2 position_;
-    bt::Vector2 size_;
-
-    /**
-     * Cache for the calculated size, as this can be quite expensive fo
-     * certain items and it is possible that the function is
-     * called several times.
-     */
-    mutable bt::Vector2 calculated_size_cache_;
-    mutable bool calculated_size_ = false;
-
-    Vector2Wrapper position_overwrite_;
-    Vector2Wrapper size_overwrite_;
-    MarginWrapper margin_;
-
-    bool is_visible_ = false;
-
-    bt::Vector4 clipping_area_border_color_ = bt::Vector4(0.0f, 1.0f, 0.2f,
-                                                          0.5f);
-
-    /**
-     * Should a clipping area be created?
-     * Make sure to only use the clipping area on widgets placed
-     * within a panel, otherwise an exception is thrown.
-     * The value is set by the constructor.
-     *
-     * TODO: Ability to use the clipping area on items that are not placed
-     *       within a panel. This would allow to e.g. create clipping
-     *       areas for panels placed within views.
-     */
-    const bool create_clipping_area_ = false;
-
-    /**
-     * Adds margin and applies overwrite for position and size.
-     * Called before the WidgetUpdate function.
-     */
-    void PreparePositionAndSize(bt::Vector2& position,
-                                bt::Vector2& size) const noexcept;
-
-    /**
-     * Updates the WidgetBase position and size values.
-     * Called after the WidgetUpdate function.
-     */
-    void UpdatePositionAndSize(const bt::Vector2& prepared_position,
-                               const bt::Vector2& prepared_size) noexcept;
-
-    // TODO: Implementation
-    void BeginClippingArea() noexcept;
-    void EndClippingArea() const noexcept;
-
-    /**
-     * Calcualtes the item size including margin.
-     */
-    bt::Vector2 CalcFullSize() const noexcept;
-
-    /**
-     * Function used to calculate the item size before the first frame.
-     */
-    virtual bt::Vector2 CalcItemSize() const noexcept = 0;
-
-    /**
-     * Gets the actual size of the item. Called after every WidgetUpdate.
-     */
-    virtual bt::Vector2 GetActualSize() const noexcept = 0;
 
     // See item_base.h for more information
     virtual bool OnProcessStart(std::string& error_message) noexcept;

@@ -15,10 +15,10 @@ namespace igm::internal
 
 void ColorWrapper::Init() noexcept
 {
-    this->InitChildAttribute("r", &this->GetValueReference().r);
-    this->InitChildAttribute("g", &this->GetValueReference().g);
-    this->InitChildAttribute("b", &this->GetValueReference().b);
-    this->InitChildAttribute("a", &this->GetValueReference().a);
+    this->InitChildAttribute("r", this->ValueReference().r);
+    this->InitChildAttribute("g", this->ValueReference().g);
+    this->InitChildAttribute("b", this->ValueReference().b);
+    this->InitChildAttribute("a", this->ValueReference().a);
 }
 
 bool ColorWrapper::LoadValue(const ColorWrapper& val) noexcept
@@ -29,8 +29,8 @@ bool ColorWrapper::LoadValue(const ColorWrapper& val) noexcept
 
 bool ColorWrapper::LoadValue(const Vector4Wrapper& val) noexcept
 {
-    this->SetValue(bt::Color(val.GetValue().x, val.GetValue().y,
-        val.GetValue().z, val.GetValue().w));
+    this->SetValue(bt::Color(val.Value().x, val.Value().y,
+        val.Value().z, val.Value().w));
     return true;
 }
 
