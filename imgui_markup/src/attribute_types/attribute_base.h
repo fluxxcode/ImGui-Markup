@@ -42,8 +42,9 @@ class MarginWrapper;
 class ColorWrapper;
 class OrientationWrapper;
 
-struct AttributeInterface
+class AttributeInterface
 {
+public:
     inline virtual AttributeType GetType() const noexcept = 0;
     inline virtual std::string GetName() const noexcept = 0;
 
@@ -54,7 +55,21 @@ struct AttributeInterface
     inline virtual AttributeInterface* GetChildAttribute(std::string name)
         const noexcept = 0;
 
+    /**
+     * Is the value set through the markup language?
+     */
+    inline virtual bool IsValueSet() const noexcept = 0;
+
     virtual void Reset() noexcept = 0;
+
+private:
+    friend class Interpreter;
+
+    /**
+     * Set the is_value_set variable to true.
+     * Implemented by AttributeBase and used by the interpreter.
+     */
+    inline virtual void EnableIsValueSet() noexcept = 0;
 
     bool LoadValue(const AttributeInterface& val) noexcept;
     virtual bool LoadValue(const IntWrapper& val) noexcept { return false; }
@@ -66,8 +81,6 @@ struct AttributeInterface
     virtual bool LoadValue(const PaddingWrapper& val) noexcept { return false; }
     virtual bool LoadValue(const MarginWrapper& val) noexcept { return false; }
     virtual bool LoadValue(const ColorWrapper& val) noexcept { return false; }
-
-    // Enums
     virtual bool LoadValue(const OrientationWrapper& val) noexcept
         { return false; }
 
@@ -81,8 +94,6 @@ struct AttributeInterface
     virtual bool InitReference(PaddingWrapper& ref) noexcept { return false; }
     virtual bool InitReference(MarginWrapper& ref) noexcept { return false; }
     virtual bool InitReference(ColorWrapper& ref) noexcept { return false; }
-
-    // Enums
     virtual bool InitReference(OrientationWrapper& ref) noexcept
         { return false; }
 };
@@ -135,7 +146,20 @@ public:
         this->reference_ = nullptr;
     }
 
-    inline T GetValue() const noexcept
+    bool IsValueSet() const noexcept
+    {
+        for (const auto& [key, value] : this->child_attributes_mapping_)
+        {
+            if (value->IsValueSet())
+                return true;
+        }
+
+        return this->is_value_set_;
+    }
+
+    inline void EnableIsValueSet() noexcept { this->is_value_set_ = true; }
+
+    inline T Value() const noexcept
     {
         if (this->reference_)
         {
@@ -143,7 +167,7 @@ public:
                 return this->value_;
 
             this->getting_value_ = true;
-            const T value = this->reference_->GetValue();
+            const T value = this->reference_->Value();
             this->getting_value_ = false;
 
             return value;
@@ -152,7 +176,7 @@ public:
         return this->value_;
     }
 
-    inline T& GetValueReference() noexcept
+    inline T& ValueReference() noexcept
     {
         if (this->reference_)
         {
@@ -160,7 +184,7 @@ public:
                 return this->value_;
 
             this->getting_value_ = true;
-            T& value = this->reference_->GetValueReference();
+            T& value = this->reference_->ValueReference();
             this->getting_value_ = false;
 
             return value;
@@ -186,7 +210,7 @@ public:
     {
         if (this->reference_)
         {
-            this->value_ = this->reference_->GetValue();
+            this->value_ = this->reference_->Value();
             this->reference_->RemoveTrackedReference(this);
         }
 
@@ -206,9 +230,9 @@ public:
     }
 
 protected:
-    void InitChildAttribute(std::string name, AttributeInterface* ref)
+    void InitChildAttribute(std::string name, AttributeInterface& ref)
     {
-        this->child_attributes_mapping_[name] = ref;
+        this->child_attributes_mapping_[name] = &ref;
     }
 
     inline void IMPL_InitReference(AttributeBase<T>* reference)
@@ -230,8 +254,11 @@ private:
     // through the markup language.
     std::map<std::string, AttributeInterface*> child_attributes_mapping_;
 
+    // Is the value set through the markup language?
+    bool is_value_set_ = false;
+
     // Sets if we are currently in the process of getting the value.
-    // Used to detect endless loops in refrences.
+    // Used to detect endless loops in references.
     mutable bool getting_value_ = false;
 };
 

@@ -31,15 +31,15 @@ public:
         : AttributeBase(AttributeType::kString, value)
     { }
 
-    inline operator std::string() const { return this->GetValue(); }
+    inline operator std::string() const { return this->Value(); }
 
-    inline std::string& GetString() { return this->GetValueReference(); }
+    inline std::string GetString() { return this->ValueReference(); }
 
     inline std::string GetName() const noexcept { return "String"; }
 
     inline std::string ToString() const noexcept
     {
-        return this->GetValue();
+        return this->Value();
     }
 
 private:

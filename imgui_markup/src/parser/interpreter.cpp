@@ -184,6 +184,8 @@ void Interpreter::AssignAttribute(AttributeInterface& attribute,
 
     if (!result)
         throw UnableToConvertValue(value_node.value_token, attribute.GetName());
+
+    attribute.EnableIsValueSet();
 }
 
 bt::Vector2 Interpreter::EvalVector2Node(const Vector2Node& value)

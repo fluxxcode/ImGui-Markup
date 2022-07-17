@@ -17,8 +17,8 @@ Each widget must be created inside a panel.
 ### Attributes:
 | Name | Type | Description | Default Value |
 | --- | --- | --- | --- |
-| position | Float2 | The start position of the panel, relative to the window.| (0, 0) |
-| size | Float2 | The start size of the panel. | (0, 0) - Dynamic size based on the panel's child items. |
+| position | Vector2 | The start position of the panel, relative to the window.| (0, 0) |
+| size | Vector2 | The start size of the panel. | (0, 0) - Dynamic size based on the panel's child items. |
 | title | String | The title of the panel | "##<item_address>", which is displayed as an empty string. |
 ### Implemented API functions:
 | Function | Description |
@@ -48,6 +48,9 @@ The text is equal to ```ImGui::Text()``` and is used to display basic informatio
 | Name | Type | Description | Default Value |
 | ---| --- | --- | --- |
 | text | String | The text that will be displayed. | "" |
+| position | Vector2 | Overrides the position specified by the parent item. | Position specified by the parent item is used. |
+| size | Vector2 | Overrides the size specified by the parent item. | Size specified by the parent item is used. |
+| margin | Margin | Sets the space around the item. | (0, 0, 0, 0) |
 ### Implemented API functions:
 | Function | Description |
 | --- | --- |
@@ -77,7 +80,9 @@ The button is equal to ```ImGui::Button()```.
 | Name | Type | Description | Default Value |
 | --- | --- | --- | --- |
 | text | String | The text that is displayed inside the button. | "" |
-| size | Float2 | Size of the button | Size of the button contents. |
+| position | Vector2 | Overrides the position specified by the parent item. | Position specified by the parent item is used. |
+| size | Vector2 | Overrides the size specified by the parent item. | Size specified by the parent item is used. |
+| margin | Margin | Sets the space around the item. | (0, 0, 0, 0) |
 ### Implemented API functions:
 | Function | Description |
 | --- | --- |
@@ -122,6 +127,9 @@ The checkbox is equal to ```ImGui::Checkbox()```.
 | ---| --- | --- | --- |
 | text | String | Text that is displayed next to the checkbox. | "" |
 | checked | Bool | Sets the state of the checkbox on startup. | False |
+| position | Vector2 | Overrides the position specified by the parent item. | Position specified by the parent item is used. |
+| size | Vector2 | Overrides the size specified by the parent item. | Size specified by the parent item is used. |
+| margin | Margin | Sets the space around the item. | (0, 0, 0, 0) |
 ### Implemented API functions:
 | Function | Description |
 | --- | --- |

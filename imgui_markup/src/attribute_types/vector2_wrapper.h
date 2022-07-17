@@ -41,11 +41,11 @@ public:
         this->Init();
     }
 
-    inline operator bt::Vector2() const { return this->GetValue();}
+    inline operator bt::Vector2() const { return this->Value();}
 
     inline operator ImVec2() const
     {
-        const bt::Vector2 val = this->GetValue();
+        const bt::Vector2 val = this->Value();
         return ImVec2(val.x, val.y);
     }
 
@@ -53,7 +53,7 @@ public:
 
     inline std::string ToString() const noexcept
     {
-        bt::Vector2 val = this->GetValue();
+        bt::Vector2 val = this->Value();
         return val.x.ToString() + "," + val.y.ToString();
     }
 

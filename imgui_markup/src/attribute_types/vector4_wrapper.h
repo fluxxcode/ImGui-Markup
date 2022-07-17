@@ -40,11 +40,11 @@ public:
         this->Init();
     }
 
-    inline operator bt::Vector4() const { return this->GetValue(); }
+    inline operator bt::Vector4() const { return this->Value(); }
 
     inline operator ImVec4() const
     {
-        const bt::Vector4 val = this->GetValue();
+        const bt::Vector4 val = this->Value();
         return ImVec4(val.x, val.y, val.z, val.w);
     }
 
@@ -52,7 +52,7 @@ public:
 
     inline std::string ToString() const noexcept
     {
-        bt::Vector4 val = this->GetValue();
+        bt::Vector4 val = this->Value();
         return val.x.ToString() + "," + val.y.ToString() + "," +
                val.z.ToString() + "," + val.w.ToString();
     }

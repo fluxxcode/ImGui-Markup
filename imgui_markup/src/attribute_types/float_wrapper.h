@@ -23,17 +23,45 @@ public:
         : AttributeBase(AttributeType::kFloat, 0.0f)
     { }
 
-    explicit FloatWrapper(float value)
+    FloatWrapper(float value)
         : AttributeBase(AttributeType::kFloat, value)
     { }
 
-    operator float() const { return this->GetValue(); }
+    inline operator float() const noexcept { return this->Value(); }
+
+    inline FloatWrapper& operator+=(FloatWrapper rhs) noexcept
+    {
+        float& ref = this->ValueReference();
+        ref += rhs.Value();
+        return *this;
+    }
+
+    inline FloatWrapper& operator+=(float rhs) noexcept
+    {
+        float& ref = this->ValueReference();
+        ref += rhs;
+        return *this;
+    }
+
+    inline FloatWrapper& operator-=(FloatWrapper rhs) noexcept
+    {
+        float& ref = this->ValueReference();
+        ref -= rhs.Value();
+        return *this;
+    }
+
+    inline FloatWrapper& operator-=(float rhs) noexcept
+    {
+        float& ref = this->ValueReference();
+        ref -= rhs;
+        return *this;
+    }
 
     inline std::string GetName() const noexcept { return "Float"; }
 
     inline std::string ToString() const noexcept
     {
-        return std::to_string(this->GetValue());
+        return std::to_string(this->Value());
     }
 
 private:

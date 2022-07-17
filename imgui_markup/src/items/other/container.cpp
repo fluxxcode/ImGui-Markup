@@ -15,10 +15,11 @@ Container::Container(std::string id, ItemBase* parent)
     : OtherBase(ItemType::kContainer, id, parent)
 { }
 
-void Container::Update(bt::Vector2 position, bt::Vector2 size) noexcept
+void Container::Update(bt::Vector2 position, bt::Vector2 available_size,
+                       bool dynamic_w, bool dynamic_h) noexcept
 {
     for (const auto& child : this->child_items_)
-        child->Update(position, size);
+        child->Update(position, available_size, dynamic_w, dynamic_h);
 }
 
 }  // namespace igm::internal

@@ -22,18 +22,26 @@ class Panel : public WidgetBase
 public:
     Panel(std::string id, ItemBase* parent);
 
-    void Update(bt::Vector2 position, bt::Vector2 size) noexcept;
+    void Update(bt::Vector2 position, bt::Vector2 available_size,
+                bool dynamic_w, bool dynamic_h) noexcept;
 
 private:
     StringWrapper title_;
     Vector2Wrapper position_;
     Vector2Wrapper size_;
 
-    bool init_ = false;
-
-    bool is_hovered_ = false;
-
     void Init();
+
+    // See widget_base.h for more information
+    bt::Vector2 actual_size_;
+    bool is_hovered_ = false;
+    bool initialized_ = false;
+
+    bt::Vector2 CalcItemSize() const noexcept;
+    inline bool IsInitialized() const noexcept
+        { return this->initialized_; }
+    inline bt::Vector2 GetActualSize() const noexcept
+        { return this->actual_size_; }
 
     // API functions
     bool API_IsItemPressed(ImGuiMouseButton btn) noexcept;
