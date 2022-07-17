@@ -42,17 +42,15 @@ void WidgetBase::Update(bt::Vector2 position, bt::Vector2 available_size,
 
     if (this->visible_)
     {
-        // TODO: Update so the clipping area will be created even when
-        //       only one value is dynamic
-        if (!dynamic_w && !dynamic_h)
-            this->BeginClippingArea();
+        if (!dynamic_w || !dynamic_h)
+            this->BeginClippingArea(dynamic_w, dynamic_h);
 
         ImGui::PushID(this);
         ImGui::SetCursorPos(this->item_draw_position_);
         this->WidgetUpdate(this->item_draw_position_, this->item_draw_size_);
         ImGui::PopID();
 
-        if (!dynamic_w && !dynamic_h)
+        if (!dynamic_w || !dynamic_h)
             this->EndClippingArea();
     }
 
@@ -125,7 +123,7 @@ void WidgetBase::EndSize(bool dynamic_w, bool dynamic_h) noexcept
         this->size_.y = actual_size.y + margin.top + margin.bottom;
 }
 
-void WidgetBase::BeginClippingArea() const noexcept
+void WidgetBase::BeginClippingArea(bool dynamic_w, bool dynamic_h) noexcept
 {
     const ImGuiWindow* window = ImGui::GetCurrentWindow();
 
@@ -133,6 +131,23 @@ void WidgetBase::BeginClippingArea() const noexcept
                         this->item_draw_position_.y + window->Pos.y);
     ImVec2 max = ImVec2(min.x + this->item_draw_size_.x,
                         min.y + this->item_draw_size_.y);
+
+    const bt::Margin& margin = this->margin_.ValueReference();
+
+    // Making sure the clipping area is big enough if one of the sizes
+    // is dynamic. Otherwise the clipping area width or height
+    // would be 0.
+
+    /**
+     * Offset to make sure the clipping are is big enough when
+     * calculating and estimating the size at the first frame.
+     */
+    static const float offset = 20.0f;
+
+    if (dynamic_w)
+        max.x = min.x + this->GetSize().x + offset- margin.left - margin.right;
+    if (dynamic_h)
+        max.y = min.y + this->GetSize().y + offset- margin.top - margin.bottom;
 
     ImGui::PushClipRect(min, max, true);
 

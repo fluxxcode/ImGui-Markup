@@ -95,8 +95,7 @@ private:
     /**
      * Color of the clipping area, only used for debugging purposes.
      */
-    // ImColor clipping_area_color_ = ImColor(1.0f, 0.0f, 0.0f, 0.5);
-
+    ImColor clipping_area_color_ = ImColor(1.0f, 0.0f, 0.0f, 0.5);
 
     void BeginPosition(bt::Vector2 position) noexcept;
 
@@ -104,7 +103,7 @@ private:
                    noexcept;
     void EndSize(bool dynamic_w, bool dynamic_h) noexcept;
 
-    void BeginClippingArea() const noexcept;
+    void BeginClippingArea(bool dynamic_w, bool dynamic_h) noexcept;
     void EndClippingArea() const noexcept;
 
     /**

@@ -51,7 +51,7 @@ void Panel::Update(bt::Vector2 position, bt::Vector2 available_size,
         const bt::Vector2 child_size = child->GetSize();
         const bt::Vector2 child_pos = child->GetPosition();
 
-        cursor_position.y += child_pos.y + child_size.y;
+        cursor_position.y = child_pos.y + child_size.y;
 
         if (child_pos.x + child_size.x > actual_size.x)
             actual_size.x = child_pos.x + child_size.x;
