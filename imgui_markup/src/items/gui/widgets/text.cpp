@@ -1,5 +1,5 @@
 #include "impch.h"
-#include "items/widgets/text.h"
+#include "items/gui/widgets/text.h"
 
 /**
  * @file text.cpp

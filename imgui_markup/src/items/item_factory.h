@@ -11,13 +11,13 @@
 #include "items/item_base.h"
 
 // Widgets
-#include "items/widgets/panel.h"
-#include "items/widgets/button.h"
-#include "items/widgets/text.h"
-#include "items/widgets/checkbox.h"
+#include "items/gui/widgets/panel.h"
+#include "items/gui/widgets/button.h"
+#include "items/gui/widgets/text.h"
+#include "items/gui/widgets/checkbox.h"
 
 // Views
-#include "items/views/line_view.h"
+#include "items/gui/views/line_view.h"
 
 // Other
 #include "items/other/container.h"

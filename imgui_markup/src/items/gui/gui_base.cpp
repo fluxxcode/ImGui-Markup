@@ -1,10 +1,10 @@
 #include "impch.h"
-#include "items/widgets/widget_base.h"
+#include "items/gui/gui_base.h"
 
 /**
- * @file widget_base.cpp
+ * @file gui_base.cpp
  * @author FluxxCode (info.fluxxcode@gmail.com)
- * @brief Implementation of widget_base.h
+ * @brief Implementation of gui_base.h
  * @copyright Copyright (c) 2022
  */
 
@@ -13,29 +13,17 @@
 namespace igm::internal
 {
 
-WidgetBase::WidgetBase(ItemType type, std::string id, ItemBase* parent)
-    : ItemBase(type, ItemCategory::kWidget, id, parent)
+GUIBase::GUIBase(ItemType type, ItemCategory category, std::string id,
+                 ItemBase* parent)
+    : ItemBase(type, category, id, parent)
 {
     this->InitAttribute("position", this->position_overwrite_);
     this->InitAttribute("size", this->size_overwrite_);
     this->InitAttribute("margin", this->margin_);
 }
 
-bt::Vector2 WidgetBase::GetSize() const noexcept
-{
-    if (!this->IsInitialized())
-        return CalcSize();
-
-    return this->size_;
-}
-
-bt::Vector2 WidgetBase::GetPosition() const noexcept
-{
-    return this->position_;
-}
-
-void WidgetBase::Update(bt::Vector2 position, bt::Vector2 available_size,
-                        bool dynamic_w, bool dynamic_h) noexcept
+void GUIBase::Update(bt::Vector2 position, bt::Vector2 available_size,
+                         bool dynamic_w, bool dynamic_h) noexcept
 {
     this->BeginPosition(position);
     this->BeginSize(available_size, dynamic_w, dynamic_h);
@@ -45,10 +33,8 @@ void WidgetBase::Update(bt::Vector2 position, bt::Vector2 available_size,
         if (!dynamic_w || !dynamic_h)
             this->BeginClippingArea(dynamic_w, dynamic_h);
 
-        ImGui::PushID(this);
         ImGui::SetCursorPos(this->item_draw_position_);
-        this->WidgetUpdate(this->item_draw_position_, this->item_draw_size_);
-        ImGui::PopID();
+        this->GUIUpdate(this->item_draw_position_, this->item_draw_size_);
 
         if (!dynamic_w || !dynamic_h)
             this->EndClippingArea();
@@ -57,7 +43,7 @@ void WidgetBase::Update(bt::Vector2 position, bt::Vector2 available_size,
     this->EndSize(dynamic_w, dynamic_h);
 }
 
-void WidgetBase::BeginPosition(bt::Vector2 position_in) noexcept
+void GUIBase::BeginPosition(bt::Vector2 position_in) noexcept
 {
     this->position_ = position_in;
     if (this->position_overwrite_.IsValueSet())
@@ -72,7 +58,7 @@ void WidgetBase::BeginPosition(bt::Vector2 position_in) noexcept
     this->item_draw_position_ = draw_position;
 }
 
-void WidgetBase::BeginSize(bt::Vector2 available_size, bool& dynamic_w,
+void GUIBase::BeginSize(bt::Vector2 available_size, bool& dynamic_w,
                            bool& dynamic_h) noexcept
 {
     const bt::Margin& margin = this->margin_.ValueReference();
@@ -112,7 +98,7 @@ void WidgetBase::BeginSize(bt::Vector2 available_size, bool& dynamic_w,
     }
 }
 
-void WidgetBase::EndSize(bool dynamic_w, bool dynamic_h) noexcept
+void GUIBase::EndSize(bool dynamic_w, bool dynamic_h) noexcept
 {
     const bt::Margin& margin = this->margin_.ValueReference();
     const bt::Vector2 actual_size = this->GetActualSize();
@@ -123,7 +109,7 @@ void WidgetBase::EndSize(bool dynamic_w, bool dynamic_h) noexcept
         this->size_.y = actual_size.y + margin.top + margin.bottom;
 }
 
-void WidgetBase::BeginClippingArea(bool dynamic_w, bool dynamic_h) noexcept
+void GUIBase::BeginClippingArea(bool dynamic_w, bool dynamic_h) noexcept
 {
     const ImGuiWindow* window = ImGui::GetCurrentWindow();
 
@@ -156,12 +142,12 @@ void WidgetBase::BeginClippingArea(bool dynamic_w, bool dynamic_h) noexcept
     // draw_list->AddRectFilled(min, max, this->clipping_area_color_);
 }
 
-void WidgetBase::EndClippingArea() const noexcept
+void GUIBase::EndClippingArea() const noexcept
 {
     ImGui::PopClipRect();
 }
 
-bt::Vector2 WidgetBase::CalcSize() const noexcept
+bt::Vector2 GUIBase::CalcSize() const noexcept
 {
     // TODO: Implement cache
 
@@ -172,25 +158,9 @@ bt::Vector2 WidgetBase::CalcSize() const noexcept
                        size.y + margin.top + margin.bottom);
 }
 
-void WidgetBase::API_Update(bt::Vector2 position, bt::Vector2 size) noexcept
+void GUIBase::API_Update(bt::Vector2 position, bt::Vector2 size) noexcept
 {
     this->Update(position, size, false, false);
-}
-
-bool WidgetBase::OnProcessStart(std::string& error_message) noexcept
-{
-    const ItemBase* parent = this->parent_;
-    while (parent)
-    {
-        if (parent->GetType() == ItemType::kPanel)
-            return true;
-
-        parent = parent->GetParent();
-    }
-
-    error_message = "One of the items parent item must be an item "
-                    "of type Panel";
-    return false;
 }
 
 }  // namespace igm::internal

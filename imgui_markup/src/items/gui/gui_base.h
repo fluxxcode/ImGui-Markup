@@ -1,10 +1,11 @@
-#ifndef IMGUI_MARKUP_SRC_ITEMS_WIDGETS_WIDGET_BASE_H_
-#define IMGUI_MARKUP_SRC_ITEMS_WIDGETS_WIDGET_BASE_H_
+#ifndef IMGUI_MARKUP_SRC_ITEMS_GUI_GUI_BASE_H_
+#define IMGUI_MARKUP_SRC_ITEMS_GUI_GUI_BASE_H_
 
 /**
- * @file widget_base.h
+ * @file gui_base.h
  * @author FluxxCode (info.fluxxcode@gmail.com)
- * @brief Contains base for every widget item within the markup language.
+ * @brief Base class of every item that deals with the GUI.
+ *        Currently including widgets and views.
  * @copyright Copyright (c) 2022
  */
 
@@ -13,28 +14,35 @@
 namespace igm::internal
 {
 
-class WidgetBase : public ItemBase
+class GUIBase : public ItemBase
 {
 public:
-    WidgetBase(ItemType type, std::string id, ItemBase* parent);
-    WidgetBase(const WidgetBase&) = delete;
+    GUIBase(ItemType type, ItemCategory category, std::string id,
+                ItemBase* parent);
+    GUIBase(const GUIBase&) = delete;
 
     /**
      * Returns the full size of the item, including its margin.
      * The item size is calculated if the item is not initialized.
      * (Usually initialized after the first frame)
      */
-    bt::Vector2 GetSize() const noexcept;
+    inline bt::Vector2 GetSize() const noexcept
+    {
+        if (!this->IsInitialized())
+            return CalcSize();
+
+        return this->size_;
+    }
 
     /**
      * Returns the current position of the item.
      */
-    bt::Vector2 GetPosition() const noexcept;
+    inline bt::Vector2 GetPosition() const noexcept { return this->position_; }
 
     /**
      * Implementation of the ItemBase::Update function.
      * Handles position and size including override,
-     * pushes and pops an unique ImGui ID and calls WidgetUpdate().
+     * pushes and pops an unique ImGui ID and calls GUIUpdate().
      * Can be overwritten to prevent it.
      */
     virtual void Update(bt::Vector2 position, bt::Vector2 available_size,
@@ -97,13 +105,33 @@ private:
      */
     ImColor clipping_area_color_ = ImColor(1.0f, 0.0f, 0.0f, 0.5);
 
+    /**
+     * Updates the position values of the item.
+     */
     void BeginPosition(bt::Vector2 position) noexcept;
 
+    /**
+     * Updates the size values of the item.
+     */
     void BeginSize(bt::Vector2 available_size, bool& dynamic_w, bool& dynamic_h)
                    noexcept;
+
+    /**
+     * Updates the size values of the item after update function
+     * of the inheriting item is called.
+     * This is used to set the size when one or both sides are dynamic.
+     */
     void EndSize(bool dynamic_w, bool dynamic_h) noexcept;
 
+    /**
+     * Pushes a clipping area for the item.
+     * The margin is already considered margin.
+     */
     void BeginClippingArea(bool dynamic_w, bool dynamic_h) noexcept;
+
+    /**
+     * Pops the clipping area.
+     */
     void EndClippingArea() const noexcept;
 
     /**
@@ -118,8 +146,7 @@ private:
      * are already handled and don't have to be managed by the
      * inheriting item.
      */
-    virtual void WidgetUpdate(bt::Vector2 position,
-                              bt::Vector2 size) noexcept { }
+    virtual void GUIUpdate(bt::Vector2 position, bt::Vector2 size) noexcept { }
 
     /**
      * Is the item initialized? Especially important for the size,
@@ -150,11 +177,8 @@ private:
      * Currently only calls the Update function.
      */
     virtual void API_Update(bt::Vector2 position, bt::Vector2 size) noexcept;
-
-    // See item_base.h for more information
-    virtual bool OnProcessStart(std::string& error_message) noexcept;
 };
 
 }  // namespace igm::internal
 
-#endif  // IMGUI_MARKUP_SRC_ITEMS_WIDGETS_WIDGET_BASE_H_
+#endif  // IMGUI_MARKUP_SRC_ITEMS_GUI_GUI_BASE_H_

@@ -1,5 +1,5 @@
-#ifndef IMGUI_MARKUP_SRC_ITEMS_WIDGETS_PANEL_H_
-#define IMGUI_MARKUP_SRC_ITEMS_WIDGETS_PANEL_H_
+#ifndef IMGUI_MARKUP_SRC_ITEMS_GUI_WIDGETS_PANEL_H_
+#define IMGUI_MARKUP_SRC_ITEMS_GUI_WIDGETS_PANEL_H_
 
 /**
  * @file panel.h
@@ -8,7 +8,7 @@
  * @copyright Copyright (c) 2022
  */
 
-#include "items/widgets/widget_base.h"
+#include "items/gui/widgets/widget_base.h"
 
 #include "imgui.h"  // ImGuiMouseButton
 
@@ -56,4 +56,4 @@ private:
 
 }  // namespace igm::internal
 
-#endif  // IMGUI_MARKUP_SRC_ITEMS_WIDGETS_PANEL_H_
+#endif  // IMGUI_MARKUP_SRC_ITEMS_GUI_WIDGETS_PANEL_H_

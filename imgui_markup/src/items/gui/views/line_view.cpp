@@ -1,5 +1,5 @@
 #include "impch.h"
-#include "items/views/line_view.h"
+#include "items/gui/views/line_view.h"
 
 /**
  * @file line_view.cpp

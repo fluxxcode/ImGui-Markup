@@ -1,5 +1,5 @@
 #include "impch.h"
-#include "items/views/view_base.h"
+#include "items/gui/views/view_base.h"
 
 /**
  * @file views_base.cpp

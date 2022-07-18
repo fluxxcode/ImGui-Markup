@@ -1,5 +1,5 @@
 #include "impch.h"
-#include "items/widgets/panel.h"
+#include "items/gui/widgets/panel.h"
 
 #include "imgui_fork.h"
 

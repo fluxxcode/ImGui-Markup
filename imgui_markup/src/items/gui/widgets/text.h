@@ -1,14 +1,14 @@
-#ifndef IMGUI_MARKUP_SRC_ITEMS_WIDGETS_CHECKBOX_H_
-#define IMGUI_MARKUP_SRC_ITEMS_WIDGETS_CHECKBOX_H_
+#ifndef IMGUI_MARKUP_SRC_ITEMS_GUI_WIDGETS_TEXT_H_
+#define IMGUI_MARKUP_SRC_ITEMS_GUI_WIDGETS_TEXT_H_
 
 /**
- * @file checkbox.h
+ * @file text.h
  * @author FluxxCode (info.fluxxcode@gmail.com)
- * @brief Contains item 'Checkbox'
+ * @brief Contains item 'Text'
  * @copyright Copyright (c) 2022
  */
 
-#include "items/widgets/widget_base.h"
+#include "items/gui/widgets/widget_base.h"
 
 #include "imgui.h"  // ImGuiMouseButton
 
@@ -17,16 +17,15 @@
 namespace igm::internal
 {
 
-class Checkbox : public WidgetBase
+class Text : public WidgetBase
 {
 public:
-    Checkbox(std::string id, ItemBase* parent);
+    Text(std::string id, ItemBase* parent);
 
     void WidgetUpdate(bt::Vector2 position, bt::Vector2 size) noexcept;
 
 private:
     StringWrapper text_;
-    BoolWrapper is_checked_;
 
     // See widget_base.h for more information
     bt::Vector2 actual_size_;
@@ -42,9 +41,8 @@ private:
     // API functions
     bool API_IsItemPressed(ImGuiMouseButton btn) noexcept;
     bool API_IsItemHovered() noexcept;
-    bool API_IsCheckboxChecked() noexcept;
 };
 
 }  // namespace igm::internal
 
-#endif  // IMGUI_MARKUP_SRC_ITEMS_WIDGETS_CHECKBOX_H_
+#endif  // IMGUI_MARKUP_SRC_ITEMS_GUI_WIDGETS_TEXT_H_

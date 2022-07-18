@@ -1,5 +1,5 @@
-#ifndef IMGUI_MARKUP_SRC_ITEMS_VIEWS_LINE_VIEW_H_
-#define IMGUI_MARKUP_SRC_ITEMS_VIEWS_LINE_VIEW_H_
+#ifndef IMGUI_MARKUP_SRC_ITEMS_GUI_VIEWS_LINE_VIEW_H_
+#define IMGUI_MARKUP_SRC_ITEMS_GUI_VIEWS_LINE_VIEW_H_
 
 /**
  * @file line_view.h
@@ -8,7 +8,7 @@
  * @copyright Copyright (c) 2022
  */
 
-#include "items/views/view_base.h"
+#include "items/gui/views/view_base.h"
 
 #include "imgui.h"  // ImGuiMouseButton
 
@@ -37,4 +37,4 @@ private:
 
 }  // namespace igm::internal
 
-#endif  // IMGUI_MARKUP_SRC_ITEMS_VIEWS_LINE_VIEW_H_
+#endif  // IMGUI_MARKUP_SRC_ITEMS_GUI_VIEWS_LINE_VIEW_H_

@@ -1,14 +1,14 @@
-#ifndef IMGUI_MARKUP_SRC_ITEMS_WIDGETS_TEXT_H_
-#define IMGUI_MARKUP_SRC_ITEMS_WIDGETS_TEXT_H_
+#ifndef IMGUI_MARKUP_SRC_ITEMS_GUI_WIDGETS_BUTTON_H_
+#define IMGUI_MARKUP_SRC_ITEMS_GUI_WIDGETS_BUTTON_H_
 
 /**
- * @file text.h
+ * @file button.h
  * @author FluxxCode (info.fluxxcode@gmail.com)
- * @brief Contains item 'Text'
+ * @brief Contains item 'Button'
  * @copyright Copyright (c) 2022
  */
 
-#include "items/widgets/widget_base.h"
+#include "items/gui/widgets/widget_base.h"
 
 #include "imgui.h"  // ImGuiMouseButton
 
@@ -17,10 +17,10 @@
 namespace igm::internal
 {
 
-class Text : public WidgetBase
+class Button : public WidgetBase
 {
 public:
-    Text(std::string id, ItemBase* parent);
+    Button(std::string id, ItemBase* parent);
 
     void WidgetUpdate(bt::Vector2 position, bt::Vector2 size) noexcept;
 
@@ -45,4 +45,4 @@ private:
 
 }  // namespace igm::internal
 
-#endif  // IMGUI_MARKUP_SRC_ITEMS_WIDGETS_TEXT_H_
+#endif  // IMGUI_MARKUP_SRC_ITEMS_GUI_WIDGETS_BUTTON_H_

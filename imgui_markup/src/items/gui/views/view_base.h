@@ -1,5 +1,5 @@
-#ifndef IMGUI_MARKUP_SRC_ITEMS_VIEWS_VIEW_BASE_H_
-#define IMGUI_MARKUP_SRC_ITEMS_VIEWS_VIEW_BASE_H_
+#ifndef IMGUI_MARKUP_SRC_ITEMS_GUI_VIEWS_VIEW_BASE_H_
+#define IMGUI_MARKUP_SRC_ITEMS_GUI_VIEWS_VIEW_BASE_H_
 
 /**
  * @file view_base.h
@@ -26,4 +26,4 @@ struct ViewBase : public ItemBase
 
 }  // namespace igm::internal
 
-#endif  // IMGUI_MARKUP_SRC_ITEMS_VIEWS_VIEW_BASE_H_
+#endif  // IMGUI_MARKUP_SRC_ITEMS_GUI_VIEWS_VIEW_BASE_H_
