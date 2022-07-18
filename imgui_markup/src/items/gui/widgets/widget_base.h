@@ -16,7 +16,8 @@ namespace igm::internal
 class WidgetBase : public GUIBase
 {
 public:
-    WidgetBase(ItemType type, std::string id, ItemBase* parent);
+    WidgetBase(ItemType type, std::string id, ItemBase* parent,
+               bool clipping_area = true);
     WidgetBase(const WidgetBase&) = delete;
 
 private:

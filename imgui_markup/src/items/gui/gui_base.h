@@ -18,7 +18,7 @@ class GUIBase : public ItemBase
 {
 public:
     GUIBase(ItemType type, ItemCategory category, std::string id,
-                ItemBase* parent);
+                 ItemBase* parent, bool clipping_area);
     GUIBase(const GUIBase&) = delete;
 
     /**
@@ -99,6 +99,13 @@ private:
      * Is the item visible?
      */
     bool visible_ = true;
+
+    /**
+     * Should the clipping area be created?
+     * Set by the inheriting item through the constructor.
+     * Used for items that might be created outside of a panel.
+     */
+    bool clipping_area_;
 
     /**
      * Color of the clipping area, only used for debugging purposes.

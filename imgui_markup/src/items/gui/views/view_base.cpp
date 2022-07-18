@@ -11,9 +11,14 @@
 namespace igm::internal
 {
 
-void ViewBase::API_Update(bt::Vector2 position, bt::Vector2 size) noexcept
+ViewBase::ViewBase(ItemType type, std::string id, ItemBase* parent,
+                   bool clipping_area)
+   : GUIBase(type, ItemCategory::kView, id, parent, clipping_area)
+{ }
+
+void ViewBase::GUIUpdate(bt::Vector2 position, bt::Vector2 size) noexcept
 {
-    this->Update(position, size, false, false);
+    this->ViewUpdate(position, size);
 }
 
 }  // namespace igm::internal

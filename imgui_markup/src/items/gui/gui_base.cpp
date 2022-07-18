@@ -14,8 +14,9 @@ namespace igm::internal
 {
 
 GUIBase::GUIBase(ItemType type, ItemCategory category, std::string id,
-                 ItemBase* parent)
-    : ItemBase(type, category, id, parent)
+                 ItemBase* parent, bool clipping_area)
+    : ItemBase(type, category, id, parent),
+      clipping_area_(clipping_area)
 {
     this->InitAttribute("position", this->position_overwrite_);
     this->InitAttribute("size", this->size_overwrite_);
@@ -23,20 +24,19 @@ GUIBase::GUIBase(ItemType type, ItemCategory category, std::string id,
 }
 
 void GUIBase::Update(bt::Vector2 position, bt::Vector2 available_size,
-                         bool dynamic_w, bool dynamic_h) noexcept
+                     bool dynamic_w, bool dynamic_h) noexcept
 {
     this->BeginPosition(position);
     this->BeginSize(available_size, dynamic_w, dynamic_h);
 
     if (this->visible_)
     {
-        if (!dynamic_w || !dynamic_h)
+        if ((!dynamic_w || !dynamic_h) && this->clipping_area_)
             this->BeginClippingArea(dynamic_w, dynamic_h);
 
-        ImGui::SetCursorPos(this->item_draw_position_);
         this->GUIUpdate(this->item_draw_position_, this->item_draw_size_);
 
-        if (!dynamic_w || !dynamic_h)
+        if ((!dynamic_w || !dynamic_h) && this->clipping_area_)
             this->EndClippingArea();
     }
 

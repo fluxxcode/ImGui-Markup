@@ -22,17 +22,22 @@ class LineView : public ViewBase
 public:
     LineView(std::string id, ItemBase* parent);
 
-    void Update(bt::Vector2 position, bt::Vector2 available_size,
-                bool dynamic_w, bool dynamic_h) noexcept;
+    void ViewUpdate(bt::Vector2 position, bt::Vector2 size) noexcept;
 
 private:
     PaddingWrapper padding_;
-    MarginWrapper margin_;
     IntWrapper spacing_;
 
-    bt::Vector2 cursor_position_;
+    // See widget_base.h for more information
+    bt::Vector2 actual_size_;
+    bool initialized_ = false;
 
-    bool OnProcessStart(std::string& error_message) noexcept;
+    bt::Vector2 CalcItemSize() const noexcept;
+    inline bool IsInitialized() const noexcept
+        { return this->initialized_; }
+    inline bt::Vector2 GetActualSize() const noexcept
+        { return this->actual_size_; }
+
 };
 
 }  // namespace igm::internal

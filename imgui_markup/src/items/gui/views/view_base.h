@@ -8,20 +8,31 @@
  * @copyright Copyright (c) 2022
  */
 
-#include "items/item_base.h"
+#include "items/gui/gui_base.h"
 
 namespace igm::internal
 {
 
-struct ViewBase : public ItemBase
+class ViewBase : public GUIBase
 {
-    ViewBase(ItemType type, std::string id, ItemBase* parent)
-        : ItemBase(type, ItemCategory::kView, id, parent)
-    { }
-
+public:
+    ViewBase(ItemType type, std::string id, ItemBase* parent,
+             bool clipping_area);
     ViewBase(const ViewBase&) = delete;
 
-    virtual void API_Update(bt::Vector2 position, bt::Vector2 size) noexcept;
+private:
+    /**
+     * Main update function that should be implemented by the
+     * inheriting item.
+     * When implemented, the ImGui ID, margin, size and position overrides
+     * are already handled and don't have to be managed by the
+     * inheriting item.
+     */
+    virtual void ViewUpdate(bt::Vector2 position,
+                            bt::Vector2 size) noexcept { };
+
+    // See gui_base.h for more information
+    void GUIUpdate(bt::Vector2 position, bt::Vector2 size) noexcept;
 };
 
 }  // namespace igm::internal

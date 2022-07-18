@@ -14,16 +14,15 @@ namespace igm::internal
 {
 
 Panel::Panel(std::string id, ItemBase* parent)
-    : WidgetBase(ItemType::kPanel, id, parent)
+    : WidgetBase(ItemType::kPanel, id, parent, false)
 {
     this->InitAttribute("title", this->title_);
-    this->InitAttribute("position", this->position_);
-    this->InitAttribute("size", this->size_);
 }
 
-void Panel::Update(bt::Vector2 position, bt::Vector2 available_size,
-                   bool dynamic_w, bool dynamic_h) noexcept
+void Panel::GUIUpdate(bt::Vector2 position, bt::Vector2 available_size) noexcept
 {
+    this->position_ = position;
+
     this->Init();
 
     ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
@@ -59,7 +58,7 @@ void Panel::Update(bt::Vector2 position, bt::Vector2 available_size,
             actual_size.y = child_pos.y + child_size.y;
     }
 
-    this->size_ = actual_size;
+    this->actual_size_ = actual_size;
     this->is_hovered_ = ImGui::IsWindowHovered(ImGuiHoveredFlags_ChildWindows);
 
     ImGui::End();
@@ -91,7 +90,7 @@ bt::Vector2 Panel::CalcItemSize() const noexcept
 void Panel::Init()
 {
     ImGui::SetNextWindowPos(this->position_);
-    ImGui::SetNextWindowSize(this->size_);
+    ImGui::SetNextWindowSize(this->actual_size_);
 
     this->initialized_ = true;
 }
@@ -108,7 +107,7 @@ bool Panel::API_IsItemHovered() noexcept
 
 bool Panel::OnProcessEnd(std::string& error_message) noexcept
 {
-    this->title_.GetString() += "##" + this->unique_id_;
+    this->title_.SetValue(this->title_.GetString() += "##" + this->unique_id_);
     return true;
 }
 

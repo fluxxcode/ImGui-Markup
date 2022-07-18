@@ -13,13 +13,15 @@
 namespace igm::internal
 {
 
-WidgetBase::WidgetBase(ItemType type, std::string id, ItemBase* parent)
-    : GUIBase(type, ItemCategory::kWidget, id, parent)
+WidgetBase::WidgetBase(ItemType type, std::string id, ItemBase* parent,
+                       bool clipping_area)
+    : GUIBase(type, ItemCategory::kWidget, id, parent, clipping_area)
 { }
 
 void WidgetBase::GUIUpdate(bt::Vector2 position, bt::Vector2 size) noexcept
 {
     ImGui::PushID(this);
+    ImGui::SetCursorPos(position);
     this->WidgetUpdate(position, size);
     ImGui::PopID();
 }
