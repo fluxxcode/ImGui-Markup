@@ -37,7 +37,7 @@ void LineView::ViewUpdate(bt::Vector2 position, bt::Vector2 size) noexcept
         if (child_pos.y + child_size.y > actual_size.y)
             actual_size.y = child_pos.y + child_size.y;
 
-        cursor_position.y = child_pos.y + child_size.y + this->spacing_;
+        cursor_position.y += child_size.y + this->spacing_;
     }
 
     actual_size.x += padding.right;
