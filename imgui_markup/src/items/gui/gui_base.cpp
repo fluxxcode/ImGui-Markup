@@ -31,6 +31,7 @@ void GUIBase::Update(bt::Vector2 position, bt::Vector2 available_size,
 
     if (this->visible_)
     {
+        // Don't create a clipping area if both width and height size is dynamic
         if ((!dynamic_w || !dynamic_h) && this->clipping_area_)
             this->BeginClippingArea(dynamic_w, dynamic_h);
 
@@ -63,16 +64,22 @@ void GUIBase::BeginSize(bt::Vector2 available_size, bool& dynamic_w,
 {
     const bt::Margin& margin = this->margin_.ValueReference();
 
+    // Check if the size overwrite is set and if so, overwrite the
+    // dynamic status which is set from the parent item.
     if (this->size_overwrite_.ValueReference().x.IsValueSet())
         dynamic_w = false;
     if (this->size_overwrite_.ValueReference().y.IsValueSet())
         dynamic_h = false;
 
+    // Set the ImGui Item size to 0, since this is the way of telling ImGui
+    // that the item does't have a fixed size.
     if (dynamic_w)
         item_draw_size_.x = 0;
     if (dynamic_h)
         item_draw_size_.y = 0;
 
+    // Set the size for the case, that its dynamic and not overwritten from
+    // the markup language.
     if (!dynamic_w)
     {
         this->size_.x = available_size.x;
@@ -84,6 +91,7 @@ void GUIBase::BeginSize(bt::Vector2 available_size, bool& dynamic_w,
         this->item_draw_size_.y = available_size.y - margin.top - margin.bottom;
     }
 
+    // Overwrite the size again if its overwritten via the markup language.
     if (this->size_overwrite_.IsValueSet())
     {
         this->item_draw_size_ = this->size_overwrite_;
@@ -91,6 +99,7 @@ void GUIBase::BeginSize(bt::Vector2 available_size, bool& dynamic_w,
         this->size_.y = size_overwrite_.Value().y + margin.top + margin.bottom;
     }
 
+    // Check if the item is visible
     if ((this->item_draw_size_.x <= 0 && dynamic_w == false) ||
         (this->item_draw_size_.y <= 0 && dynamic_h == false))
     {
@@ -103,6 +112,8 @@ void GUIBase::EndSize(bool dynamic_w, bool dynamic_h) noexcept
     const bt::Margin& margin = this->margin_.ValueReference();
     const bt::Vector2 actual_size = this->GetActualSize();
 
+    // Update the item's size if its dynamic, using the actual size which
+    // is set by the inheriting item.
     if (dynamic_w)
         this->size_.x = actual_size.x + margin.left + margin.right;
     if (dynamic_h)

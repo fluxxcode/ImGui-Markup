@@ -83,7 +83,7 @@ private:
 
     /**
      * Overwrites the size that is set by the parent item.
-     * Unlike the available size, this does not including margin!
+     * Unlike the available size, this does not include margin!
      * Can be set via the markup language.
      */
     Vector2Wrapper size_overwrite_;
