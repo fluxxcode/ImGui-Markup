@@ -59,11 +59,7 @@ void Update(size_t unit_id, size_t display_width, size_t display_height,
     if (!unit)
         return;
 
-    for (const auto& child : unit->item_tree)
-    {
-        child->API_Update(internal::bt::Vector2(0, 0),
-                          internal::bt::Vector2(display_width, display_height));
-    }
+    unit->item_tree.Update(display_width, display_height);
 }
 
 void Update(size_t unit, bool* result)

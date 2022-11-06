@@ -22,7 +22,7 @@ Interpreter::Interpreter(Unit& unit)
 
 void Interpreter::Reset() noexcept
 {
-    this->unit_.item_tree.clear();
+    this->unit_.item_tree.Clear();
     this->unit_.item_ids.clear();
     this->item_stack_.clear();
 }
@@ -38,10 +38,10 @@ void Interpreter::CreateItem(const Lexer::Token& type, const Lexer::Token& id)
     {
         // Item stack is empty; create item within the root of the
         // unit's item tree
-        this->unit_.item_tree.push_back(
+        this->unit_.item_tree.GetItemTree().push_back(
             ItemFactory::CreateItem(type.value, id.value, nullptr));
 
-        new_item = this->unit_.item_tree.back().get();
+        new_item = this->unit_.item_tree.GetItemTree().back().get();
     }
     else
     {
