@@ -34,9 +34,6 @@ private:
 
     // See gui_base.h for more information
     void GUIUpdate(bt::Vector2 position, bt::Vector2 size) noexcept;
-
-    // See item_base.h for more information
-    virtual bool OnProcessStart(std::string& error_message) noexcept;
 };
 
 }  // namespace igm::internal

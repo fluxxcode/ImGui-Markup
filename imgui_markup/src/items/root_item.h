@@ -34,10 +34,15 @@ public:
      * Pushes a new item to the item tree.
     */
     inline std::vector<std::unique_ptr<ItemBase>>& GetItemTree() noexcept
-        { return this->item_tree; };
+        { return this->item_tree_; };
 
 private:
-    std::vector<std::unique_ptr<ItemBase>> item_tree;
+    std::vector<std::unique_ptr<ItemBase>> item_tree_;
+
+    /*
+     * Title of the root panel, currently the objects address.
+    */
+    const char* root_panel_title_;
 };
 
 }  // namespace igm::internal
