@@ -22,7 +22,10 @@ void LineView::ViewUpdate(bt::Vector2 position, bt::Vector2 size) noexcept
 {
     const bt::Padding& padding = this->padding_.ValueReference();
 
-    bt::Vector2 cursor_position = bt::Vector2(padding.left, padding.top);
+    bt::Vector2 cursor_position = position;
+    cursor_position.x += padding.left;
+    cursor_position.y += padding.top;
+
     bt::Vector2 actual_size;
 
     for (const auto& child : this->child_items_)
@@ -32,12 +35,12 @@ void LineView::ViewUpdate(bt::Vector2 position, bt::Vector2 size) noexcept
         const bt::Vector2 child_size = child->GetSize();
         const bt::Vector2 child_pos = child->GetPosition();
 
-        if (child_pos.x + child_size.x > actual_size.x)
-            actual_size.x = child_pos.x + child_size.x;
-        if (child_pos.y + child_size.y > actual_size.y)
-            actual_size.y = child_pos.y + child_size.y;
+        if (child_pos.x + child_size.x - position.x > actual_size.x)
+            actual_size.x = child_pos.x + child_size.x - position.y;
+        if (child_pos.y + child_size.y - position.y > actual_size.y)
+            actual_size.y = child_pos.y + child_size.y - position.y;
 
-        cursor_position.y += child_size.y + this->spacing_;
+        cursor_position.y = child_pos.y + child_size.y + this->spacing_;
     }
 
     actual_size.x += padding.right;
@@ -49,6 +52,9 @@ void LineView::ViewUpdate(bt::Vector2 position, bt::Vector2 size) noexcept
 
 bt::Vector2 LineView::CalcItemSize() const noexcept
 {
+    // NOTE: This is currently quite inaccurate if the LinewView is not at
+    //       the position (0, 0), since the position is not considered.
+
     bt::Vector2 size;
     for (const auto& child : this->child_items_)
     {
