@@ -42,7 +42,7 @@ private:
     /*
      * Title of the root panel, currently the objects address.
     */
-    const char* root_panel_title_;
+    std::string root_panel_title_;
 };
 
 }  // namespace igm::internal

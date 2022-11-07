@@ -18,7 +18,7 @@ RootItem::RootItem()
     const void* address = static_cast<const void*>(this);
     std::stringstream ss;
     ss << address;
-    this->root_panel_title_ = ss.str().c_str();
+    this->root_panel_title_ = ss.str();
 }
 
 void RootItem::Update(size_t display_width, size_t display_height) noexcept
@@ -27,7 +27,7 @@ void RootItem::Update(size_t display_width, size_t display_height) noexcept
     ImGui::SetNextWindowSize(internal::bt::Vector2(display_width,
                                                    display_height));
     ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
-    ImGui::Begin(this->root_panel_title_, 0,
+    ImGui::Begin(this->root_panel_title_.c_str(), 0,
                  ImGuiWindowFlags_NoBringToFrontOnFocus |
                  ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize |
                  ImGuiWindowFlags_NoBackground | ImGuiWindowFlags_NoDecoration);
