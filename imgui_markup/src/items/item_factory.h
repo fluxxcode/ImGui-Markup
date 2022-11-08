@@ -11,7 +11,6 @@
 #include "items/item_base.h"
 
 // Widgets
-#include "items/gui/widgets/panel.h"
 #include "items/gui/widgets/button.h"
 #include "items/gui/widgets/text.h"
 #include "items/gui/widgets/checkbox.h"
@@ -20,6 +19,7 @@
 #include "items/gui/views/line_view.h"
 
 // Other
+#include "items/other/panel.h"
 #include "items/other/container.h"
 #include "items/other/internal_test.h"
 
@@ -48,7 +48,6 @@ private:
     const std::map<std::string, std::function<std::unique_ptr<ItemBase>(
         std::string, ItemBase*)>> item_mapping_ = {
             // Widgets
-            { "Panel", CreateItemInstance<Panel> },
             { "Button", CreateItemInstance<Button> },
             { "Text", CreateItemInstance<Text> },
             { "Checkbox", CreateItemInstance<Checkbox> },
@@ -57,6 +56,7 @@ private:
             { "LineView", CreateItemInstance<LineView> },
 
             // Other
+            { "Panel", CreateItemInstance<Panel> },
             { "Container", CreateItemInstance<Container> },
             { "_INTERNAL_TEST", CreateItemInstance<InternalTest> }
         };

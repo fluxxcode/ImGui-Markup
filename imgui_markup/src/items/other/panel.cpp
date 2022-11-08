@@ -1,5 +1,5 @@
 #include "impch.h"
-#include "items/gui/widgets/panel.h"
+#include "items/other/panel.h"
 
 #include "imgui_fork.h"
 
@@ -20,7 +20,7 @@ namespace igm::internal
 */
 
 Panel::Panel(std::string id, ItemBase* parent)
-    : ItemBase(ItemType::kPanel, ItemCategory::kWidget, id, parent)
+    : OtherBase(ItemType::kPanel, id, parent)
 {
     this->InitAttribute("title", this->title_);
     this->InitAttribute("position", this->position_overwrite_);

@@ -21,7 +21,6 @@ enum class ItemCategory : unsigned char
 enum class ItemType : unsigned char
 {
     // Widgets
-    kPanel,
     kButton,
     kText,
     kCheckbox,
@@ -30,6 +29,7 @@ enum class ItemType : unsigned char
     kLineView,
 
     // Other
+    kPanel,
     kContainer,
     kInternalTest
 };

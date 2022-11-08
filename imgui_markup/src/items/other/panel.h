@@ -1,5 +1,5 @@
-#ifndef IMGUI_MARKUP_SRC_ITEMS_GUI_WIDGETS_PANEL_H_
-#define IMGUI_MARKUP_SRC_ITEMS_GUI_WIDGETS_PANEL_H_
+#ifndef IMGUI_MARKUP_SRC_ITEMS_OTHER_PANEL_H_
+#define IMGUI_MARKUP_SRC_ITEMS_OTHER_PANEL_H_
 
 /**
  * @file panel.h
@@ -8,7 +8,7 @@
  * @copyright Copyright (c) 2022
  */
 
-#include "items/gui/widgets/widget_base.h"
+#include "items/other/other_base.h"
 
 #include "imgui.h"  // ImGuiMouseButton
 
@@ -21,7 +21,7 @@ namespace igm::internal
  * The Panel does not inherit from WidgetBase since it does quite a lot of
  * things differently.
  */
-class Panel : public ItemBase
+class Panel : public OtherBase
 {
 public:
     Panel(std::string id, ItemBase* parent);
@@ -62,4 +62,4 @@ private:
 
 }  // namespace igm::internal
 
-#endif  // IMGUI_MARKUP_SRC_ITEMS_GUI_WIDGETS_PANEL_H_
+#endif  // IMGUI_MARKUP_SRC_ITEMS_OTHER_PANEL_H_
