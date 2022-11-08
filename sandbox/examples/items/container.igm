@@ -1,16 +1,12 @@
 
 Container : container_example_text
 {
-    +string title = "Container example"
-    +string content = "Press me"
+    +string value_0 = "container_example_text: Value 0"
+    +string value_1 = "container_example_text: Value 1"
 }
 
-Panel : container_example
-{
-    title = container_example_text.title
+Text { text="Text copy by value:" }
+Text { text=container_example_text.value_0 }
 
-    Button
-    {
-        text = container_example_text.content
-    }
-}
+Text { text="Text copy by reference:" }
+Text { text=@container_example_text.value_1 }

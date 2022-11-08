@@ -1,7 +1,16 @@
 
 Panel : panel_example
 {
-    title = "Hello world"
-    position = (500, 10)
-    size = (400, 200)
+    title = "Panel example"
+    position = (500, 20)
+
+    LineView
+    {
+        padding = 10
+        spacing = 3
+
+        Text { text="Hello from inside the panel" }
+        Text { text="Hello from inside the panel" }
+        Text { text="Hello from inside the panel" }
+    }
 }

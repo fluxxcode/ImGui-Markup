@@ -1,23 +1,18 @@
 
-Panel : line_view_example
+LineView
 {
-    title = "ImLineView example"
+    spacing = 2.5
+    padding = 20
 
-    LineView
-    {
-        spacing = 2.5
-        padding = 5
+    Checkbox { text = "Checkbox 0" }
+    Checkbox { text = "Checkbox 1" checked = true }
+    Checkbox { text = "Checkbox 2" checked = false }
 
-        Checkbox : checkbox_0 { text = "Checkbox 0" }
-        Checkbox : checkbox_1 { text = "Checkbox 1" checked = true }
-        Checkbox : checkbox_2 { text = "Checkbox 2" checked = false }
+    Button { text = "Button 0 " }
+    Button { text = "Button 1 " }
+    Button { text = "Button 2 " }
 
-        Button : button_0 { text = "Button 0 " }
-        Button : button_1 { text = "Button 1 " }
-        Button : button_2 { text = "Button 2 " }
-
-        Text : text_0 { text = "Text 0" }
-        Text : text_1 { text = "Text 1" }
-        Text : text_2 { text = "Text 2" }
-    }
+    Text { text = "Text 0" }
+    Text { text = "Text 1" }
+    Text { text = "Text 2" }
 }

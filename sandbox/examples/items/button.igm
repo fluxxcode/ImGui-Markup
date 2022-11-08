@@ -1,11 +1,11 @@
 
-Panel : button_example
+Button
 {
-    title = "Button example"
+    text = "Dynamic button size based on the text size"
+}
 
-    Button : button_0
-    {
-        text = "Hello world"
-        size = (100, 20)
-    }
+Button
+{
+    text = "Fixed button size"
+    size = (200, 30)
 }
