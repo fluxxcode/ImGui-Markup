@@ -13,86 +13,159 @@
 namespace igm::internal
 {
 
+/**
+ * TODO/IDEA:
+ *   Maybe add clipping for the panels based on the root item of the
+ *   current unit.
+*/
+
 Panel::Panel(std::string id, ItemBase* parent)
-    : WidgetBase(ItemType::kPanel, id, parent, false)
+    : ItemBase(ItemType::kPanel, ItemCategory::kWidget, id, parent)
 {
     this->InitAttribute("title", this->title_);
+    this->InitAttribute("position", this->position_overwrite_);
+    this->InitAttribute("size", this->size_overwrite_);
 }
 
-void Panel::GUIUpdate(bt::Vector2 position, bt::Vector2 available_size) noexcept
+void Panel::Update(bt::Vector2 position, bt::Vector2 available_size,
+                   bool dynamic_w, bool dynamic_h) noexcept
 {
-    this->position_ = position;
+    if (!this->initialized_)
+        this->Init();
 
-    this->Init();
+    ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
 
-    ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
-
-    ImGui::Begin(this->title_.GetString().c_str(), 0,
-                 ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoScrollbar |
-                 ImGuiWindowFlags_NoResize);
+    ImGui::Begin(this->title_.GetString().c_str());
 
     ImGui::PopStyleVar();
 
-    // TODO: Panel currently doesn't consider the real size of the child items,
-    //       it just considers the size of the ImGui items.
-    //       This results in a panel size that is too small when using
-    //       margin on child items.
-    //       This will be fixed when completely reworking the panel
-    //       and also considering the size thats given by the parent item.
+    bt::Vector2 child_size = bt::Vector2(0, 0);
 
-    bt::Vector2 cursor_position = ImGui::GetCursorPos();
-    bt::Vector2 actual_size;
+    // Set the child sizes to the same as the panel size, if the
+    // panel size is overwritten from the markup language.
+    if (this->size_overwrite_.Value().x.IsValueSet())
+        child_size.x = this->size_overwrite_.ValueReference().x;
+    if (this->size_overwrite_.Value().x.Value())
+        child_size.y = this->size_overwrite_.ValueReference().y;
 
+    bt::Vector2 actual_size = bt::Vector2(0, 0);
     for (const auto& child : this->child_items_)
     {
-        child->Update(cursor_position, bt::Vector2(0.0f, 0.0f), true, true);
+        // If child_size.x/y = 0 -> Enable dynamic size
+        child->Update(bt::Vector2(0, this->CalcTitlebarHeight()), child_size,
+                      child_size.x ? false : true, child_size.y ? false : true);
+
+        // Only get the actual panel size after the first frame.
+        // Resizing child items after the first frame will not have
+        // affect on the panel's size.
+        if (this->initialized_)
+            continue;
 
         const bt::Vector2 child_size = child->GetSize();
         const bt::Vector2 child_pos = child->GetPosition();
+        const bt::Vector2 size_overwrite_value = this->size_overwrite_.Value();
 
-        cursor_position.y = child_pos.y + child_size.y;
-
-        if (child_pos.x + child_size.x > actual_size.x)
-            actual_size.x = child_pos.x + child_size.x;
-        if (child_pos.y + child_size.y > actual_size.y)
-            actual_size.y = child_pos.y + child_size.y;
+        if (!size_overwrite_value.x.IsValueSet())
+        {
+            if (child_pos.x + child_size.x > actual_size.x)
+                actual_size.x = child_pos.x + child_size.x;
+        }
+        if (!size_overwrite_value.y.IsValueSet())
+        {
+            if (child_pos.y + child_size.y > actual_size.y)
+                actual_size.y = child_pos.y + child_size.y;
+        }
     }
 
-    this->actual_size_ = actual_size;
-    this->is_hovered_ = ImGui::IsWindowHovered(ImGuiHoveredFlags_ChildWindows);
+    // Update the windows size to the max size of the child items.
+    // This is necessary to include the actual size of the child items,
+    // including padding, margin, etc..
+    // ImGui only considers the item's draw size, which is not equal to the
+    // item's actual size.
+    if (!this->initialized_)
+    {
+        actual_size.x += this->CalcTitlebarHeight();
+
+        // Only update the windows size if the size overwrite is not set
+        if (this->size_overwrite_.Value().x.IsValueSet())
+            actual_size.x = this->size_overwrite_.Value().x;
+        if (this->size_overwrite_.Value().y.IsValueSet())
+            actual_size.y = this->size_overwrite_.Value().y;
+
+        ImGui::SetWindowSize(actual_size);
+    }
+
+    this->position_ = ImGui::GetWindowPos();
+    this->size_ = ImGui::GetWindowSize();
+    this->is_hovered_ = ImGui::IsWindowHovered();
 
     ImGui::End();
 
     this->initialized_ = true;
 }
 
+void Panel::Init() const noexcept
+{
+    if (this->position_overwrite_.IsValueSet())
+        ImGui::SetNextWindowPos(this->position_overwrite_);
+    if (this->size_overwrite_.IsValueSet())
+        ImGui::SetNextWindowSize(this->size_overwrite_);
+}
+
+bt::Vector2 Panel::GetPosition() const noexcept
+{
+    return this->position_;
+}
+
+bt::Vector2 Panel::GetSize() const noexcept
+{
+    if (!this->initialized_)
+        return this->CalcItemSize();
+
+    return this->size_;
+}
+
 bt::Vector2 Panel::CalcItemSize() const noexcept
 {
-    bt::Vector2 size;
-    for (const auto& child : this->child_items_)
-    {
-        const bt::Vector2 child_size = child->GetSize();
+    bt::Vector2 size = this->size_overwrite_;
 
-        if (child_size.x > size.x)
-            size.x = child_size.x;
-        if (child_size.y > size.y)
-            size.y = child_size.y;
+    if (!size.x)
+    {
+        // Calc size.x based on child items
+        for (const auto& child : this->child_items_)
+        {
+            if (child->GetSize().x > size.x)
+                size.x = child->GetSize().x;
+        }
     }
 
-    const ImGuiStyle& style = ImGui::GetStyle();
-
-    size.x += style.WindowPadding.x * 2.0f;
-    size.y += style.WindowPadding.y * 2.0f;
+    if (!size.y)
+    {
+        // Calc size.y based on child items
+        for (const auto& child : this->child_items_)
+        {
+            if (child->GetSize().y > size.y)
+                size.y = child->GetSize().y;
+        }
+    }
 
     return size;
 }
 
-void Panel::Init()
+float Panel::CalcTitlebarHeight() const noexcept
 {
-    ImGui::SetNextWindowPos(this->position_);
-    ImGui::SetNextWindowSize(this->actual_size_);
+    // Code when Panel flags are implemented
+    // if (!this->is_title_bar_enabled)
+    //    return 0;
 
-    this->initialized_ = true;
+    ImGuiStyle& style = ImGui::GetStyle();
+
+    return ImGui::GetFontSize() + style.FramePadding.y * 2.0f;
+}
+
+void Panel::API_Update(bt::Vector2 position, bt::Vector2 size) noexcept
+{
+    this->Update(position, size, true, true);
 }
 
 bool Panel::API_IsItemPressed(ImGuiMouseButton mb) noexcept
