@@ -1,12 +1,9 @@
 
-Container : text_example
+Panel : text_example
 {
-    Panel
-    {
-        title = "Text example"
+    title = "Text example"
 
-        Text : text_0 { text = "Hello world 1" }
-        Text : text_1 { text = "Hello world 2" }
-        Text : text_2 { text = "Hello world 3" }
-    }
-}  // text_example
+    Text : text_0 { text = "Hello world 1" }
+    Text : text_1 { text = "Hello world 2" }
+    Text : text_2 { text = "Hello world 3" }
+}

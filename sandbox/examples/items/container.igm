@@ -1,19 +1,16 @@
 
-Container : container_example
+Container : container_example_text
 {
-    Container : text
-    {
-        +string title = "Container example"
-        +string content = "Press me"
-    }
+    +string title = "Container example"
+    +string content = "Press me"
+}
 
-    Panel
-    {
-        title = container_example.text.title
+Panel : container_example
+{
+    title = container_example_text.title
 
-        Button
-        {
-            text = container_example.text.content
-        }
+    Button
+    {
+        text = container_example_text.content
     }
-}  // container_example
+}
