@@ -32,6 +32,10 @@ void LineView::ViewUpdate(bt::Vector2 position, bt::Vector2 size) noexcept
     {
         child->Update(cursor_position, bt::Vector2(0.0f, 0.0f), true, true);
 
+        // Skip items like container, panel etc.
+        if (child->GetCategory() == ItemCategory::kOther)
+            continue;
+
         const bt::Vector2 child_size = child->GetSize();
         const bt::Vector2 child_pos = child->GetPosition();
 
