@@ -12,10 +12,11 @@ namespace igm::internal
 {
 
 LineView::LineView(std::string id, ItemBase* parent)
-    : ViewBase(ItemType::kLineView, id, parent, false)
+    : ViewBase(ItemType::kLineView, id, parent, true)
 {
     this->InitAttribute("padding", this->padding_);
     this->InitAttribute("spacing", this->spacing_);
+    this->InitAttribute("orientation", this->orientation_);
 }
 
 void LineView::ViewUpdate(bt::Vector2 position, bt::Vector2 size) noexcept
@@ -40,11 +41,14 @@ void LineView::ViewUpdate(bt::Vector2 position, bt::Vector2 size) noexcept
         const bt::Vector2 child_pos = child->GetPosition();
 
         if (child_pos.x + child_size.x - position.x > actual_size.x)
-            actual_size.x = child_pos.x + child_size.x - position.y;
+            actual_size.x = child_pos.x + child_size.x - position.x;
         if (child_pos.y + child_size.y - position.y > actual_size.y)
             actual_size.y = child_pos.y + child_size.y - position.y;
 
-        cursor_position.y = child_pos.y + child_size.y + this->spacing_;
+        if (this->orientation_ == bt::Orientation::kVertical)
+            cursor_position.y = child_pos.y + child_size.y + this->spacing_;
+        else if (this->orientation_ == bt::Orientation::kHorizontal)
+            cursor_position.x = child_pos.x + child_size.x + this->spacing_;
     }
 
     actual_size.x += padding.right;

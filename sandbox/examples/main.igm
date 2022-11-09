@@ -33,4 +33,3 @@ LineView
     #include "items/container.igm"
     Text { text="" }
 }
-

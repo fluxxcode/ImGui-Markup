@@ -27,6 +27,7 @@ public:
 private:
     PaddingWrapper padding_;
     IntWrapper spacing_;
+    OrientationWrapper orientation_ = bt::Orientation::kVertical;
 
     // See widget_base.h for more information
     bt::Vector2 actual_size_;
