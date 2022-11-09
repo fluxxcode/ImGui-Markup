@@ -42,13 +42,14 @@ void Panel::Update(bt::Vector2 position, bt::Vector2 available_size,
     bt::Vector2 child_size = bt::Vector2(0, 0);
 
     // Set the child sizes to the same as the panel size, if the
-    // panel size is overwritten from the markup language.
-    if (this->size_overwrite_.Value().x.IsValueSet())
-        child_size.x = this->size_overwrite_.ValueReference().x;
-    if (this->size_overwrite_.Value().x.Value())
-        child_size.y = this->size_overwrite_.ValueReference().y;
+    // panel size is overwritten from the markup language or
+    // the first frame finished and the initial panel size is set.
+    if (this->size_overwrite_.Value().x.IsValueSet() || this->initialized_)
+        child_size.x = this->GetSize().x;
+    if (this->size_overwrite_.Value().y.Value() || this->initialized_)
+        child_size.y = this->GetSize().y - this->CalcTitlebarHeight();
 
-    bt::Vector2 actual_size = bt::Vector2(0, 0);
+    bt::Vector2 actual_size = bt::Vector2(0, this->CalcTitlebarHeight());
     for (const auto& child : this->child_items_)
     {
         // If child_size.x/y = 0 -> Enable dynamic size
@@ -84,8 +85,6 @@ void Panel::Update(bt::Vector2 position, bt::Vector2 available_size,
     // item's actual size.
     if (!this->initialized_)
     {
-        actual_size.x += this->CalcTitlebarHeight();
-
         // Only update the windows size if the size overwrite is not set
         if (this->size_overwrite_.Value().x.IsValueSet())
             actual_size.x = this->size_overwrite_.Value().x;

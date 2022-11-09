@@ -142,9 +142,9 @@ void GUIBase::BeginClippingArea(bool dynamic_w, bool dynamic_h) noexcept
     static const float offset = 20.0f;
 
     if (dynamic_w)
-        max.x = min.x + this->GetSize().x + offset- margin.left - margin.right;
+        max.x = min.x + this->GetSize().x + offset - margin.left - margin.right;
     if (dynamic_h)
-        max.y = min.y + this->GetSize().y + offset- margin.top - margin.bottom;
+        max.y = min.y + this->GetSize().y + offset - margin.top - margin.bottom;
 
     ImGui::PushClipRect(min, max, true);
 
