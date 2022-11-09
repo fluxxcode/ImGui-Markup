@@ -1,0 +1,27 @@
+
+LineView
+{
+    spacing = 2.5
+    padding = 20
+
+    Checkbox { text = "Checkbox 0" }
+    Checkbox { text = "Checkbox 1" checked = true }
+    Checkbox { text = "Checkbox 2" checked = false }
+
+    LineView
+    {
+        orientation = "Horizontal"
+        spacing = 2.5
+
+        Button { text = "Button 0" }
+        Button { text = "Button 1" }
+        Button { text = "Button 2" }
+    }
+
+    Button { text = "Button 1" }
+    Button { text = "Button 2" }
+
+    Text { text = "Text 0" }
+    Text { text = "Text 1" }
+    Text { text = "Text 2" }
+}

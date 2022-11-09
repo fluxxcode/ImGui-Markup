@@ -23,13 +23,13 @@ public:
         : AttributeBase(AttributeType::kOrientation, value)
     { }
 
-    operator bt::Orientation() const { return this->GetValue(); }
+    operator bt::Orientation() const { return this->Value(); }
 
     inline std::string GetName() const noexcept { return "Orientation"; }
 
     inline std::string ToString() const noexcept
     {
-        switch(this->GetValue())
+        switch(this->Value())
         {
         case bt::Orientation::kHorizontal: return "Orientation::Horizontal";
         case bt::Orientation::kVertical: return "Orientation::Vertical";

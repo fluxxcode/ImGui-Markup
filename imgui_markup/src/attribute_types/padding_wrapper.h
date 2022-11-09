@@ -42,14 +42,14 @@ public:
 
     inline operator bt::Padding() const
     {
-        return this->GetValue();
+        return this->Value();
     }
 
     inline std::string GetName() const noexcept { return "Padding"; }
 
     inline std::string ToString() const noexcept
     {
-        bt::Padding val = this->GetValue();
+        bt::Padding val = this->Value();
         return val.top.ToString() + "," + val.right.ToString() + "," +
                val.bottom.ToString() + "," + val.left.ToString();
     }

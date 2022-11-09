@@ -59,18 +59,17 @@ void Update(size_t unit_id, size_t display_width, size_t display_height,
     if (!unit)
         return;
 
+    unit->item_tree.Update(display_width, display_height);
+}
+
+void Update(size_t unit, bool* result)
+{
     ImGuiIO& io = ImGui::GetIO();
 
-    if (display_width == 0)
-        display_width = io.DisplaySize.x;
-    if (display_height == 0)
-        display_height = io.DisplaySize.y;
+    const float display_width = io.DisplaySize.x;
+    const float display_height = io.DisplaySize.y;
 
-    for (const auto& child : unit->item_tree)
-    {
-        child->API_Update(internal::bt::Vector2(0, 0),
-                          internal::bt::Vector2(display_width, display_height));
-    }
+    Update(unit, display_width, display_height, result);
 }
 
 bool IsItemPressed(size_t unit_id, const char* item_id, MouseButton mb,

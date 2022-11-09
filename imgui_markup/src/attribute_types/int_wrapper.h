@@ -23,17 +23,45 @@ public:
         : AttributeBase(AttributeType::kInt, 0)
     { }
 
-    explicit IntWrapper(int value)
+    IntWrapper(int value)
         : AttributeBase(AttributeType::kInt, value)
     { }
 
-    inline operator int() const { return this->GetValue(); }
+    inline operator int() const { return this->Value(); }
+
+    inline IntWrapper& operator+=(IntWrapper rhs) noexcept
+    {
+        int& ref = this->ValueReference();
+        ref += rhs.Value();
+        return *this;
+    }
+
+    inline IntWrapper& operator+=(int rhs) noexcept
+    {
+        int& ref = this->ValueReference();
+        ref += rhs;
+        return *this;
+    }
+
+    inline IntWrapper& operator-=(IntWrapper rhs) noexcept
+    {
+        int& ref = this->ValueReference();
+        ref -= rhs.Value();
+        return *this;
+    }
+
+    inline IntWrapper& operator-=(int rhs) noexcept
+    {
+        int& ref = this->ValueReference();
+        ref -= rhs;
+        return *this;
+    }
 
     inline std::string GetName() const noexcept { return "Int"; }
 
     inline std::string ToString() const noexcept
     {
-        return std::to_string(this->GetValue());
+        return std::to_string(this->Value());
     }
 
 private:

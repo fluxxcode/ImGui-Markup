@@ -1,5 +1,7 @@
 #include "impch.h"
-#include "items/widgets/checkbox.h"
+#include "items/gui/widgets/checkbox.h"
+
+#include "imgui_internal.h"
 
 /**
  * @file checkbox.cpp
@@ -21,9 +23,29 @@ Checkbox::Checkbox(std::string id, ItemBase* parent)
 void Checkbox::WidgetUpdate(bt::Vector2 position, bt::Vector2 size) noexcept
 {
     ImGui::Checkbox(this->text_.GetString().c_str(),
-                    &this->is_checked_.GetValueReference());
+                    &this->is_checked_.ValueReference());
 
+    this->actual_size_ = ImGui::GetItemRectSize();
     this->is_hovered_ = ImGui::IsItemHovered();
+
+    this->initialized_ = true;
+}
+
+bt::Vector2 Checkbox::CalcItemSize() const noexcept
+{
+    const bt::Vector2 label_size = ImGui::CalcTextSize(
+        this->text_.Value().c_str(), NULL, true);
+
+    const ImGuiStyle& style = ImGui::GetStyle();
+    ImGuiContext* g = ImGui::GetCurrentContext();
+
+    const float square_sz = g->FontSize + g->Style.FramePadding.y * 2.0f;
+    ImVec2 size = ImVec2(square_sz + (label_size.x > 0.0f ?
+                                      style.ItemInnerSpacing.x + label_size.x :
+                                      0.0f),
+                        label_size.y + style.FramePadding.y * 2.0f);
+
+    return size;
 }
 
 bool Checkbox::API_IsItemPressed(ImGuiMouseButton mb) noexcept

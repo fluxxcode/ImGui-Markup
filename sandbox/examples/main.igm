@@ -1,9 +1,35 @@
 
-// Widgets
-#include "items/panel.igm"
-#include "items/button.igm"
-#include "items/text.igm"
-#include "items/checkbox.igm"
+LineView
+{
+    padding.top = 5
+    padding.left = 5
+    spacing = 3
 
-// Other
-#include "items/container.igm"
+    // Widgets
+    Text { text="### Button ### " }
+    #include "items/button.igm"
+    Text { text="" }
+
+    Text { text="### Text ### " }
+    #include "items/text.igm"
+    Text { text="" }
+
+    Text { text="### Checkbox ### " }
+    #include "items/checkbox.igm"
+    Text { text="" }
+
+    // Views
+    Text { text="### LineView ### " }
+    #include "items/line_view.igm"
+    Text { text="" }
+
+    // Other
+    Text { text="### Panel ### " }
+    Text { text="(Checkout opened panel)" }
+    #include "items/panel.igm"
+    Text { text="" }
+
+    Text { text="### Container ### " }
+    #include "items/container.igm"
+    Text { text="" }
+}

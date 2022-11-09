@@ -53,7 +53,9 @@ Unit& UnitStack::IMPL_CreateEmptyUnit()
 
     this->unit_stack_.emplace(unit_id, Unit(unit_id));
 
-    return this->unit_stack_.at(unit_id);
+    Unit& unit = this->unit_stack_.at(unit_id);
+
+    return unit;
 }
 
 void UnitStack::IMPL_DeleteUnit(size_t unit, bool* result)

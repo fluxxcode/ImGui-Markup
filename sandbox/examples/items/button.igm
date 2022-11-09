@@ -1,14 +1,11 @@
 
-Container : button_example
+Button
 {
-    Panel
-    {
-        title = "Button example"
+    text = "Dynamic button size based on the text size"
+}
 
-        Button : button_0
-        {
-            text = "Hello world"
-            size = (100, 20)
-        }
-    }
-}  // button_example
+Button
+{
+    text = "Fixed button size"
+    size = (200, 30)
+}

@@ -17,11 +17,14 @@
 namespace igm::internal
 {
 
-struct Container : public OtherBase
+class Container : public OtherBase
 {
+public:
     Container(std::string id, ItemBase* parent);
 
-    void Update(bt::Vector2 position, bt::Vector2 size) noexcept;
+private:
+    // See item_base.h for more information
+    bool OnProcessEnd(std::string& error_message) noexcept;
 };
 
 }  // namespace igm::internal

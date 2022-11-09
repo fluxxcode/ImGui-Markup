@@ -15,10 +15,15 @@ Container::Container(std::string id, ItemBase* parent)
     : OtherBase(ItemType::kContainer, id, parent)
 { }
 
-void Container::Update(bt::Vector2 position, bt::Vector2 size) noexcept
+bool Container::OnProcessEnd(std::string& error_message) noexcept
 {
-    for (const auto& child : this->child_items_)
-        child->Update(position, size);
+    if (this->child_items_.size() != 0)
+    {
+        error_message = "Item of type Container can not hold any child items.";
+        return false;
+    }
+
+    return true;
 }
 
 }  // namespace igm::internal

@@ -27,13 +27,13 @@ public:
         : AttributeBase(AttributeType::kBool, value)
     { }
 
-    inline operator bool() const { return this->GetValue(); }
+    inline operator bool() const { return this->Value(); }
 
     inline std::string GetName() const noexcept { return "Bool"; }
 
     inline std::string ToString() const noexcept
     {
-        return std::to_string(this->GetValue());
+        return std::to_string(this->Value());
     }
 
 private:

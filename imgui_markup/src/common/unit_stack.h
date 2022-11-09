@@ -10,6 +10,7 @@
 
 #include "items/item_base.h"
 #include "items/item_api.h"
+#include "items/root_item.h"
 #include "imgui_markup/result.h"
 
 #include <map>  // std::map
@@ -25,7 +26,7 @@ struct Unit
     { }
 
     // Holds the main item tree within this unit
-    std::vector<std::unique_ptr<ItemBase>> item_tree;
+    RootItem item_tree;
 
     // Contains mapping of the item ids to the item itself
     std::map<std::string, ItemBase*> item_ids;

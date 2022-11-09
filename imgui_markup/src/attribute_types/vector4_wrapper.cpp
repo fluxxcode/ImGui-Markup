@@ -13,10 +13,10 @@ namespace igm::internal
 
 void Vector4Wrapper::Init() noexcept
 {
-    this->InitChildAttribute("x", &this->GetValueReference().x);
-    this->InitChildAttribute("y", &this->GetValueReference().y);
-    this->InitChildAttribute("z", &this->GetValueReference().z);
-    this->InitChildAttribute("w", &this->GetValueReference().w);
+    this->InitChildAttribute("x", this->ValueReference().x);
+    this->InitChildAttribute("y", this->ValueReference().y);
+    this->InitChildAttribute("z", this->ValueReference().z);
+    this->InitChildAttribute("w", this->ValueReference().w);
 }
 
 bool Vector4Wrapper::LoadValue(const Vector4Wrapper& val) noexcept

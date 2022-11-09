@@ -1,5 +1,5 @@
 #include "impch.h"
-#include "items/widgets/text.h"
+#include "items/gui/widgets/text.h"
 
 /**
  * @file text.cpp
@@ -21,7 +21,15 @@ void Text::WidgetUpdate(bt::Vector2 position, bt::Vector2 size) noexcept
 {
     ImGui::Text("%s", this->text_.GetString().c_str());
 
+    this->actual_size_ = ImGui::GetItemRectSize();
     this->is_hovered_ = ImGui::IsItemHovered();
+
+    this->initialized_ = true;
+}
+
+bt::Vector2 Text::CalcItemSize() const noexcept
+{
+    return ImGui::CalcTextSize(this->text_.Value().c_str(), NULL, true);
 }
 
 bool Text::API_IsItemPressed(ImGuiMouseButton mb) noexcept

@@ -1,12 +1,4 @@
 
-Container : checkbox_example
-{
-    Panel
-    {
-        title = "Checkbox example"
-
-        Checkbox : checkbox_0 { text = "Checkbox 0" }
-        Checkbox : checkbox_1 { text = "Checkbox 1" checked = true }
-        Checkbox : checkbox_2 { text = "Checkbox 2" checked = false }
-    }
-}  // checkbox_example
+Checkbox : checkbox_0 { text = "Checkbox default" }
+Checkbox : checkbox_1 { text = "Checkbox checked true" checked = true }
+Checkbox : checkbox_2 { text = "Checkbox checked false" checked = false }
