@@ -18,5 +18,6 @@
 #include <functional>
 #include <sstream>
 #include <memory>
+#include <cassert>
 
 #endif  // IMGUI_MARKUP_SRC_IMPCH_H_

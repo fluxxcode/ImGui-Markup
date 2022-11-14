@@ -155,7 +155,7 @@ public:
         const Lexer::Token name;
     };
 
-    Interpreter(Unit& dest);
+    Interpreter(UnitBase& dest);
 
     /**
      * Resets the entire interpreter, including the destination unit.
@@ -237,7 +237,7 @@ private:
     /**
      * Main destination unit, set within the constructor.
      */
-    Unit& unit_;
+    UnitBase& unit_;
 
     /**
      * Main stack of the current processed items. The top of the stack is
@@ -369,6 +369,14 @@ struct UndefinedItemType : public InterpreterException
     UndefinedItemType(Lexer::Token token)
         : InterpreterException("Undefined item type", token)
     { }
+};
+
+struct UnexpectedUnitType : public InterpreterException
+{
+    UnexpectedUnitType(Lexer::Token token, UnitType type)
+        : InterpreterException("Item can not be created in an unit of type "
+                               "'" + UnitTypeToString(type) + "'", token)
+        { }
 };
 
 struct InvalidCharacterInID : public InterpreterException

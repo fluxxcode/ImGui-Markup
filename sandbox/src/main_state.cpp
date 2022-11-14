@@ -13,7 +13,7 @@
 MainState::MainState()
 {
     bool result;
-    this->test_unit = igm::ParseFromFile("examples/main.igm", &result);
+    this->test_unit = igm::ParseGUIUnitFromFile("examples/main.igm", &result);
 
     const igm::Result ret = igm::GetLastResult(this->test_unit);
 

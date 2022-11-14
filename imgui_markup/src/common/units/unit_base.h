@@ -9,17 +9,13 @@
  */
 
 #include "items/item_base.h"
+#include "common/units/unit_types.h"
 
 #include <vector>
 #include <memory>
 
 namespace igm::internal
 {
-
-enum class UnitType : unsigned char
-{
-    kGUI
-};
 
 /**
  * A unit contains the items of a loaded markup file or string.
@@ -35,6 +31,16 @@ public:
      */
     virtual void Update(size_t display_width, size_t display_height)
         noexcept = 0;
+
+    /**
+     * Returns the type of the unit.
+     */
+    inline UnitType GetType() const noexcept { return this->unit_type_; }
+
+    /**
+     * Returns the unit's ID.
+     */
+    inline size_t GetID() const noexcept { return this->unit_id_; }
 
     /**
      * Gets a reference to the unit's item tree.

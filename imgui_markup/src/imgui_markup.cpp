@@ -9,6 +9,7 @@
  */
 
 #include "common/unit_stack.h"
+#include "common/units/unit_types.h"
 #include "parser/parser.h"
 #include "parser/parser_result.h"
 #include "attribute_types/base_types/vector2.h"
@@ -19,27 +20,29 @@
 namespace igm
 {
 
-size_t ParseFromFile(const char* path, bool* result_out)
+size_t ParseGUIUnitFromFile(const char* path, bool* result_out)
 {
     if (result_out)
         *result_out = false;
 
-    internal::Unit& unit = internal::UnitStack::CreateEmptyUnit();
+    internal::UnitBase& unit =
+        internal::UnitStack::CreateEmptyUnit(internal::UnitType::kGUI);
+
     internal::Parser parser(unit);
 
     const internal::ParserResult result = parser.ParseFromFile(path);
     if (result.type != internal::ParserResultType::kSuccess)
     {
-        internal::UnitStack::SetLastResult(unit.unit_id,
+        internal::UnitStack::SetLastResult(unit.GetID(),
             Result(ResultType::kParserError, result.ToString()));
 
-        return unit.unit_id;
+        return unit.GetID();
     }
 
     if (result_out)
         *result_out = true;
 
-    return unit.unit_id;
+    return unit.GetID();
 }
 
 void DeleteUnit(size_t unit, bool* result)
@@ -55,11 +58,11 @@ Result GetLastResult(size_t unit, bool* result)
 void Update(size_t unit_id, size_t display_width, size_t display_height,
             bool* result)
 {
-    internal::Unit* unit = internal::UnitStack::GetUnit(unit_id, result);
+    internal::UnitBase* unit = internal::UnitStack::GetUnit(unit_id, result);
     if (!unit)
         return;
 
-    unit->item_tree.Update(display_width, display_height);
+    unit->Update(display_width, display_height);
 }
 
 void Update(size_t unit, bool* result)

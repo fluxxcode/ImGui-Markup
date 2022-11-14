@@ -8,6 +8,8 @@
  * @copyright Copyright (c) 2022
  */
 
+#include "common/units/unit_base.h"
+#include "common/units/gui_unit.h"
 #include "items/item_base.h"
 #include "items/item_api.h"
 #include "items/root_item.h"
@@ -19,40 +21,25 @@
 namespace igm::internal
 {
 
-struct Unit
-{
-    Unit(size_t id)
-        : unit_id(id)
-    { }
-
-    // Holds the main item tree within this unit
-    RootItem item_tree;
-
-    // Contains mapping of the item ids to the item itself
-    std::map<std::string, ItemBase*> item_ids;
-
-    const size_t unit_id;
-};
-
 class UnitStack
 {
 public:
     UnitStack(const UnitStack&) = delete;
     void operator=(UnitStack const&) = delete;
 
-    static Unit& CreateEmptyUnit();
+    static UnitBase& CreateEmptyUnit(UnitType type);
     static void DeleteUnit(size_t unit, bool* result = nullptr);
 
     static void SetLastResult(size_t unit, Result result);
     static Result GetLastResult(size_t unit, bool* result = nullptr);
 
-    static Unit* GetUnit(size_t unit, bool* result);
+    static UnitBase* GetUnit(size_t unit, bool* result);
     static ItemAPI* GetItemAPI(size_t unit, const char* item_id,
                                bool* result = nullptr);
 
 private:
     // Main buffer holding every loaded unit
-    std::map<size_t, Unit> unit_stack_;
+    std::map<size_t, std::unique_ptr<UnitBase>> unit_stack_;
     std::map<size_t, Result> last_results_;
 
     size_t unit_count_ = 0;
@@ -60,13 +47,13 @@ private:
     UnitStack() { };
     static UnitStack& Get();
 
-    Unit& IMPL_CreateEmptyUnit();
+    UnitBase& IMPL_CreateEmptyUnit(UnitType type);
     void IMPL_DeleteUnit(size_t unit, bool* result);
 
     void IMPL_SetLastResult(size_t unit, Result result);
     Result IMPL_GetLastResult(size_t unit, bool* result);
 
-    Unit* IMPL_GetUnit(size_t unit, bool* result);
+    UnitBase* IMPL_GetUnit(size_t unit, bool* result);
     ItemAPI* IMPL_GetItemAPI(size_t unit, const char* item_id, bool* result);
 };
 

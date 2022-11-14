@@ -13,7 +13,7 @@
 namespace igm::internal
 {
 
-Parser::Parser(Unit& dest)
+Parser::Parser(UnitBase& dest)
     : interpreter_(Interpreter(dest))
 { }
 
