@@ -13,7 +13,8 @@ namespace igm::internal
 
 enum class UnitType : unsigned char
 {
-    kGUI
+    kGUI,
+    kTheme
 };
 
 std::string UnitTypeToString(UnitType type);

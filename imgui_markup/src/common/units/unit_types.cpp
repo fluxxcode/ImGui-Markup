@@ -16,6 +16,7 @@ std::string UnitTypeToString(UnitType type)
     switch (type)
     {
     case UnitType::kGUI: return "GUI";
+    case UnitType::kTheme: return "Theme";
     }
     assert("Invalid unit type");
     return std::string();
