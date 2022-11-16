@@ -17,32 +17,47 @@
 
 #include "imgui.h"  // ImGuiMouseButton
 
+#include <cassert>
+
 namespace igm
 {
 
-size_t ParseGUIUnitFromFile(const char* path, bool* result_out)
+size_t ParseFromFile(UnitType type, const char* path, bool* result_out)
 {
     if (result_out)
         *result_out = false;
 
-    internal::UnitBase& unit =
-        internal::UnitStack::CreateEmptyUnit(internal::UnitType::kGUI);
+    internal::UnitBase* unit = nullptr;
+    switch (type)
+    {
+    case UnitType::kGUI:
+        unit = &internal::UnitStack::CreateEmptyUnit(internal::UnitType::kGUI);
+        break;
+    case UnitType::kTheme:
+        unit = &internal::UnitStack::CreateEmptyUnit(
+            internal::UnitType::kTheme);
+        break;
+    default:
+        assert("Undefined unit type");
+    }
+    if (!unit)
+        assert("Unit is nullptr");
 
-    internal::Parser parser(unit);
+    internal::Parser parser(*unit);
 
     const internal::ParserResult result = parser.ParseFromFile(path);
     if (result.type != internal::ParserResultType::kSuccess)
     {
-        internal::UnitStack::SetLastResult(unit.GetID(),
+        internal::UnitStack::SetLastResult(unit->GetID(),
             Result(ResultType::kParserError, result.ToString()));
 
-        return unit.GetID();
+        return unit->GetID();
     }
 
     if (result_out)
         *result_out = true;
 
-    return unit.GetID();
+    return unit->GetID();
 }
 
 void DeleteUnit(size_t unit, bool* result)

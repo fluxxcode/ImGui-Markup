@@ -13,15 +13,14 @@
 namespace igm::internal
 {
 
+/**
+ * Unit used as a collection of multiple themes.
+ */
 struct ThemeUnit : public UnitBase
 {
     ThemeUnit(const size_t unit_id);
 
-    /**
-     * Overwrites UnitBase::Update().
-     * Currently only updates the item tree.
-     */
-    void Update(size_t display_width, size_t display_height) noexcept;
+    // TODO: Add function to list loaded themes
 };
 
 }  // namespace igm::internal

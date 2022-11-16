@@ -30,7 +30,7 @@ public:
      * Updates the entire item tree of the unit.
      */
     virtual void Update(size_t display_width, size_t display_height)
-        noexcept = 0;
+        noexcept { };
 
     /**
      * Returns the type of the unit.

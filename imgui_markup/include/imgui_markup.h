@@ -19,7 +19,7 @@ namespace igm
  *
  * @return ID of the created unit.
  */
-size_t ParseGUIUnitFromFile(const char* path, bool* result = nullptr);
+size_t ParseFromFile(UnitType type, const char* path, bool* result = nullptr);
 
 /**
  * Deletes all data related to a specific unit.

@@ -44,7 +44,6 @@ public:
     ItemBase(ItemType type, ItemCategory category,
              std::vector<UnitType> unit_types, std::string id,
              ItemBase* parent = nullptr);
-
     ItemBase(const ItemBase&) = delete;
 
     /**

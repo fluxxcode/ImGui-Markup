@@ -10,6 +10,7 @@
 
 #include "common/units/unit_base.h"
 #include "common/units/gui_unit.h"
+#include "common/units/theme_unit.h"
 #include "items/item_base.h"
 #include "items/item_api.h"
 #include "items/root_item.h"

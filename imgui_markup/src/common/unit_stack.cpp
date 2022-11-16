@@ -56,6 +56,10 @@ UnitBase& UnitStack::IMPL_CreateEmptyUnit(UnitType type)
     case UnitType::kGUI:
         this->unit_stack_.emplace(unit_id, std::make_unique<GUIUnit>(unit_id));
         break;
+    case UnitType::kTheme:
+        this->unit_stack_.emplace(unit_id,
+                                  std::make_unique<ThemeUnit>(unit_id));
+        break;
     default:
         assert("Invalid unit type");
         break;

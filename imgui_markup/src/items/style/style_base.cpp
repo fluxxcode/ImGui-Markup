@@ -27,14 +27,16 @@ bool StyleBase::OnProcessStart(std::string& error_message) noexcept
     }
 
     ItemType parent_type = this->parent_->GetType();
-    if (parent_type != this->expected_parent_)
+    if (parent_type != this->expected_parent_ &&
+        parent_type != ItemType::kTheme)
     {
-        error_message = "Unexpected parent type. Make sure the style item "
-                        "is placed in the correct item.";
+        error_message = "Unexpected parent type. Make sure the style item is "
+                        "placed in a Theme or in the correct item.";
         return false;
     }
 
-    this->parent_->InitStyle(*this);
+    if (parent_type == this->expected_parent_)
+        this->parent_->InitStyle(*this);
 
     return true;
 }

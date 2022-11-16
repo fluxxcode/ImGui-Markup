@@ -15,13 +15,4 @@ ThemeUnit::ThemeUnit(const size_t unit_id)
     : UnitBase(unit_id, UnitType::kTheme)
 { }
 
-void ThemeUnit::Update(size_t display_width, size_t display_height) noexcept
-{
-    for (const auto& child : this->item_tree_)
-    {
-        child->API_Update(internal::bt::Vector2(0, 0),
-                          internal::bt::Vector2(display_width, display_height));
-    }
-}
-
 }  // namespace igm::internal

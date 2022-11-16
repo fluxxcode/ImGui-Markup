@@ -30,6 +30,7 @@ enum class ItemType : unsigned char
     kLineView,
 
     // Style
+    kTheme,
     kTextStyle,
 
     // Other

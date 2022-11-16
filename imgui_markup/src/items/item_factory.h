@@ -19,6 +19,7 @@
 #include "items/gui/views/line_view.h"
 
 // Styles
+#include "items/style/theme.h"
 #include "items/style/text_style.h"
 
 // Other
@@ -60,6 +61,7 @@ private:
             { "LineView", CreateItemInstance<LineView> },
 
             // Styles
+            { "Theme", CreateItemInstance<Theme> },
             { "TextStyle", CreateItemInstance<TextStyle> },
 
             // Other
