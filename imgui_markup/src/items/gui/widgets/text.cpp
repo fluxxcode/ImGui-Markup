@@ -12,7 +12,7 @@ namespace igm::internal
 {
 
 Text::Text(std::string id, ItemBase* parent)
-    : WidgetBase(ItemType::kButton, id, parent)
+    : WidgetBase(ItemType::kText, id, parent)
 {
     this->InitAttribute("text", this->text_);
 }
