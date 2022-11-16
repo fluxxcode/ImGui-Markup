@@ -18,14 +18,18 @@
 // Views
 #include "items/gui/views/line_view.h"
 
+// Styles
+#include "items/style/text_style.h"
+
 // Other
 #include "items/other/panel.h"
 #include "items/other/container.h"
 #include "items/other/internal_test.h"
 
-#include <string>  // std::string
-#include <memory>  // std::unique_ptr
-#include <map>     // std::map
+#include <string>     // std::string
+#include <memory>     // std::unique_ptr
+#include <map>        // std::map
+#include <functional> // std::function
 
 namespace igm::internal
 {
@@ -54,6 +58,9 @@ private:
 
             // Views
             { "LineView", CreateItemInstance<LineView> },
+
+            // Styles
+            { "TextStyle", CreateItemInstance<TextStyle> },
 
             // Other
             { "Panel", CreateItemInstance<Panel> },
