@@ -17,8 +17,11 @@
 #include <memory>  // std::unique_ptr
 #include <map>     // std::map
 
+
 namespace igm::internal
 {
+
+class StyleBase;
 
 /**
  * Parent of every item within the markup language.
@@ -46,6 +49,8 @@ public:
 
     /**
      * Main update function of the item.
+     * This is only a wrapper for the ItemUpdate function,
+     * used to push and pop style items.
      *
      * @param position - The ImGui position of the item, relative to the
      *                   next parent window.
@@ -53,8 +58,15 @@ public:
      * @param dynamic_w - Sets whether the available width can be ignored.
      * @param dynamic_h - Sets whether the available height can be ignored.
      */
-    virtual void Update(bt::Vector2 position, bt::Vector2 available_size,
-                        bool dynamic_w, bool dynamic_h) noexcept { };
+    void Update(bt::Vector2 position, bt::Vector2 available_size,
+                bool dynamic_w, bool dynamic_h) noexcept;
+
+    /**
+     * Default implementation of API_Update.
+     * Currently only calls the Update function with both
+     * dynamic_w and dynamic_h disabled.
+     */
+    virtual void API_Update(bt::Vector2 position, bt::Vector2 size) noexcept;
 
     ItemBase* CreateChildItem(std::string type, std::string access_id) noexcept;
 
@@ -90,6 +102,11 @@ public:
 
         return true;
     }
+
+    /**
+     * Pushes a new style to the style stack.
+     */
+    void InitStyle(StyleBase& style) noexcept;
 
     inline std::string GetAccessID() const noexcept
         { return this->access_id_; }
@@ -179,6 +196,17 @@ private:
     std::map<std::string, AttributeInterface*> attribute_list_;
 
     std::vector<std::unique_ptr<AttributeInterface>> dynamic_attributes_;
+
+    /**
+     * Stack of style items used to change the item's appearance.
+     */
+    std::vector<StyleBase*> style_items_;
+
+    /**
+     * Update function which should be implemented by the inheriting item.
+     */
+    virtual void ItemUpdate(bt::Vector2 position, bt::Vector2 available_size,
+                            bool dynamic_w, bool dynamic_h) noexcept {};
 
     inline bool IsAttributeDefined(const std::string& name) const noexcept
     {

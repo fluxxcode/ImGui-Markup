@@ -40,13 +40,13 @@ public:
     inline bt::Vector2 GetPosition() const noexcept { return this->position_; }
 
     /**
-     * Implementation of the ItemBase::Update function.
+     * Implementation of the ItemBase::ItemUpdate function.
      * Handles position and size including override,
      * pushes and pops an unique ImGui ID and calls GUIUpdate().
      * Can be overwritten to prevent it.
      */
-    virtual void Update(bt::Vector2 position, bt::Vector2 available_size,
-                        bool dynamic_w, bool dynamic_h) noexcept;
+    virtual void ItemUpdate(bt::Vector2 position, bt::Vector2 available_size,
+                            bool dynamic_w, bool dynamic_h) noexcept;
 
 private:
     /**
@@ -177,13 +177,6 @@ private:
      * the result is cached.
      */
     virtual bt::Vector2 CalcItemSize() const noexcept = 0;
-
-    /**
-     * Update function of the Item API, usually called for items
-     * that are at the root of the item tree.
-     * Currently only calls the Update function.
-     */
-    virtual void API_Update(bt::Vector2 position, bt::Vector2 size) noexcept;
 };
 
 }  // namespace igm::internal

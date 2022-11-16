@@ -26,8 +26,8 @@ InternalTest::InternalTest(std::string id, ItemBase* parent)
     this->InitAttribute("orientation_value", this->orientation_value_);
 }
 
-void InternalTest::Update(bt::Vector2 position, bt::Vector2 available_size,
-                          bool dynamic_w, bool dynamic_h) noexcept
+void InternalTest::ItemUpdate(bt::Vector2 position, bt::Vector2 available_size,
+                              bool dynamic_w, bool dynamic_h) noexcept
 {
     std::cout << "######" << this->access_id_ << "######" << std::endl;
 

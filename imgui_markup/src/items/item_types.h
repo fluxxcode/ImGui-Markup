@@ -15,6 +15,7 @@ enum class ItemCategory : unsigned char
 {
     kWidget,
     kView,
+    kStyle,
     kOther
 };
 
@@ -27,6 +28,9 @@ enum class ItemType : unsigned char
 
     // Views
     kLineView,
+
+    // Style
+    kTextStyle,
 
     // Other
     kPanel,

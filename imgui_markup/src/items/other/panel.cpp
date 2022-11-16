@@ -27,8 +27,8 @@ Panel::Panel(std::string id, ItemBase* parent)
     this->InitAttribute("size", this->size_overwrite_);
 }
 
-void Panel::Update(bt::Vector2 position, bt::Vector2 available_size,
-                   bool dynamic_w, bool dynamic_h) noexcept
+void Panel::ItemUpdate(bt::Vector2 position, bt::Vector2 available_size,
+                       bool dynamic_w, bool dynamic_h) noexcept
 {
     if (!this->initialized_)
         this->Init();
@@ -160,11 +160,6 @@ float Panel::CalcTitlebarHeight() const noexcept
     ImGuiStyle& style = ImGui::GetStyle();
 
     return ImGui::GetFontSize() + style.FramePadding.y * 2.0f;
-}
-
-void Panel::API_Update(bt::Vector2 position, bt::Vector2 size) noexcept
-{
-    this->Update(position, size, true, true);
 }
 
 bool Panel::API_IsItemPressed(ImGuiMouseButton mb) noexcept

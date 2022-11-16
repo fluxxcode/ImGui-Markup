@@ -26,8 +26,8 @@ class Panel : public OtherBase
 public:
     Panel(std::string id, ItemBase* parent);
 
-    void Update(bt::Vector2 position, bt::Vector2 available_size,
-                bool dynamic_w, bool dynamic_h) noexcept;
+    void ItemUpdate(bt::Vector2 position, bt::Vector2 available_size,
+                    bool dynamic_w, bool dynamic_h) noexcept;
 
 private:
     bt::Vector2 position_;
@@ -51,8 +51,6 @@ private:
     float CalcTitlebarHeight() const noexcept;
 
     // API functions
-    void API_Update(bt::Vector2 position, bt::Vector2 size) noexcept;
-
     bool API_IsItemPressed(ImGuiMouseButton btn) noexcept;
     bool API_IsItemHovered() noexcept;
 

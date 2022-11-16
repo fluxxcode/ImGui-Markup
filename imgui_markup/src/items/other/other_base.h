@@ -20,8 +20,6 @@ struct OtherBase : public ItemBase
     { }
 
     OtherBase(const OtherBase&) = delete;
-
-    virtual void API_Update(bt::Vector2 position, bt::Vector2 size) noexcept;
 };
 
 }  // namespace igm::internal

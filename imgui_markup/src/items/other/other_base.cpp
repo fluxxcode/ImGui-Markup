@@ -9,11 +9,4 @@
  */
 
 namespace igm::internal
-{
-
-void OtherBase::API_Update(bt::Vector2 position, bt::Vector2 size) noexcept
-{
-    this->Update(position, size, false, false);
-}
-
-}  // namespace igm::internal
+{ }  // namespace igm::internal

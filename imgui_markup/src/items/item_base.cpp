@@ -10,6 +10,8 @@
 
 #include "items/item_factory.h"
 
+#include "items/style/style_base.h"
+
 namespace igm::internal
 {
 
@@ -36,6 +38,34 @@ ItemBase* ItemBase::CreateChildItem(std::string type, std::string id) noexcept
     }
 
     return this->child_items_.back().get();
+}
+
+void ItemBase::Update(bt::Vector2 position, bt::Vector2 available_size,
+                      bool dynamic_w, bool dynamic_h) noexcept
+{
+    for (auto const* style : this->style_items_)
+    {
+        if (style)
+            style->PushStyle();
+    }
+
+    this->ItemUpdate(position, available_size, dynamic_w, dynamic_h);
+
+    for (auto const* style : this->style_items_)
+    {
+        if (style)
+            style->PopStyle();
+    }
+}
+
+void ItemBase::InitStyle(StyleBase& style) noexcept
+{
+    this->style_items_.push_back(&style);
+}
+
+void ItemBase::API_Update(bt::Vector2 position, bt::Vector2 size) noexcept
+{
+    this->Update(position, size, false, false);
 }
 
 }  // namespace igm::internal

@@ -23,7 +23,7 @@ GUIBase::GUIBase(ItemType type, ItemCategory category, std::string id,
     this->InitAttribute("margin", this->margin_);
 }
 
-void GUIBase::Update(bt::Vector2 position, bt::Vector2 available_size,
+void GUIBase::ItemUpdate(bt::Vector2 position, bt::Vector2 available_size,
                      bool dynamic_w, bool dynamic_h) noexcept
 {
     this->BeginPosition(position);
@@ -167,11 +167,6 @@ bt::Vector2 GUIBase::CalcSize() const noexcept
 
     return bt::Vector2(size.x + margin.left + margin.right,
                        size.y + margin.top + margin.bottom);
-}
-
-void GUIBase::API_Update(bt::Vector2 position, bt::Vector2 size) noexcept
-{
-    this->Update(position, size, false, false);
 }
 
 }  // namespace igm::internal
