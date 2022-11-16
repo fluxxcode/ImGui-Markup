@@ -29,7 +29,7 @@ bool StyleBase::OnProcessStart(std::string& error_message) noexcept
     ItemType parent_type = this->parent_->GetType();
     if (parent_type != this->expected_parent_)
     {
-        error_message = "Unexpected parent type. Make sure the style element "
+        error_message = "Unexpected parent type. Make sure the style item "
                         "is placed in the correct item.";
         return false;
     }
