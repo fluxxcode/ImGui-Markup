@@ -23,6 +23,8 @@ public:
 
 private:
     Vector4Wrapper color_;
+    Vector4Wrapper color_hovered_;
+    Vector4Wrapper color_active_;
 };
 
 }  // namespace igm::internal

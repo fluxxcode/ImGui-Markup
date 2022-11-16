@@ -1,4 +1,15 @@
 
 Text { text = "Hello world 1" }
 Text { text = "Hello world 2" }
-Text { text = "Hello world 3" }
+
+Text
+{
+    text = "Hello world 3"
+
+    TextStyle
+    {
+        color = (0, 0, 1, 1.0)
+        color_hovered = (0, 1, 0, 1.0)
+        color_active = (1, 0, 0, 1.0)
+    }
+}
