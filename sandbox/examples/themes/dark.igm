@@ -1,6 +1,8 @@
 
 Theme : dark
 {
+    name = "Dark"
+
     TextStyle
     {
         color = colors.red

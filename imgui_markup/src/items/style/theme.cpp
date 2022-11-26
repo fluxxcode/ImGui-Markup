@@ -16,7 +16,9 @@ namespace igm::internal
 Theme::Theme(std::string id, ItemBase* parent)
     : ItemBase(ItemType::kTheme, ItemCategory::kOther, {UnitType::kTheme}, id,
                parent)
-{ }
+{
+    this->InitAttribute("name", this->name_);
+}
 
 void Theme::PushStyle() const noexcept
 {

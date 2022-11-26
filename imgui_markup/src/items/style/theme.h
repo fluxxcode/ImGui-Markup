@@ -21,7 +21,11 @@ public:
     void PushStyle() const noexcept;
     void PopStyle() const noexcept;
 
+    inline std::string GetName() const noexcept { return this->name_; }
+
 private:
+    StringWrapper name_;
+
     // See item_base.h for more information
     bool OnProcessStart(std::string& error_message) noexcept;
     // See item_base.h for more information
