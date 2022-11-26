@@ -1,27 +1,5 @@
 
-Container : colors
-{
-    +vec4 red   = (1, 0, 0, 1)
-    +vec4 green = (0, 1, 0, 1)
-    +vec4 blue  = (0, 0, 1, 1)
-}
+#include "utils/colors.igm"
 
-Theme : dark
-{
-    TextStyle
-    {
-        color = colors.red
-        color_hovered = colors.green
-        color_active = colors.blue
-    }
-}
-
-Theme : light
-{
-    TextStyle
-    {
-        color = colors.green
-        color_hovered = colors.blue
-        color_active = colors.red
-    }
-}
+#include "themes/dark.igm"
+#include "themes/light.igm"

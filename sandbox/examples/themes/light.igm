@@ -1,0 +1,10 @@
+
+Theme : light
+{
+    TextStyle
+    {
+        color = colors.green
+        color_hovered = colors.blue
+        color_active = colors.red
+    }
+}

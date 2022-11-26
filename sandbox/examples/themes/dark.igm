@@ -1,0 +1,10 @@
+
+Theme : dark
+{
+    TextStyle
+    {
+        color = colors.red
+        color_hovered = colors.green
+        color_active = colors.blue
+    }
+}

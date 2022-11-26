@@ -1,0 +1,7 @@
+
+Container : colors
+{
+    +vec4 red   = (1, 0, 0, 1)
+    +vec4 green = (0, 1, 0, 1)
+    +vec4 blue  = (0, 0, 1, 1)
+}
