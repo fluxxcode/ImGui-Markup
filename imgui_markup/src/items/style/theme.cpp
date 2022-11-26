@@ -4,7 +4,7 @@
 /**
  * @file theme.cpp
  * @author FluxxCode (info.fluxxcode@gmail.com)
- * @brief Implementation of text_style.h
+ * @brief Implementation of theme.h
  * @copyright Copyright (c) 2022
  */
 
