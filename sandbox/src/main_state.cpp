@@ -22,6 +22,8 @@ MainState::MainState()
                                          "examples/themes.igm", &result);
     if (!result)
         std::cerr << igm::GetLastResult(this->theme_unit).message << std::endl;
+
+    igm::InitUnitTheme(this->test_unit, this->theme_unit, "dark");
 }
 
 void MainState::Update()

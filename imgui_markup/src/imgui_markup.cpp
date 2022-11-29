@@ -14,6 +14,7 @@
 #include "parser/parser_result.h"
 #include "attribute_types/base_types/vector2.h"
 #include "utility/utility.h"
+#include "items/item_base.h"
 
 #include "imgui.h"  // ImGuiMouseButton
 
@@ -88,6 +89,35 @@ void Update(size_t unit, bool* result)
     const float display_height = io.DisplaySize.y;
 
     Update(unit, display_width, display_height, result);
+}
+
+bool InitUnitTheme(size_t dst_unit, size_t src_unit, const char* theme_id,
+                   bool* result)
+{
+    // TODO: Improve error handling
+    internal::UnitBase* unit = internal::UnitStack::GetUnit(dst_unit, result);
+    if (!unit)
+        return false;
+
+    if (unit->GetType() != internal::UnitType::kGUI)
+        // TODO: Add error message
+        return false;
+    internal::GUIUnit* gui_unit = (internal::GUIUnit*)unit;
+
+    internal::ItemAPI* item = internal::UnitStack::GetItemAPI(src_unit,
+                                                              theme_id, result);
+    if (!item)
+        return false;
+
+    internal::ItemBase* item_base = (internal::ItemBase*)(item);
+
+    if (item_base->GetType() != internal::ItemType::kTheme)
+        // TODO: Add error message
+        return false;
+
+    gui_unit->ApplyTheme(*(internal::Theme*)item_base);
+
+    return true;
 }
 
 bool IsItemPressed(size_t unit_id, const char* item_id, MouseButton mb,

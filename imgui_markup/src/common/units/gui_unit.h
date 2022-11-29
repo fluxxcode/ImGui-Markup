@@ -9,6 +9,8 @@
  */
 
 #include "common/units/unit_base.h"
+#include "items/item_access_manager.h"
+#include "items/style/theme.h"
 
 namespace igm::internal
 {
@@ -25,11 +27,15 @@ public:
      */
     void Update(size_t display_width, size_t display_height) noexcept;
 
+    void ApplyTheme(Theme& theme) noexcept;
+
 private:
     /*
      * Title of the root panel, currently the objects address.
     */
     std::string root_panel_title_;
+
+    ItemAccessManager theme_;
 };
 
 }  // namespace igm::internal

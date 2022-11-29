@@ -42,4 +42,19 @@ void GUIUnit::Update(size_t display_width, size_t display_height) noexcept
     ImGui::End();
 }
 
+void GUIUnit::ApplyTheme(Theme& theme) noexcept
+{
+    // TODO:
+    // - Add main styles to item (!!!!ItemAccessManager!!!!)
+    // - Add theme styles to item (!!!!ItemAccessManager<----!!!!)
+    // - Add function to init theme styles for an item
+    // Item::Update() -> PushThemeStyles() -> PushMainStyles()
+
+    // for item in this->items:
+    //      item.ClearThemeStyles()
+    //      for style in this->theme.styles:
+    //          if style.expected_parent == item.type:
+    //              item.AddThemeStyle(style)
+}
+
 }  // namespace igm::internal

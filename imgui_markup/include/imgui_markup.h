@@ -45,6 +45,9 @@ void Update(size_t unit, size_t display_width, size_t display_height,
  */
 void Update(size_t unit, bool* result = nullptr);
 
+bool InitUnitTheme(size_t dst_unit, size_t src_unit, const char* item,
+                   bool* result = nullptr);
+
 /************ ITEM API ************/
 
 bool IsItemPressed(size_t unit, const char* item,
