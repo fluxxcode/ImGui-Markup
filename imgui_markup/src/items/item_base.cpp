@@ -9,6 +9,7 @@
  */
 
 #include "items/item_factory.h"
+#include "items/item_access_manager.h"
 
 #include "items/style/style_base.h"
 
@@ -25,6 +26,12 @@ ItemBase::ItemBase(ItemType type, ItemCategory category,
     std::stringstream ss;
     ss << address;
     this->unique_id_ = ss.str();
+}
+
+ItemBase::~ItemBase()
+{
+    for (auto item : this->tracked_access_manager_)
+        item->Clear();
 }
 
 ItemBase* ItemBase::CreateChildItem(std::string type, std::string id) noexcept
@@ -62,6 +69,22 @@ void ItemBase::InitStyle(StyleBase& style) noexcept
 {
     this->style_items_.push_back(&style);
 }
+
+void ItemBase::TrackItemAccessManager(ItemAccessManager& access_manager)
+    noexcept
+{
+    this->tracked_access_manager_.push_back(&access_manager);
+}
+
+void ItemBase::LoseItemAccessManager(ItemAccessManager& access_manager) noexcept
+{
+    this->tracked_access_manager_.erase(
+        std::remove(this->tracked_access_manager_.begin(),
+                    this->tracked_access_manager_.end(),
+                    &access_manager),
+        this->tracked_access_manager_.end());
+}
+
 
 void ItemBase::API_Update(bt::Vector2 position, bt::Vector2 size) noexcept
 {

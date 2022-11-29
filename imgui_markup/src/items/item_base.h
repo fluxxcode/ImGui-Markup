@@ -22,6 +22,7 @@ namespace igm::internal
 {
 
 class StyleBase;
+class ItemAccessManager;
 
 /**
  * Parent of every item within the markup language.
@@ -44,6 +45,7 @@ public:
     ItemBase(ItemType type, ItemCategory category,
              std::vector<UnitType> unit_types, std::string id,
              ItemBase* parent = nullptr);
+    virtual ~ItemBase();
     ItemBase(const ItemBase&) = delete;
 
     /**
@@ -106,6 +108,9 @@ public:
      * Pushes a new style to the style stack.
      */
     void InitStyle(StyleBase& style) noexcept;
+
+    void TrackItemAccessManager(ItemAccessManager& item) noexcept;
+    void LoseItemAccessManager(ItemAccessManager& item) noexcept;
 
     inline std::string GetAccessID() const noexcept
         { return this->access_id_; }
@@ -195,6 +200,8 @@ private:
     std::map<std::string, AttributeInterface*> attribute_list_;
 
     std::vector<std::unique_ptr<AttributeInterface>> dynamic_attributes_;
+
+    std::vector<ItemAccessManager*> tracked_access_manager_;
 
     /**
      * Stack of style items used to change the item's appearance.
