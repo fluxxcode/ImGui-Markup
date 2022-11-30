@@ -7,10 +7,10 @@
  * @copyright Copyright (c) 2022
  */
 
-#include "items/item_base.h"
-
 namespace igm::internal
 {
+
+class ItemBase;
 
 class ItemAccessManager
 {
@@ -18,21 +18,8 @@ public:
     ItemAccessManager();
     virtual ~ItemAccessManager();
 
-    inline void TrackItem(ItemBase& item) noexcept
-    {
-        if (this->item_)
-            this->Clear();
-        item.TrackItemAccessManager(*this);
-        this->item_ = &item;
-    }
-
-    inline void Clear() noexcept
-    {
-        if (this->item_)
-            this->item_->LoseItemAccessManager(*this);
-        this->item_ = nullptr;
-    };
-
+    void TrackItem(ItemBase& item) noexcept;
+    void Clear() noexcept;
     inline ItemBase* GetItem() const noexcept
         { return this->item_; }
 

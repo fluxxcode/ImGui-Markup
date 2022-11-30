@@ -45,12 +45,12 @@ public:
     ItemFactory(const ItemFactory&) = delete;
     void operator=(ItemFactory const&) = delete;
 
-    static std::unique_ptr<ItemBase> CreateItem(
+    static ItemBase* CreateItem(
         std::string type, std::string access_id, ItemBase* parent
     ) noexcept;
 
 private:
-    const std::map<std::string, std::function<std::unique_ptr<ItemBase>(
+    const std::map<std::string, std::function<ItemBase*(
         std::string, ItemBase*)>> item_mapping_ = {
             // Widgets
             { "Button", CreateItemInstance<Button> },
@@ -74,15 +74,15 @@ private:
 
     static ItemFactory& Get() noexcept;
 
-    std::unique_ptr<ItemBase> IMPL_CreateItem(
+    ItemBase* IMPL_CreateItem(
         std::string type, std::string access_id, ItemBase* parent
     ) const noexcept;
 
     template<typename T>
-    static std::unique_ptr<T> CreateItemInstance(
+    static T* CreateItemInstance(
         std::string access_id, ItemBase* parent) noexcept
     {
-        return std::make_unique<T>(access_id, parent);
+        return new T(access_id, parent);
     }
 };
 

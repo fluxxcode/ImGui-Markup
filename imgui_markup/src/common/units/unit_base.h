@@ -45,7 +45,7 @@ public:
     /**
      * Gets a reference to the unit's item tree.
      */
-    inline std::vector<std::unique_ptr<ItemBase>>& GetItemTree() noexcept
+    inline std::vector<ItemBase*>& GetItemTree() noexcept
         { return this->item_tree_; }
 
     /**
@@ -63,7 +63,7 @@ public:
 
 protected:
     // Holds the main item tree within this unit
-    std::vector<std::unique_ptr<ItemBase>> item_tree_;
+    std::vector<ItemBase*> item_tree_;
 
     // Contains mapping of the item ids to the item itself
     std::map<std::string, ItemBase*> item_id_mapping_;

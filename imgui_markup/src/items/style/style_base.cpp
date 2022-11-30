@@ -12,10 +12,10 @@ namespace igm::internal
 {
 
 StyleBase::StyleBase(ItemType type, std::string id, ItemBase* parent,
-                     ItemType expected_parent)
+                     ItemType expected_item)
     : ItemBase(type, ItemCategory::kStyle, {UnitType::kGUI, UnitType::kTheme},
                 id, parent),
-      expected_parent_(expected_parent)
+      expected_item_(expected_item)
 { }
 
 bool StyleBase::OnProcessStart(std::string& error_message) noexcept
@@ -27,7 +27,7 @@ bool StyleBase::OnProcessStart(std::string& error_message) noexcept
     }
 
     ItemType parent_type = this->parent_->GetType();
-    if (parent_type != this->expected_parent_ &&
+    if (parent_type != this->expected_item_ &&
         parent_type != ItemType::kTheme)
     {
         error_message = "Unexpected parent type. Make sure the style item is "
@@ -35,7 +35,7 @@ bool StyleBase::OnProcessStart(std::string& error_message) noexcept
         return false;
     }
 
-    if (parent_type == this->expected_parent_)
+    if (parent_type == this->expected_item_)
         this->parent_->InitStyle(*this);
 
     return true;

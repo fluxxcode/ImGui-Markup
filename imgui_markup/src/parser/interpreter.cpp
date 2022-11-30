@@ -40,7 +40,7 @@ void Interpreter::CreateItem(const Lexer::Token& type, const Lexer::Token& id)
         this->unit_.GetItemTree().push_back(
             ItemFactory::CreateItem(type.value, id.value, nullptr));
 
-        new_item = this->unit_.GetItemTree().back().get();
+        new_item = this->unit_.GetItemTree().back();
     }
     else
     {

@@ -20,11 +20,14 @@ public:
               ItemType expected_parent);
     StyleBase(const StyleBase&) = delete;
 
-    virtual void PushStyle() const noexcept = 0;
+    virtual void PushStyle(ItemBase& item) const noexcept = 0;
     virtual void PopStyle() const noexcept = 0;
 
+    inline ItemType GetExpectedItem() const noexcept
+        { return this->expected_item_; }
+
 private:
-    const ItemType expected_parent_;
+    const ItemType expected_item_;
 
     // See item_base.h for more information
     bool OnProcessStart(std::string& error_message) noexcept;

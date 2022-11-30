@@ -19,15 +19,15 @@ TextStyle::TextStyle(std::string id, ItemBase* parent)
     this->InitAttribute("color_active", this->color_active_);
 }
 
-void TextStyle::PushStyle() const noexcept
+void TextStyle::PushStyle(ItemBase& item) const noexcept
 {
     // TODO: Add attribute to set which MouseButton is used
-    if (this->parent_->API_IsItemHovered() &&
+    if (item.API_IsItemHovered() &&
         ImGui::IsMouseDown(ImGuiMouseButton_Left))
     {
         ImGui::PushStyleColor(ImGuiCol_Text, this->color_active_);
     }
-    else if (this->parent_->API_IsItemHovered())
+    else if (item.API_IsItemHovered())
         ImGui::PushStyleColor(ImGuiCol_Text, this->color_hovered_);
     else
         ImGui::PushStyleColor(ImGuiCol_Text, this->color_);

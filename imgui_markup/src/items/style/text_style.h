@@ -18,7 +18,7 @@ class TextStyle : public StyleBase
 public:
     TextStyle(std::string id, ItemBase* parent);
 
-    void PushStyle() const noexcept;
+    void PushStyle(ItemBase& item) const noexcept;
     void PopStyle() const noexcept;
 
 private:

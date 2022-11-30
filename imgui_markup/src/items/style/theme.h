@@ -18,10 +18,9 @@ class Theme : public ItemBase
 public:
     Theme(std::string id, ItemBase* parent);
 
-    void PushStyle() const noexcept;
-    void PopStyle() const noexcept;
-
     inline std::string GetName() const noexcept { return this->name_; }
+    inline std::vector<ItemBase*> GetChildItems() const noexcept
+        { return this->child_items_; }
 
 private:
     StringWrapper name_;

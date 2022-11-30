@@ -20,30 +20,6 @@ Theme::Theme(std::string id, ItemBase* parent)
     this->InitAttribute("name", this->name_);
 }
 
-void Theme::PushStyle() const noexcept
-{
-    for (const auto& child : this->child_items_)
-    {
-        if (child->GetCategory() != ItemCategory::kStyle)
-            continue;
-
-        const StyleBase& style = dynamic_cast<const StyleBase&>(*child.get());
-        style.PushStyle();
-    }
-}
-
-void Theme::PopStyle() const noexcept
-{
-    for (const auto& child : this->child_items_)
-    {
-        if (child->GetCategory() != ItemCategory::kStyle)
-            continue;
-
-        const StyleBase& style = dynamic_cast<const StyleBase&>(*child.get());
-        style.PopStyle();
-    }
-}
-
 bool Theme::OnProcessStart(std::string& error_message) noexcept
 {
     if (this->parent_)

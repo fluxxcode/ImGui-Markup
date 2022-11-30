@@ -10,6 +10,7 @@
 
 #include "items/item_api.h"
 #include "items/item_types.h"
+#include "items/item_access_manager.h"
 #include "common/units/unit_types.h"
 #include "attribute_types/attribute_types.h"
 
@@ -22,7 +23,7 @@ namespace igm::internal
 {
 
 class StyleBase;
-class ItemAccessManager;
+class Theme;
 
 /**
  * Parent of every item within the markup language.
@@ -104,10 +105,8 @@ public:
         return true;
     }
 
-    /**
-     * Pushes a new style to the style stack.
-     */
     void InitStyle(StyleBase& style) noexcept;
+    void ApplyTheme(Theme& theme) noexcept;
 
     void TrackItemAccessManager(ItemAccessManager& item) noexcept;
     void LoseItemAccessManager(ItemAccessManager& item) noexcept;
@@ -182,7 +181,7 @@ protected:
      */
     ItemBase* parent_;
 
-    std::vector<std::unique_ptr<ItemBase>> child_items_;
+    std::vector<ItemBase*> child_items_;
 
     /**
      * Function used by the inheriting item.
@@ -203,10 +202,11 @@ private:
 
     std::vector<ItemAccessManager*> tracked_access_manager_;
 
-    /**
-     * Stack of style items used to change the item's appearance.
-     */
-    std::vector<StyleBase*> style_items_;
+    std::vector<ItemAccessManager> item_styles_;
+    std::vector<ItemAccessManager> theme_styles_;
+
+    void PushStyles(std::vector<ItemAccessManager>& styles);
+    void PopStyles(std::vector<ItemAccessManager>& styles);
 
     /**
      * Update function which should be implemented by the inheriting item.
