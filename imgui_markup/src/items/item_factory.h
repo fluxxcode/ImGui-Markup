@@ -21,6 +21,7 @@
 // Styles
 #include "items/style/theme.h"
 #include "items/style/text_style.h"
+#include "items/style/button_style.h"
 
 // Other
 #include "items/other/panel.h"
@@ -63,6 +64,7 @@ private:
             // Styles
             { "Theme", CreateItemInstance<Theme> },
             { "TextStyle", CreateItemInstance<TextStyle> },
+            { "ButtonStyle", CreateItemInstance<ButtonStyle> },
 
             // Other
             { "Panel", CreateItemInstance<Panel> },

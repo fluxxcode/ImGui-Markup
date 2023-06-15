@@ -8,4 +8,14 @@ Button
 {
     text = "Fixed button size"
     size = (200, 30)
+
+    ButtonStyle
+    {
+        color = colors.green
+        color_hovered = colors.blue
+        color_active = colors.red
+        text_color = colors.red
+        text_color_hovered = colors.green
+        text_color_active = colors.blue
+    }
 }

@@ -9,4 +9,14 @@ Theme : light
         color_hovered = colors.blue
         color_active = colors.red
     }
+
+    ButtonStyle
+    {
+        color = colors.green
+        color_hovered = colors.blue
+        color_active = colors.red
+        text_color = colors.blue
+        text_color_hovered = colors.red
+        text_color_active = colors.green
+    }
 }

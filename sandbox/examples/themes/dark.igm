@@ -9,4 +9,14 @@ Theme : dark
         color_hovered = colors.green
         color_active = colors.blue
     }
+
+    ButtonStyle
+    {
+        color = colors.red
+        color_hovered = colors.green
+        color_active = colors.blue
+        text_color = colors.green
+        text_color_hovered = colors.blue
+        text_color_active = colors.red
+    }
 }
