@@ -367,3 +367,45 @@ LineView
 }
 ```
 ![ExampleImage](img/items/button_style.png)
+
+---
+## CheckboxStyle
+### Description:
+Used to style the item `Checkbox`. Can only be placed in an item of type `Checkbox` or `Theme`.
+### Attributes:
+| Name | Type | Description | Default Value |
+| --- | --- | --- | --- |
+| text_color | Color | The default color of the text of the checkbox. | The global text color is used. |
+| text_color_hovered | Color | The color of the text of the checkbox when it is hovered. | The global text color is used. |
+| text_color_active | Color | The color of the text of the checkbox when it is pressed. | The global text color is used. |
+### Example:
+```
+// example.igm
+
+LineView
+{
+    padding = 5
+    spacing = 2
+
+    Checkbox
+    {
+        text = "Checkbox red"
+
+        CheckboxStyle
+        {
+            text_color = (1.0, 0.0, 0.0, 1.0)
+        }
+    }
+
+    Checkbox
+    {
+        text = "Checkbox green"
+
+        CheckboxStyle
+        {
+            text_color = (0.0, 1.0, 0.0, 1.0)
+        }
+    }
+}
+```
+![ExampleImage](img/items/checkbox_style.png)
