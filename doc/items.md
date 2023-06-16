@@ -320,3 +320,50 @@ LineView
 }
 ```
 ![ExampleImage](img/items/text_style.png)
+
+---
+## ButtonStyle
+### Description:
+Used to style the item `Button`. Can only be placed in an item of type `Button` or `Theme`.
+### Attributes:
+| Name | Type | Description | Default Value |
+| --- | --- | --- | --- |
+| color | Color | The default color of the button. | The global button color is used. |
+| color_hovered | Color | The color of the button when it is hovered. | The global button color is used. |
+| color_active | Color | The color of the button when it is pressed. | The global button color is used. |
+| text_color | Color | The default color of the text inside the button. | The global text color is used. |
+| text_color_hovered | Color | The color of the text inside the button when it is hovered. | The global text color is used. |
+| text_color_active | Color | The color of the text inside the button when it is pressed. | The global text color is used. |
+### Example:
+```
+// example.igm
+
+LineView
+{
+    padding = 5
+    spacing = 2
+
+    Button
+    {
+        text = "Button red"
+
+        ButtonStyle
+        {
+            color = (1.0, 0.0, 0.0, 1.0)
+            text_color = (0.0, 1.0, 0.0, 1.0)
+        }
+    }
+
+    Button
+    {
+        text = "Button green"
+
+        ButtonStyle
+        {
+            color = (0.0, 1.0, 0.0, 1.0)
+            text_color = (1.0, 0.0, 0.0, 1.0)
+        }
+    }
+}
+```
+![ExampleImage](img/items/button_style.png)
