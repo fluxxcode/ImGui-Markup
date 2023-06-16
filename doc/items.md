@@ -12,7 +12,14 @@
 - [Panel](#Panel)
 - [Container](#Container)
 
----
+**Styles:**
+- [TextStyle](#TextStyle)
+- [ButtonStyle](#ButtonStyle)
+- [CheckboxStyle](#CheckboxStyle)
+- [PanelStyle](#PanelStyle)
+
+
+# Widgets
 ## Text
 ### Description:
 The text is equal to ```ImGui::Text()``` and is used to display basic information.
@@ -126,7 +133,8 @@ if (gui::IsCheckboxChecked(file, "checkbox_1"))
 ```
 ![ExampleImage](img/items/checkbox.png)
 
----
+
+# Views
 ## LineView
 ### Description:
 The LineView is there to implement the basic alignment of ImGui. Child items are stacked either on the horizontal axis or on the vertical axis. All child items in the LineView have a fully dynamic size; The LineView does not specify a size, even if it has itself received a fixed size from the parent item.
@@ -177,7 +185,8 @@ Panel
 ```
 ![ExampleImage](img/items/line_view.png)
 
----
+
+# Other
 ## Panel
 ### Description:
 For the markup language, the purpose of panels are to have small panels that are rendered above the app GUI that can be moved and resized by the user.
@@ -268,3 +277,46 @@ LineView
 }
 ```
 ![ExampleImage](img/items/container.png)
+
+
+# Styles
+## TextStyle
+### Description:
+Used to style the item `Text`. Can only be placed in an item of type `Text` or `Theme`.
+### Attributes:
+| Name | Type | Description | Default Value |
+| --- | --- | --- | --- |
+| color | Color | The default color of the text. | The global text color is used. |
+| color_hovered | Color | The color of the text when it is hovered. | The global text color is used. |
+| color_active | Color | The color of the text when it is pressed. | The global text color is used. |
+### Example:
+```
+// example.igm
+
+LineView
+{
+    padding = 5
+    spacing = 2
+
+    Text
+    {
+        text = "Hello world red"
+
+        TextStyle
+        {
+            color = (1.0, 0.0, 0.0, 1.0)
+        }
+    }
+
+    Text
+    {
+        text = "Hello world green"
+
+        TextStyle
+        {
+            color = (0.0, 1.0, 0.0, 1.0)
+        }
+    }
+}
+```
+![ExampleImage](img/items/text_style.png)
