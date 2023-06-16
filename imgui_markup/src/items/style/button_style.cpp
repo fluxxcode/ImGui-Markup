@@ -26,25 +26,28 @@ ButtonStyle::ButtonStyle(std::string id, ItemBase* parent)
 
 void ButtonStyle::PushStyle(ItemBase& item) const noexcept
 {
-    ImGui::PushStyleColor(ImGuiCol_Button, this->color_);
-    ImGui::PushStyleColor(ImGuiCol_ButtonHovered, this->color_hovered_);
-    ImGui::PushStyleColor(ImGuiCol_ButtonActive, this->color_active_);
+    if (this->color_.IsValueSet())
+        this->PushStyleColor(ImGuiCol_Button, this->color_);
+    if (this->color_hovered_.IsValueSet())
+        this->PushStyleColor(ImGuiCol_ButtonHovered, this->color_hovered_);
+    if (this->color_active_.IsValueSet())
+        this->PushStyleColor(ImGuiCol_ButtonActive, this->color_active_);
 
     // TODO: Add attribute to set which MouseButton is used
-    if (item.API_IsItemHovered() &&
+    if (this->text_color_active_.IsValueSet() && item.API_IsItemHovered() &&
         ImGui::IsMouseDown(ImGuiMouseButton_Left))
     {
-        ImGui::PushStyleColor(ImGuiCol_Text, this->text_color_active_);
+        this->PushStyleColor(ImGuiCol_Text, this->text_color_active_);
     }
-    else if (item.API_IsItemHovered())
-        ImGui::PushStyleColor(ImGuiCol_Text, this->text_color_hovered_);
-    else
-        ImGui::PushStyleColor(ImGuiCol_Text, this->text_color_);
+    else if (this->text_color_hovered_.IsValueSet() && item.API_IsItemHovered())
+        this->PushStyleColor(ImGuiCol_Text, this->text_color_active_);
+    else if (this->text_color_.IsValueSet())
+        this->PushStyleColor(ImGuiCol_Text, this->text_color_);
 }
 
 void ButtonStyle::PopStyle() const noexcept
 {
-    ImGui::PopStyleColor(4);
+    this->PopStyleColor();
 }
 
 }  // namespace igm::internal

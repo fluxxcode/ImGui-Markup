@@ -22,20 +22,20 @@ TextStyle::TextStyle(std::string id, ItemBase* parent)
 void TextStyle::PushStyle(ItemBase& item) const noexcept
 {
     // TODO: Add attribute to set which MouseButton is used
-    if (item.API_IsItemHovered() &&
+    if (this->color_active_.IsValueSet() && item.API_IsItemHovered() &&
         ImGui::IsMouseDown(ImGuiMouseButton_Left))
     {
-        ImGui::PushStyleColor(ImGuiCol_Text, this->color_active_);
+        this->PushStyleColor(ImGuiCol_Text, this->color_active_);
     }
-    else if (item.API_IsItemHovered())
-        ImGui::PushStyleColor(ImGuiCol_Text, this->color_hovered_);
-    else
-        ImGui::PushStyleColor(ImGuiCol_Text, this->color_);
+    else if (this->color_hovered_.IsValueSet() && item.API_IsItemHovered())
+        this->PushStyleColor(ImGuiCol_Text, this->color_hovered_);
+    else if (this->color_.IsValueSet())
+        this->PushStyleColor(ImGuiCol_Text, this->color_);
 }
 
 void TextStyle::PopStyle() const noexcept
 {
-    ImGui::PopStyleColor(1);
+    this->PopStyleColor();
 }
 
 }  // namespace igm::internal

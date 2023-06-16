@@ -24,20 +24,20 @@ CheckboxStyle::CheckboxStyle(std::string id, ItemBase* parent)
 void CheckboxStyle::PushStyle(ItemBase& item) const noexcept
 {
     // TODO: Add attribute to set which MouseButton is used
-    if (item.API_IsItemHovered() &&
+    if (this->text_color_active_.IsValueSet() && item.API_IsItemHovered() &&
         ImGui::IsMouseDown(ImGuiMouseButton_Left))
     {
-        ImGui::PushStyleColor(ImGuiCol_Text, this->text_color_active_);
+        this->PushStyleColor(ImGuiCol_Text, this->text_color_active_);
     }
-    else if (item.API_IsItemHovered())
-        ImGui::PushStyleColor(ImGuiCol_Text, this->text_color_hovered_);
-    else
-        ImGui::PushStyleColor(ImGuiCol_Text, this->text_color_);
+    else if (this->text_color_hovered_.IsValueSet() && item.API_IsItemHovered())
+        this->PushStyleColor(ImGuiCol_Text, this->text_color_hovered_);
+    else if (this->text_color_.IsValueSet())
+        this->PushStyleColor(ImGuiCol_Text, this->text_color_);
 }
 
 void CheckboxStyle::PopStyle() const noexcept
 {
-    ImGui::PopStyleColor(1);
+    this->PopStyleColor();
 }
 
 }  // namespace igm::internal

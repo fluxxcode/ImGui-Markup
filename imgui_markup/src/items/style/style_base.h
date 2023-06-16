@@ -26,8 +26,23 @@ public:
     inline ItemType GetExpectedItem() const noexcept
         { return this->expected_item_; }
 
+protected:
+    inline void PushStyleColor(ImGuiCol idx, const ImVec4& color) const noexcept
+    {
+        ImGui::PushStyleColor(idx, color);
+        this->style_color_count_++;
+    }
+
+    inline void PopStyleColor() const noexcept
+    {
+        ImGui::PopStyleColor(this->style_color_count_);
+        this->style_color_count_ = 0;
+    }
+
 private:
     const ItemType expected_item_;
+
+    mutable size_t style_color_count_ = 0;
 
     // See item_base.h for more information
     bool OnProcessStart(std::string& error_message) noexcept;
