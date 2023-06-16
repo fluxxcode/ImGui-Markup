@@ -40,7 +40,7 @@ void ButtonStyle::PushStyle(ItemBase& item) const noexcept
         this->PushStyleColor(ImGuiCol_Text, this->text_color_active_);
     }
     else if (this->text_color_hovered_.IsValueSet() && item.API_IsItemHovered())
-        this->PushStyleColor(ImGuiCol_Text, this->text_color_active_);
+        this->PushStyleColor(ImGuiCol_Text, this->text_color_hovered_);
     else if (this->text_color_.IsValueSet())
         this->PushStyleColor(ImGuiCol_Text, this->text_color_);
 }
