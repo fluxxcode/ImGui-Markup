@@ -1,4 +1,16 @@
 
 Checkbox : checkbox_0 { text = "Checkbox default" }
 Checkbox : checkbox_1 { text = "Checkbox checked true" checked = true }
-Checkbox : checkbox_2 { text = "Checkbox checked false" checked = false }
+
+Checkbox : checkbox_2
+{
+    text = "Checkbox checked false"
+    checked = false
+
+    CheckboxStyle
+    {
+        text_color = colors.red
+        text_color_hovered = colors.green
+        text_color_active = colors.blue
+    }
+}

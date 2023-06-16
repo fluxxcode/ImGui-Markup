@@ -19,4 +19,11 @@ Theme : light
         text_color_hovered = colors.red
         text_color_active = colors.green
     }
+
+    CheckboxStyle
+    {
+        text_color = colors.blue
+        text_color_hovered = colors.red
+        text_color_active = colors.green
+    }
 }
