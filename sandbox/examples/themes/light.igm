@@ -26,4 +26,11 @@ Theme : light
         text_color_hovered = colors.red
         text_color_active = colors.green
     }
+
+    PanelStyle
+    {
+        color = colors.blue
+        color_hovered = colors.green
+        color_active = colors.red
+    }
 }

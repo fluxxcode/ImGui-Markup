@@ -26,4 +26,11 @@ Theme : dark
         text_color_hovered = colors.blue
         text_color_active = colors.red
     }
+
+    PanelStyle
+    {
+        color = colors.green
+        color_hovered = colors.blue
+        color_active = colors.red
+    }
 }

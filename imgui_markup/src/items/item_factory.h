@@ -23,6 +23,7 @@
 #include "items/style/text_style.h"
 #include "items/style/button_style.h"
 #include "items/style/checkbox_style.h"
+#include "items/style/panel_style.h"
 
 // Other
 #include "items/other/panel.h"
@@ -67,6 +68,7 @@ private:
             { "TextStyle", CreateItemInstance<TextStyle> },
             { "ButtonStyle", CreateItemInstance<ButtonStyle> },
             { "CheckboxStyle", CreateItemInstance<CheckboxStyle> },
+            { "PanelStyle", CreateItemInstance<PanelStyle> },
 
             // Other
             { "Panel", CreateItemInstance<Panel> },

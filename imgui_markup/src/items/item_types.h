@@ -34,6 +34,7 @@ enum class ItemType : unsigned char
     kTextStyle,
     kButtonStyle,
     kCheckboxStyle,
+    kPanelStyle,
 
     // Other
     kPanel,
