@@ -409,3 +409,59 @@ LineView
 }
 ```
 ![ExampleImage](img/items/checkbox_style.png)
+
+---
+## PanelStyle
+### Description:
+Used to style the item `Panel`. Can only be placed in an item of type `Panel` or `Theme`.
+### Attributes:
+| Name | Type | Description | Default Value |
+| --- | --- | --- | --- |
+| color | Color | The default background color of the panel. | The global panel color is used. |
+| color_hovered | Color | The default background color of the panel when it is hovered. | The global panel color is used. |
+| color_active | Color | The default background color of the panel when it is pressed. | The global panel color is used. |
+### Example:
+```
+// example.igm
+
+Panel
+{
+    title = "Panel blue"
+    position = (5, 5)
+    size = (120, 40)
+
+    LineView
+    {
+        spacing = 3
+        padding = 5
+
+        Text { text = "Hello world" }
+    }
+
+    PanelStyle
+    {
+        color = (0.0, 0.0, 1.0, 1.0)
+    }
+}
+
+Panel
+{
+    title = "Panel green"
+    position = (5, 60)
+    size = (120, 40)
+
+    LineView
+    {
+        spacing = 3
+        padding = 5
+
+        Text { text = "Hello world" }
+    }
+
+    PanelStyle
+    {
+        color = (0.0, 1.0, 0.0, 1.0)
+    }
+}
+```
+![ExampleImage](img/items/panel_style.png)
