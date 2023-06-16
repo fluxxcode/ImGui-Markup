@@ -22,9 +22,9 @@ public:
     void PopStyle() const noexcept;
 
 private:
-    Vector4Wrapper color_;
-    Vector4Wrapper color_hovered_;
-    Vector4Wrapper color_active_;
+    ColorWrapper color_;
+    ColorWrapper color_hovered_;
+    ColorWrapper color_active_;
 };
 
 }  // namespace igm::internal

@@ -12,6 +12,8 @@
 #include "attribute_types/base_types/color.h"
 #include "attribute_types/attribute_base.h"
 
+#include "imgui.h"
+
 #include <string>  // std::string
 
 namespace igm::internal
@@ -43,6 +45,12 @@ public:
     inline operator bt::Color() const
     {
         return this->Value();
+    }
+
+    inline operator ImVec4() const
+    {
+        const bt::Color col = this->Value();
+        return ImVec4(col.r, col.g, col.b, col.a);
     }
 
     inline std::string GetName() const noexcept { return "Color"; }
