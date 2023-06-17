@@ -409,7 +409,7 @@ The panels are nothing more than an implementation of the ImGui windows.
 In the markup language, the windows are named panels, since the item 'Window' may be used for a different purpose in the future.
 While in ImGui widgets can only be created inside a ImGui window, it is possible here to create widgets from the Markup Language without a ImGui window and render them directly in the app window. Internally, however, the drawing on the app window only works via a default root ImGui window that is created for each unit ;)
 ### Restrictions:
-- Can only be created in a unit of typ `GUI`
+- Can only be created in a unit of type `GUI`
 ### Attributes:
 | Name | Type | Description | Default Value |
 | --- | --- | --- | --- |
@@ -463,6 +463,75 @@ Panel
 }
 ```
 ![ExampleImage](img/items/panel.png)
+
+---
+## Theme
+### Description:
+The theme is used to create themes from various style items and then apply them to a specific unit.
+### Restrictions:
+- Can only be created in a unit of type `Theme`
+### Attributes:
+| Name | Type | Description | Default Value |
+| --- | --- | --- | --- |
+| name | String | The name of the theme. | "" |
+### Example:
+```
+// themes.igm:
+
+Theme : dark  // ID used to reference the theme from the backend
+{
+    name = "Dark theme"
+
+    TextStyle
+    {
+        color = (1.0, 0.0, 0.0, 1.0)
+    }
+
+    ButtonStyle
+    {
+        color = (1.0, 0.0, 0.0, 1.0)
+    }
+}
+
+Theme : light
+{
+    name = "Light theme"
+
+    /* ... */
+}
+```
+```
+// app.igm:
+
+LineView
+{
+    spacing = 3
+    padding = 5
+
+    Text { text = "Hello world" }
+    Button { text = "Hello world" }
+
+    Text
+    {
+        text = "Blue text"
+
+        // Overwrites the style from the theme
+        TextStyle
+        {
+            color = (0.0, 0.0, 1.0, 1.0)
+        }
+    }
+}
+```
+```cpp
+// main.cpp:
+const size_t app_ui = igm::ParseFromFile(igm::UnitType::kGUI, "app.igm");
+const size_t themes = igm::ParseFromFile(igm::UnitType::kTheme, "themes.igm");
+
+// Apply theme to the app_ui unit
+igm::InitUnitTheme(app_ui, themes, "dark");
+```
+![ExampleImage](img/items/theme.png)
 
 ---
 ## Container
