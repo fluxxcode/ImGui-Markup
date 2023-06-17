@@ -265,7 +265,7 @@ Panel
 ### Description:
 The container is used to store custom data. It cannot currently have any child items.
 ### Restrictions:
-The container is currently not subject to any restrictions.
+*The container is currently not subject to any restrictions.*
 ### Attributes:
 *The container currently does not have any attributes.*
 ### Example:
