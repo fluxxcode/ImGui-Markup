@@ -17,6 +17,7 @@
 
 **Other:**
 - [Panel](#Panel)
+- [Theme](#Theme)
 - [Container](#Container)
 
 # Widgets
