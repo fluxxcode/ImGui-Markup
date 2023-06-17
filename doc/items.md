@@ -23,6 +23,8 @@
 ## Text
 ### Description:
 The text is equal to ```ImGui::Text()``` and is used to display basic information.
+### Restrictions:
+- Can only be created in a unit of typ `GUI`
 ### Attributes:
 | Name | Type | Description | Default Value |
 | ---| --- | --- | --- |
@@ -54,6 +56,8 @@ LineView
 ## Button
 ### Description:
 The button is equal to ```ImGui::Button()```.
+### Restrictions:
+- Can only be created in a unit of typ `GUI`
 ### Attributes:
 | Name | Type | Description | Default Value |
 | --- | --- | --- | --- |
@@ -94,6 +98,8 @@ if (gui::IsItemHovered(unit, "button_1"))
 ## Checkbox
 ### Description:
 The checkbox is equal to ```ImGui::Checkbox()```.
+### Restrictions:
+- Can only be created in a unit of typ `GUI`
 ### Attributes:
 | Name | Type | Description | Default Value |
 | ---| --- | --- | --- |
@@ -138,6 +144,8 @@ if (gui::IsCheckboxChecked(file, "checkbox_1"))
 ## LineView
 ### Description:
 The LineView is there to implement the basic alignment of ImGui. Child items are stacked either on the horizontal axis or on the vertical axis. All child items in the LineView have a fully dynamic size; The LineView does not specify a size, even if it has itself received a fixed size from the parent item.
+### Restrictions:
+- Can only be created in a unit of typ `GUI`
 ### Attributes:
 | Name | Type | Description | Default Value |
 | ---| --- | --- | --- |
@@ -196,6 +204,8 @@ Since all child items get the position (0,0) and are overlapped, it often makes 
 The panels are nothing more than an implementation of the ImGui windows.
 In the markup language, the windows are named panels, since the item 'Window' may be used for a different purpose in the future.
 While in ImGui widgets can only be created inside a ImGui window, it is possible here to create widgets from the Markup Language without a ImGui window and render them directly in the app window. Internally, however, the drawing on the app window only works via a default root ImGui window that is created for each unit ;)
+### Restrictions:
+- Can only be created in a unit of typ `GUI`
 ### Attributes:
 | Name | Type | Description | Default Value |
 | --- | --- | --- | --- |
@@ -254,6 +264,8 @@ Panel
 ## Container
 ### Description:
 The container is used to store custom data. It cannot currently have any child items.
+### Restrictions:
+The container is currently not subject to any restrictions.
 ### Attributes:
 *The container currently does not have any attributes.*
 ### Example:
@@ -283,6 +295,10 @@ LineView
 ## TextStyle
 ### Description:
 Used to style the item `Text`. Can only be placed in an item of type `Text` or `Theme`.
+### Restrictions:
+- Can only be created in a unit of typ `GUI` or `Theme`
+- Can only be created in an item of type `Text` or `Theme`
+- Cannot be created in the global scope of a unit
 ### Attributes:
 | Name | Type | Description | Default Value |
 | --- | --- | --- | --- |
@@ -325,6 +341,10 @@ LineView
 ## ButtonStyle
 ### Description:
 Used to style the item `Button`. Can only be placed in an item of type `Button` or `Theme`.
+### Restrictions:
+- Can only be created in a unit of typ `GUI` or `Theme`
+- Can only be created in an item of type `Button` or `Theme`
+- Cannot be created in the global scope of a unit
 ### Attributes:
 | Name | Type | Description | Default Value |
 | --- | --- | --- | --- |
@@ -372,6 +392,10 @@ LineView
 ## CheckboxStyle
 ### Description:
 Used to style the item `Checkbox`. Can only be placed in an item of type `Checkbox` or `Theme`.
+### Restrictions:
+- Can only be created in a unit of typ `GUI` or `Theme`
+- Can only be created in an item of type `Checkbox` or `Theme`
+- Cannot be created in the global scope of a unit
 ### Attributes:
 | Name | Type | Description | Default Value |
 | --- | --- | --- | --- |
@@ -414,6 +438,10 @@ LineView
 ## PanelStyle
 ### Description:
 Used to style the item `Panel`. Can only be placed in an item of type `Panel` or `Theme`.
+### Restrictions:
+- Can only be created in a unit of typ `GUI` or `Theme`
+- Can only be created in an item of type `Panel` or `Theme`
+- Cannot be created in the global scope of a unit
 ### Attributes:
 | Name | Type | Description | Default Value |
 | --- | --- | --- | --- |
