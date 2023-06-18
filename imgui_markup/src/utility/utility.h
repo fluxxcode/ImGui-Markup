@@ -5,7 +5,7 @@
  * @file vector2_wrapper.h
  * @author FluxxCode (info.fluxxcode@gmail.com)
  * @brief Contains utility functions used internally.
- * @copyright Copyright (c) 2023
+ * @copyright Copyright (c) 2022 - 2023
  */
 
 #include "imgui_markup/types.h"

@@ -5,7 +5,7 @@
  * @file types.h
  * @author FluxxCode (info.fluxxcode@gmail.com)
  * @brief Contains custom types used by the API.
- * @copyright Copyright (c) 2022
+ * @copyright Copyright (c) 2022 - 2023
  */
 
 namespace igm

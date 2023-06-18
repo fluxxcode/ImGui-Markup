@@ -5,7 +5,7 @@
  * @file theme.h
  * @author FluxxCode (info.fluxxcode@gmail.com)
  * @brief Contains item 'Theme'
- * @copyright Copyright (c) 2022
+ * @copyright Copyright (c) 2022 - 2023
  */
 
 #include "items/item_base.h"

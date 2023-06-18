@@ -5,7 +5,7 @@
  * @file imgui_markup.cpp
  * @author FluxxCode (info.fluxxcode@gmail.com)
  * @brief Implementation of parser_result.h
- * @copyright Copyright (c) 2022
+ * @copyright Copyright (c) 2022 - 2023
  */
 
 namespace igm::internal

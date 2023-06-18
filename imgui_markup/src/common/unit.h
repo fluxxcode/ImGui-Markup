@@ -5,7 +5,7 @@
  * @file unit.h
  * @author FluxxCode (info.fluxxcode@gmail.com)
  * @brief Contains base class for every unit type.
- * @copyright Copyright (c) 2023
+ * @copyright Copyright (c) 2022 - 2023
  */
 
 #include "items/item_base.h"

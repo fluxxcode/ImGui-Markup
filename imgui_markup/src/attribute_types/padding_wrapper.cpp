@@ -5,7 +5,7 @@
  * @file padding_wrapper.cpp
  * @author FluxxCode (info.fluxxcode@gmail.com)
  * @brief Implementation of padding_wrapper.h
- * @copyright Copyright (c) 2022
+ * @copyright Copyright (c) 2022 - 2023
  */
 
 #include "attribute_types/attribute_types.h"

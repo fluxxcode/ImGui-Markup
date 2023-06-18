@@ -5,7 +5,7 @@
  * @file view_base.h
  * @author FluxxCode (info.fluxxcode@gmail.com)
  * @brief Contains base for every view.
- * @copyright Copyright (c) 2022
+ * @copyright Copyright (c) 2022 - 2023
  */
 
 #include "items/gui/gui_base.h"

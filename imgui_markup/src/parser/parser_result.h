@@ -5,7 +5,7 @@
  * @file result.h
  * @author FluxxCode (info.fluxxcode@gmail.com)
  * @brief Contains the result of the parser; only used internally.
- * @copyright Copyright (c) 2022
+ * @copyright Copyright (c) 2022 - 2023
  */
 
 #include <string>  // std::string

@@ -5,7 +5,7 @@
  * @file unit.cpp
  * @author FluxxCode (info.fluxxcode@gmail.com)
  * @brief Implementation of unit.h
- * @copyright Copyright (c) 2023
+ * @copyright Copyright (c) 2022 - 2023
  */
 
 namespace igm::internal

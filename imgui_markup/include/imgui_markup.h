@@ -5,7 +5,7 @@
  * @file imgui_markup.h
  * @author FluxxCode (info.fluxxcode@gmail.com)
  * @brief Header used for applications using the imgui_layer
- * @copyright Copyright (c) 2022
+ * @copyright Copyright (c) 2022 - 2023
  */
 
 #include "imgui_markup/types.h"

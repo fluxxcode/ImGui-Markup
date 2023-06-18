@@ -5,7 +5,7 @@
  * @file button.h
  * @author FluxxCode (info.fluxxcode@gmail.com)
  * @brief Contains item 'Button'
- * @copyright Copyright (c) 2022
+ * @copyright Copyright (c) 2022 - 2023
  */
 
 #include "items/gui/widgets/widget_base.h"

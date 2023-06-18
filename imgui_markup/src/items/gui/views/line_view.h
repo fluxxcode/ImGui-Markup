@@ -5,7 +5,7 @@
  * @file line_view.h
  * @author FluxxCode (info.fluxxcode@gmail.com)
  * @brief Contains item 'LineView'
- * @copyright Copyright (c) 2022
+ * @copyright Copyright (c) 2022 - 2023
  */
 
 #include "items/gui/views/view_base.h"

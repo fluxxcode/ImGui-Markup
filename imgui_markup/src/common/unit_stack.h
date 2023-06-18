@@ -5,7 +5,7 @@
  * @file unit_stack.h
  * @author FluxxCode (info.fluxxcode@gmail.com)
  * @brief Contains unit and global unit stack
- * @copyright Copyright (c) 2022
+ * @copyright Copyright (c) 2022 - 2023
  */
 
 #include "common/unit.h"

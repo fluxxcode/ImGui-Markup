@@ -5,7 +5,7 @@
  * @file interpreter.h
  * @author FluxxCode (info.fluxxcode@gmail.com)
  * @brief Header file used to include internal attribute types.
- * @copyright Copyright (c) 2022
+ * @copyright Copyright (c) 2022 - 2023
  */
 
 #include "attribute_types/int_wrapper.h"

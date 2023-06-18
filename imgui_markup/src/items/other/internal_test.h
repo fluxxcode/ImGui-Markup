@@ -5,7 +5,7 @@
  * @file internal_test.h
  * @author FluxxCode (info.fluxxcode@gmail.com)
  * @brief Contains item only used for internal testing.
- * @copyright Copyright (c) 2022
+ * @copyright Copyright (c) 2022 - 2023
  */
 
 #include "items/other/other_base.h"

@@ -6,7 +6,7 @@
  * @author FluxxCode (info.fluxxcode@gmail.com)
  * @brief Contains custom padding class used within the padding_wrapper
  *        as main storage and reference.
- * @copyright Copyright (c) 2022
+ * @copyright Copyright (c) 2022 - 2023
  */
 
 #include "attribute_types/float_wrapper.h"

@@ -5,7 +5,7 @@
  * @file enums.h
  * @author FluxxCode (info.fluxxcode@gmail.com)
  * @brief Contains enum classes used internally by the markup language.
- * @copyright Copyright (c) 2022
+ * @copyright Copyright (c) 2022 - 2023
  */
 
 #include "attribute_types/attribute_base.h"

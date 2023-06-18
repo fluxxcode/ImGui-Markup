@@ -5,7 +5,7 @@
  * @file lexer.cpp
  * @author FluxxCode (info.fluxxcode@gmail.com)
  * @brief Implementation of lexer.h
- * @copyright Copyright (c) 2022
+ * @copyright Copyright (c) 2022 - 2023
  */
 
 namespace igm::internal

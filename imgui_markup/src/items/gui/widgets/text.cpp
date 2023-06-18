@@ -5,7 +5,7 @@
  * @file text.cpp
  * @author FluxxCode (info.fluxxcode@gmail.com)
  * @brief Implementation of text.h
- * @copyright Copyright (c) 2022
+ * @copyright Copyright (c) 2022 - 2023
  */
 
 namespace igm::internal

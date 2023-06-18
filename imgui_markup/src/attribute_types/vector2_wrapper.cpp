@@ -5,7 +5,7 @@
  * @file vector2_wrapper.cpp
  * @author FluxxCode (info.fluxxcode@gmail.com)
  * @brief Implementation of vector2_wrapper.h
- * @copyright Copyright (c) 2022
+ * @copyright Copyright (c) 2022 - 2023
  */
 
 namespace igm::internal

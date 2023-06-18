@@ -4,7 +4,7 @@
 /**
  * @file item_access_manager.h
  * @author FluxxCode (info.fluxxcode@gmail.com)
- * @copyright Copyright (c) 2022
+ * @copyright Copyright (c) 2022 - 2023
  */
 
 namespace igm::internal

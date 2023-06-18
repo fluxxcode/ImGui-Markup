@@ -4,7 +4,7 @@
 /**
  * @file item_access_manager.cpp
  * @author FluxxCode (info.fluxxcode@gmail.com)
- * @copyright Copyright (c) 2022
+ * @copyright Copyright (c) 2022 - 2023
  */
 
 #include "items/item_base.h"

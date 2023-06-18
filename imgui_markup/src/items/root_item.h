@@ -5,7 +5,7 @@
  * @file root_item.h
  * @author FluxxCode (info.fluxxcode@gmail.com)
  * @brief Root item of every item tree.
- * @copyright Copyright (c) 2022
+ * @copyright Copyright (c) 2022 - 2023
  */
 
 #include "items/item_base.h"

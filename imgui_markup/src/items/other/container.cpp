@@ -5,7 +5,7 @@
  * @file container.cpp
  * @author FluxxCode (info.fluxxcode@gmail.com)
  * @brief Implementation of container.h
- * @copyright Copyright (c) 2022
+ * @copyright Copyright (c) 2022 - 2023
  */
 
 namespace igm::internal

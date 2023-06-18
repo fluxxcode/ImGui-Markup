@@ -5,7 +5,7 @@
  * @file bool_wrapper.cpp
  * @author FluxxCode (info.fluxxcode@gmail.com)
  * @brief Implementation of bool_wrapper.h
- * @copyright Copyright (c) 2022
+ * @copyright Copyright (c) 2022 - 2023
  */
 
 #include "utility/utility.h"
