@@ -91,6 +91,20 @@ void Update(size_t unit, bool* result)
     Update(unit, display_width, display_height, result);
 }
 
+std::vector<const char*> GetLoadedThemes(size_t unit_id, bool* result)
+{
+    internal::UnitBase* unit = internal::UnitStack::GetUnit(unit_id, result);
+    if (!unit)
+        return {};
+
+    if (unit->GetType() != internal::UnitType::kTheme)
+        // TODO: Add error message
+        return {};
+
+    internal::ThemeUnit* theme_unit = dynamic_cast<internal::ThemeUnit*>(unit);
+    return theme_unit->GetLoadedThemes();
+}
+
 bool InitUnitTheme(size_t dst_unit, size_t src_unit, const char* theme_id,
                    bool* result)
 {

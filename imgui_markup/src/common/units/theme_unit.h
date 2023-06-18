@@ -10,6 +10,8 @@
 
 #include "common/units/unit_base.h"
 
+#include <vector>
+
 namespace igm::internal
 {
 
@@ -20,7 +22,11 @@ struct ThemeUnit : public UnitBase
 {
     ThemeUnit(const size_t unit_id);
 
-    // TODO: Add function to list loaded themes
+    /**
+     * Returns a list with the IDs of the loaded themes.
+     * Themes without an ID are ignored.
+    */
+    std::vector<const char*> GetLoadedThemes() const noexcept;
 };
 
 }  // namespace igm::internal

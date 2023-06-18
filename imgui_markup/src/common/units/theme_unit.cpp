@@ -15,4 +15,15 @@ ThemeUnit::ThemeUnit(const size_t unit_id)
     : UnitBase(unit_id, UnitType::kTheme)
 { }
 
+std::vector<const char*> ThemeUnit::GetLoadedThemes() const noexcept
+{
+    std::vector<const char*> ids = std::vector<const char*>();
+    for (auto const& [key, val] : this->item_id_mapping_)
+    {
+        if (val->GetType() == ItemType::kTheme)
+            ids.push_back(key.c_str());
+    }
+    return ids;
+}
+
 }  // namespace igm::internal

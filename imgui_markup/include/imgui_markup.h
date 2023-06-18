@@ -11,6 +11,8 @@
 #include "imgui_markup/types.h"
 #include "imgui_markup/result.h"
 
+#include <vector>
+
 namespace igm
 {
 
@@ -45,8 +47,11 @@ void Update(size_t unit, size_t display_width, size_t display_height,
  */
 void Update(size_t unit, bool* result = nullptr);
 
+std::vector<const char*> GetLoadedThemes(size_t unit, bool* result = nullptr);
+
 bool InitUnitTheme(size_t dst_unit, size_t src_unit, const char* item,
                    bool* result = nullptr);
+
 
 /************ ITEM API ************/
 
