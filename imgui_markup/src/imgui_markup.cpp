@@ -5,7 +5,7 @@
  * @file imgui_markup.cpp
  * @author FluxxCode (info.fluxxcode@gmail.com)
  * @brief Implementation of imgui_markup.h
- * @copyright Copyright (c) 2023
+ * @copyright Copyright (c) 2022 - 2023
  */
 
 #include "common/unit_stack.h"

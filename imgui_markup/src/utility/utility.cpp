@@ -5,7 +5,7 @@
  * @file utility.cpp
  * @author FluxxCode (info.fluxxcode@gmail.com)
  * @brief Implementation of utility.h
- * @copyright Copyright (c) 2023
+ * @copyright Copyright (c) 2022 - 2023
  */
 
 #include <assert.h>  // assert

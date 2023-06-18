@@ -5,7 +5,7 @@
  * @file item_base.h
  * @author FluxxCode (info.fluxxcode@gmail.com)
  * @brief Contains ItemBase, parent of every item within the markup language.
- * @copyright Copyright (c) 2022
+ * @copyright Copyright (c) 2022 - 2023
  */
 
 #include "items/item_api.h"

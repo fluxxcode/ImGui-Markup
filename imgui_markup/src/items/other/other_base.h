@@ -5,7 +5,7 @@
  * @file other_base.h
  * @author FluxxCode (info.fluxxcode@gmail.com)
  * @brief Contains base for every item not assigned to a specific category.
- * @copyright Copyright (c) 2022
+ * @copyright Copyright (c) 2022 - 2023
  */
 
 #include "items/item_base.h"

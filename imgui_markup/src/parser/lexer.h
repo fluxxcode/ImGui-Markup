@@ -5,7 +5,7 @@
  * @file lexer.h
  * @author FluxxCode (info.fluxxcode@gmail.com)
  * @brief Contains the main lexer for the markup language.
- * @copyright Copyright (c) 2022
+ * @copyright Copyright (c) 2022 - 2023
  */
 
 #include <string>  // std::string

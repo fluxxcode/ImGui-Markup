@@ -5,7 +5,7 @@
  * @file item_factory.h
  * @author FluxxCode (info.fluxxcode@gmail.com)
  * @brief Contains class to create items from strings.
- * @copyright Copyright (c) 2022
+ * @copyright Copyright (c) 2022 - 2023
  */
 
 #include "items/item_base.h"

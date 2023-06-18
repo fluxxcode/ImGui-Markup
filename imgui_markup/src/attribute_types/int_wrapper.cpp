@@ -5,7 +5,7 @@
  * @file int_wrapper.cpp
  * @author FluxxCode (info.fluxxcode@gmail.com)
  * @brief Implementation of int_wrapper.h
- * @copyright Copyright (c) 2022
+ * @copyright Copyright (c) 2022 - 2023
  */
 #include "attribute_types/float_wrapper.h"
 #include "utility/utility.h"

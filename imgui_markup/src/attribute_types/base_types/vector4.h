@@ -6,7 +6,7 @@
  * @author FluxxCode (info.fluxxcode@gmail.com)
  * @brief Contains custom vector4 using internal attribute types.
  *        Used internally by the markup language.
- * @copyright Copyright (c) 2022
+ * @copyright Copyright (c) 2022 - 2023
  */
 
 #include "attribute_types/float_wrapper.h"

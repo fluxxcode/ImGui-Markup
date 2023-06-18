@@ -6,7 +6,7 @@
  * @author FluxxCode (info.fluxxcode@gmail.com)
  * @brief Base class of every item that deals with the GUI.
  *        Currently including widgets and views.
- * @copyright Copyright (c) 2022
+ * @copyright Copyright (c) 2022 - 2023
  */
 
 #include "items/item_base.h"

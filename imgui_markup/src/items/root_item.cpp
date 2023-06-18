@@ -5,7 +5,7 @@
  * @file root_item.cpp
  * @author FluxxCode (info.fluxxcode@gmail.com)
  * @brief Implementation of root_item.h
- * @copyright Copyright (c) 2022
+ * @copyright Copyright (c) 2022 - 2023
  */
 
 #include "imgui_internal.h"

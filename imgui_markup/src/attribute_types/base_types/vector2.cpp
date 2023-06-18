@@ -5,7 +5,7 @@
  * @file vector2.cpp
  * @author FluxxCode (info.fluxxcode@gmail.com)
  * @brief Implementation of vector2.h
- * @copyright Copyright (c) 2022
+ * @copyright Copyright (c) 2022 - 2023
  */
 
 namespace igm::internal::bt

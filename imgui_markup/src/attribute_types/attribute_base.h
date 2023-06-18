@@ -6,7 +6,7 @@
  * @author FluxxCode (info.fluxxcode@gmail.com)
  * @brief Contains base classes used internally by the markup languages
  *        attribute types.
- * @copyright Copyright (c) 2022
+ * @copyright Copyright (c) 2022 - 2023
  */
 
 #include <string>  // std::string

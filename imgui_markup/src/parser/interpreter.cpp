@@ -5,7 +5,7 @@
  * @file interpreter.cpp
  * @author FluxxCode (info.fluxxcode@gmail.com)
  * @brief Implementation of interpreter.h
- * @copyright Copyright (c) 2022
+ * @copyright Copyright (c) 2022 - 2023
  */
 
 #include "items/item_factory.h"

@@ -5,7 +5,7 @@
  * @file application.h
  * @author FluxxCode (info.fluxxcode@gmail.com)
  * @brief Contains main application class.
- * @copyright Copyright (c) 2022
+ * @copyright Copyright (c) 2022 - 2023
  */
 
 #include "main_state.h"

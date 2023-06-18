@@ -5,7 +5,7 @@
  * @file widget_base.h
  * @author FluxxCode (info.fluxxcode@gmail.com)
  * @brief Contains base for every widget item within the markup language.
- * @copyright Copyright (c) 2022
+ * @copyright Copyright (c) 2022 - 2023
  */
 
 #include "items/gui/gui_base.h"

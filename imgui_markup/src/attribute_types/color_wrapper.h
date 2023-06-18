@@ -6,7 +6,7 @@
  * @author FluxxCode (info.fluxxcode@gmail.com)
  * @brief Contains wrapper above the internal color.
  *        Used internally by the markup language.
- * @copyright Copyright (c) 2022
+ * @copyright Copyright (c) 2022 - 2023
  */
 
 #include "attribute_types/base_types/color.h"

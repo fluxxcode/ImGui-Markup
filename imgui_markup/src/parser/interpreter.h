@@ -5,7 +5,7 @@
  * @file interpreter.h
  * @author FluxxCode (info.fluxxcode@gmail.com)
  * @brief Contains the main interpreter for the markup language.
- * @copyright Copyright (c) 2022
+ * @copyright Copyright (c) 2022 - 2023
  */
 
 #include "common/unit_stack.h"

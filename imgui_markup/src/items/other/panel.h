@@ -5,7 +5,7 @@
  * @file panel.h
  * @author FluxxCode (info.fluxxcode@gmail.com)
  * @brief Contains item 'Panel'
- * @copyright Copyright (c) 2022
+ * @copyright Copyright (c) 2022 - 2023
  */
 
 #include "items/other/other_base.h"

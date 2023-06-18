@@ -5,7 +5,7 @@
  * @file checkbox_style.cpp
  * @author FluxxCode (info.fluxxcode@gmail.com)
  * @brief Implementation of checkbox_style.h
- * @copyright Copyright (c) 2023
+ * @copyright Copyright (c) 2022 - 2023
  */
 
 namespace igm::internal

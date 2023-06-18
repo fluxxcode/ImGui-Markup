@@ -5,7 +5,7 @@
  * @file main_state.h
  * @author FluxxCode (info.fluxxcode@gmail.com)
  * @brief Main state of the sandbox application.
- * @copyright Copyright (c) 2022
+ * @copyright Copyright (c) 2022 - 2023
  */
 
 // NOTE: The main state is currently only for testing purposes.

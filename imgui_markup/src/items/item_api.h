@@ -5,7 +5,7 @@
  * @file item_api.h
  * @author FluxxCode (info.fluxxcode@gmail.com)
  * @brief Contains the main item API class.
- * @copyright Copyright (c) 2022
+ * @copyright Copyright (c) 2022 - 2023
  */
 
 #include "attribute_types/base_types/vector2.h"

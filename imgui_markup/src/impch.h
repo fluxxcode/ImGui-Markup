@@ -5,7 +5,7 @@
  * @file impch.h
  * @author FluxxCode (info.fluxxcode@gmail.com)
  * @brief Precompiled header for the imgui_markup lib.
- * @copyright Copyright (c) 2022
+ * @copyright Copyright (c) 2022 - 2023
  */
 
 #include <iostream>
