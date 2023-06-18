@@ -16,6 +16,7 @@
 #include <string>  // std::string
 #include <memory>  // std::unique_ptr
 #include <map>     // std::map
+#include <vector>  // std::vector
 
 
 namespace igm::internal
