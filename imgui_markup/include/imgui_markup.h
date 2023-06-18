@@ -49,6 +49,9 @@ void Update(size_t unit, bool* result = nullptr);
 
 std::vector<const char*> GetLoadedThemes(size_t unit, bool* result = nullptr);
 
+std::string GetThemeName(size_t unit, const char* theme,
+                         bool* result = nullptr);
+
 bool InitUnitTheme(size_t dst_unit, size_t src_unit, const char* item,
                    bool* result = nullptr);
 

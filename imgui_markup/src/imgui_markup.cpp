@@ -5,7 +5,7 @@
  * @file imgui_markup.cpp
  * @author FluxxCode (info.fluxxcode@gmail.com)
  * @brief Implementation of imgui_markup.h
- * @copyright Copyright (c) 2022
+ * @copyright Copyright (c) 2023
  */
 
 #include "common/unit_stack.h"
@@ -103,6 +103,25 @@ std::vector<const char*> GetLoadedThemes(size_t unit_id, bool* result)
 
     internal::ThemeUnit* theme_unit = dynamic_cast<internal::ThemeUnit*>(unit);
     return theme_unit->GetLoadedThemes();
+}
+
+std::string GetThemeName(size_t unit_id, const char* t_name, bool* result)
+{
+    internal::UnitBase* unit = internal::UnitStack::GetUnit(unit_id, result);
+    if (!unit)
+        return "";
+
+    std::map<std::string, internal::ItemBase*> items = unit->GetItemMapping();
+    if (items.find(t_name) == items.end())
+        // TODO: Add error message; theme with given ID does not exist
+        return "";
+    internal::ItemBase* item = items[t_name];
+
+    if (item->GetType() != internal::ItemType::kTheme)
+        // TODO: Add error message
+        return "";
+
+    return dynamic_cast<internal::Theme*>(item)->GetName();
 }
 
 bool InitUnitTheme(size_t dst_unit, size_t src_unit, const char* theme_id,
