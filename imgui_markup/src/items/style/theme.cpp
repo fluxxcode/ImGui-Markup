@@ -19,18 +19,6 @@ Theme::Theme(std::string id, ItemBase* parent)
     this->InitAttribute("name", this->name_);
 }
 
-bool Theme::OnProcessStart(std::string& error_message) noexcept
-{
-    if (this->parent_)
-    {
-        error_message = "Item of type Theme can only be created in the "
-                        "global scope.";
-        return false;
-    }
-
-    return true;
-}
-
 bool Theme::OnProcessEnd(std::string& error_message) noexcept
 {
     for (const auto& child : this->child_items_)

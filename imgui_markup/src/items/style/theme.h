@@ -26,8 +26,6 @@ private:
     StringWrapper name_;
 
     // See item_base.h for more information
-    bool OnProcessStart(std::string& error_message) noexcept;
-    // See item_base.h for more information
     bool OnProcessEnd(std::string& error_message) noexcept;
 };
 

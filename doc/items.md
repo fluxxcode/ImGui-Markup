@@ -9,6 +9,7 @@
 - [LineView](#LineView)
 
 **Styles:**
+- [Theme](#Theme)
 - [TextStyle](#TextStyle)
 - [ButtonStyle](#ButtonStyle)
 - [CheckboxStyle](#CheckboxStyle)
@@ -17,7 +18,6 @@
 
 **Other:**
 - [Panel](#Panel)
-- [Theme](#Theme)
 - [Container](#Container)
 
 # Widgets
@@ -188,6 +188,75 @@ Panel
 
 
 # Styles
+## Theme
+### Description:
+The theme is used to create themes from various style items and then apply them to a specific unit.
+### Restrictions:
+- Can only be created in the global scope of an unit
+### Attributes:
+| Name | Type | Description | Default Value |
+| --- | --- | --- | --- |
+| name | String | The name of the theme. | "" |
+### Example:
+```
+// themes.igm:
+
+Theme : dark  // ID used to reference the theme from the backend
+{
+    name = "Dark theme"
+
+    TextStyle
+    {
+        color = (1.0, 0.0, 0.0, 1.0)
+    }
+
+    ButtonStyle
+    {
+        color = (1.0, 0.0, 0.0, 1.0)
+    }
+}
+
+Theme : light
+{
+    name = "Light theme"
+
+    /* ... */
+}
+```
+```
+// app.igm:
+
+LineView
+{
+    spacing = 3
+    padding = 5
+
+    Text { text = "Hello world" }
+    Button { text = "Hello world" }
+
+    Text
+    {
+        text = "Blue text"
+
+        // Overwrites the style from the theme
+        TextStyle
+        {
+            color = (0.0, 0.0, 1.0, 1.0)
+        }
+    }
+}
+```
+```cpp
+// main.cpp:
+const size_t app_ui = igm::ParseFromFile("app.igm");
+const size_t themes = igm::ParseFromFile("themes.igm");
+
+// Apply theme to the app_ui unit
+igm::InitUnitTheme(app_ui, themes, "dark");
+```
+![ExampleImage](img/items/theme.png)
+
+---
 ## TextStyle
 ### Description:
 Used to style the item `Text`. Can only be placed in an item of type `Text` or `Theme`.
@@ -450,75 +519,6 @@ Panel
 }
 ```
 ![ExampleImage](img/items/panel.png)
-
----
-## Theme
-### Description:
-The theme is used to create themes from various style items and then apply them to a specific unit.
-### Restrictions:
-- Can only be created in the global scope of an unit
-### Attributes:
-| Name | Type | Description | Default Value |
-| --- | --- | --- | --- |
-| name | String | The name of the theme. | "" |
-### Example:
-```
-// themes.igm:
-
-Theme : dark  // ID used to reference the theme from the backend
-{
-    name = "Dark theme"
-
-    TextStyle
-    {
-        color = (1.0, 0.0, 0.0, 1.0)
-    }
-
-    ButtonStyle
-    {
-        color = (1.0, 0.0, 0.0, 1.0)
-    }
-}
-
-Theme : light
-{
-    name = "Light theme"
-
-    /* ... */
-}
-```
-```
-// app.igm:
-
-LineView
-{
-    spacing = 3
-    padding = 5
-
-    Text { text = "Hello world" }
-    Button { text = "Hello world" }
-
-    Text
-    {
-        text = "Blue text"
-
-        // Overwrites the style from the theme
-        TextStyle
-        {
-            color = (0.0, 0.0, 1.0, 1.0)
-        }
-    }
-}
-```
-```cpp
-// main.cpp:
-const size_t app_ui = igm::ParseFromFile("app.igm");
-const size_t themes = igm::ParseFromFile("themes.igm");
-
-// Apply theme to the app_ui unit
-igm::InitUnitTheme(app_ui, themes, "dark");
-```
-![ExampleImage](img/items/theme.png)
 
 ---
 ## Container
