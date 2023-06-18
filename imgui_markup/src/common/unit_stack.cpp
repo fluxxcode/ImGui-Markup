@@ -21,14 +21,14 @@ void UnitStack::DeleteUnit(size_t unit, bool* result)
     return UnitStack::Get().IMPL_DeleteUnit(unit, result);
 }
 
-void UnitStack::SetLastResult(size_t unit, Result result)
+void UnitStack::SetLastResult(Result result)
 {
-    return UnitStack::Get().IMPL_SetLastResult(unit, result);
+    return UnitStack::Get().IMPL_SetLastResult(result);
 }
 
-Result UnitStack::GetLastResult(size_t unit, bool* result)
+Result UnitStack::GetLastResult()
 {
-    return UnitStack::Get().IMPL_GetLastResult(unit, result);
+    return UnitStack::Get().IMPL_GetLastResult();
 }
 
 UnitBase* UnitStack::GetUnit(size_t unit, bool* result)
@@ -72,52 +72,34 @@ UnitBase& UnitStack::IMPL_CreateEmptyUnit(UnitType type)
 
 void UnitStack::IMPL_DeleteUnit(size_t unit, bool* result)
 {
-    if (result)
-        *result = false;
-
     if (this->unit_stack_.find(unit) == this->unit_stack_.end())
         return;
 
-    if (result)
-        *result = true;
+    Success(result);
 
     this->unit_stack_.erase(unit);
-    this->last_results_.erase(unit);
 }
 
-void UnitStack::IMPL_SetLastResult(size_t unit, Result result)
+void UnitStack::IMPL_SetLastResult(Result result)
 {
-    this->last_results_[unit] = result;
+    this->last_result_ = result;
 }
 
-Result UnitStack::IMPL_GetLastResult(size_t unit, bool* result)
+Result UnitStack::IMPL_GetLastResult()
 {
-    if (result)
-        *result = false;
-
-    if (this->last_results_.find(unit) == this->last_results_.end())
-        return Result();
-
-    if (result)
-        *result = true;
-
-    return this->last_results_.at(unit);
+    return this->last_result_;
 }
 
 UnitBase* UnitStack::IMPL_GetUnit(size_t unit, bool* result)
 {
-    if (result)
-        *result = false;
 
     if (this->unit_stack_.find(unit) == this->unit_stack_.end())
     {
-        this->last_results_[unit] = Result(ResultType::kInvalidUnitID,
-                                           "InvalidUnitID");
+        Error(igm::ResultType::kInvalidUnitID, result);
         return nullptr;
     }
 
-    if (result)
-        *result = true;
+    Success(result);
 
     return this->unit_stack_.at(unit).get();
 }
@@ -131,13 +113,11 @@ ItemAPI* UnitStack::IMPL_GetItemAPI(size_t unit_id, const char* item_id,
 
     if (unit->GetItemMapping().find(item_id) == unit->GetItemMapping().end())
     {
-        this->last_results_[unit_id] = Result(ResultType::kInvalidItemID,
-                                              "InvalidItemID");
+        Error(igm::ResultType::kInvalidItemID, result);
         return nullptr;
     }
 
-    if (result)
-        *result = true;
+    Success(result);
 
     return dynamic_cast<ItemAPI*>(unit->GetItemMapping().at(item_id));
 }

@@ -31,7 +31,7 @@ void DeleteUnit(size_t unit, bool* result = nullptr);
 /**
  * Get the last result of a specific unit.
  */
-Result GetLastResult(size_t unit, bool* result = nullptr);
+Result GetLastResult();
 
 /**
  * Main function to update a specific unit and its childs.

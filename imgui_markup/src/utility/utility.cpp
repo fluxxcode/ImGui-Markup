@@ -5,7 +5,7 @@
  * @file utility.cpp
  * @author FluxxCode (info.fluxxcode@gmail.com)
  * @brief Implementation of utility.h
- * @copyright Copyright (c) 2022
+ * @copyright Copyright (c) 2023
  */
 
 #include <assert.h>  // assert
@@ -76,6 +76,21 @@ ImGuiMouseButton ConvertMouseButton(igm::MouseButton btn) noexcept
 
     assert("INTERNAL_ERROR: Undefined MouseButton");
     return ImGuiMouseButton_Left;
+}
+
+const char* ResultTypeToString(igm::ResultType type) noexcept
+{
+    switch (type)
+    {
+    case ResultType::kSuccess: return "Success";
+    case ResultType::kParserError: return "ParserError";
+    case ResultType::kInvalidUnitID: return "InvalidUnitID";
+    case ResultType::kInvalidUnitType: return "InvalidUnitType";
+    case ResultType::kInvalidItemID: return "InvalidItemID";
+    case ResultType::kInvalidItemType: return "InvalidItemType";
+    }
+    assert("Invalid result type");
+    return "";
 }
 
 }  // namespace igm::internal::utils

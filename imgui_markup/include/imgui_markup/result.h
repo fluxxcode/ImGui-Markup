@@ -13,12 +13,14 @@
 namespace igm
 {
 
-enum class ResultType
+enum class ResultType : unsigned char
 {
     kSuccess,
     kParserError,
     kInvalidUnitID,
-    kInvalidItemID
+    kInvalidUnitType,
+    kInvalidItemID,
+    kInvalidItemType
 };
 
 struct Result

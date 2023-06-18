@@ -15,6 +15,7 @@
 #include "items/item_api.h"
 #include "items/root_item.h"
 #include "imgui_markup/result.h"
+#include "utility/utility.h"
 
 #include <map>  // std::map
 #include <vector>  // std::vector
@@ -31,17 +32,34 @@ public:
     static UnitBase& CreateEmptyUnit(UnitType type);
     static void DeleteUnit(size_t unit, bool* result = nullptr);
 
-    static void SetLastResult(size_t unit, Result result);
-    static Result GetLastResult(size_t unit, bool* result = nullptr);
+    static void SetLastResult(Result result);
+    static Result GetLastResult();
 
     static UnitBase* GetUnit(size_t unit, bool* result);
     static ItemAPI* GetItemAPI(size_t unit, const char* item_id,
                                bool* result = nullptr);
 
+    // Helper functions
+    inline static void Error(igm::ResultType type, bool* result)
+    {
+        UnitStack::SetLastResult(
+            Result(type, internal::utils::ResultTypeToString(type)));
+        if (result)
+            *result = false;
+    }
+
+    inline static void Success(bool* result)
+    {
+        UnitStack::SetLastResult(Result(igm::ResultType::kSuccess,
+            internal::utils::ResultTypeToString(igm::ResultType::kSuccess)));
+        if (result)
+            *result = true;
+    }
+
 private:
     // Main buffer holding every loaded unit
     std::map<size_t, std::unique_ptr<UnitBase>> unit_stack_;
-    std::map<size_t, Result> last_results_;
+    Result last_result_ = Result();
 
     size_t unit_count_ = 0;
 
@@ -51,8 +69,8 @@ private:
     UnitBase& IMPL_CreateEmptyUnit(UnitType type);
     void IMPL_DeleteUnit(size_t unit, bool* result);
 
-    void IMPL_SetLastResult(size_t unit, Result result);
-    Result IMPL_GetLastResult(size_t unit, bool* result);
+    void IMPL_SetLastResult(Result result);
+    Result IMPL_GetLastResult();
 
     UnitBase* IMPL_GetUnit(size_t unit, bool* result);
     ItemAPI* IMPL_GetItemAPI(size_t unit, const char* item_id, bool* result);
