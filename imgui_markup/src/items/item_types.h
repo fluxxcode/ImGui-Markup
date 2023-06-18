@@ -5,7 +5,7 @@
  * @file item_types.h
  * @author FluxxCode (info.fluxxcode@gmail.com)
  * @brief Contains enums for every item category and item type.
- * @copyright Copyright (c) 2022
+ * @copyright Copyright (c) 2023
  */
 
 namespace igm::internal
@@ -15,6 +15,7 @@ enum class ItemCategory : unsigned char
 {
     kWidget,
     kView,
+    kStyle,
     kOther
 };
 
@@ -27,6 +28,13 @@ enum class ItemType : unsigned char
 
     // Views
     kLineView,
+
+    // Style
+    kTheme,
+    kTextStyle,
+    kButtonStyle,
+    kCheckboxStyle,
+    kPanelStyle,
 
     // Other
     kPanel,

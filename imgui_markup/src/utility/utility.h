@@ -5,10 +5,11 @@
  * @file vector2_wrapper.h
  * @author FluxxCode (info.fluxxcode@gmail.com)
  * @brief Contains utility functions used internally.
- * @copyright Copyright (c) 2022
+ * @copyright Copyright (c) 2023
  */
 
 #include "imgui_markup/types.h"
+#include "imgui_markup/result.h"
 
 #include "imgui.h"  // ImGuiMouseButton
 
@@ -25,6 +26,8 @@ bool StringToBool(const std::string& in, bool& out) noexcept;
 std::vector<std::string> SplitString(std::string str, const char c) noexcept;
 
 ImGuiMouseButton ConvertMouseButton(igm::MouseButton btn) noexcept;
+
+const char* ResultTypeToString(ResultType type) noexcept;
 
 }  // namespace igm::internal::utils
 

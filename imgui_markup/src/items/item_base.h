@@ -10,14 +10,20 @@
 
 #include "items/item_api.h"
 #include "items/item_types.h"
+#include "items/item_access_manager.h"
 #include "attribute_types/attribute_types.h"
 
 #include <string>  // std::string
 #include <memory>  // std::unique_ptr
 #include <map>     // std::map
+#include <vector>  // std::vector
+
 
 namespace igm::internal
 {
+
+class StyleBase;
+class Theme;
 
 /**
  * Parent of every item within the markup language.
@@ -27,13 +33,25 @@ namespace igm::internal
 class ItemBase : public ItemAPI
 {
 public:
+    /**
+     * @param type - Type of the item
+     * @param category - Category the item belongs to
+     * @param units - Array of units in which the item can be placed.
+     *                The item can be placed in every unit if the array
+     *                is empty.
+     * @param id - Access ID of the item.
+     * @param parent - Pointer to the parent item. Can be nullptr
+     *                 if the item is at the root of the item tree.
+     */
     ItemBase(ItemType type, ItemCategory category, std::string id,
              ItemBase* parent = nullptr);
-
+    virtual ~ItemBase();
     ItemBase(const ItemBase&) = delete;
 
     /**
      * Main update function of the item.
+     * This is only a wrapper for the ItemUpdate function,
+     * used to push and pop style items.
      *
      * @param position - The ImGui position of the item, relative to the
      *                   next parent window.
@@ -41,8 +59,15 @@ public:
      * @param dynamic_w - Sets whether the available width can be ignored.
      * @param dynamic_h - Sets whether the available height can be ignored.
      */
-    virtual void Update(bt::Vector2 position, bt::Vector2 available_size,
-                        bool dynamic_w, bool dynamic_h) noexcept { };
+    void Update(bt::Vector2 position, bt::Vector2 available_size,
+                bool dynamic_w, bool dynamic_h) noexcept;
+
+    /**
+     * Default implementation of API_Update.
+     * Currently only calls the Update function with both
+     * dynamic_w and dynamic_h disabled.
+     */
+    virtual void API_Update(bt::Vector2 position, bt::Vector2 size) noexcept;
 
     ItemBase* CreateChildItem(std::string type, std::string access_id) noexcept;
 
@@ -79,6 +104,20 @@ public:
         return true;
     }
 
+    void InitStyle(StyleBase& style) noexcept;
+    void ApplyTheme(Theme& theme) noexcept;
+
+    /**
+     * Attaches a new AccessManager, so it called when the item is deleted.
+    */
+    void TrackItemAccessManager(ItemAccessManager& item) noexcept;
+
+    /**
+     * Detaches an AccessManager, so it is no longer called when
+     * the item is deleted.
+    */
+    void LoseItemAccessManager(ItemAccessManager& item) noexcept;
+
     inline std::string GetAccessID() const noexcept
         { return this->access_id_; }
 
@@ -114,7 +153,14 @@ public:
         { return true; }
 
 protected:
+    /**
+     * Type of the item.
+     */
     const ItemType type_;
+
+    /**
+     * Category the item belongs to.
+     */
     const ItemCategory category_;
 
     /**
@@ -135,7 +181,7 @@ protected:
      */
     ItemBase* parent_;
 
-    std::vector<std::unique_ptr<ItemBase>> child_items_;
+    std::vector<ItemBase*> child_items_;
 
     /**
      * Function used by the inheriting item.
@@ -153,6 +199,20 @@ private:
     std::map<std::string, AttributeInterface*> attribute_list_;
 
     std::vector<std::unique_ptr<AttributeInterface>> dynamic_attributes_;
+
+    std::vector<ItemAccessManager*> tracked_access_manager_;
+
+    std::vector<ItemAccessManager> item_styles_;
+    std::vector<ItemAccessManager> theme_styles_;
+
+    void PushStyles(std::vector<ItemAccessManager>& styles);
+    void PopStyles(std::vector<ItemAccessManager>& styles);
+
+    /**
+     * Update function which should be implemented by the inheriting item.
+     */
+    virtual void ItemUpdate(bt::Vector2 position, bt::Vector2 available_size,
+                            bool dynamic_w, bool dynamic_h) noexcept {};
 
     inline bool IsAttributeDefined(const std::string& name) const noexcept
     {

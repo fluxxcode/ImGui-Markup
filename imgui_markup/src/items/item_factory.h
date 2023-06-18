@@ -18,14 +18,22 @@
 // Views
 #include "items/gui/views/line_view.h"
 
+// Styles
+#include "items/style/theme.h"
+#include "items/style/text_style.h"
+#include "items/style/button_style.h"
+#include "items/style/checkbox_style.h"
+#include "items/style/panel_style.h"
+
 // Other
 #include "items/other/panel.h"
 #include "items/other/container.h"
 #include "items/other/internal_test.h"
 
-#include <string>  // std::string
-#include <memory>  // std::unique_ptr
-#include <map>     // std::map
+#include <string>     // std::string
+#include <memory>     // std::unique_ptr
+#include <map>        // std::map
+#include <functional> // std::function
 
 namespace igm::internal
 {
@@ -40,12 +48,12 @@ public:
     ItemFactory(const ItemFactory&) = delete;
     void operator=(ItemFactory const&) = delete;
 
-    static std::unique_ptr<ItemBase> CreateItem(
+    static ItemBase* CreateItem(
         std::string type, std::string access_id, ItemBase* parent
     ) noexcept;
 
 private:
-    const std::map<std::string, std::function<std::unique_ptr<ItemBase>(
+    const std::map<std::string, std::function<ItemBase*(
         std::string, ItemBase*)>> item_mapping_ = {
             // Widgets
             { "Button", CreateItemInstance<Button> },
@@ -54,6 +62,13 @@ private:
 
             // Views
             { "LineView", CreateItemInstance<LineView> },
+
+            // Styles
+            { "Theme", CreateItemInstance<Theme> },
+            { "TextStyle", CreateItemInstance<TextStyle> },
+            { "ButtonStyle", CreateItemInstance<ButtonStyle> },
+            { "CheckboxStyle", CreateItemInstance<CheckboxStyle> },
+            { "PanelStyle", CreateItemInstance<PanelStyle> },
 
             // Other
             { "Panel", CreateItemInstance<Panel> },
@@ -65,15 +80,15 @@ private:
 
     static ItemFactory& Get() noexcept;
 
-    std::unique_ptr<ItemBase> IMPL_CreateItem(
+    ItemBase* IMPL_CreateItem(
         std::string type, std::string access_id, ItemBase* parent
     ) const noexcept;
 
     template<typename T>
-    static std::unique_ptr<T> CreateItemInstance(
+    static T* CreateItemInstance(
         std::string access_id, ItemBase* parent) noexcept
     {
-        return std::make_unique<T>(access_id, parent);
+        return new T(access_id, parent);
     }
 };
 

@@ -21,7 +21,7 @@ void Vector4Wrapper::Init() noexcept
 
 bool Vector4Wrapper::LoadValue(const Vector4Wrapper& val) noexcept
 {
-    this->SetValue(val.GetValue());
+    this->SetValue(val.Value());
     return true;
 }
 

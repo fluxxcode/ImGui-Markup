@@ -11,7 +11,7 @@
 namespace igm::internal
 {
 
-std::unique_ptr<ItemBase> ItemFactory::CreateItem(
+ItemBase* ItemFactory::CreateItem(
     std::string type, std::string id, ItemBase* parent) noexcept
 {
     return ItemFactory::Get().IMPL_CreateItem(type, id, parent);
@@ -23,7 +23,7 @@ ItemFactory& ItemFactory::Get() noexcept
     return instance;
 }
 
-std::unique_ptr<ItemBase> ItemFactory::IMPL_CreateItem(
+ItemBase* ItemFactory::IMPL_CreateItem(
     std::string type, std::string id, ItemBase* parent) const noexcept
 {
     if (this->item_mapping_.find(type) == this->item_mapping_.end())

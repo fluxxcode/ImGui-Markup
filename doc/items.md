@@ -8,11 +8,19 @@
 **Views:**
 - [LineView](#LineView)
 
+**Styles:**
+- [Theme](#Theme)
+- [TextStyle](#TextStyle)
+- [ButtonStyle](#ButtonStyle)
+- [CheckboxStyle](#CheckboxStyle)
+- [PanelStyle](#PanelStyle)
+
+
 **Other:**
 - [Panel](#Panel)
 - [Container](#Container)
 
----
+# Widgets
 ## Text
 ### Description:
 The text is equal to ```ImGui::Text()``` and is used to display basic information.
@@ -126,7 +134,8 @@ if (gui::IsCheckboxChecked(file, "checkbox_1"))
 ```
 ![ExampleImage](img/items/checkbox.png)
 
----
+
+# Views
 ## LineView
 ### Description:
 The LineView is there to implement the basic alignment of ImGui. Child items are stacked either on the horizontal axis or on the vertical axis. All child items in the LineView have a fully dynamic size; The LineView does not specify a size, even if it has itself received a fixed size from the parent item.
@@ -177,7 +186,277 @@ Panel
 ```
 ![ExampleImage](img/items/line_view.png)
 
+
+# Styles
+## Theme
+### Description:
+The theme is used to create themes from various style items and then apply them to a specific unit.
+### Restrictions:
+- Can only be created in the global scope of an unit
+### Attributes:
+| Name | Type | Description | Default Value |
+| --- | --- | --- | --- |
+| name | String | The name of the theme. | "" |
+### Example:
+```
+// themes.igm:
+
+Theme : dark  // ID used to reference the theme from the backend
+{
+    name = "Dark theme"
+
+    TextStyle
+    {
+        color = (1.0, 0.0, 0.0, 1.0)
+    }
+
+    ButtonStyle
+    {
+        color = (1.0, 0.0, 0.0, 1.0)
+    }
+}
+
+Theme : light
+{
+    name = "Light theme"
+
+    /* ... */
+}
+```
+```
+// app.igm:
+
+LineView
+{
+    spacing = 3
+    padding = 5
+
+    Text { text = "Hello world" }
+    Button { text = "Hello world" }
+
+    Text
+    {
+        text = "Blue text"
+
+        // Overwrites the style from the theme
+        TextStyle
+        {
+            color = (0.0, 0.0, 1.0, 1.0)
+        }
+    }
+}
+```
+```cpp
+// main.cpp:
+const size_t app_ui = igm::ParseFromFile("app.igm");
+const size_t themes = igm::ParseFromFile("themes.igm");
+
+// Apply theme to the app_ui unit
+igm::InitUnitTheme(app_ui, themes, "dark");
+```
+![ExampleImage](img/items/theme.png)
+
 ---
+## TextStyle
+### Description:
+Used to style the item `Text`. Can only be placed in an item of type `Text` or `Theme`.
+### Restrictions:
+- Can only be created in an item of type `Text` or `Theme`
+- Cannot be created in the global scope of a unit
+### Attributes:
+| Name | Type | Description | Default Value |
+| --- | --- | --- | --- |
+| color | Color | The default color of the text. | The global text color is used. |
+| color_hovered | Color | The color of the text when it is hovered. | The global text color is used. |
+| color_active | Color | The color of the text when it is pressed. | The global text color is used. |
+### Example:
+```
+// example.igm
+
+LineView
+{
+    padding = 5
+    spacing = 2
+
+    Text
+    {
+        text = "Hello world red"
+
+        TextStyle
+        {
+            color = (1.0, 0.0, 0.0, 1.0)
+        }
+    }
+
+    Text
+    {
+        text = "Hello world green"
+
+        TextStyle
+        {
+            color = (0.0, 1.0, 0.0, 1.0)
+        }
+    }
+}
+```
+![ExampleImage](img/items/text_style.png)
+
+---
+## ButtonStyle
+### Description:
+Used to style the item `Button`. Can only be placed in an item of type `Button` or `Theme`.
+### Restrictions:
+- Can only be created in an item of type `Button` or `Theme`
+- Cannot be created in the global scope of a unit
+### Attributes:
+| Name | Type | Description | Default Value |
+| --- | --- | --- | --- |
+| color | Color | The default color of the button. | The global button color is used. |
+| color_hovered | Color | The color of the button when it is hovered. | The global button color is used. |
+| color_active | Color | The color of the button when it is pressed. | The global button color is used. |
+| text_color | Color | The default color of the text inside the button. | The global text color is used. |
+| text_color_hovered | Color | The color of the text inside the button when it is hovered. | The global text color is used. |
+| text_color_active | Color | The color of the text inside the button when it is pressed. | The global text color is used. |
+### Example:
+```
+// example.igm
+
+LineView
+{
+    padding = 5
+    spacing = 2
+
+    Button
+    {
+        text = "Button red"
+
+        ButtonStyle
+        {
+            color = (1.0, 0.0, 0.0, 1.0)
+            text_color = (0.0, 1.0, 0.0, 1.0)
+        }
+    }
+
+    Button
+    {
+        text = "Button green"
+
+        ButtonStyle
+        {
+            color = (0.0, 1.0, 0.0, 1.0)
+            text_color = (1.0, 0.0, 0.0, 1.0)
+        }
+    }
+}
+```
+![ExampleImage](img/items/button_style.png)
+
+---
+## CheckboxStyle
+### Description:
+Used to style the item `Checkbox`. Can only be placed in an item of type `Checkbox` or `Theme`.
+### Restrictions:
+- Can only be created in an item of type `Checkbox` or `Theme`
+- Cannot be created in the global scope of a unit
+### Attributes:
+| Name | Type | Description | Default Value |
+| --- | --- | --- | --- |
+| text_color | Color | The default color of the text of the checkbox. | The global text color is used. |
+| text_color_hovered | Color | The color of the text of the checkbox when it is hovered. | The global text color is used. |
+| text_color_active | Color | The color of the text of the checkbox when it is pressed. | The global text color is used. |
+### Example:
+```
+// example.igm
+
+LineView
+{
+    padding = 5
+    spacing = 2
+
+    Checkbox
+    {
+        text = "Checkbox red"
+
+        CheckboxStyle
+        {
+            text_color = (1.0, 0.0, 0.0, 1.0)
+        }
+    }
+
+    Checkbox
+    {
+        text = "Checkbox green"
+
+        CheckboxStyle
+        {
+            text_color = (0.0, 1.0, 0.0, 1.0)
+        }
+    }
+}
+```
+![ExampleImage](img/items/checkbox_style.png)
+
+---
+## PanelStyle
+### Description:
+Used to style the item `Panel`. Can only be placed in an item of type `Panel` or `Theme`.
+### Restrictions:
+- Can only be created in an item of type `Panel` or `Theme`
+- Cannot be created in the global scope of a unit
+### Attributes:
+| Name | Type | Description | Default Value |
+| --- | --- | --- | --- |
+| color | Color | The default background color of the panel. | The global panel color is used. |
+| color_hovered | Color | The default background color of the panel when it is hovered. | The global panel color is used. |
+| color_active | Color | The default background color of the panel when it is pressed. | The global panel color is used. |
+### Example:
+```
+// example.igm
+
+Panel
+{
+    title = "Panel blue"
+    position = (5, 5)
+    size = (120, 40)
+
+    LineView
+    {
+        spacing = 3
+        padding = 5
+
+        Text { text = "Hello world" }
+    }
+
+    PanelStyle
+    {
+        color = (0.0, 0.0, 1.0, 1.0)
+    }
+}
+
+Panel
+{
+    title = "Panel green"
+    position = (5, 60)
+    size = (120, 40)
+
+    LineView
+    {
+        spacing = 3
+        padding = 5
+
+        Text { text = "Hello world" }
+    }
+
+    PanelStyle
+    {
+        color = (0.0, 1.0, 0.0, 1.0)
+    }
+}
+```
+![ExampleImage](img/items/panel_style.png)
+
+
+# Other
 ## Panel
 ### Description:
 For the markup language, the purpose of panels are to have small panels that are rendered above the app GUI that can be moved and resized by the user.

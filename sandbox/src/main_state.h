@@ -19,6 +19,7 @@ public:
 
 private:
     size_t test_unit;
+    size_t theme_unit;
 
     void CheckIsPressed(std::string item_id);
     void CheckIsHovered(std::string item_id);
