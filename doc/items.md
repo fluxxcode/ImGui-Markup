@@ -455,6 +455,8 @@ Panel
 ## Theme
 ### Description:
 The theme is used to create themes from various style items and then apply them to a specific unit.
+### Restrictions:
+- Can only be created in the global scope of an unit
 ### Attributes:
 | Name | Type | Description | Default Value |
 | --- | --- | --- | --- |
