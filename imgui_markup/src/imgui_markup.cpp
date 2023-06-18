@@ -83,7 +83,8 @@ std::vector<const char*> GetLoadedThemes(size_t unit_id, bool* result)
         return {};
 
     internal::UnitStack::Success(result);
-    return dynamic_cast<internal::Unit*>(unit)->GetLoadedThemes();
+    return dynamic_cast<internal::Unit*>(unit)->GetItemsOfType(
+        internal::ItemType::kTheme);
 }
 
 std::string GetThemeName(size_t unit_id, const char* t_name, bool* result)

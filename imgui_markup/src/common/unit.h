@@ -36,10 +36,10 @@ public:
     void ApplyTheme(Theme& theme) noexcept;
 
     /**
-     * Returns a list with the IDs of the loaded themes.
-     * Themes without an ID are ignored.
+     * Returns a list of all items IDs that match the given type.
+     * Items without an ID are ignored.
     */
-    std::vector<const char*> GetLoadedThemes() const noexcept;
+    std::vector<const char*> GetItemsOfType(ItemType type) const noexcept;
 
     /**
      * Returns the unit's ID.

@@ -48,12 +48,12 @@ void Unit::ApplyTheme(Theme& theme) noexcept
         item->ApplyTheme(theme);
 }
 
-std::vector<const char*> Unit::GetLoadedThemes() const noexcept
+std::vector<const char*> Unit::GetItemsOfType(ItemType type) const noexcept
 {
     std::vector<const char*> ids = std::vector<const char*>();
     for (auto const& [key, val] : this->item_id_mapping_)
     {
-        if (val->GetType() == ItemType::kTheme)
+        if (val->GetType() == type)
             ids.push_back(key.c_str());
     }
     return ids;
