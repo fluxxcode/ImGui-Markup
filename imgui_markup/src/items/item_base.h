@@ -106,7 +106,15 @@ public:
     void InitStyle(StyleBase& style) noexcept;
     void ApplyTheme(Theme& theme) noexcept;
 
+    /**
+     * Attaches a new AccessManager, so it called when the item is deleted.
+    */
     void TrackItemAccessManager(ItemAccessManager& item) noexcept;
+
+    /**
+     * Detaches an AccessManager, so it is no longer called when
+     * the item is deleted.
+    */
     void LoseItemAccessManager(ItemAccessManager& item) noexcept;
 
     inline std::string GetAccessID() const noexcept
