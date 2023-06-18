@@ -1,36 +1,38 @@
 
 Theme : light
 {
+    // Style from: https://github.com/ocornut/imgui/pull/511#issuecomment-175719267
+
     name = "Light"
 
     TextStyle
     {
-        color = colors.green
-        color_hovered = colors.blue
-        color_active = colors.red
+        color = (0, 0, 0, 1)
+        color_hovered = (0, 0, 0, 1)
+        color_active = (0, 0, 0, 1)
     }
 
     ButtonStyle
     {
-        color = colors.green
-        color_hovered = colors.blue
-        color_active = colors.red
-        text_color = colors.blue
-        text_color_hovered = colors.red
-        text_color_active = colors.green
+        color = (0.26, 0.59, 0.98, 0.40)
+        color_hovered = (0.26, 0.59, 0.98, 1.00)
+        color_active = (0.06, 0.53, 0.98, 1.00)
+        text_color = (0, 0, 0, 1)
+        text_color_hovered = (0, 0, 0, 1)
+        text_color_active = (0, 0, 0, 1)
     }
 
     CheckboxStyle
     {
-        text_color = colors.blue
-        text_color_hovered = colors.red
-        text_color_active = colors.green
+        text_color = (0, 0, 0, 1)
+        text_color_hovered = (0, 0, 0, 1)
+        text_color_active = (0, 0, 0, 1)
     }
 
     PanelStyle
     {
-        color = colors.blue
-        color_hovered = colors.green
-        color_active = colors.red
+        color = (0.94, 0.94, 0.94, 1.00)
+        color_hovered = (0.94, 0.94, 0.94, 1.00)
+        color_active = (0.94, 0.94, 0.94, 1.00)
     }
 }
