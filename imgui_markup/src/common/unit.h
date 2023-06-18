@@ -2,10 +2,10 @@
 #define IMGUI_MARKUP_SRC_COMMON_UNITS_UNIT_BASE_H_
 
 /**
- * @file unit_base.h
+ * @file unit.h
  * @author FluxxCode (info.fluxxcode@gmail.com)
  * @brief Contains base class for every unit type.
- * @copyright Copyright (c) 2022
+ * @copyright Copyright (c) 2023
  */
 
 #include "items/item_base.h"

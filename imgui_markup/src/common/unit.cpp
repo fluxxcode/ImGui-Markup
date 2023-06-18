@@ -2,10 +2,10 @@
 #include "common/unit.h"
 
 /**
- * @file unit_base.cpp
+ * @file unit.cpp
  * @author FluxxCode (info.fluxxcode@gmail.com)
- * @brief Implementation of unit_base.h
- * @copyright Copyright (c) 2022
+ * @brief Implementation of unit.h
+ * @copyright Copyright (c) 2023
  */
 
 namespace igm::internal
