@@ -16,7 +16,7 @@
 namespace igm::internal
 {
 
-Interpreter::Interpreter(UnitBase& unit)
+Interpreter::Interpreter(Unit& unit)
     : unit_(unit)
 { }
 
@@ -52,18 +52,6 @@ void Interpreter::CreateItem(const Lexer::Token& type, const Lexer::Token& id)
 
     if (new_item == nullptr)
         throw UndefinedItemType(type);
-
-    // Check if the item can be placed within the current unit
-    const std::vector<UnitType> unit_types = new_item->GetUnitTypes();
-    if (unit_types.size())
-    {
-        if (std::find(unit_types.begin(), unit_types.end(),
-                      this->unit_.GetType()) ==
-            unit_types.end())
-        {
-            throw UnexpectedUnitType(type, this->unit_.GetType());
-        }
-    }
 
     this->item_stack_.push_back(new_item);
 

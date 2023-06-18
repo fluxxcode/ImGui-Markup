@@ -17,9 +17,8 @@ namespace igm::internal
 
 struct OtherBase : public ItemBase
 {
-    OtherBase(ItemType type, std::string id, ItemBase* parent,
-              std::vector<UnitType> unit_types = {})
-        : ItemBase(type, ItemCategory::kOther, unit_types, id, parent)
+    OtherBase(ItemType type, std::string id, ItemBase* parent)
+        : ItemBase(type, ItemCategory::kOther, id, parent)
     { }
 
     OtherBase(const OtherBase&) = delete;

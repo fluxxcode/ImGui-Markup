@@ -85,7 +85,6 @@ const char* ResultTypeToString(igm::ResultType type) noexcept
     case ResultType::kSuccess: return "Success";
     case ResultType::kParserError: return "ParserError";
     case ResultType::kInvalidUnitID: return "InvalidUnitID";
-    case ResultType::kInvalidUnitType: return "InvalidUnitType";
     case ResultType::kInvalidItemID: return "InvalidItemID";
     case ResultType::kInvalidItemType: return "InvalidItemType";
     }

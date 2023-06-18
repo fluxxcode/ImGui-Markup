@@ -1,18 +1,18 @@
 #include "impch.h"
-#include "common/units/gui_unit.h"
+#include "common/unit.h"
 
 /**
- * @file gui_unit.cpp
+ * @file unit_base.cpp
  * @author FluxxCode (info.fluxxcode@gmail.com)
- * @brief Implementation of gui_unit.h
+ * @brief Implementation of unit_base.h
  * @copyright Copyright (c) 2022
  */
 
 namespace igm::internal
 {
 
-GUIUnit::GUIUnit(const size_t unit_id)
-    : UnitBase(unit_id, UnitType::kGUI)
+Unit::Unit(const size_t unit_id)
+    : unit_id_(unit_id)
 {
     const void* address = static_cast<const void*>(this);
     std::stringstream ss;
@@ -20,7 +20,7 @@ GUIUnit::GUIUnit(const size_t unit_id)
     this->root_panel_title_ = ss.str();
 }
 
-void GUIUnit::Update(size_t display_width, size_t display_height) noexcept
+void Unit::Update(size_t display_width, size_t display_height) noexcept
 {
     ImGui::SetNextWindowPos(internal::bt::Vector2(0, 0));
     ImGui::SetNextWindowSize(internal::bt::Vector2(display_width,
@@ -42,10 +42,27 @@ void GUIUnit::Update(size_t display_width, size_t display_height) noexcept
     ImGui::End();
 }
 
-void GUIUnit::ApplyTheme(Theme& theme) noexcept
+void Unit::ApplyTheme(Theme& theme) noexcept
 {
     for (auto& item : this->item_tree_)
         item->ApplyTheme(theme);
+}
+
+std::vector<const char*> Unit::GetLoadedThemes() const noexcept
+{
+    std::vector<const char*> ids = std::vector<const char*>();
+    for (auto const& [key, val] : this->item_id_mapping_)
+    {
+        if (val->GetType() == ItemType::kTheme)
+            ids.push_back(key.c_str());
+    }
+    return ids;
+}
+
+void Unit::Clear() noexcept
+{
+    this->item_tree_.clear();
+    this->item_id_mapping_.clear();
 }
 
 }  // namespace igm::internal

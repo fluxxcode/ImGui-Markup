@@ -15,7 +15,7 @@ namespace igm::internal
 
 GUIBase::GUIBase(ItemType type, ItemCategory category, std::string id,
                  ItemBase* parent, bool clipping_area)
-    : ItemBase(type, category, {UnitType::kGUI}, id, parent),
+    : ItemBase(type, category, id, parent),
       clipping_area_(clipping_area)
 {
     this->InitAttribute("position", this->position_overwrite_);

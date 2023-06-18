@@ -27,7 +27,7 @@ namespace igm::internal
 class Parser
 {
 public:
-    Parser(UnitBase& dest);
+    Parser(Unit& dest);
 
     ParserResult ParseFromFile(std::string file);
 

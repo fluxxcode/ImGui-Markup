@@ -8,9 +8,7 @@
  * @copyright Copyright (c) 2022
  */
 
-#include "common/units/unit_base.h"
-#include "common/units/gui_unit.h"
-#include "common/units/theme_unit.h"
+#include "common/unit.h"
 #include "items/item_base.h"
 #include "items/item_api.h"
 #include "items/root_item.h"
@@ -29,13 +27,13 @@ public:
     UnitStack(const UnitStack&) = delete;
     void operator=(UnitStack const&) = delete;
 
-    static UnitBase& CreateEmptyUnit(UnitType type);
+    static Unit& CreateEmptyUnit();
     static void DeleteUnit(size_t unit, bool* result = nullptr);
 
     static void SetLastResult(Result result);
     static Result GetLastResult();
 
-    static UnitBase* GetUnit(size_t unit, bool* result);
+    static Unit* GetUnit(size_t unit, bool* result);
     static ItemAPI* GetItemAPI(size_t unit, const char* item_id,
                                bool* result = nullptr);
 
@@ -58,7 +56,7 @@ public:
 
 private:
     // Main buffer holding every loaded unit
-    std::map<size_t, std::unique_ptr<UnitBase>> unit_stack_;
+    std::map<size_t, std::unique_ptr<Unit>> unit_stack_;
     Result last_result_ = Result();
 
     size_t unit_count_ = 0;
@@ -66,13 +64,13 @@ private:
     UnitStack() { };
     static UnitStack& Get();
 
-    UnitBase& IMPL_CreateEmptyUnit(UnitType type);
+    Unit& IMPL_CreateEmptyUnit();
     void IMPL_DeleteUnit(size_t unit, bool* result);
 
     void IMPL_SetLastResult(Result result);
     Result IMPL_GetLastResult();
 
-    UnitBase* IMPL_GetUnit(size_t unit, bool* result);
+    Unit* IMPL_GetUnit(size_t unit, bool* result);
     ItemAPI* IMPL_GetItemAPI(size_t unit, const char* item_id, bool* result);
 };
 

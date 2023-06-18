@@ -13,8 +13,7 @@ namespace igm::internal
 
 StyleBase::StyleBase(ItemType type, std::string id, ItemBase* parent,
                      ItemType expected_item)
-    : ItemBase(type, ItemCategory::kStyle, {UnitType::kGUI, UnitType::kTheme},
-                id, parent),
+    : ItemBase(type, ItemCategory::kStyle, id, parent),
       expected_item_(expected_item)
 { }
 

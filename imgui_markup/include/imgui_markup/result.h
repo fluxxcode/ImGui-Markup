@@ -18,7 +18,6 @@ enum class ResultType : unsigned char
     kSuccess,
     kParserError,
     kInvalidUnitID,
-    kInvalidUnitType,
     kInvalidItemID,
     kInvalidItemType
 };

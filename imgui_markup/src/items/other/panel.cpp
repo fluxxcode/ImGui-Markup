@@ -20,7 +20,7 @@ namespace igm::internal
 */
 
 Panel::Panel(std::string id, ItemBase* parent)
-    : OtherBase(ItemType::kPanel, id, parent, {UnitType::kGUI})
+    : OtherBase(ItemType::kPanel, id, parent)
 {
     this->InitAttribute("title", this->title_);
     this->InitAttribute("position", this->position_overwrite_);

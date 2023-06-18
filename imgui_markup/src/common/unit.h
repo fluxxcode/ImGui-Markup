@@ -9,7 +9,6 @@
  */
 
 #include "items/item_base.h"
-#include "common/units/unit_types.h"
 
 #include <vector>
 #include <memory>
@@ -21,21 +20,26 @@ namespace igm::internal
  * A unit contains the items of a loaded markup file or string.
  * Items are set by the interpreter.
  */
-class UnitBase
+class Unit
 {
 public:
-    UnitBase(const size_t unit_id, const UnitType unit_type);
+    Unit(const size_t unit_id);
 
     /**
      * Updates the entire item tree of the unit.
      */
-    virtual void Update(size_t display_width, size_t display_height)
-        noexcept { };
+    void Update(size_t display_width, size_t display_height) noexcept;
 
     /**
-     * Returns the type of the unit.
-     */
-    inline UnitType GetType() const noexcept { return this->unit_type_; }
+     * Applies the specified theme to every item currently in this unit.
+    */
+    void ApplyTheme(Theme& theme) noexcept;
+
+    /**
+     * Returns a list with the IDs of the loaded themes.
+     * Themes without an ID are ignored.
+    */
+    std::vector<const char*> GetLoadedThemes() const noexcept;
 
     /**
      * Returns the unit's ID.
@@ -68,9 +72,14 @@ protected:
     // Contains mapping of the item ids to the item itself
     std::map<std::string, ItemBase*> item_id_mapping_;
 
+    // Title of the root panel, currently the objects address
+    std::string root_panel_title_;
+
+    // The loaded theme of the unit
+    ItemAccessManager theme_;
+
 private:
     const size_t unit_id_;
-    const UnitType unit_type_;
 };
 
 }  // namespace igm::internal

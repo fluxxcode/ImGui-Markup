@@ -16,10 +16,9 @@
 namespace igm::internal
 {
 
-ItemBase::ItemBase(ItemType type, ItemCategory category,
-                   std::vector<UnitType> unit_types, std::string id,
+ItemBase::ItemBase(ItemType type, ItemCategory category, std::string id,
                    ItemBase* parent)
-    : type_(type), category_(category), unit_types_(unit_types), access_id_(id),
+    : type_(type), category_(category), access_id_(id),
       parent_(parent)
 {
     const void* address = static_cast<const void*>(this);

@@ -13,15 +13,13 @@
 MainState::MainState()
 {
     bool result;
-    this->test_unit = igm::ParseFromFile(igm::UnitType::kGUI,
-                                         "examples/main.igm", &result);
+    this->test_unit = igm::ParseFromFile("examples/main.igm", &result);
     if (!result)
-        std::cerr << igm::GetLastResult(this->test_unit).message << std::endl;
+        std::cerr << igm::GetLastResult().message << std::endl;
 
-    this->theme_unit = igm::ParseFromFile(igm::UnitType::kTheme,
-                                         "examples/themes.igm", &result);
+    this->theme_unit = igm::ParseFromFile("examples/themes.igm", &result);
     if (!result)
-        std::cerr << igm::GetLastResult(this->theme_unit).message << std::endl;
+        std::cerr << igm::GetLastResult().message << std::endl;
 
     igm::InitUnitTheme(this->test_unit, this->theme_unit, "dark");
 }

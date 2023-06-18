@@ -14,8 +14,7 @@ namespace igm::internal
 {
 
 Theme::Theme(std::string id, ItemBase* parent)
-    : ItemBase(ItemType::kTheme, ItemCategory::kOther, {UnitType::kTheme}, id,
-               parent)
+    : ItemBase(ItemType::kTheme, ItemCategory::kOther, id, parent)
 {
     this->InitAttribute("name", this->name_);
 }

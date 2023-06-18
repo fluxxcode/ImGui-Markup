@@ -11,9 +11,9 @@
 namespace igm::internal
 {
 
-UnitBase& UnitStack::CreateEmptyUnit(UnitType type)
+Unit& UnitStack::CreateEmptyUnit()
 {
-    return UnitStack::Get().IMPL_CreateEmptyUnit(type);
+    return UnitStack::Get().IMPL_CreateEmptyUnit();
 }
 
 void UnitStack::DeleteUnit(size_t unit, bool* result)
@@ -31,7 +31,7 @@ Result UnitStack::GetLastResult()
     return UnitStack::Get().IMPL_GetLastResult();
 }
 
-UnitBase* UnitStack::GetUnit(size_t unit, bool* result)
+Unit* UnitStack::GetUnit(size_t unit, bool* result)
 {
     return UnitStack::Get().IMPL_GetUnit(unit, result);
 }
@@ -47,25 +47,12 @@ UnitStack& UnitStack::Get()
     return instance;
 }
 
-UnitBase& UnitStack::IMPL_CreateEmptyUnit(UnitType type)
+Unit& UnitStack::IMPL_CreateEmptyUnit()
 {
     const size_t unit_id = ++this->unit_count_;
 
-    switch (type)
-    {
-    case UnitType::kGUI:
-        this->unit_stack_.emplace(unit_id, std::make_unique<GUIUnit>(unit_id));
-        break;
-    case UnitType::kTheme:
-        this->unit_stack_.emplace(unit_id,
-                                  std::make_unique<ThemeUnit>(unit_id));
-        break;
-    default:
-        assert("Invalid unit type");
-        break;
-    }
-
-    UnitBase& unit = *this->unit_stack_.at(unit_id).get();
+    this->unit_stack_.emplace(unit_id, std::make_unique<Unit>(unit_id));
+    Unit& unit = *this->unit_stack_.at(unit_id).get();
 
     return unit;
 }
@@ -90,7 +77,7 @@ Result UnitStack::IMPL_GetLastResult()
     return this->last_result_;
 }
 
-UnitBase* UnitStack::IMPL_GetUnit(size_t unit, bool* result)
+Unit* UnitStack::IMPL_GetUnit(size_t unit, bool* result)
 {
 
     if (this->unit_stack_.find(unit) == this->unit_stack_.end())
@@ -107,7 +94,7 @@ UnitBase* UnitStack::IMPL_GetUnit(size_t unit, bool* result)
 ItemAPI* UnitStack::IMPL_GetItemAPI(size_t unit_id, const char* item_id,
                                     bool* result)
 {
-    UnitBase* unit = this->IMPL_GetUnit(unit_id, result);
+    Unit* unit = this->IMPL_GetUnit(unit_id, result);
     if (!unit)
         return nullptr;
 

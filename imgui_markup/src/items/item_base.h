@@ -11,7 +11,6 @@
 #include "items/item_api.h"
 #include "items/item_types.h"
 #include "items/item_access_manager.h"
-#include "common/units/unit_types.h"
 #include "attribute_types/attribute_types.h"
 
 #include <string>  // std::string
@@ -43,8 +42,7 @@ public:
      * @param parent - Pointer to the parent item. Can be nullptr
      *                 if the item is at the root of the item tree.
      */
-    ItemBase(ItemType type, ItemCategory category,
-             std::vector<UnitType> unit_types, std::string id,
+    ItemBase(ItemType type, ItemCategory category, std::string id,
              ItemBase* parent = nullptr);
     virtual ~ItemBase();
     ItemBase(const ItemBase&) = delete;
@@ -116,8 +114,6 @@ public:
 
     inline ItemType GetType() const noexcept { return this->type_; }
     inline ItemCategory GetCategory() const noexcept { return this->category_; }
-    inline std::vector<UnitType> GetUnitTypes() const noexcept
-        { return this->unit_types_; }
     inline const ItemBase* GetParent() const noexcept { return this->parent_; }
 
     virtual bt::Vector2 GetSize() const noexcept { return bt::Vector2(); }
@@ -157,11 +153,6 @@ protected:
      * Category the item belongs to.
      */
     const ItemCategory category_;
-
-    /**
-     * Array of units in which the item can be placed.
-     */
-    const std::vector<UnitType> unit_types_;
 
     /**
      * Full ID to access the object via the API or to reference the object

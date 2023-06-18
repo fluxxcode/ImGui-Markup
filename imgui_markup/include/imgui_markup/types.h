@@ -42,12 +42,6 @@ enum class MouseButton : unsigned char
     kMiddle
 };
 
-enum class UnitType : unsigned char
-{
-    kGUI = 0,
-    kTheme
-};
-
 }  // namespace igm
 
 #endif  // IMGUI_MARKUP_INCLUDE_IMGUI_MARKUP_TYPES_H_
