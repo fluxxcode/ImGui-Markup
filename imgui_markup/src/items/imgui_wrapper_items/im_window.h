@@ -24,10 +24,10 @@ public:
                     bool dynamic_w, bool dynamic_h) noexcept;
 
 private:
+    StringWrapper name_;
+
     bt::Vector2 position_;
     bt::Vector2 size_;
-
-    StringWrapper name_;
 
     bool is_hovered_ = false;
 

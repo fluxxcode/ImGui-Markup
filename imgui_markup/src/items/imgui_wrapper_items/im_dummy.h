@@ -23,10 +23,10 @@ public:
     void ImWrapperUpdate() noexcept;
 
 private:
+    Vector2Wrapper size_overwrite_ = Vector2Wrapper(0.0f, 0.0f);
+
     bt::Vector2 position_;
     bt::Vector2 size_;
-
-    Vector2Wrapper size_overwrite_ = Vector2Wrapper(0.0f, 0.0f);
 
     bool is_hovered_ = false;
 

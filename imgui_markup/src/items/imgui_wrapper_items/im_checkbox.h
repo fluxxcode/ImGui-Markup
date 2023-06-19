@@ -23,10 +23,10 @@ public:
     void ImWrapperUpdate() noexcept;
 
 private:
+    StringWrapper text_;
+
     bt::Vector2 position_;
     bt::Vector2 size_;
-
-    StringWrapper text_;
 
     bool is_hovered_ = false;
     bool is_checked_ = false;

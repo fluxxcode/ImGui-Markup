@@ -23,10 +23,10 @@ public:
     void ImWrapperUpdate() noexcept;
 
 private:
-    bt::Vector2 position_;
-
     FloatWrapper offset_from_start_x_ = 0.0f;
     FloatWrapper spacing_ = -1.0f;
+
+    bt::Vector2 position_;
 
     bt::Vector2 GetPosition() const noexcept { return this->position_; };
 };
