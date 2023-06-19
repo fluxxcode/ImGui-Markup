@@ -13,6 +13,9 @@ ImWindow : panel_0
     ImButton { text="Button 1" }
     ImSameLine {}
     ImText { text="Text 2" }
+    ImSpacing { }
+    ImSpacing { }
+    ImSpacing { }
     ImChild :  child_0
     {
         border = true

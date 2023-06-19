@@ -31,6 +31,7 @@ enum class ItemType : unsigned char
     kImGroup,
     kImChild,
     kImSeparator,
+    kImSpacing,
 
     // Experimental
     // Widgets
