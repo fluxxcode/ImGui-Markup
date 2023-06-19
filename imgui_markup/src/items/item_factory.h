@@ -15,6 +15,7 @@
 #include "items/imgui_wrapper_items/im_text.h"
 #include "items/imgui_wrapper_items/im_button.h"
 #include "items/imgui_wrapper_items/im_checkbox.h"
+#include "items/imgui_wrapper_items/im_same_line.h"
 
 // Experimental
 // Widgets
@@ -67,6 +68,7 @@ private:
             { "ImText", CreateItemInstance<ImText> },
             { "ImButton", CreateItemInstance<ImButton> },
             { "ImCheckbox", CreateItemInstance<ImCheckbox> },
+            { "ImSameLine", CreateItemInstance<ImSameLine> },
 
             // Experimental
             // Widgets
