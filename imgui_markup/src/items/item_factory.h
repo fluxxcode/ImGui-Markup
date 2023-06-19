@@ -12,6 +12,7 @@
 
 // ImGui wrapper items
 #include "items/imgui_wrapper_items/im_window.h"
+#include "items/imgui_wrapper_items/im_text.h"
 
 // Experimental
 // Widgets
@@ -61,6 +62,7 @@ private:
         std::string, ItemBase*)>> item_mapping_ = {
             // ImGui wrapper items
             { "ImWindow", CreateItemInstance<ImWindow> },
+            { "ImText", CreateItemInstance<ImText> },
 
             // Experimental
             // Widgets
