@@ -13,4 +13,21 @@ ImWindow : panel_0
     ImButton { text="Button 1" }
     ImSameLine {}
     ImText { text="Text 2" }
+    ImGroup
+    {
+        ImText { text="Text 1" }
+        ImSameLine {}
+        ImText { text="Text 1" }
+        ImText { text="Text 1" }
+    }
+    ImSameLine {}
+    ImText { text="Text 3"}
+    ImSameLine {}
+    ImGroup : group_0
+    {
+        ImButton { text="Button 1"}
+        ImButton { text="Button 2"}
+        ImText { text="Text 4"}
+    }
+    ImCheckbox{ text="Checkbox 1"}
 }

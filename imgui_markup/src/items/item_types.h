@@ -28,6 +28,7 @@ enum class ItemType : unsigned char
     kImButton,
     kImCheckbox,
     kImSameLine,
+    kImGroup,
 
     // Experimental
     // Widgets
