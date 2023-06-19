@@ -19,6 +19,7 @@
 #include "items/imgui_wrapper_items/im_same_line.h"
 #include "items/imgui_wrapper_items/im_group.h"
 #include "items/imgui_wrapper_items/im_child.h"
+#include "items/imgui_wrapper_items/im_separator.h"
 
 // Other
 #include "items/other/container.h"
@@ -80,6 +81,7 @@ private:
             { "ImSameLine", CreateItemInstance<ImSameLine> },
             { "ImGroup", CreateItemInstance<ImGroup> },
             { "ImChild", CreateItemInstance<ImChild> },
+            { "ImSeparator", CreateItemInstance<ImSeparator> },
 
             // Other
             { "Container", CreateItemInstance<Container> },

@@ -30,6 +30,7 @@ enum class ItemType : unsigned char
     kImSameLine,
     kImGroup,
     kImChild,
+    kImSeparator,
 
     // Experimental
     // Widgets
