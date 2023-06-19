@@ -8,6 +8,8 @@
  * @copyright Copyright (c) 2022 - 2023
  */
 
+#include "imgui_markup_config.h"
+
 #include "imgui_markup/types.h"
 #include "imgui_markup/result.h"
 

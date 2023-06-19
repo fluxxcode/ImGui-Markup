@@ -8,6 +8,7 @@
  * @copyright Copyright (c) 2022 - 2023
  */
 
+#include "imgui_markup_config.h"
 #include "items/item_base.h"
 
 // ImGui wrapper items
@@ -16,6 +17,11 @@
 #include "items/imgui_wrapper_items/im_button.h"
 #include "items/imgui_wrapper_items/im_checkbox.h"
 #include "items/imgui_wrapper_items/im_same_line.h"
+
+// Other
+#include "items/other/container.h"
+
+#ifdef IMGUI_MARKUP_USE_EXPERIMENTAL
 
 // Experimental
 // Widgets
@@ -35,8 +41,9 @@
 
 // Other
 #include "items/other/panel.h"
-#include "items/other/container.h"
 #include "items/other/internal_test.h"
+
+#endif
 
 #include <string>     // std::string
 #include <memory>     // std::unique_ptr
@@ -70,6 +77,11 @@ private:
             { "ImCheckbox", CreateItemInstance<ImCheckbox> },
             { "ImSameLine", CreateItemInstance<ImSameLine> },
 
+            // Other
+            { "Container", CreateItemInstance<Container> },
+
+            #ifdef IMGUI_MARKUP_USE_EXPERIMENTAL
+
             // Experimental
             // Widgets
             { "Button", CreateItemInstance<Button> },
@@ -88,8 +100,9 @@ private:
 
             // Other
             { "Panel", CreateItemInstance<Panel> },
-            { "Container", CreateItemInstance<Container> },
             { "_INTERNAL_TEST", CreateItemInstance<InternalTest> }
+
+            #endif
         };
 
     ItemFactory() { };
