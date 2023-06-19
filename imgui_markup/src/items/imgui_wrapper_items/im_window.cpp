@@ -12,7 +12,7 @@ namespace igm::internal
 {
 
 ImWindow::ImWindow(std::string id, ItemBase* parent)
-    : ItemBase(ItemType::kImWindow, ItemCategory::kImGuiWrapper, id, parent)
+    : ImWrapperItemBase(ItemType::kImWindow, id, parent)
 {
     this->InitAttribute("name", this->name_);
 }

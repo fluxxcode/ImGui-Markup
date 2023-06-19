@@ -13,6 +13,7 @@
 // ImGui wrapper items
 #include "items/imgui_wrapper_items/im_window.h"
 
+// Experimental
 // Widgets
 #include "items/gui/widgets/button.h"
 #include "items/gui/widgets/text.h"
@@ -61,6 +62,7 @@ private:
             // ImGui wrapper items
             { "ImWindow", CreateItemInstance<ImWindow> },
 
+            // Experimental
             // Widgets
             { "Button", CreateItemInstance<Button> },
             { "Text", CreateItemInstance<Text> },

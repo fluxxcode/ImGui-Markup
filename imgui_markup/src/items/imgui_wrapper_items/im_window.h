@@ -8,14 +8,14 @@
  * @copyright Copyright (c) 2022 - 2023
  */
 
-#include "items/item_base.h"
+#include "items/imgui_wrapper_items/im_wrapper_item_base.h"
 
 #include "imgui.h"  // ImGuiMouseButton
 
 namespace igm::internal
 {
 
-class ImWindow : public ItemBase
+class ImWindow : public ImWrapperItemBase
 {
 public:
     ImWindow(std::string id, ItemBase* parent);
