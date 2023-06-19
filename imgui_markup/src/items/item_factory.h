@@ -21,6 +21,7 @@
 #include "items/imgui_wrapper_items/im_child.h"
 #include "items/imgui_wrapper_items/im_separator.h"
 #include "items/imgui_wrapper_items/im_spacing.h"
+#include "items/imgui_wrapper_items/im_dummy.h"
 
 // Other
 #include "items/other/container.h"
@@ -84,6 +85,7 @@ private:
             { "ImChild", CreateItemInstance<ImChild> },
             { "ImSeparator", CreateItemInstance<ImSeparator> },
             { "ImSpacing", CreateItemInstance<ImSpacing> },
+            { "ImDummy", CreateItemInstance<ImDummy> },
 
             // Other
             { "Container", CreateItemInstance<Container> },

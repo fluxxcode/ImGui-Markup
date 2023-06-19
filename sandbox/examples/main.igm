@@ -8,6 +8,10 @@ ImWindow : panel_0
     ImCheckbox { text="Example checkbox 1" }
     ImCheckbox { text="Example checkbox 2" }
     ImSeparator : separator_0 { }
+    ImDummy : dummy_0
+    {
+        size = (50, 50)
+    }
     ImText { text="Text 1" }
     ImSameLine {}
     ImButton { text="Button 1" }
