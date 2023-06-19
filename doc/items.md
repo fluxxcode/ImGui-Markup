@@ -1,28 +1,58 @@
 # Items
-
+**Other:**
+- [Container](#Container)
 ## Experimental
-**Widgets:**
+**Widgets (Experimental):**
 - [Text](#Text)
 - [Button](#Button)
 - [Checkbox](#Checkbox)
 
-**Views:**
+**Views (Experimental):**
 - [LineView](#LineView)
 
-**Styles:**
+**Styles (Experimental):**
 - [Theme](#Theme)
 - [TextStyle](#TextStyle)
 - [ButtonStyle](#ButtonStyle)
 - [CheckboxStyle](#CheckboxStyle)
 - [PanelStyle](#PanelStyle)
 
-**Other:**
+**Other (Experimental):**
 - [Panel](#Panel)
-- [Container](#Container)
+
+</br>
+
+# Other
+## Container
+### Description:
+The container is used to store custom data. It cannot currently have any child items.
+### Attributes:
+*The container currently does not have any attributes.*
+### Example:
+```
+// example.igm:
+
+Container : container_0
+{
+    +string value_0 = "Value 0"
+    +string value_1 = "Value 1"
+    +string value_2 = "Value 2"
+}
+
+LineView
+{
+    padding = 2
+
+    Text { text = container_0.value_0  }  // Copy by value
+    Text { text = container_0.value_1  }  // Copy by value
+    Text { text = @container_0.value_2 }  // Copy by reference
+}
+```
+![ExampleImage](img/items/container.png)
 
 # Experimental
 The following items are experimental items that represent own implementations of different items. The experimental ones are intended to show the more complex structure and show how the layer could be built up in the future. However, the items are far from complete and don't integrate well with the fairly simple ImGui wrapper items listed above.
-# Widgets
+# Widgets (Experimental)
 ## Text
 ### Description:
 The text is equal to ```ImGui::Text()``` and is used to display basic information.
@@ -137,7 +167,7 @@ if (gui::IsCheckboxChecked(file, "checkbox_1"))
 ![ExampleImage](img/items/checkbox.png)
 
 
-# Views
+# Views (Experimental)
 ## LineView
 ### Description:
 The LineView is there to implement the basic alignment of ImGui. Child items are stacked either on the horizontal axis or on the vertical axis. All child items in the LineView have a fully dynamic size; The LineView does not specify a size, even if it has itself received a fixed size from the parent item.
@@ -189,7 +219,7 @@ Panel
 ![ExampleImage](img/items/line_view.png)
 
 
-# Styles
+# Styles (Experimental)
 ## Theme
 ### Description:
 The theme is used to create themes from various style items and then apply them to a specific unit.
@@ -458,7 +488,7 @@ Panel
 ![ExampleImage](img/items/panel_style.png)
 
 
-# Other
+# Other (Experimental)
 ## Panel
 ### Description:
 For the markup language, the purpose of panels are to have small panels that are rendered above the app GUI that can be moved and resized by the user.
@@ -521,31 +551,3 @@ Panel
 }
 ```
 ![ExampleImage](img/items/panel.png)
-
----
-## Container
-### Description:
-The container is used to store custom data. It cannot currently have any child items.
-### Attributes:
-*The container currently does not have any attributes.*
-### Example:
-```
-// example.igm:
-
-Container : container_0
-{
-    +string value_0 = "Value 0"
-    +string value_1 = "Value 1"
-    +string value_2 = "Value 2"
-}
-
-LineView
-{
-    padding = 2
-
-    Text { text = container_0.value_0  }  // Copy by value
-    Text { text = container_0.value_1  }  // Copy by value
-    Text { text = @container_0.value_2 }  // Copy by reference
-}
-```
-![ExampleImage](img/items/container.png)
