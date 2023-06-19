@@ -1,5 +1,6 @@
 # Items
 
+## Experimental
 **Widgets:**
 - [Text](#Text)
 - [Button](#Button)
@@ -15,11 +16,12 @@
 - [CheckboxStyle](#CheckboxStyle)
 - [PanelStyle](#PanelStyle)
 
-
 **Other:**
 - [Panel](#Panel)
 - [Container](#Container)
 
+# Experimental
+The following items are experimental items that represent own implementations of different items. The experimental ones are intended to show the more complex structure and show how the layer could be built up in the future. However, the items are far from complete and don't integrate well with the fairly simple ImGui wrapper items listed above.
 # Widgets
 ## Text
 ### Description:
