@@ -47,7 +47,7 @@ bool ImWindow::OnProcessEnd(std::string& error_message) noexcept
     if (this->name_.IsValueSet())
         return true;
 
-    this->name_.SetValue(this->unique_id_);
+    this->name_.SetValue("##" + this->unique_id_);
     return true;
 }
 
