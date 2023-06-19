@@ -16,4 +16,13 @@ ImWrapperItemBase::ImWrapperItemBase(ItemType type, std::string id,
     : ItemBase(type, ItemCategory::kImGuiWrapper, id, parent)
 { }
 
+void ImWrapperItemBase::ItemUpdate(bt::Vector2 position,
+                                   bt::Vector2 available_size,
+                                   bool dynamic_w, bool dynamic_h) noexcept
+{
+    ImGui::PushID(this->unique_id_.c_str());
+    this->ImWrapperUpdate();
+    ImGui::PopID();
+}
+
 }  // namespace igm::internal

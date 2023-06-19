@@ -1,10 +1,10 @@
-#ifndef IMGUI_MARKUP_SRC_ITEMS_IMGUI_WRAPPER_ITEMS_IM_TEXT_H_
-#define IMGUI_MARKUP_SRC_ITEMS_IMGUI_WRAPPER_ITEMS_IM_TEXT_H_
+#ifndef IMGUI_MARKUP_SRC_ITEMS_IMGUI_WRAPPER_ITEMS_IM_BUTTON_H_
+#define IMGUI_MARKUP_SRC_ITEMS_IMGUI_WRAPPER_ITEMS_IM_BUTTON_H_
 
 /**
- * @file im_text.h
+ * @file im_button.h
  * @author FluxxCode (info.fluxxcode@gmail.com)
- * @brief Contains item 'ImText'
+ * @brief Contains item 'ImButton'
  * @copyright Copyright (c) 2022 - 2023
  */
 
@@ -15,10 +15,10 @@
 namespace igm::internal
 {
 
-class ImText : public ImWrapperItemBase
+class ImButton : public ImWrapperItemBase
 {
 public:
-    ImText(std::string id, ItemBase* parent);
+    ImButton(std::string id, ItemBase* parent);
 
     void ImWrapperUpdate() noexcept;
 
@@ -27,6 +27,7 @@ private:
     bt::Vector2 size_;
 
     StringWrapper text_;
+    Vector2Wrapper size_overwrite_ = Vector2Wrapper(0.0f, 0.0f);
 
     bool is_hovered_ = false;
 
@@ -40,4 +41,4 @@ private:
 
 }  // namespace igm::internal
 
-#endif  // IMGUI_MARKUP_SRC_ITEMS_IMGUI_WRAPPER_ITEMS_IM_TEXT_H_
+#endif  // IMGUI_MARKUP_SRC_ITEMS_IMGUI_WRAPPER_ITEMS_IM_BUTTON_H_

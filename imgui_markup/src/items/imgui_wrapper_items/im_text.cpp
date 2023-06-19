@@ -17,8 +17,7 @@ ImText::ImText(std::string id, ItemBase* parent)
     this->InitAttribute("text", this->text_);
 }
 
-void ImText::ItemUpdate(bt::Vector2 position, bt::Vector2 available_size,
-                        bool dynamic_w, bool dynamic_h) noexcept
+void ImText::ImWrapperUpdate() noexcept
 {
     this->position_ = ImGui::GetCursorPos();
 

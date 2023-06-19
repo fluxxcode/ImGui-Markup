@@ -8,19 +8,18 @@
  * @copyright Copyright (c) 2022 - 2023
  */
 
-#include "items/imgui_wrapper_items/im_wrapper_item_base.h"
+#include "items/item_base.h"
 
 #include "imgui.h"  // ImGuiMouseButton
 
 namespace igm::internal
 {
 
-class ImWindow : public ImWrapperItemBase
+class ImWindow : public ItemBase
 {
 public:
     ImWindow(std::string id, ItemBase* parent);
 
-    // NOTE: The basic ImGui wrapper items ignore the function parameters
     void ItemUpdate(bt::Vector2 position, bt::Vector2 available_size,
                     bool dynamic_w, bool dynamic_h) noexcept;
 

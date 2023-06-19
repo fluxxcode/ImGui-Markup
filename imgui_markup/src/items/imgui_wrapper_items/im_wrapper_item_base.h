@@ -13,9 +13,17 @@
 namespace igm::internal
 {
 
-struct ImWrapperItemBase : public ItemBase
+class ImWrapperItemBase : public ItemBase
 {
+public:
     ImWrapperItemBase(ItemType type, std::string id, ItemBase* parent);
+
+    // NOTE: The basic ImGui wrapper items ignore the function parameters
+    virtual void ItemUpdate(bt::Vector2 position, bt::Vector2 available_size,
+                            bool dynamic_w, bool dynamic_h) noexcept;
+
+private:
+    virtual void ImWrapperUpdate() noexcept = 0;
 };
 
 }  // namespace igm::internal
