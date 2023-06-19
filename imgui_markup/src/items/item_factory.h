@@ -18,6 +18,7 @@
 #include "items/imgui_wrapper_items/im_checkbox.h"
 #include "items/imgui_wrapper_items/im_same_line.h"
 #include "items/imgui_wrapper_items/im_group.h"
+#include "items/imgui_wrapper_items/im_child.h"
 
 // Other
 #include "items/other/container.h"
@@ -78,6 +79,7 @@ private:
             { "ImCheckbox", CreateItemInstance<ImCheckbox> },
             { "ImSameLine", CreateItemInstance<ImSameLine> },
             { "ImGroup", CreateItemInstance<ImGroup> },
+            { "ImChild", CreateItemInstance<ImChild> },
 
             // Other
             { "Container", CreateItemInstance<Container> },

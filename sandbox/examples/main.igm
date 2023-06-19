@@ -1,4 +1,3 @@
-
 ImWindow : panel_0
 {
     name = "Example window"
@@ -13,21 +12,26 @@ ImWindow : panel_0
     ImButton { text="Button 1" }
     ImSameLine {}
     ImText { text="Text 2" }
-    ImGroup
+    ImChild :  child_0
     {
-        ImText { text="Text 1" }
+        border = true
+        size = (300, 100)
+        ImGroup
+        {
+            ImText { text="Text 1" }
+            ImSameLine {}
+            ImText { text="Text 1" }
+            ImText { text="Text 1" }
+        }
         ImSameLine {}
-        ImText { text="Text 1" }
-        ImText { text="Text 1" }
-    }
-    ImSameLine {}
-    ImText { text="Text 3"}
-    ImSameLine {}
-    ImGroup : group_0
-    {
-        ImButton { text="Button 1"}
-        ImButton { text="Button 2"}
-        ImText { text="Text 4"}
+        ImText { text="Text 3"}
+        ImSameLine {}
+        ImGroup : group_0
+        {
+            ImButton { text="Button 1"}
+            ImButton { text="Button 2"}
+            ImText { text="Text 4"}
+        }
     }
     ImCheckbox{ text="Checkbox 1"}
 }
