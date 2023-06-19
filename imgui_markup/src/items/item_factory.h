@@ -14,6 +14,7 @@
 #include "items/imgui_wrapper_items/im_window.h"
 #include "items/imgui_wrapper_items/im_text.h"
 #include "items/imgui_wrapper_items/im_button.h"
+#include "items/imgui_wrapper_items/im_checkbox.h"
 
 // Experimental
 // Widgets
@@ -65,6 +66,7 @@ private:
             { "ImWindow", CreateItemInstance<ImWindow> },
             { "ImText", CreateItemInstance<ImText> },
             { "ImButton", CreateItemInstance<ImButton> },
+            { "ImCheckbox", CreateItemInstance<ImCheckbox> },
 
             // Experimental
             // Widgets

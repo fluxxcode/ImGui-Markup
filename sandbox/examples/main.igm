@@ -4,6 +4,8 @@ ImWindow : panel_0
     name = "Example window"
 
     ImText { text="Example text" }
-    ImButton : button_0 { text="Example button 1" }
-    ImButton : button_1 { text="Example button 2" size=(180, 20) }
+    ImButton { text="Example button 1" }
+    ImButton { text="Example button 2" size=(180, 20) }
+    ImCheckbox { text="Example checkbox 1" }
+    ImCheckbox { text="Example checkbox 2" }
 }

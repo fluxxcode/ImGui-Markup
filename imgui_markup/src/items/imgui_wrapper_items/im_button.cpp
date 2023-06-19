@@ -20,16 +20,12 @@ ImButton::ImButton(std::string id, ItemBase* parent)
 
 void ImButton::ImWrapperUpdate() noexcept
 {
-    ImGui::PushID(this->unique_id_.c_str());
-
     this->position_ = ImGui::GetCursorPos();
 
     ImGui::Button(this->text_.GetString().c_str(), this->size_overwrite_);
 
     this->size_ = ImGui::GetItemRectSize();
     this->is_hovered_ = ImGui::IsItemHovered();
-
-    ImGui::PopID();
 }
 
 bool ImButton::API_IsItemPressed(ImGuiMouseButton mb) noexcept
