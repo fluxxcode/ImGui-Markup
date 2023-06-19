@@ -13,6 +13,7 @@ namespace igm::internal
 
 enum class ItemCategory : unsigned char
 {
+    kImGuiWrapper,
     kWidget,
     kView,
     kStyle,
@@ -21,6 +22,9 @@ enum class ItemCategory : unsigned char
 
 enum class ItemType : unsigned char
 {
+    // Simple ImGui wrapper items
+    kImWindow,
+
     // Widgets
     kButton,
     kText,

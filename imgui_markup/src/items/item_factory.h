@@ -10,6 +10,9 @@
 
 #include "items/item_base.h"
 
+// ImGui wrapper items
+#include "items/imgui_wrapper_items/im_window.h"
+
 // Widgets
 #include "items/gui/widgets/button.h"
 #include "items/gui/widgets/text.h"
@@ -55,6 +58,9 @@ public:
 private:
     const std::map<std::string, std::function<ItemBase*(
         std::string, ItemBase*)>> item_mapping_ = {
+            // ImGui wrapper items
+            { "ImWindow", CreateItemInstance<ImWindow> },
+
             // Widgets
             { "Button", CreateItemInstance<Button> },
             { "Text", CreateItemInstance<Text> },

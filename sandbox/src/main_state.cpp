@@ -17,11 +17,12 @@ MainState::MainState()
     if (!result)
         std::cerr << igm::GetLastResult().message << std::endl;
 
-    this->theme_unit = igm::ParseFromFile("examples/themes.igm", &result);
-    if (!result)
-        std::cerr << igm::GetLastResult().message << std::endl;
+    // Experimental
+    // this->theme_unit = igm::ParseFromFile("examples/themes.igm", &result);
+    // if (!result)
+    //     std::cerr << igm::GetLastResult().message << std::endl;
 
-    igm::InitUnitTheme(this->test_unit, this->theme_unit, "dark");
+    // igm::InitUnitTheme(this->test_unit, this->theme_unit, "dark");
 }
 
 void MainState::Update()
