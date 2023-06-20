@@ -42,4 +42,5 @@ ImWindow : panel_0
         }
     }
     ImCheckbox{ text="Checkbox 1"}
+    ImTextColored : text_0 { text="Colored text 1" }
 }

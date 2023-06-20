@@ -25,6 +25,7 @@ enum class ItemType : unsigned char
     // Simple ImGui wrapper items
     kImWindow,
     kImText,
+    kImTextColored,
     kImButton,
     kImCheckbox,
     kImSameLine,
