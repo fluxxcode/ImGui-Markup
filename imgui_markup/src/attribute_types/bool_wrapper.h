@@ -27,6 +27,11 @@ public:
         : AttributeBase(AttributeType::kBool, value)
     { }
 
+    inline void operator = (const BoolWrapper& val)
+    {
+        this->SetValue(val);
+    }
+
     inline operator bool() const { return this->Value(); }
 
     inline std::string GetName() const noexcept { return "Bool"; }

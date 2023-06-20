@@ -40,6 +40,17 @@ public:
         this->Init();
     }
 
+    Vector4Wrapper(ImVec4 value)
+        : AttributeBase(AttributeType::kVector4, value)
+    {
+        this->Init();
+    }
+
+    inline void operator = (const Vector4Wrapper& val)
+    {
+        this->SetValue(val);
+    }
+
     inline operator bt::Vector4() const { return this->Value(); }
 
     inline operator ImVec4() const

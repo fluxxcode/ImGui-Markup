@@ -117,6 +117,8 @@ public:
         }
     }
 
+    inline void operator = (const T& val ) = delete;
+
     inline AttributeType GetType() const noexcept
     {
         return this->type_;

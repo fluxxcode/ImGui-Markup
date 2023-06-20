@@ -27,6 +27,11 @@ public:
         : AttributeBase(AttributeType::kInt, value)
     { }
 
+    inline void operator = (const IntWrapper& val)
+    {
+        this->SetValue(val);
+    }
+
     inline operator int() const { return this->Value(); }
 
     inline IntWrapper& operator+=(IntWrapper rhs) noexcept

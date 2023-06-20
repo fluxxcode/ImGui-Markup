@@ -23,6 +23,11 @@ public:
         : AttributeBase(AttributeType::kOrientation, value)
     { }
 
+    inline void operator = (const OrientationWrapper& val)
+    {
+        this->SetValue(val);
+    }
+
     operator bt::Orientation() const { return this->Value(); }
 
     inline std::string GetName() const noexcept { return "Orientation"; }

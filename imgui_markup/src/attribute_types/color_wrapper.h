@@ -42,6 +42,11 @@ public:
         this->Init();
     }
 
+    inline void operator = (const ColorWrapper& val)
+    {
+        this->SetValue(val);
+    }
+
     inline operator bt::Color() const
     {
         return this->Value();

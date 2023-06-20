@@ -41,6 +41,11 @@ public:
         this->Init();
     }
 
+    inline void operator = (const Vector2Wrapper& val)
+    {
+        this->SetValue(val);
+    }
+
     inline operator bt::Vector2() const { return this->Value();}
 
     inline operator ImVec2() const

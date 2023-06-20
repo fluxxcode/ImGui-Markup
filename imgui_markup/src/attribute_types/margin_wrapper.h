@@ -40,6 +40,11 @@ public:
         this->Init();
     }
 
+    inline void operator = (const MarginWrapper& val)
+    {
+        this->SetValue(val);
+    }
+
     inline operator bt::Margin() const
     {
         return this->Value();

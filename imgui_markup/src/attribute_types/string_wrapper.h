@@ -31,6 +31,11 @@ public:
         : AttributeBase(AttributeType::kString, value)
     { }
 
+    inline void operator = (const StringWrapper& val)
+    {
+        this->SetValue(val);
+    }
+
     inline operator std::string() const { return this->Value(); }
 
     inline std::string GetString() { return this->ValueReference(); }

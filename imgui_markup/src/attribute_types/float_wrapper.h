@@ -27,6 +27,11 @@ public:
         : AttributeBase(AttributeType::kFloat, value)
     { }
 
+    inline void operator = (const FloatWrapper& val)
+    {
+        this->SetValue(val);
+    }
+
     inline operator float() const noexcept { return this->Value(); }
 
     inline FloatWrapper& operator+=(FloatWrapper rhs) noexcept

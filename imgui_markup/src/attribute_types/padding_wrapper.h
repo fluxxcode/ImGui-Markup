@@ -40,6 +40,11 @@ public:
         this->Init();
     }
 
+    inline void operator = (const PaddingWrapper& val)
+    {
+        this->SetValue(val);
+    }
+
     inline operator bt::Padding() const
     {
         return this->Value();
