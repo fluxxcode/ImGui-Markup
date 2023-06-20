@@ -196,6 +196,7 @@ ImText { text = "Outside of the child window" }
 ```
 ![ExampleImage](img/items/im_child.png)
 
+---
 ## ImGroup
 ### Description:
 Implementation of `ImGui::BeginGroup` and `ImGui::EndGroup`.
@@ -225,6 +226,7 @@ ImText { text = "Outside of the group 3" }
 ```
 ![ExampleImage](img/items/im_group.png)
 
+---
 ## ImSameLine
 ### Description:
 Implementation of `ImGui::SameLine`.
@@ -248,6 +250,31 @@ ImButton { text="Hello world" }
 ImButton { text="Hello world" }
 ```
 ![ExampleImage](img/items/im_same_line.png)
+
+---
+## ImDummy
+### Description:
+Implementation of `ImGui::Dummy`.
+### Attributes:
+| Name | Type | Description | Default Value |
+| ---| --- | --- | --- |
+| size | Vec2 | The size of the dummy  | 0.0f  |
+### Implemented API functions:
+| Function | Description |
+| --- | --- |
+| ```bool IsItemPressed()``` | Returns true if the dummy or any of its child items is pressed by the user. |
+| ```bool IsItemHovered()``` | Returns true if the dummy or any of its child items is hovered by the user. |
+### Example:
+```
+// example.igm:
+
+ImButton { text="Hello world" }
+
+ImDummy { size=(10, 50) }
+
+ImButton { text="Hello world" }
+```
+![ExampleImage](img/items/im_dummy.png)
 
 # Other
 ## Container
