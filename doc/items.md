@@ -225,6 +225,30 @@ ImText { text = "Outside of the group 3" }
 ```
 ![ExampleImage](img/items/im_group.png)
 
+## ImSameLine
+### Description:
+Implementation of `ImGui::SameLine`.
+### Attributes:
+| Name | Type | Description | Default Value |
+| ---| --- | --- | --- |
+| offset_from_start_x | Float |  offset_from_start_x == 0 : follow right after previous item <br/> offset_from_start_x != 0 : align to specified x position (relative to window/group left)  | 0.0f  |
+| spacing | Float | spacing_w < 0 : use default spacing if pos_x == 0, no spacing if pos_x != 0 <br/> spacing_w >= 0 : enforce spacing amount | -1.0f |
+### Implemented API functions:
+*ImSameLine does not have any implemented API functions.*
+### Example:
+```
+// example.igm:
+
+ImButton { text="Hello world" }
+
+ImButton { text="Hello world" }
+ImSameLine { spacing = 10 }
+ImButton { text="Hello world" }
+
+ImButton { text="Hello world" }
+```
+![ExampleImage](img/items/im_same_line.png)
+
 # Other
 ## Container
 ### Description:
