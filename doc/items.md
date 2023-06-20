@@ -299,6 +299,27 @@ ImButton { text="Hello world" }
 ```
 ![ExampleImage](img/items/im_separator.png)
 
+---
+## ImSpacing
+### Description:
+Implementation of `ImGui::Spacing`.
+### Attributes:
+*The separator currently does not have any attributes.*
+### Implemented API functions:
+*ImSpacing currently does not have any implemented API functions.*
+### Example:
+```
+// example.igm:
+
+ImButton { text="Hello world" }
+
+ImSpacing { }
+ImSpacing { }
+ImSpacing { }
+
+ImButton { text="Hello world" }
+```
+![ExampleImage](img/items/im_spacing.png)
 
 
 # Other
