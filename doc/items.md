@@ -195,6 +195,35 @@ ImText { text = "Outside of the child window" }
 ```
 ![ExampleImage](img/items/im_child.png)
 
+## ImGroup
+### Description:
+Implementation of `ImGui::BeginGroup` and `ImGui::EndGroup`.
+### Attributes:
+*The group currently does not have any attributes.*
+### Implemented API functions:
+| Function | Description |
+| --- | --- |
+| ```bool IsItemPressed()``` | Returns true if the group or any of its child items is pressed by the user. |
+| ```bool IsItemHovered()``` | Returns true if the group or any of its child items is hovered by the user. |
+### Example:
+```
+// example.igm:
+
+ImText { text = "Outside of the group 1" }
+ImGroup
+{
+    ImButton { text = "Inside of the group 1" }
+    ImButton { text = "Inside of the group 2" }
+    ImButton { text = "Inside of the group 3" }
+    ImSameLine { }
+    ImButton { text = "Inside of the group 4" }
+}
+ImSameLine { }
+ImText { text = "Outside of the group 2" }
+ImText { text = "Outside of the group 3" }
+```
+![ExampleImage](img/items/im_group.png)
+
 # Other
 ## Container
 ### Description:
