@@ -276,6 +276,31 @@ ImButton { text="Hello world" }
 ```
 ![ExampleImage](img/items/im_dummy.png)
 
+---
+## ImSeparator
+### Description:
+Implementation of `ImGui::Separator`.
+### Attributes:
+*The separator currently does not have any attributes.*
+### Implemented API functions:
+| Function | Description |
+| --- | --- |
+| ```bool IsItemPressed()``` | Returns true if the separator or any of its child items is pressed by the user. |
+| ```bool IsItemHovered()``` | Returns true if the separator or any of its child items is hovered by the user. |
+### Example:
+```
+// example.igm:
+
+ImButton { text="Hello world" }
+
+ImSeparator { }
+
+ImButton { text="Hello world" }
+```
+![ExampleImage](img/items/im_separator.png)
+
+
+
 # Other
 ## Container
 ### Description:
