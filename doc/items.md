@@ -43,7 +43,8 @@
 </br>
 
 # ImGui Items
-Note that the current implementation only implements the bare minimum of the markup language. Many attributes and features of the items are still missing.
+Items with very small wrappers over the ImGui items, mostly without new features. If further information is required for the items, the documentation from ImGui itself can also be used. \
+Note that the current implementation only implements the bare minimum. Many attributes and features of the items are still missing.
 ## ImWindow
 ### Description:
 Implementation of `ImGui::Begin` and `ImGui::End`.
