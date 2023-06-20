@@ -140,6 +140,29 @@ ImButton { text = "Button fixed size" size = (170, 25) }
 ```
 ![ExampleImage](img/items/im_button.png)
 
+---
+## ImCheckbox
+### Description:
+Implementation of `ImGui::Checkbox`.
+### Attributes:
+| Name | Type | Description | Default Value |
+| ---| --- | --- | --- |
+| text | String | The text that appears next to the checkbox. | "" |
+### Implemented API functions:
+| Function | Description |
+| --- | --- |
+| ```bool IsItemPressed()``` | Returns true if the checkbox is pressed by the user. |
+| ```bool IsItemHovered()``` | Returns true if the checkbox is hovered by the user. |
+| ```bool IsCheckboxChecked()``` | Returns the state of the checkbox. |
+### Example:
+```
+// example.igm:
+
+ImCheckbox { text = "Checkbox 1" }
+ImCheckbox { text = "Checkbox 2" }
+```
+![ExampleImage](img/items/im_checkbox.png)
+
 # Other
 ## Container
 ### Description:
