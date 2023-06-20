@@ -163,6 +163,38 @@ ImCheckbox { text = "Checkbox 2" }
 ```
 ![ExampleImage](img/items/im_checkbox.png)
 
+---
+## ImChild
+### Description:
+Implementation of `ImGui::BeginChild` and `ImGui::EndChild`.
+### Attributes:
+| Name | Type | Description | Default Value |
+| ---| --- | --- | --- |
+| id | String | The id of the child window. | "##<object_address>" *(Will be displayed as an empty string)* |
+| size | Vec2 | The size of the child window. | (0, 0) |
+| border | Bool | Specifies whether to draw a border around the child window. | False |
+### Implemented API functions:
+| Function | Description |
+| --- | --- |
+| ```bool IsItemPressed()``` | Returns true if the child window or any of its child items is pressed by the user. |
+| ```bool IsItemHovered()``` | Returns true if the child window or any of its child items is hovered by the user. |
+### Example:
+```
+// example.igm:
+
+ImText { text = "Outside of the child window" }
+ImChild
+{
+    size = (200, 200)
+    border = "true"
+
+    ImText { text = "Inside of the child window" }
+    ImText { text = "Inside of the child window" }
+}
+ImText { text = "Outside of the child window" }
+```
+![ExampleImage](img/items/im_child.png)
+
 # Other
 ## Container
 ### Description:
