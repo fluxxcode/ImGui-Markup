@@ -94,6 +94,29 @@ ImText { text = "Hello world 2" }
 ```
 ![ExampleImage](img/items/im_text.png)
 
+---
+## ImTextColored
+### Description:
+Implementation of `ImGui::TextColored`.
+### Attributes:
+| Name | Type | Description | Default Value |
+| ---| --- | --- | --- |
+| text | String | The text that will be displayed. | "" |
+| color | Vec4 | The color of the text. | The global text color is used. |
+### Implemented API functions:
+| Function | Description |
+| --- | --- |
+| ```bool IsItemPressed()``` | Returns true if the text is pressed by the user. |
+| ```bool IsItemHovered()``` | Returns true if the text is hovered by the user. |
+### Example:
+```
+// example.igm:
+
+ImTextColored { text = "Text red" color = (1.0, 0.0, 0.0, 1.0) }
+ImTextColored { text = "Text green" color = (0.0, 1.0, 0.0, 1.0) }
+```
+![ExampleImage](img/items/im_text_colored.png)
+
 # Other
 ## Container
 ### Description:
