@@ -1,6 +1,26 @@
 # Items
+**ImGui Items:**
+- [ImWindow](#ImWindow)
+- [ImText](#ImText)
+- [ImTextColored](#ImTextColored)
+- [ImButton](#ImButton)
+- [ImCheckbox](#ImCheckbox)
+- [ImChild](#ImChild)
+- [ImGroup](#ImGroup)
+- [ImSameLine](#ImSameLine)
+- [ImDummy](#ImDummy)
+- [ImSeparator](#ImSeparator)
+- [ImSpacing](#ImSpacing)
+
 **Other:**
 - [Container](#Container)
+
+</br>
+
+---
+
+</br>
+
 ## Experimental
 **Widgets (Experimental):**
 - [Text](#Text)
@@ -21,6 +41,36 @@
 - [Panel](#Panel)
 
 </br>
+
+# ImGui Items
+Note that the current implementation only implements the bare minimum of the markup language. Many attributes and features of the items are still missing.
+## ImWindow
+### Description:
+Implementation of `ImGui::Begin` and `ImGui::End`.
+### Attributes:
+| Name | Type | Description | Default Value |
+| ---| --- | --- | --- |
+| name | String | The title of the window. | "##<object_address>" *(Will be displayed as an empty string)* |
+### Implemented API functions:
+| Function | Description |
+| --- | --- |
+| ```bool IsItemPressed()``` | Returns true if the window or any of its child items is pressed by the user. |
+| ```bool IsItemHovered()``` | Returns true if the window or any of its child items is hovered by the user. |
+### Example:
+```
+// example.igm:
+
+ImWindow : window_0
+{
+    name = "Panel title"
+
+    ImText
+    {
+        text = "Hello world"
+    }
+}
+```
+![ExampleImage](img/items/im_window.png)
 
 # Other
 ## Container
