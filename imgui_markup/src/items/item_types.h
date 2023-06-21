@@ -33,6 +33,7 @@ enum class ItemType : unsigned char
     kImButton,
     kImSmallButton,
     kImInvisibleButton,
+    kImArrowButton,
     kImCheckbox,
     kImSameLine,
     kImGroup,

@@ -2,9 +2,9 @@
 #include "attribute_types/orientation_wrapper.h"
 
 /**
- * @file enums.cpp
+ * @file orientation_wrapper.cpp
  * @author FluxxCode (info.fluxxcode@gmail.com)
- * @brief Implementation of enums.h
+ * @brief Implementation of orientation_wrapper.h
  * @copyright Copyright (c) 2022 - 2023
  */
 

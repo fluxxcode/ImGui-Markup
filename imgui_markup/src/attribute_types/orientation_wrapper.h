@@ -2,9 +2,9 @@
 #define IMGUI_MARKUP_SRC_ATTRIBUTE_TYPES_ORIENTATION_WRAPPER_H_
 
 /**
- * @file enums.h
+ * @file orientation_wrapper.h
  * @author FluxxCode (info.fluxxcode@gmail.com)
- * @brief Contains enum classes used internally by the markup language.
+ * @brief Contains wrapper above the orientation enum.
  * @copyright Copyright (c) 2022 - 2023
  */
 

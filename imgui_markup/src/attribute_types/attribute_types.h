@@ -18,5 +18,6 @@
 #include "attribute_types/margin_wrapper.h"
 #include "attribute_types/color_wrapper.h"
 #include "attribute_types/orientation_wrapper.h"
+#include "attribute_types/direction_wrapper.h"
 
 #endif  // IMGUI_MARKUP_SRC_ATTRIBUTE_TYPES_ATTRIBUTE_TYPES_H_

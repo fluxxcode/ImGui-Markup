@@ -10,6 +10,7 @@
 - [ImButton](#ImButton)
 - [ImSmallButton](#ImSmallButton)
 - [ImInvisibleButton](#ImInvisibleButton)
+- [ImArrowButton](#ImArrowButton)
 - [ImCheckbox](#ImCheckbox)
 - [ImChild](#ImChild)
 - [ImGroup](#ImGroup)
@@ -278,6 +279,30 @@ Implementation of `ImGui::InvisibleButton`.
 | --- | --- |
 | ```bool IsItemPressed()``` | Returns true if the button is pressed by the user. |
 | ```bool IsItemHovered()``` | Returns true if the button is hovered by the user. |
+
+---
+## ImArrowButton
+### Description:
+Implementation of `ImGui::ArrowButton`.
+### Attributes:
+| Name | Type | Description | Default Value |
+| ---| --- | --- | --- |
+| direction | Direction | The direction in which the arrow is pointing. | "Left" |
+### Implemented API functions:
+| Function | Description |
+| --- | --- |
+| ```bool IsItemPressed()``` | Returns true if the button is pressed by the user. |
+| ```bool IsItemHovered()``` | Returns true if the button is hovered by the user. |
+### Example:
+```
+// example.igm:
+
+ImArrowButton { direction = "Left"  }
+ImArrowButton { direction = "Right" }
+ImArrowButton { direction = "Up"    }
+ImArrowButton { direction = "Down"  }
+```
+![ExampleImage](img/items/im_arrow_button.png)
 
 ---
 ## ImCheckbox

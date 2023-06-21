@@ -28,7 +28,8 @@ enum class AttributeType
     kColor,
 
     // Enums
-    kOrientation
+    kOrientation,
+    kDirection
 };
 
 class IntWrapper;
