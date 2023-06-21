@@ -21,6 +21,7 @@
 #include "items/imgui_wrapper_items/im_bullet_text.h"
 #include "items/imgui_wrapper_items/im_button.h"
 #include "items/imgui_wrapper_items/im_small_button.h"
+#include "items/imgui_wrapper_items/im_invisible_button.h"
 #include "items/imgui_wrapper_items/im_checkbox.h"
 #include "items/imgui_wrapper_items/im_same_line.h"
 #include "items/imgui_wrapper_items/im_group.h"
@@ -91,6 +92,7 @@ private:
             { "ImBulletText", CreateItemInstance<ImBulletText> },
             { "ImButton", CreateItemInstance<ImButton> },
             { "ImSmallButton", CreateItemInstance<ImSmallButton> },
+            { "ImInvisibleButton", CreateItemInstance<ImInvisibleButton> },
             { "ImCheckbox", CreateItemInstance<ImCheckbox> },
             { "ImSameLine", CreateItemInstance<ImSameLine> },
             { "ImGroup", CreateItemInstance<ImGroup> },

@@ -9,6 +9,7 @@
 - [ImBulletText](#ImBulletText)
 - [ImButton](#ImButton)
 - [ImSmallButton](#ImSmallButton)
+- [ImInvisibleButton](#ImInvisibleButton)
 - [ImCheckbox](#ImCheckbox)
 - [ImChild](#ImChild)
 - [ImGroup](#ImGroup)
@@ -264,6 +265,19 @@ ImSmallButton { text = "Small button" }
 ```
 ![ExampleImage](img/items/im_small_button.png)
 
+---
+## ImInvisibleButton
+### Description:
+Implementation of `ImGui::InvisibleButton`.
+### Attributes:
+| Name | Type | Description | Default Value |
+| ---| --- | --- | --- |
+| size | Vec2 | The size of the button.| (0, 0) |
+### Implemented API functions:
+| Function | Description |
+| --- | --- |
+| ```bool IsItemPressed()``` | Returns true if the button is pressed by the user. |
+| ```bool IsItemHovered()``` | Returns true if the button is hovered by the user. |
 
 ---
 ## ImCheckbox

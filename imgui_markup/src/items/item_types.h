@@ -32,6 +32,7 @@ enum class ItemType : unsigned char
     kImBulletText,
     kImButton,
     kImSmallButton,
+    kImInvisibleButton,
     kImCheckbox,
     kImSameLine,
     kImGroup,
