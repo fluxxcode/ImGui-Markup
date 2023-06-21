@@ -6,6 +6,7 @@
 - [ImTextDisabled](#ImTextDisabled)
 - [ImTextWrapped](#ImTextWrapped)
 - [ImLabelText](#ImLabelText)
+- [ImBulletText](#ImBulletText)
 - [ImButton](#ImButton)
 - [ImCheckbox](#ImCheckbox)
 - [ImChild](#ImChild)
@@ -177,11 +178,12 @@ Implementation of `ImGui::LabelText`.
 | Name | Type | Description | Default Value |
 | ---| --- | --- | --- |
 | text | String | The text that will be displayed. | "" |
+| label | String | The label that will be displayed. | "" |
 ### Implemented API functions:
 | Function | Description |
 | --- | --- |
-| ```bool IsItemPressed()``` | Returns true if the text is pressed by the user. |
-| ```bool IsItemHovered()``` | Returns true if the text is hovered by the user. |
+| ```bool IsItemPressed()``` | Returns true if the text or label is pressed by the user. |
+| ```bool IsItemHovered()``` | Returns true if the text or label is hovered by the user. |
 ### Example:
 ```
 // example.igm:
@@ -193,6 +195,28 @@ ImLabelText
 }
 ```
 ![ExampleImage](img/items/im_label_text.png)
+
+## ImBulletText
+### Description:
+Implementation of `ImGui::BulletText`.
+### Attributes:
+| Name | Type | Description | Default Value |
+| ---| --- | --- | --- |
+| text | String | The text that will be displayed. | "" |
+### Implemented API functions:
+| Function | Description |
+| --- | --- |
+| ```bool IsItemPressed()``` | Returns true if the text or bullet is pressed by the user. |
+| ```bool IsItemHovered()``` | Returns true if the text or bullet is hovered by the user. |
+### Example:
+```
+// example.igm:
+
+ImBulletText { text = "Hello world 1" }
+ImBulletText { text = "Hello world 2" }
+ImBulletText { text = "Hello world 3" }
+```
+![ExampleImage](img/items/im_bullet_text.png)
 
 ---
 ## ImButton
