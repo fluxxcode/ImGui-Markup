@@ -8,6 +8,7 @@
 - [ImLabelText](#ImLabelText)
 - [ImBulletText](#ImBulletText)
 - [ImButton](#ImButton)
+- [ImSmallButton](#ImSmallButton)
 - [ImCheckbox](#ImCheckbox)
 - [ImChild](#ImChild)
 - [ImGroup](#ImGroup)
@@ -240,6 +241,29 @@ ImButton { text = "Button dynamic size" }
 ImButton { text = "Button fixed size" size = (170, 25) }
 ```
 ![ExampleImage](img/items/im_button.png)
+
+---
+## ImSmallButton
+### Description:
+Implementation of `ImGui::SmallButton`.
+### Attributes:
+| Name | Type | Description | Default Value |
+| ---| --- | --- | --- |
+| text | String | The text that appears inside the button. | "" |
+### Implemented API functions:
+| Function | Description |
+| --- | --- |
+| ```bool IsItemPressed()``` | Returns true if the button is pressed by the user. |
+| ```bool IsItemHovered()``` | Returns true if the button is hovered by the user. |
+### Example:
+```
+// example.igm:
+
+ImButton { text = "Normal button" }
+ImSmallButton { text = "Small button" }
+```
+![ExampleImage](img/items/im_small_button.png)
+
 
 ---
 ## ImCheckbox
