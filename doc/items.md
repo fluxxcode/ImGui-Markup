@@ -4,6 +4,7 @@
 - [ImText](#ImText)
 - [ImTextColored](#ImTextColored)
 - [ImTextDisabled](#ImTextDisabled)
+- [ImTextWrapped](#ImTextWrapped)
 - [ImButton](#ImButton)
 - [ImCheckbox](#ImCheckbox)
 - [ImChild](#ImChild)
@@ -141,6 +142,31 @@ ImTextDisabled { text="Text disabled" }
 ImText { text="Normal text" }
 ```
 ![ExampleImage](img/items/im_text_disabled.png)
+
+---
+## ImTextWrapped
+### Description:
+Implementation of `ImGui::TextWrapped`.
+### Attributes:
+| Name | Type | Description | Default Value |
+| ---| --- | --- | --- |
+| text | String | The text that will be displayed. | "" |
+### Implemented API functions:
+| Function | Description |
+| --- | --- |
+| ```bool IsItemPressed()``` | Returns true if the text is pressed by the user. |
+| ```bool IsItemHovered()``` | Returns true if the text is hovered by the user. |
+### Example:
+```
+// example.igm:
+
+ImText { text="Normal text - Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." }
+ImSpacing { }
+ImTextWrapped { text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." }
+ImSpacing { }
+ImText { text="Normal text - Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." }
+```
+![ExampleImage](img/items/im_text_wrapped.png)
 
 ---
 ## ImButton
