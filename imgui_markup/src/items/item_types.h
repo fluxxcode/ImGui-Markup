@@ -26,6 +26,7 @@ enum class ItemType : unsigned char
     kImWindow,
     kImText,
     kImTextColored,
+    kImTextDisabled,
     kImButton,
     kImCheckbox,
     kImSameLine,

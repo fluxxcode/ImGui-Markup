@@ -3,6 +3,7 @@
 - [ImWindow](#ImWindow)
 - [ImText](#ImText)
 - [ImTextColored](#ImTextColored)
+- [ImTextDisabled](#ImTextDisabled)
 - [ImButton](#ImButton)
 - [ImCheckbox](#ImCheckbox)
 - [ImChild](#ImChild)
@@ -117,6 +118,29 @@ ImTextColored { text = "Text red" color = (1.0, 0.0, 0.0, 1.0) }
 ImTextColored { text = "Text green" color = (0.0, 1.0, 0.0, 1.0) }
 ```
 ![ExampleImage](img/items/im_text_colored.png)
+
+---
+## ImTextDisabled
+### Description:
+Implementation of `ImGui::TextDisabled`.
+### Attributes:
+| Name | Type | Description | Default Value |
+| ---| --- | --- | --- |
+| text | String | The text that will be displayed. | "" |
+### Implemented API functions:
+| Function | Description |
+| --- | --- |
+| ```bool IsItemPressed()``` | Returns true if the text is pressed by the user. |
+| ```bool IsItemHovered()``` | Returns true if the text is hovered by the user. |
+### Example:
+```
+// example.igm:
+
+ImText { text="Normal text" }
+ImTextDisabled { text="Text disabled" }
+ImText { text="Normal text" }
+```
+![ExampleImage](img/items/im_text_disabled.png)
 
 ---
 ## ImButton
