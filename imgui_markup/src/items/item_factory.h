@@ -17,6 +17,7 @@
 #include "items/imgui_wrapper_items/im_text_colored.h"
 #include "items/imgui_wrapper_items/im_text_disabled.h"
 #include "items/imgui_wrapper_items/im_text_wrapped.h"
+#include "items/imgui_wrapper_items/im_label_text.h"
 #include "items/imgui_wrapper_items/im_button.h"
 #include "items/imgui_wrapper_items/im_checkbox.h"
 #include "items/imgui_wrapper_items/im_same_line.h"
@@ -84,6 +85,7 @@ private:
             { "ImTextColored", CreateItemInstance<ImTextColored> },
             { "ImTextDisabled", CreateItemInstance<ImTextDisabled> },
             { "ImTextWrapped", CreateItemInstance<ImTextWrapped> },
+            { "ImLabelText", CreateItemInstance<ImLabelText> },
             { "ImButton", CreateItemInstance<ImButton> },
             { "ImCheckbox", CreateItemInstance<ImCheckbox> },
             { "ImSameLine", CreateItemInstance<ImSameLine> },

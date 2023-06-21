@@ -5,6 +5,7 @@
 - [ImTextColored](#ImTextColored)
 - [ImTextDisabled](#ImTextDisabled)
 - [ImTextWrapped](#ImTextWrapped)
+- [ImLabelText](#ImLabelText)
 - [ImButton](#ImButton)
 - [ImCheckbox](#ImCheckbox)
 - [ImChild](#ImChild)
@@ -167,6 +168,31 @@ ImSpacing { }
 ImText { text="Normal text - Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." }
 ```
 ![ExampleImage](img/items/im_text_wrapped.png)
+
+---
+## ImLabelText
+### Description:
+Implementation of `ImGui::LabelText`.
+### Attributes:
+| Name | Type | Description | Default Value |
+| ---| --- | --- | --- |
+| text | String | The text that will be displayed. | "" |
+### Implemented API functions:
+| Function | Description |
+| --- | --- |
+| ```bool IsItemPressed()``` | Returns true if the text is pressed by the user. |
+| ```bool IsItemHovered()``` | Returns true if the text is hovered by the user. |
+### Example:
+```
+// example.igm:
+
+ImLabelText
+{
+    label = "Text label"
+    text = "Hello world"
+}
+```
+![ExampleImage](img/items/im_label_text.png)
 
 ---
 ## ImButton
