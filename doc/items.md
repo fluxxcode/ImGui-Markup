@@ -350,8 +350,8 @@ Used to combine several radio buttons into one selection.
 ### Implemented API functions:
 | Function | Description |
 | --- | --- |
-| ```bool IsItemPressed()``` | Returns true if the radio button is pressed by the user. |
-| ```bool IsItemHovered()``` | Returns true if the radio button is hovered by the user. |
+| ```bool IsItemPressed()``` | Returns true if the selection is pressed by the user. |
+| ```bool IsItemHovered()``` | Returns true if the selection is hovered by the user. |
 | ```int GetSelected()``` | Returns the index of the currently selected child radio button. -1 is returned if no radio button is selected. |
 ### Example:
 *See [ImRadioButton](#ImRadioButton) for an example*

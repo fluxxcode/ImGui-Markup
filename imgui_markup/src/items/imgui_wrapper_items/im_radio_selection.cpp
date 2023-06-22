@@ -61,6 +61,8 @@ void ImRadioSelection::ImWrapperUpdate() noexcept
     const ImVec2 max = ImVec2(this->position_.x + size.x,
                               this->position_.y + size.y);
 
+    // TODO: Use childs.API_IsItemHovered to check if the
+    //       radio selection is hovered.
     this->is_hovered_ = ImGui::IsMouseHoveringRect(min, max);
 }
 
