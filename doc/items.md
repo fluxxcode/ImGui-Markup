@@ -11,6 +11,8 @@
 - [ImSmallButton](#ImSmallButton)
 - [ImInvisibleButton](#ImInvisibleButton)
 - [ImArrowButton](#ImArrowButton)
+- [ImRadioButton](#ImRadioButton)
+- [ImRadioSelection](#ImRadioSelection)
 - [ImCheckbox](#ImCheckbox)
 - [ImChild](#ImChild)
 - [ImGroup](#ImGroup)
@@ -299,6 +301,60 @@ ImArrowButton { direction = "Up"    }
 ImArrowButton { direction = "Down"  }
 ```
 ![ExampleImage](img/items/im_arrow_button.png)
+
+---
+## ImRadioButton
+### Description:
+Implementation of `ImGui::RadioButton`.
+### Restrictions:
+- Can only be created in an item of type `RadioSelection`
+### Attributes:
+| Name | Type | Description | Default Value |
+| ---| --- | --- | --- |
+| text | String | The text that is displayed next to the radio button. | "" |
+### Implemented API functions:
+| Function | Description |
+| --- | --- |
+| ```bool IsItemPressed()``` | Returns true if the radio button is pressed by the user. |
+| ```bool IsItemHovered()``` | Returns true if the radio button is hovered by the user. |
+### Example:
+```
+// example.igm:
+
+ImText { text = "Theme selection:" }
+ImSameLine { }
+ImRadioSelection : theme_selection
+{
+    selected = 3  // Default selected item -> "Light Owl" 
+
+    ImRadioButton { text = "Winter is Coming" }  // Child index 0
+    ImRadioButton { text = "Night Owl" }         // Child index 1
+    ImSameLine { }                               // Child index 2
+    ImRadioButton { text = "Light Owl" }         // Child index 3
+    ImRadioButton { text = "Default Dark" }      // Child index 4
+
+    // -> only child items of type RadioButton can be selected
+}
+ImText { text = "Hello world" }
+```
+![ExampleImage](img/items/im_radio_button.png)
+
+---
+## ImRadioSelection
+### Description:
+Used to combine several radio buttons into one selection.
+### Attributes:
+| Name | Type | Description | Default Value |
+| ---| --- | --- | --- |
+| selected | Int | The index of the selected radio button, starting from 0. | -1 |
+### Implemented API functions:
+| Function | Description |
+| --- | --- |
+| ```bool IsItemPressed()``` | Returns true if the radio button is pressed by the user. |
+| ```bool IsItemHovered()``` | Returns true if the radio button is hovered by the user. |
+| ```int GetSelected()``` | Returns the index of the currently selected child radio button. -1 is returned if no radio button is selected. |
+### Example:
+*See [ImRadioButton](#ImRadioButton) for an example*
 
 ---
 ## ImCheckbox

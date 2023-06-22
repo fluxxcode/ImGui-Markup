@@ -23,6 +23,8 @@
 #include "items/imgui_wrapper_items/im_small_button.h"
 #include "items/imgui_wrapper_items/im_arrow_button.h"
 #include "items/imgui_wrapper_items/im_invisible_button.h"
+#include "items/imgui_wrapper_items/im_radio_button.h"
+#include "items/imgui_wrapper_items/im_radio_selection.h"
 #include "items/imgui_wrapper_items/im_checkbox.h"
 #include "items/imgui_wrapper_items/im_same_line.h"
 #include "items/imgui_wrapper_items/im_group.h"
@@ -95,6 +97,8 @@ private:
             { "ImSmallButton", CreateItemInstance<ImSmallButton> },
             { "ImInvisibleButton", CreateItemInstance<ImInvisibleButton> },
             { "ImArrowButton", CreateItemInstance<ImArrowButton> },
+            { "ImRadioButton", CreateItemInstance<ImRadioButton> },
+            { "ImRadioSelection", CreateItemInstance<ImRadioSelection> },
             { "ImCheckbox", CreateItemInstance<ImCheckbox> },
             { "ImSameLine", CreateItemInstance<ImSameLine> },
             { "ImGroup", CreateItemInstance<ImGroup> },

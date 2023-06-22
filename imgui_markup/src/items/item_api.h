@@ -28,7 +28,9 @@ struct ItemAPI
         noexcept { return false; }
     virtual bool API_IsItemHovered() noexcept { return false; }
 
-    virtual bool API_IsCheckboxChecked() noexcept { return false;}
+    virtual bool API_IsCheckboxChecked() noexcept { return false; }
+
+    virtual int API_GetSelected() noexcept { return -1; }
 };
 
 }  // namespace igm::internal
